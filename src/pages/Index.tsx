@@ -2,6 +2,23 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Heart, Music, VolumeX, Lock, Sparkles } from "lucide-react";
 
+// Premium Components
+import { HeartCursor } from "@/components/valentine/HeartCursor";
+import { ParallaxStars } from "@/components/valentine/ParallaxStars";
+import { Fireflies } from "@/components/valentine/Fireflies";
+import { ConfettiCannon } from "@/components/valentine/ConfettiCannon";
+import { ScratchCard } from "@/components/valentine/ScratchCard";
+import { SelfTypingLoveLetter } from "@/components/valentine/TypewriterText";
+import { PhotoGallery } from "@/components/valentine/PhotoGallery";
+import { CandleCeremony } from "@/components/valentine/CandleCeremony";
+import { CountdownTimer } from "@/components/valentine/CountdownTimer";
+import { 
+  ShakeHeartsExplosion, 
+  KonamiSecret, 
+  MidnightSurprise,
+  LongPressSecret 
+} from "@/components/valentine/EasterEggs";
+
 // Valentine's Week Days Configuration
 const valentineDays = [
   {
@@ -177,106 +194,113 @@ const RosePetals = () => {
   );
 };
 
-// Day Content Components
-const RoseDayContent = () => (
-  <motion.div
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    className="text-center space-y-8"
-  >
-    <motion.div
-      className="text-8xl"
-      animate={{ scale: [1, 1.1, 1] }}
-      transition={{ duration: 2, repeat: Infinity }}
+// Day Content Components with Premium Features
+const RoseDayContent = () => {
+  const [isRevealed, setIsRevealed] = useState(false);
+
+  return (
+    <ScratchCard 
+      coverText="Scratch to reveal your rose" 
+      coverEmoji="🌹"
+      onReveal={() => setIsRevealed(true)}
     >
-      🌹
-    </motion.div>
-    <div className="space-y-4">
-      <h2 className="text-3xl md:text-4xl font-serif text-rose-700">
-        A Rose for My Anjali
-      </h2>
-      <p className="text-lg text-rose-600/80 max-w-md mx-auto leading-relaxed">
-        Like the most beautiful rose in the garden, you stand out in every crowd. 
-        Your beauty isn't just on the surface—it blooms from your kind heart.
-      </p>
       <motion.div
-        className="flex justify-center gap-4 pt-4"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="text-center space-y-8 py-4"
       >
-        {["🌹", "🌷", "🌸", "💐", "🌺"].map((flower, i) => (
-          <motion.span
-            key={i}
-            className="text-4xl"
-            animate={{ y: [0, -10, 0] }}
-            transition={{ duration: 1.5, delay: i * 0.2, repeat: Infinity }}
+        <LongPressSecret secretMessage="You're my forever rose, Anjali! 🌹">
+          <motion.div
+            className="text-8xl"
+            animate={{ scale: [1, 1.1, 1] }}
+            transition={{ duration: 2, repeat: Infinity }}
           >
-            {flower}
-          </motion.span>
-        ))}
+            🌹
+          </motion.div>
+        </LongPressSecret>
+        <div className="space-y-4">
+          <h2 className="text-3xl md:text-4xl font-serif text-rose-700">
+            A Rose for My Anjali
+          </h2>
+          <p className="text-lg text-rose-600/80 max-w-md mx-auto leading-relaxed">
+            Like the most beautiful rose in the garden, you stand out in every crowd. 
+            Your beauty isn't just on the surface—it blooms from your kind heart.
+          </p>
+          <motion.div
+            className="flex justify-center gap-4 pt-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+          >
+            {["🌹", "🌷", "🌸", "💐", "🌺"].map((flower, i) => (
+              <motion.span
+                key={i}
+                className="text-4xl"
+                animate={{ y: [0, -10, 0] }}
+                transition={{ duration: 1.5, delay: i * 0.2, repeat: Infinity }}
+              >
+                {flower}
+              </motion.span>
+            ))}
+          </motion.div>
+        </div>
+        <p className="text-rose-500 italic font-serif text-xl">
+          "Every love story is beautiful, but ours is my favorite."
+        </p>
       </motion.div>
-    </div>
-    <p className="text-rose-500 italic font-serif text-xl">
-      "Every love story is beautiful, but ours is my favorite."
-    </p>
-  </motion.div>
-);
+    </ScratchCard>
+  );
+};
 
 const ProposeDayContent = () => {
   const [revealed, setRevealed] = useState(false);
   
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      className="text-center space-y-8"
+    <ScratchCard 
+      coverText="Scratch to reveal my heart" 
+      coverEmoji="💝"
+      onReveal={() => setRevealed(true)}
     >
       <motion.div
-        className="relative cursor-pointer"
-        onClick={() => setRevealed(true)}
-        whileHover={{ scale: 1.05 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="text-center space-y-8 py-4"
       >
-        <motion.div
-          className="text-8xl"
-          animate={revealed ? { scale: [1, 1.3, 1] } : { scale: [1, 1.05, 1] }}
-          transition={{ duration: revealed ? 0.5 : 2, repeat: revealed ? 0 : Infinity }}
-        >
-          {revealed ? "💍" : "💝"}
-        </motion.div>
-        {!revealed && (
-          <p className="text-amber-600 text-sm mt-2">Tap to reveal</p>
-        )}
-      </motion.div>
-      
-      <AnimatePresence>
-        {revealed && (
+        <LongPressSecret secretMessage="I choose you, today and always! 💍">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="space-y-4"
+            className="text-8xl"
+            animate={{ scale: [1, 1.1, 1] }}
+            transition={{ duration: 2, repeat: Infinity }}
           >
-            <h2 className="text-3xl md:text-4xl font-serif text-amber-700">
-              Anjali, I Choose You
-            </h2>
-            <p className="text-lg text-amber-600/80 max-w-md mx-auto leading-relaxed">
-              Every morning I wake up, I choose you. Every moment of every day, 
-              my heart beats for you. You're not just my love—you're my home.
-            </p>
-            <motion.div
-              animate={{ 
-                scale: [1, 1.2, 1],
-                rotate: [0, 5, -5, 0]
-              }}
-              transition={{ duration: 1.5, repeat: Infinity }}
-              className="text-5xl"
-            >
-              💖
-            </motion.div>
+            💍
           </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.div>
+        </LongPressSecret>
+        
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="space-y-4"
+        >
+          <h2 className="text-3xl md:text-4xl font-serif text-amber-700">
+            Anjali, I Choose You
+          </h2>
+          <p className="text-lg text-amber-600/80 max-w-md mx-auto leading-relaxed">
+            Every morning I wake up, I choose you. Every moment of every day, 
+            my heart beats for you. You're not just my love—you're my home.
+          </p>
+          <motion.div
+            animate={{ 
+              scale: [1, 1.2, 1],
+              rotate: [0, 5, -5, 0]
+            }}
+            transition={{ duration: 1.5, repeat: Infinity }}
+            className="text-5xl"
+          >
+            💖
+          </motion.div>
+        </motion.div>
+      </motion.div>
+    </ScratchCard>
   );
 };
 
@@ -284,59 +308,54 @@ const ChocolateDayContent = () => {
   const [opened, setOpened] = useState(false);
   
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      className="text-center space-y-8"
+    <ScratchCard 
+      coverText="Scratch to open the box" 
+      coverEmoji="🎁"
+      onReveal={() => setOpened(true)}
     >
       <motion.div
-        className="relative cursor-pointer"
-        onClick={() => setOpened(true)}
-        whileHover={{ scale: 1.05 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="text-center space-y-8 py-4"
       >
-        <motion.div
-          className="text-8xl"
-          animate={opened ? { rotateY: 180 } : {}}
-          transition={{ duration: 0.6 }}
-        >
-          {opened ? "🍫" : "🎁"}
-        </motion.div>
-        {!opened && (
-          <p className="text-amber-700 text-sm mt-2">Tap to open the box</p>
-        )}
-      </motion.div>
-      
-      <AnimatePresence>
-        {opened && (
+        <LongPressSecret secretMessage="You're sweeter than chocolate! 🍫">
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="space-y-4"
+            className="text-8xl"
+            animate={{ rotate: [0, 5, -5, 0] }}
+            transition={{ duration: 2, repeat: Infinity }}
           >
-            <h2 className="text-3xl md:text-4xl font-serif text-amber-800">
-              Life is Sweeter with You, Anjali
-            </h2>
-            <p className="text-lg text-amber-700/80 max-w-md mx-auto leading-relaxed">
-              You're the sweetest thing in my life—sweeter than any chocolate. 
-              Every moment with you melts my heart like chocolate on a warm day.
-            </p>
-            <div className="flex justify-center gap-3">
-              {["🍫", "🍬", "🍭", "🧁", "🍰"].map((sweet, i) => (
-                <motion.span
-                  key={i}
-                  className="text-3xl"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.1 }}
-                >
-                  {sweet}
-                </motion.span>
-              ))}
-            </div>
+            🍫
           </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.div>
+        </LongPressSecret>
+        
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="space-y-4"
+        >
+          <h2 className="text-3xl md:text-4xl font-serif text-amber-800">
+            Life is Sweeter with You, Anjali
+          </h2>
+          <p className="text-lg text-amber-700/80 max-w-md mx-auto leading-relaxed">
+            You're the sweetest thing in my life—sweeter than any chocolate. 
+            Every moment with you melts my heart like chocolate on a warm day.
+          </p>
+          <div className="flex justify-center gap-3">
+            {["🍫", "🍬", "🍭", "🧁", "🍰"].map((sweet, i) => (
+              <motion.span
+                key={i}
+                className="text-3xl"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.1 }}
+              >
+                {sweet}
+              </motion.span>
+            ))}
+          </div>
+        </motion.div>
+      </motion.div>
+    </ScratchCard>
   );
 };
 
@@ -344,44 +363,57 @@ const TeddyDayContent = () => {
   const [hugged, setHugged] = useState(false);
   
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      className="text-center space-y-8"
+    <ScratchCard 
+      coverText="Scratch for a teddy hug" 
+      coverEmoji="🧸"
+      onReveal={() => setHugged(true)}
     >
       <motion.div
-        className="cursor-pointer"
-        onClick={() => setHugged(!hugged)}
-        whileHover={{ scale: 1.1 }}
-        animate={hugged ? { 
-          scale: [1, 1.2, 1],
-          rotate: [0, -10, 10, 0]
-        } : {}}
-        transition={{ duration: 0.5 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="text-center space-y-8 py-4"
       >
-        <span className="text-8xl block">{hugged ? "🤗" : "🧸"}</span>
-        <p className="text-amber-600 text-sm mt-2">
-          {hugged ? "Sending you the biggest hug!" : "Tap teddy for a hug"}
-        </p>
+        <LongPressSecret secretMessage="*Longest teddy hug ever!* 🤗">
+          <motion.div
+            className="cursor-pointer"
+            onClick={() => {
+              setHugged(!hugged);
+              if ('vibrate' in navigator) {
+                navigator.vibrate([100, 50, 100, 50, 100]);
+              }
+            }}
+            whileHover={{ scale: 1.1 }}
+            animate={hugged ? { 
+              scale: [1, 1.2, 1],
+              rotate: [0, -10, 10, 0]
+            } : {}}
+            transition={{ duration: 0.5 }}
+          >
+            <span className="text-8xl block">{hugged ? "🤗" : "🧸"}</span>
+            <p className="text-amber-600 text-sm mt-2">
+              {hugged ? "Sending you the biggest hug!" : "Tap teddy for a hug"}
+            </p>
+          </motion.div>
+        </LongPressSecret>
+        
+        <div className="space-y-4">
+          <h2 className="text-3xl md:text-4xl font-serif text-amber-700">
+            My Cuddly Anjali
+          </h2>
+          <p className="text-lg text-amber-600/80 max-w-md mx-auto leading-relaxed">
+            Like a teddy bear, I want to be there for you always—
+            to comfort you, to make you smile, and to be your safe place.
+          </p>
+          <motion.p
+            className="text-amber-500 italic font-serif text-lg"
+            animate={{ opacity: [0.7, 1, 0.7] }}
+            transition={{ duration: 3, repeat: Infinity }}
+          >
+            "You'll always have me to hold onto."
+          </motion.p>
+        </div>
       </motion.div>
-      
-      <div className="space-y-4">
-        <h2 className="text-3xl md:text-4xl font-serif text-amber-700">
-          My Cuddly Anjali
-        </h2>
-        <p className="text-lg text-amber-600/80 max-w-md mx-auto leading-relaxed">
-          Like a teddy bear, I want to be there for you always—
-          to comfort you, to make you smile, and to be your safe place.
-        </p>
-        <motion.p
-          className="text-amber-500 italic font-serif text-lg"
-          animate={{ opacity: [0.7, 1, 0.7] }}
-          transition={{ duration: 3, repeat: Infinity }}
-        >
-          "You'll always have me to hold onto."
-        </motion.p>
-      </div>
-    </motion.div>
+    </ScratchCard>
   );
 };
 
@@ -400,13 +432,8 @@ const PromiseDayContent = () => {
       animate={{ opacity: 1 }}
       className="text-center space-y-8"
     >
-      <motion.div
-        className="text-8xl"
-        animate={{ rotateY: [0, 360] }}
-        transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-      >
-        🤝
-      </motion.div>
+      {/* Candle Ceremony */}
+      <CandleCeremony />
       
       <h2 className="text-3xl md:text-4xl font-serif text-purple-700">
         My Promises to You, Anjali
@@ -414,16 +441,17 @@ const PromiseDayContent = () => {
       
       <div className="space-y-4 max-w-md mx-auto">
         {promises.map((promise, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: i * 0.3 }}
-            className="flex items-center gap-3 text-left bg-white/50 backdrop-blur-sm rounded-lg p-4 shadow-sm"
-          >
-            <span className="text-2xl">💜</span>
-            <p className="text-purple-700">{promise}</p>
-          </motion.div>
+          <LongPressSecret key={i} secretMessage={`Promise #${i+1} is my favorite! 💜`}>
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: i * 0.3 }}
+              className="flex items-center gap-3 text-left bg-white/50 backdrop-blur-sm rounded-lg p-4 shadow-sm"
+            >
+              <span className="text-2xl">💜</span>
+              <p className="text-purple-700">{promise}</p>
+            </motion.div>
+          </LongPressSecret>
         ))}
       </div>
       
@@ -443,50 +471,57 @@ const PromiseDayContent = () => {
 
 const HugDayContent = () => {
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      className="text-center space-y-8"
+    <ScratchCard 
+      coverText="Scratch for a warm hug" 
+      coverEmoji="🤗"
     >
       <motion.div
-        className="text-8xl"
-        animate={{ 
-          scale: [1, 1.1, 1],
-        }}
-        transition={{ duration: 2, repeat: Infinity }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="text-center space-y-8 py-4"
       >
-        🤗
-      </motion.div>
-      
-      <div className="space-y-4">
-        <h2 className="text-3xl md:text-4xl font-serif text-orange-600">
-          Wrapped in My Love, Anjali
-        </h2>
-        <p className="text-lg text-orange-500/80 max-w-md mx-auto leading-relaxed">
-          In my arms is where you belong. Every hug with you feels like 
-          coming home. You're my safe place, my comfort, my everything.
-        </p>
-        
-        <motion.div
-          className="flex justify-center items-center gap-2 text-6xl"
-          animate={{ x: [0, -10, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        >
-          <span>🧍‍♀️</span>
-          <motion.span
-            animate={{ scale: [1, 1.3, 1] }}
-            transition={{ duration: 1, repeat: Infinity }}
+        <LongPressSecret secretMessage="Infinite hugs coming your way! 💕">
+          <motion.div
+            className="text-8xl"
+            animate={{ 
+              scale: [1, 1.1, 1],
+            }}
+            transition={{ duration: 2, repeat: Infinity }}
           >
-            💕
-          </motion.span>
-          <span>🧍‍♂️</span>
-        </motion.div>
+            🤗
+          </motion.div>
+        </LongPressSecret>
         
-        <p className="text-orange-400 italic font-serif text-lg pt-4">
-          "In your hug, I find my peace."
-        </p>
-      </div>
-    </motion.div>
+        <div className="space-y-4">
+          <h2 className="text-3xl md:text-4xl font-serif text-orange-600">
+            Wrapped in My Love, Anjali
+          </h2>
+          <p className="text-lg text-orange-500/80 max-w-md mx-auto leading-relaxed">
+            In my arms is where you belong. Every hug with you feels like 
+            coming home. You're my safe place, my comfort, my everything.
+          </p>
+          
+          <motion.div
+            className="flex justify-center items-center gap-2 text-6xl"
+            animate={{ x: [0, -10, 10, 0] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            <span>🧍‍♀️</span>
+            <motion.span
+              animate={{ scale: [1, 1.3, 1] }}
+              transition={{ duration: 1, repeat: Infinity }}
+            >
+              💕
+            </motion.span>
+            <span>🧍‍♂️</span>
+          </motion.div>
+          
+          <p className="text-orange-400 italic font-serif text-lg pt-4">
+            "In your hug, I find my peace."
+          </p>
+        </div>
+      </motion.div>
+    </ScratchCard>
   );
 };
 
@@ -494,69 +529,85 @@ const KissDayContent = () => {
   const [kissed, setKissed] = useState(false);
   
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      className="text-center space-y-8"
+    <ScratchCard 
+      coverText="Scratch for a kiss" 
+      coverEmoji="💋"
+      onReveal={() => setKissed(true)}
     >
       <motion.div
-        className="cursor-pointer relative"
-        onClick={() => setKissed(true)}
-        whileHover={{ scale: 1.1 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="text-center space-y-8 py-4"
       >
-        <motion.span
-          className="text-8xl block"
-          animate={kissed ? { scale: [1, 1.3, 1] } : {}}
-        >
-          💋
-        </motion.span>
-        {kissed && (
+        <LongPressSecret secretMessage="Every kiss with you is magical! 💋">
           <motion.div
-            className="absolute inset-0 flex items-center justify-center"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            className="cursor-pointer relative"
+            onClick={() => setKissed(true)}
+            whileHover={{ scale: 1.1 }}
           >
-            {[...Array(8)].map((_, i) => (
-              <motion.span
-                key={i}
-                className="absolute text-2xl"
-                initial={{ scale: 0 }}
-                animate={{
-                  scale: [0, 1, 0],
-                  x: Math.cos(i * 45 * Math.PI / 180) * 80,
-                  y: Math.sin(i * 45 * Math.PI / 180) * 80,
-                }}
-                transition={{ duration: 1, delay: i * 0.1 }}
+            <motion.span
+              className="text-8xl block"
+              animate={kissed ? { scale: [1, 1.3, 1] } : {}}
+            >
+              💋
+            </motion.span>
+            {kissed && (
+              <motion.div
+                className="absolute inset-0 flex items-center justify-center"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
               >
-                ❤️
-              </motion.span>
-            ))}
+                {[...Array(8)].map((_, i) => (
+                  <motion.span
+                    key={i}
+                    className="absolute text-2xl"
+                    initial={{ scale: 0 }}
+                    animate={{
+                      scale: [0, 1, 0],
+                      x: Math.cos(i * 45 * Math.PI / 180) * 80,
+                      y: Math.sin(i * 45 * Math.PI / 180) * 80,
+                    }}
+                    transition={{ duration: 1, delay: i * 0.1 }}
+                  >
+                    ❤️
+                  </motion.span>
+                ))}
+              </motion.div>
+            )}
           </motion.div>
-        )}
+        </LongPressSecret>
+        
+        <div className="space-y-4">
+          <h2 className="text-3xl md:text-4xl font-serif text-red-600">
+            A Kiss for My Anjali
+          </h2>
+          <p className="text-lg text-red-500/80 max-w-md mx-auto leading-relaxed">
+            Words fade, but a kiss speaks the language of the heart. 
+            Every kiss with you writes a new chapter in our love story.
+          </p>
+          <motion.p
+            className="text-red-400 italic font-serif text-lg"
+            animate={{ opacity: [0.7, 1, 0.7] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            "In your kiss, I taste forever."
+          </motion.p>
+        </div>
       </motion.div>
-      
-      <div className="space-y-4">
-        <h2 className="text-3xl md:text-4xl font-serif text-red-600">
-          A Kiss for My Anjali
-        </h2>
-        <p className="text-lg text-red-500/80 max-w-md mx-auto leading-relaxed">
-          Words fade, but a kiss speaks the language of the heart. 
-          Every kiss with you writes a new chapter in our love story.
-        </p>
-        <motion.p
-          className="text-red-400 italic font-serif text-lg"
-          animate={{ opacity: [0.7, 1, 0.7] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        >
-          "In your kiss, I taste forever."
-        </motion.p>
-      </div>
-    </motion.div>
+    </ScratchCard>
   );
 };
 
 const ValentineDayContent = () => {
   const [showLetter, setShowLetter] = useState(false);
+  const [triggerConfetti, setTriggerConfetti] = useState(false);
+  
+  useEffect(() => {
+    // Trigger confetti on mount
+    setTriggerConfetti(true);
+    const timer = setTimeout(() => setTriggerConfetti(false), 100);
+    return () => clearTimeout(timer);
+  }, []);
   
   return (
     <motion.div
@@ -564,6 +615,9 @@ const ValentineDayContent = () => {
       animate={{ opacity: 1 }}
       className="text-center space-y-8"
     >
+      {/* Confetti */}
+      <ConfettiCannon trigger={triggerConfetti} />
+      
       {/* Fireworks effect */}
       <div className="fixed inset-0 pointer-events-none z-10">
         {[...Array(5)].map((_, i) => (
@@ -590,20 +644,30 @@ const ValentineDayContent = () => {
         ))}
       </div>
       
-      <motion.div
-        className="text-8xl"
-        animate={{ 
-          scale: [1, 1.2, 1],
-          rotate: [0, 5, -5, 0]
-        }}
-        transition={{ duration: 2, repeat: Infinity }}
-      >
-        💕
-      </motion.div>
+      <LongPressSecret secretMessage="You are my forever Valentine! 💕">
+        <motion.div
+          className="text-8xl"
+          animate={{ 
+            scale: [1, 1.2, 1],
+            rotate: [0, 5, -5, 0]
+          }}
+          transition={{ duration: 2, repeat: Infinity }}
+        >
+          💕
+        </motion.div>
+      </LongPressSecret>
       
       <h2 className="text-4xl md:text-5xl font-serif text-red-600">
         Happy Valentine's Day, Anjali!
       </h2>
+      
+      {/* Countdown Timer */}
+      <CountdownTimer targetDate={new Date(2025, 1, 14)} />
+      
+      {/* Photo Gallery */}
+      <div className="py-6">
+        <PhotoGallery />
+      </div>
       
       <motion.button
         onClick={() => setShowLetter(!showLetter)}
@@ -616,40 +680,9 @@ const ValentineDayContent = () => {
       
       <AnimatePresence>
         {showLetter && (
-          <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.9 }}
-            className="bg-white/80 backdrop-blur-md rounded-2xl p-8 shadow-2xl max-w-lg mx-auto text-left space-y-4"
-          >
-            <p className="text-red-700 font-serif text-lg">My Dearest Anjali,</p>
-            <p className="text-gray-700 leading-relaxed">
-              From the first moment I saw you, I knew you were special. 
-              Your smile lights up my darkest days, your laughter is my favorite melody, 
-              and your love is the greatest gift I've ever received.
-            </p>
-            <p className="text-gray-700 leading-relaxed">
-              This Valentine's Week, I wanted to remind you of how much you mean to me. 
-              Every day with you is a blessing, and I fall more in love with you 
-              with each passing moment.
-            </p>
-            <p className="text-gray-700 leading-relaxed">
-              You're not just my Valentine—you're my best friend, my confidant, 
-              my partner in everything. I can't imagine my life without you.
-            </p>
-            <p className="text-red-600 font-serif text-lg italic">
-              Forever and Always Yours,<br />
-              ❤️ Your Love
-            </p>
-          </motion.div>
+          <SelfTypingLoveLetter isVisible={showLetter} />
         )}
       </AnimatePresence>
-      
-      <div className="pt-4">
-        <p className="text-red-400 text-sm">
-          📸 Upload your photos to make this day even more special
-        </p>
-      </div>
       
       <motion.p
         className="text-red-500 italic font-serif text-xl"
@@ -689,9 +722,10 @@ const LockedDay = ({ day, daysUntil }: { day: typeof valentineDays[0]; daysUntil
     <h2 className="text-2xl font-serif text-gray-600">
       {day.name} is Coming Soon
     </h2>
-    <p className="text-gray-500">
-      Come back in {daysUntil} {daysUntil === 1 ? "day" : "days"} ❤️
-    </p>
+    
+    {/* Countdown to this day */}
+    <CountdownTimer targetDate={day.date} label={day.name} />
+    
     <motion.p
       className="text-pink-400 italic"
       animate={{ opacity: [0.5, 1, 0.5] }}
@@ -815,9 +849,18 @@ const Index = () => {
   
   return (
     <div className={`min-h-screen bg-gradient-to-br ${currentDayData.bgGradient} transition-all duration-700`}>
+      {/* Global Effects */}
+      <HeartCursor />
+      <ParallaxStars />
       <FloatingHearts />
       <SparkleEffect />
       {currentDay === 0 && <RosePetals />}
+      {currentDay === 4 && <Fireflies />}
+      
+      {/* Easter Eggs */}
+      <ShakeHeartsExplosion />
+      <KonamiSecret />
+      <MidnightSurprise />
       
       {/* Header */}
       <header 
@@ -872,10 +915,10 @@ const Index = () => {
         <AnimatePresence mode="wait">
           <motion.div
             key={currentDay}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.5 }}
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -20, scale: 0.95 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
             className="max-w-lg mx-auto"
           >
             {/* Day Title */}
@@ -917,6 +960,9 @@ const Index = () => {
       {/* Footer */}
       <footer className="relative z-20 text-center py-8 text-pink-400 text-sm">
         <p>Made with 💕 for Anjali</p>
+        <p className="text-xs mt-2 opacity-60">
+          Tip: Try shaking your phone, or the Konami code on desktop! ↑↑↓↓←→←→BA
+        </p>
       </footer>
     </div>
   );
