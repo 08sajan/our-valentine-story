@@ -94,7 +94,7 @@ export const ScratchCard = ({
     }
     const percentage = (transparent / (imageData.data.length / 4)) * 100;
 
-    if (percentage > 45 && !isRevealed) {
+    if (percentage > 12 && !isRevealed) {
       setIsRevealed(true);
       onReveal?.();
       // Haptic feedback
