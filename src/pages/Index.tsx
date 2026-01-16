@@ -218,8 +218,8 @@ const RoseDayContent = () => {
         onReveal={() => setShowMessage(true)}
       >
         <div className="py-6">
-          {/* 10,000 Roses Counter */}
-          <RoseCounter targetCount={10000} duration={6000} />
+          {/* 10,000 Roses Bouquet */}
+          <RoseBouquet targetCount={10000} duration={6000} />
         </div>
       </ScratchCard>
 
@@ -523,7 +523,7 @@ const KissDayContent = () => {
 
 const ValentineDayContent = () => {
   const [triggerConfetti, setTriggerConfetti] = useState(false);
-  const [activeSection, setActiveSection] = useState<'gallery' | 'letters' | 'letter'>('gallery');
+  const [activeSection, setActiveSection] = useState<'gallery' | 'letters' | 'letter' | 'game'>('gallery');
   
   useEffect(() => {
     setTriggerConfetti(true);
@@ -557,16 +557,17 @@ const ValentineDayContent = () => {
       </GlassCard>
 
       {/* Navigation Tabs */}
-      <div className="flex justify-center gap-4">
+      <div className="flex flex-wrap justify-center gap-2">
         {[
-          { key: 'gallery', label: 'Our Memories', emoji: '📸' },
+          { key: 'gallery', label: 'Memories', emoji: '📸' },
           { key: 'letters', label: '10 Letters', emoji: '💌' },
-          { key: 'letter', label: 'Love Letter', emoji: '❤️' },
+          { key: 'letter', label: 'Final Letter', emoji: '❤️' },
+          { key: 'game', label: 'Date Night', emoji: '👗' },
         ].map((tab) => (
           <motion.button
             key={tab.key}
             onClick={() => setActiveSection(tab.key as typeof activeSection)}
-            className={`px-4 py-2 rounded-full font-medium text-sm ${
+            className={`px-3 py-2 rounded-full font-medium text-xs ${
               activeSection === tab.key 
                 ? "bg-white/30 text-white" 
                 : "bg-white/10 text-white/70"
@@ -608,9 +609,6 @@ const ValentineDayContent = () => {
               <h3 className="text-xl font-serif text-pink-300 mb-4 text-center">
                 10 Letters for You 💌
               </h3>
-              <p className="text-white/70 text-center text-sm mb-4">
-                Break the wax seals to reveal my love letters
-              </p>
               <LetterGallery />
             </GlassCard>
           </motion.div>
@@ -625,9 +623,26 @@ const ValentineDayContent = () => {
           >
             <GlassCard className="p-6">
               <h3 className="text-xl font-serif text-pink-300 mb-4 text-center">
-                My Love Letter ❤️
+                My Final Love Letter ❤️
               </h3>
-              <SelfTypingLoveLetter isVisible={true} />
+              <div className="bg-gradient-to-br from-amber-50/10 to-rose-50/10 rounded-2xl p-6 border border-white/10">
+                <p className="text-white/90 font-serif leading-relaxed whitespace-pre-line text-sm">
+                  {personalizedMessages.finalLetter}
+                </p>
+              </div>
+            </GlassCard>
+          </motion.div>
+        )}
+
+        {activeSection === 'game' && (
+          <motion.div
+            key="game"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+          >
+            <GlassCard className="p-6">
+              <DressUpGame />
             </GlassCard>
           </motion.div>
         )}
@@ -724,6 +739,7 @@ const Index = () => {
   const [currentDay, setCurrentDay] = useState(0);
   const [previewMode, setPreviewMode] = useState(false);
   const [tapCount, setTapCount] = useState(0);
+  const [showLanding, setShowLanding] = useState(true);
   const tapTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   
   const today = new Date();
@@ -778,6 +794,11 @@ const Index = () => {
   const currentDayData = valentineDays[currentDay];
   const CurrentDayContent = dayContents[currentDay];
   const isCurrentDayUnlocked = isDayUnlocked(currentDayData.date);
+
+  // Show landing page first
+  if (showLanding) {
+    return <NepaliPoemLanding onEnter={() => setShowLanding(false)} />;
+  }
   
   return (
     <div className={`min-h-screen bg-gradient-to-br ${currentDayData.bgGradient} transition-all duration-1000`}>
