@@ -6,7 +6,7 @@ interface RoseBouquetProps {
   duration?: number;
 }
 
-export const RoseBouquet = ({ targetCount = 10000, duration = 6000 }: RoseBouquetProps) => {
+export const RoseBouquet = ({ targetCount = 10000, duration = 5000 }: RoseBouquetProps) => {
   const [count, setCount] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
   const [showBouquet, setShowBouquet] = useState(false);
@@ -17,157 +17,151 @@ export const RoseBouquet = ({ targetCount = 10000, duration = 6000 }: RoseBouque
       const elapsed = Date.now() - startTime;
       const progress = Math.min(elapsed / duration, 1);
       
-      // Easing function for smooth animation
-      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-      const currentCount = Math.floor(easeOutQuart * targetCount);
+      // Smoother easing function
+      const easeOutExpo = 1 - Math.pow(2, -10 * progress);
+      const currentCount = Math.floor(easeOutExpo * targetCount);
       
       setCount(currentCount);
       
       if (progress >= 1) {
         clearInterval(interval);
         setIsComplete(true);
-        setTimeout(() => setShowBouquet(true), 500);
+        setTimeout(() => setShowBouquet(true), 400);
       }
     }, 16);
 
     return () => clearInterval(interval);
   }, [targetCount, duration]);
 
-  // Generate bouquet roses in a circular pattern
-  const bouquetRoses = [...Array(50)].map((_, i) => {
-    const angle = (i / 50) * Math.PI * 2;
-    const radius = 20 + Math.random() * 80;
-    const x = Math.cos(angle) * radius;
-    const y = Math.sin(angle) * radius;
-    const size = 0.5 + Math.random() * 1;
-    const delay = i * 0.02;
-    return { x, y, size, delay, angle };
-  });
+  // Generate heart-shaped bouquet
+  const generateHeartShape = (count: number) => {
+    const roses = [];
+    for (let i = 0; i < count; i++) {
+      const t = (i / count) * Math.PI * 2;
+      // Heart parametric equations
+      const x = 16 * Math.pow(Math.sin(t), 3);
+      const y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+      const scale = 0.6 + Math.random() * 0.4;
+      roses.push({ x: x * 4, y: y * 4, scale, delay: i * 0.02 });
+    }
+    return roses;
+  };
+
+  const heartRoses = generateHeartShape(35);
 
   return (
-    <div className="relative min-h-[400px]">
-      {/* Rose Rain Animation */}
+    <div className="relative min-h-[450px] flex flex-col items-center justify-center">
+      {/* Floating hearts background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(40)].map((_, i) => (
+        {[...Array(20)].map((_, i) => (
           <motion.div
-            key={i}
-            className="absolute"
-            initial={{
-              x: `${Math.random() * 100}%`,
-              y: -50,
-              rotate: 0,
-              opacity: 0,
+            key={`heart-${i}`}
+            className="absolute text-rose-400/40"
+            style={{
+              left: `${Math.random() * 100}%`,
+              fontSize: `${12 + Math.random() * 18}px`,
             }}
+            initial={{ y: "100vh", opacity: 0 }}
             animate={{
-              y: "120%",
-              rotate: 360,
-              opacity: [0, 1, 1, 0],
+              y: "-20vh",
+              opacity: [0, 0.6, 0.6, 0],
+              rotate: [0, 15, -15, 0],
             }}
             transition={{
-              duration: 4 + Math.random() * 3,
+              duration: 6 + Math.random() * 4,
               repeat: Infinity,
-              delay: Math.random() * 3,
+              delay: Math.random() * 5,
               ease: "linear",
             }}
           >
-            <span className="text-2xl">🌹</span>
+            ❤️
           </motion.div>
         ))}
       </div>
 
       {/* Counter Display */}
       <motion.div
-        className="relative z-10 text-center py-8"
+        className="relative z-10 text-center"
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
       >
         <motion.div
-          className="text-7xl md:text-9xl font-bold bg-gradient-to-r from-rose-400 via-pink-500 to-red-500 bg-clip-text text-transparent drop-shadow-lg"
-          animate={isComplete ? { scale: [1, 1.05, 1] } : {}}
-          transition={{ duration: 0.5 }}
+          className="text-6xl md:text-8xl font-bold"
+          style={{
+            background: "linear-gradient(135deg, #f43f5e 0%, #ec4899 50%, #f97316 100%)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            textShadow: "0 4px 30px rgba(244, 63, 94, 0.3)",
+          }}
+          animate={isComplete ? { scale: [1, 1.08, 1] } : {}}
+          transition={{ duration: 0.6 }}
         >
           {count.toLocaleString()}
         </motion.div>
         
         <motion.p
-          className="text-2xl md:text-3xl text-rose-300 font-serif mt-4"
+          className="text-xl md:text-2xl text-rose-300 font-serif mt-3 italic"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
+          transition={{ delay: 0.3 }}
         >
-          roses for you, Puntuu 🌹
+          roses for you, my Puntuu 🌹
         </motion.p>
       </motion.div>
 
-      {/* 3D Bouquet Reveal */}
+      {/* Heart-Shaped Bouquet Reveal */}
       <AnimatePresence>
         {showBouquet && (
           <motion.div
-            className="relative flex justify-center items-center py-8"
+            className="relative flex justify-center items-center mt-8"
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ type: "spring", damping: 15 }}
+            transition={{ type: "spring", damping: 12, stiffness: 100 }}
           >
-            {/* Bouquet wrapper */}
-            <div className="relative w-64 h-64">
-              {/* Wrapper/Ribbon */}
-              <motion.div
-                className="absolute bottom-0 left-1/2 -translate-x-1/2 w-20 h-32 bg-gradient-to-b from-amber-600 to-amber-800 rounded-b-3xl"
-                initial={{ scaleY: 0 }}
-                animate={{ scaleY: 1 }}
-                transition={{ delay: 0.3 }}
-              >
-                {/* Ribbon */}
+            {/* Heart shape of roses */}
+            <div className="relative w-80 h-72">
+              {heartRoses.map((rose, i) => (
                 <motion.div
-                  className="absolute top-8 left-1/2 -translate-x-1/2 text-3xl"
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1, rotate: [0, 10, -10, 0] }}
-                  transition={{ delay: 0.5, duration: 2, repeat: Infinity }}
+                  key={i}
+                  className="absolute left-1/2 top-1/2"
+                  initial={{ opacity: 0, scale: 0, x: 0, y: 0 }}
+                  animate={{ 
+                    opacity: 1, 
+                    scale: rose.scale,
+                    x: rose.x,
+                    y: rose.y,
+                  }}
+                  transition={{ 
+                    delay: rose.delay,
+                    type: "spring",
+                    damping: 15,
+                  }}
                 >
-                  🎀
-                </motion.div>
-              </motion.div>
-
-              {/* Roses in bouquet formation */}
-              <div className="absolute top-0 left-1/2 -translate-x-1/2">
-                {bouquetRoses.map((rose, i) => (
-                  <motion.div
-                    key={i}
-                    className="absolute"
-                    style={{
-                      transform: `translate(${rose.x}px, ${rose.y}px) scale(${rose.size})`,
+                  <motion.span
+                    className="text-3xl block"
+                    animate={{ 
+                      rotate: [-3, 3, -3],
                     }}
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 1, scale: rose.size }}
-                    transition={{ delay: rose.delay + 0.5 }}
+                    transition={{ 
+                      duration: 2 + Math.random(), 
+                      repeat: Infinity,
+                      delay: rose.delay,
+                    }}
                   >
-                    <motion.span
-                      className="text-2xl block"
-                      animate={{ 
-                        rotate: [-5, 5, -5],
-                        scale: [1, 1.1, 1]
-                      }}
-                      transition={{ 
-                        duration: 2 + Math.random(), 
-                        repeat: Infinity,
-                        delay: rose.delay
-                      }}
-                    >
-                      🌹
-                    </motion.span>
-                  </motion.div>
-                ))}
-              </div>
-
-              {/* Center flower */}
+                    🌹
+                  </motion.span>
+                </motion.div>
+              ))}
+              
+              {/* Center heart */}
               <motion.div
-                className="absolute top-8 left-1/2 -translate-x-1/2 text-5xl"
+                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-5xl"
                 initial={{ scale: 0, rotate: -180 }}
                 animate={{ scale: 1, rotate: 0 }}
-                transition={{ delay: 1.5, type: "spring" }}
+                transition={{ delay: 1, type: "spring", damping: 10 }}
               >
-                🌹
+                💖
               </motion.div>
             </div>
           </motion.div>
@@ -175,52 +169,50 @@ export const RoseBouquet = ({ targetCount = 10000, duration = 6000 }: RoseBouque
       </AnimatePresence>
 
       {/* Love Message */}
-      {isComplete && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2 }}
-          className="text-center mt-6"
-        >
-          <motion.p
-            className="text-lg text-rose-300/90 italic font-serif max-w-md mx-auto px-4"
-            animate={{ opacity: [0.7, 1, 0.7] }}
-            transition={{ duration: 3, repeat: Infinity }}
+      <AnimatePresence>
+        {isComplete && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.5 }}
+            className="text-center mt-4 z-10"
           >
-            "Even 10,000 roses aren't enough to show what you mean to me, Puntuu"
-          </motion.p>
-        </motion.div>
-      )}
+            <motion.p
+              className="text-lg text-rose-200/90 italic font-serif max-w-sm mx-auto px-4"
+              animate={{ opacity: [0.8, 1, 0.8] }}
+              transition={{ duration: 3, repeat: Infinity }}
+            >
+              "Even 10,000 roses aren't enough to show what you mean to me"
+            </motion.p>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-      {/* Bloom Effect */}
+      {/* Sparkle effect around counter */}
       {isComplete && (
-        <motion.div
-          className="absolute inset-0 pointer-events-none"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-        >
-          {[...Array(16)].map((_, i) => (
+        <div className="absolute inset-0 pointer-events-none">
+          {[...Array(12)].map((_, i) => (
             <motion.div
-              key={i}
-              className="absolute left-1/2 top-1/3 text-3xl"
-              initial={{ scale: 0, x: "-50%", y: "-50%" }}
+              key={`sparkle-${i}`}
+              className="absolute left-1/2 top-20 text-2xl"
+              initial={{ scale: 0, opacity: 0 }}
               animate={{
-                scale: [0, 1.5, 0],
-                x: `calc(-50% + ${Math.cos(i * 22.5 * Math.PI / 180) * 180}px)`,
-                y: `calc(-50% + ${Math.sin(i * 22.5 * Math.PI / 180) * 180}px)`,
+                scale: [0, 1.2, 0],
                 opacity: [0, 1, 0],
+                x: Math.cos(i * 30 * Math.PI / 180) * 120 - 12,
+                y: Math.sin(i * 30 * Math.PI / 180) * 80,
               }}
               transition={{
-                duration: 2.5,
-                delay: i * 0.1 + 2,
+                duration: 2,
+                delay: i * 0.15 + 1,
                 repeat: Infinity,
-                repeatDelay: 4,
+                repeatDelay: 3,
               }}
             >
-              🌹
+              ✨
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       )}
     </div>
   );
