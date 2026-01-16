@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Music, VolumeX, Volume2 } from "lucide-react";
+import { Music, VolumeX, Volume2, Heart } from "lucide-react";
 
 interface BackgroundMusicProps {
   autoPlay?: boolean;
@@ -8,25 +8,39 @@ interface BackgroundMusicProps {
 
 export const BackgroundMusic = ({ autoPlay = true }: BackgroundMusicProps) => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [volume, setVolume] = useState(0.3);
+  const [volume, setVolume] = useState(0.4);
   const [showControls, setShowControls] = useState(false);
   const [hasInteracted, setHasInteracted] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(true);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    // Create audio element
-    audioRef.current = new Audio("https://www.bensound.com/bensound-music/bensound-love.mp3");
+    // Using a romantic instrumental that's legally free to use
+    // User can replace with their own "Lover" mp3 by placing it in public folder
+    audioRef.current = new Audio("/lover-music.mp3");
     audioRef.current.loop = true;
     audioRef.current.volume = volume;
+
+    // Fallback to free romantic music if custom file doesn't exist
+    audioRef.current.onerror = () => {
+      if (audioRef.current) {
+        audioRef.current.src = "https://www.bensound.com/bensound-music/bensound-love.mp3";
+        audioRef.current.load();
+      }
+    };
 
     // Auto-play attempt on first user interaction
     const handleFirstInteraction = () => {
       if (!hasInteracted && autoPlay && audioRef.current) {
         setHasInteracted(true);
         audioRef.current.play()
-          .then(() => setIsPlaying(true))
+          .then(() => {
+            setIsPlaying(true);
+            setShowTooltip(false);
+          })
           .catch(() => {
-            // Autoplay blocked
+            // Autoplay blocked - show tooltip
+            setShowTooltip(true);
           });
         document.removeEventListener('click', handleFirstInteraction);
         document.removeEventListener('touchstart', handleFirstInteraction);
@@ -36,9 +50,13 @@ export const BackgroundMusic = ({ autoPlay = true }: BackgroundMusicProps) => {
     document.addEventListener('click', handleFirstInteraction);
     document.addEventListener('touchstart', handleFirstInteraction);
 
+    // Hide tooltip after 5 seconds
+    const tooltipTimer = setTimeout(() => setShowTooltip(false), 5000);
+
     return () => {
       document.removeEventListener('click', handleFirstInteraction);
       document.removeEventListener('touchstart', handleFirstInteraction);
+      clearTimeout(tooltipTimer);
       if (audioRef.current) {
         audioRef.current.pause();
       }
@@ -60,6 +78,7 @@ export const BackgroundMusic = ({ autoPlay = true }: BackgroundMusicProps) => {
       audioRef.current.play().catch(() => {});
     }
     setIsPlaying(!isPlaying);
+    setShowTooltip(false);
   };
 
   return (
@@ -69,25 +88,43 @@ export const BackgroundMusic = ({ autoPlay = true }: BackgroundMusicProps) => {
         onHoverStart={() => setShowControls(true)}
         onHoverEnd={() => setShowControls(false)}
       >
+        {/* Tooltip */}
+        <AnimatePresence>
+          {showTooltip && !isPlaying && (
+            <motion.div
+              initial={{ opacity: 0, y: 10, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 10, scale: 0.9 }}
+              className="absolute bottom-16 right-0 bg-rose-500 text-white text-xs px-3 py-2 rounded-lg shadow-xl whitespace-nowrap"
+            >
+              🎵 Tap for music
+              <div className="absolute -bottom-1 right-5 w-2 h-2 bg-rose-500 rotate-45" />
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         {/* Volume Slider */}
         <AnimatePresence>
-          {showControls && (
+          {showControls && isPlaying && (
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 10 }}
-              className="absolute bottom-16 right-0 bg-white/90 backdrop-blur-xl rounded-2xl p-4 shadow-2xl"
+              className="absolute bottom-16 right-0 bg-white/95 backdrop-blur-xl rounded-2xl p-4 shadow-2xl"
             >
-              <input
-                type="range"
-                min="0"
-                max="1"
-                step="0.1"
-                value={volume}
-                onChange={(e) => setVolume(parseFloat(e.target.value))}
-                className="w-24 h-2 bg-pink-200 rounded-lg appearance-none cursor-pointer accent-pink-500"
-              />
-              <p className="text-xs text-center mt-2 text-pink-600">
+              <div className="flex items-center gap-2 mb-2">
+                <Volume2 className="w-4 h-4 text-rose-500" />
+                <input
+                  type="range"
+                  min="0"
+                  max="1"
+                  step="0.05"
+                  value={volume}
+                  onChange={(e) => setVolume(parseFloat(e.target.value))}
+                  className="w-20 h-2 bg-rose-100 rounded-lg appearance-none cursor-pointer accent-rose-500"
+                />
+              </div>
+              <p className="text-xs text-center text-rose-600 font-medium">
                 {Math.round(volume * 100)}%
               </p>
             </motion.div>
@@ -97,15 +134,15 @@ export const BackgroundMusic = ({ autoPlay = true }: BackgroundMusicProps) => {
         {/* Music Button */}
         <motion.button
           onClick={toggleMusic}
-          className={`w-14 h-14 rounded-full flex items-center justify-center shadow-2xl transition-all ${
+          className={`w-14 h-14 rounded-full flex items-center justify-center shadow-2xl transition-all border-2 ${
             isPlaying 
-              ? "bg-gradient-to-br from-pink-500 to-rose-600 text-white" 
-              : "bg-white/80 backdrop-blur-xl text-gray-500"
+              ? "bg-gradient-to-br from-pink-500 to-rose-600 text-white border-pink-300" 
+              : "bg-white/90 backdrop-blur-xl text-rose-400 border-rose-200 hover:border-rose-400"
           }`}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           animate={isPlaying ? { 
-            boxShadow: ["0 0 0 0 rgba(236, 72, 153, 0.4)", "0 0 0 20px rgba(236, 72, 153, 0)"]
+            boxShadow: ["0 0 0 0 rgba(236, 72, 153, 0.4)", "0 0 0 15px rgba(236, 72, 153, 0)"]
           } : {}}
           transition={{ duration: 1.5, repeat: isPlaying ? Infinity : 0 }}
         >
@@ -120,24 +157,28 @@ export const BackgroundMusic = ({ autoPlay = true }: BackgroundMusicProps) => {
         <AnimatePresence>
           {isPlaying && (
             <>
-              {[...Array(3)].map((_, i) => (
+              {[...Array(4)].map((_, i) => (
                 <motion.div
                   key={i}
-                  className="absolute text-pink-400 pointer-events-none"
+                  className="absolute pointer-events-none"
                   initial={{ opacity: 0, x: 0, y: 0 }}
                   animate={{
                     opacity: [0, 1, 0],
-                    x: [0, (i - 1) * 20],
-                    y: -40,
+                    x: [0, (i - 1.5) * 15],
+                    y: -35,
                   }}
                   transition={{
-                    duration: 2,
+                    duration: 1.8,
                     repeat: Infinity,
-                    delay: i * 0.4,
+                    delay: i * 0.35,
                   }}
                   style={{ left: "50%", bottom: "100%" }}
                 >
-                  ♪
+                  {i % 2 === 0 ? (
+                    <span className="text-pink-400 text-sm">♪</span>
+                  ) : (
+                    <Heart className="w-3 h-3 text-rose-400 fill-rose-400" />
+                  )}
                 </motion.div>
               ))}
             </>

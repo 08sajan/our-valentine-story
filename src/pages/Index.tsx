@@ -22,6 +22,8 @@ import { CinematicHug } from "@/components/valentine/CinematicHug";
 import { CinematicKiss } from "@/components/valentine/CinematicKiss";
 import { NepaliPoemLanding } from "@/components/valentine/NepaliPoemLanding";
 import { DressUpGame } from "@/components/valentine/DressUpGame";
+import { LoveQuiz } from "@/components/valentine/LoveQuiz";
+import { WishingWell } from "@/components/valentine/WishingWell";
 import { 
   ShakeHeartsExplosion, 
   KonamiSecret, 
