@@ -70,11 +70,11 @@ export const SelfTypingLoveLetter = ({ isVisible }: { isVisible: boolean }) => {
   const [currentParagraph, setCurrentParagraph] = useState(0);
   
   const paragraphs = [
-    "My Dearest Anjali,",
+    "My Dearest Puntuu,",
     "From the first moment I saw you, I knew you were special. Your smile lights up my darkest days, your laughter is my favorite melody, and your love is the greatest gift I've ever received.",
-    "This Valentine's Week, I wanted to remind you of how much you mean to me. Every day with you is a blessing, and I fall more in love with you with each passing moment.",
-    "You're not just my Valentine—you're my best friend, my confidant, my partner in everything. I can't imagine my life without you.",
-    "Forever and Always Yours, ❤️ Your Love"
+    "Every morning I wake up thinking about you, and every night I fall asleep with you in my heart. You're not just the love of my life—you're my entire world, Puntuu.",
+    "This Valentine's Week, I wanted to create something as special as you. Every page, every animation, every word is filled with my love for you. You deserve the universe, and I'll spend forever trying to give it to you.",
+    "You're my first thought, my last wish, and my biggest priority. I love you more than words could ever express. Forever and always yours, ❤️"
   ];
 
   if (!isVisible) return null;
