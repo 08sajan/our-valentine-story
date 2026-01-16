@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Star, Sparkles } from "lucide-react";
+import { Star, Sparkles, Trash2 } from "lucide-react";
 
 const presetWishes = [
   "A lifetime of happiness together 💕",
@@ -10,14 +10,40 @@ const presetWishes = [
   "Growing old together gracefully 👫",
   "Never losing our spark ✨",
   "Supporting each other's dreams 🌟",
-  "Creating beautiful memories 📸"
+  "Creating beautiful memories 📸",
+  "Always choosing each other 💑",
+  "Building our forever together 💒"
 ];
+
+const STORAGE_KEY = "puntuu-wishes";
 
 export const WishingWell = () => {
   const [wishes, setWishes] = useState<string[]>([]);
   const [customWish, setCustomWish] = useState("");
   const [showStar, setShowStar] = useState(false);
   const [lastWish, setLastWish] = useState("");
+
+  // Load wishes from localStorage on mount
+  useEffect(() => {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) {
+          setWishes(parsed);
+        }
+      } catch (e) {
+        console.error("Failed to load wishes:", e);
+      }
+    }
+  }, []);
+
+  // Save wishes to localStorage whenever they change
+  useEffect(() => {
+    if (wishes.length > 0) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(wishes));
+    }
+  }, [wishes]);
 
   const makeWish = (wish: string) => {
     if (wishes.includes(wish)) return;
@@ -35,11 +61,26 @@ export const WishingWell = () => {
   };
 
   const addCustomWish = () => {
-    if (customWish.trim()) {
-      makeWish(customWish);
+    if (customWish.trim() && !wishes.includes(customWish.trim())) {
+      makeWish(customWish.trim());
       setCustomWish("");
     }
   };
+
+  const removeWish = (wishToRemove: string) => {
+    setWishes(prev => {
+      const updated = prev.filter(w => w !== wishToRemove);
+      if (updated.length === 0) {
+        localStorage.removeItem(STORAGE_KEY);
+      }
+      return updated;
+    });
+    if ('vibrate' in navigator) {
+      navigator.vibrate(50);
+    }
+  };
+
+  const customWishes = wishes.filter(w => !presetWishes.includes(w));
 
   return (
     <div className="space-y-5">
@@ -61,11 +102,11 @@ export const WishingWell = () => {
 
       {/* Wishing Well Animation */}
       <motion.div 
-        className="relative h-32 flex items-center justify-center"
+        className="relative h-28 flex items-center justify-center"
         animate={{ y: [0, -5, 0] }}
         transition={{ duration: 3, repeat: Infinity }}
       >
-        <div className="text-7xl">🌟</div>
+        <div className="text-6xl">🌟</div>
         
         {/* Shooting star animation when wish is made */}
         <AnimatePresence>
@@ -119,7 +160,7 @@ export const WishingWell = () => {
             } border`}
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: index * 0.05 }}
+            transition={{ delay: index * 0.03 }}
             whileHover={!wishes.includes(wish) ? { scale: 1.02 } : {}}
             whileTap={!wishes.includes(wish) ? { scale: 0.98 } : {}}
           >
@@ -149,11 +190,46 @@ export const WishingWell = () => {
         </motion.button>
       </div>
 
+      {/* Custom wishes list */}
+      {customWishes.length > 0 && (
+        <div className="space-y-2">
+          <p className="text-white/50 text-xs">Your personal wishes:</p>
+          <div className="space-y-1.5 max-h-32 overflow-y-auto">
+            {customWishes.map((wish, index) => (
+              <motion.div
+                key={wish}
+                className="flex items-center justify-between bg-white/10 rounded-lg px-3 py-2 border border-rose-400/30"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: index * 0.05 }}
+              >
+                <span className="text-rose-200 text-xs flex-1 mr-2">✨ {wish}</span>
+                <button
+                  onClick={() => removeWish(wish)}
+                  className="text-white/40 hover:text-rose-400 transition-colors p-1"
+                >
+                  <Trash2 className="w-3.5 h-3.5" />
+                </button>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Wishes count */}
       <div className="text-center">
-        <p className="text-white/40 text-xs">
+        <motion.p 
+          className="text-white/40 text-xs"
+          key={wishes.length}
+          animate={{ scale: [1, 1.1, 1] }}
+        >
           {wishes.length} wish{wishes.length !== 1 ? 'es' : ''} made for our future 💕
-        </p>
+        </motion.p>
+        {wishes.length > 0 && (
+          <p className="text-white/30 text-xs mt-1">
+            (Saved and will appear next time ✓)
+          </p>
+        )}
       </div>
     </div>
   );

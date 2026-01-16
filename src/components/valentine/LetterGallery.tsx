@@ -79,7 +79,13 @@ const letters: Letter[] = [
     sealColor: "from-red-500 to-pink-600",
     title: "My Purest Choice ♾️❤️",
     emoji: "♾️",
-    content: `Puntuu, I want you to know I'm not here for anything casual I'm here for forever. I want to love you in the purest form, a soul-to-soul connection where I prove to you every day that you are perfect, even with the insecurities you carry. Even if life gets heavy and you try to push me away, I'm never letting go. You aren't "too much" to love. I will always choose the hard days with you over the easy days with anyone else. You are my greatest gift. I will love you like this. I will never try to reshape you to make you easier to love. I will choose you exactly as you are the soft parts, the complicated thoughts, the silence, and the overthinking. I'll be the one who looks at your face and knows when your mind is too loud, and I'll never raise my voice because I know how deeply you feel everything. I will treat you as if you are fragile in the best way not weak, just precious. I'll protect your heart without ever trying to cage it. I want you to feel like you matter, like you aren't replaceable, like you are home. I want my presence to be your calm, to make you smile without trying, and to listen to your endless talking without ever making you feel like you're too much. I promise never hurt you. I only want to make you feel safe enough to shine. I love you so much 😙❤️`
+    content: `Puntuu, I want you to know I'm not here for anything casual I'm here for forever. I want to love you in the purest form, a soul-to-soul connection where I prove to you every day that you are perfect, even with the insecurities you carry. Even if life gets heavy and you try to push me away, I'm never letting go. You aren't "too much" to love. I will always choose the hard days with you over the easy days with anyone else. You are my greatest gift.
+
+I will love you like this. I will never try to reshape you to make you easier to love. I will choose you exactly as you are the soft parts, the complicated thoughts, the silence, and the overthinking. I'll be the one who looks at your face and knows when your mind is too loud, and I'll never raise my voice because I know how deeply you feel everything.
+
+I will treat you as if you are fragile in the best way not weak, just precious. I'll protect your heart without ever trying to cage it. I want you to feel like you matter, like you aren't replaceable, like you are home. I want my presence to be your calm, to make you smile without trying, and to listen to your endless talking without ever making you feel like you're too much.
+
+I promise never hurt you. I only want to make you feel safe enough to shine. I love you so much 😙❤️`
   }
 ];
 
@@ -187,111 +193,144 @@ export const LetterGallery = () => {
         ))}
       </div>
 
-      {/* Letter Modal - IMPROVED */}
+      {/* Letter Modal - FULLSCREEN */}
       <AnimatePresence>
         {currentLetter && (
           <motion.div
-            className="fixed inset-0 z-[100] flex items-center justify-center p-3 bg-black/90 backdrop-blur-lg"
+            className="fixed inset-0 z-[9999] flex flex-col bg-gradient-to-br from-rose-950 via-black to-purple-950"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            {/* Close button - more visible */}
-            <motion.button
-              onClick={closeLetter}
-              className="absolute top-4 right-4 z-[110] w-12 h-12 bg-white/20 backdrop-blur-xl rounded-full flex items-center justify-center hover:bg-white/30 transition-colors border border-white/30"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <X className="w-6 h-6 text-white" />
-            </motion.button>
-
-            {/* Navigation arrows */}
-            {currentIndex > 0 && (
-              <motion.button
+            {/* Header Bar */}
+            <div className="flex items-center justify-between p-4 border-b border-white/10">
+              <button
                 onClick={goPrev}
-                className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-[110] w-10 h-10 sm:w-12 sm:h-12 bg-white/20 backdrop-blur-xl rounded-full flex items-center justify-center hover:bg-white/30 transition-colors border border-white/30"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
+                disabled={currentIndex === 0}
+                className={`w-10 h-10 rounded-full flex items-center justify-center transition-all ${
+                  currentIndex === 0 
+                    ? 'bg-white/5 text-white/20' 
+                    : 'bg-white/10 text-white hover:bg-white/20'
+                }`}
               >
-                <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-              </motion.button>
-            )}
-            
-            {currentIndex < letters.length - 1 && (
-              <motion.button
-                onClick={goToNext}
-                className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-[110] w-10 h-10 sm:w-12 sm:h-12 bg-white/20 backdrop-blur-xl rounded-full flex items-center justify-center hover:bg-white/30 transition-colors border border-white/30"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              
+              <div className="text-center">
+                <p className="text-white/60 text-xs">Letter {currentIndex + 1} of {letters.length}</p>
+                <p className="text-rose-300 text-sm font-serif">{currentLetter.title}</p>
+              </div>
+              
+              <button
+                onClick={closeLetter}
+                className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white hover:bg-white/20 transition-all"
               >
-                <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-              </motion.button>
-            )}
-
-            {/* Letter indicator */}
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-[110] flex gap-1.5">
-              {letters.map((_, i) => (
-                <div 
-                  key={i} 
-                  className={`w-2 h-2 rounded-full transition-all ${
-                    i === currentIndex ? 'bg-rose-400 w-6' : 'bg-white/30'
-                  }`}
-                />
-              ))}
+                <X className="w-5 h-5" />
+              </button>
             </div>
 
-            {/* Letter Paper */}
-            <motion.div
-              key={currentLetter.id}
-              className="bg-gradient-to-br from-amber-50 via-white to-rose-50 rounded-2xl p-5 sm:p-6 max-w-lg w-full shadow-2xl relative mx-8 sm:mx-4"
-              style={{ maxHeight: '75vh' }}
-              initial={{ scale: 0.3, rotateY: -180, opacity: 0 }}
-              animate={{ scale: 1, rotateY: 0, opacity: 1 }}
-              exit={{ scale: 0.3, rotateY: 180, opacity: 0 }}
-              transition={{ type: "spring", damping: 20 }}
-            >
-              {/* Decorative seal */}
+            {/* Letter Content - Scrollable */}
+            <div className="flex-1 overflow-y-auto p-4">
               <motion.div
-                className={`absolute -top-6 left-1/2 -translate-x-1/2 w-14 h-14 rounded-full bg-gradient-to-br ${currentLetter.sealColor} shadow-xl flex items-center justify-center border-4 border-white`}
-                initial={{ scale: 0, rotate: -180 }}
-                animate={{ scale: 1, rotate: 0 }}
-                transition={{ delay: 0.2, type: "spring" }}
+                key={currentLetter.id}
+                className="bg-gradient-to-br from-amber-50 via-white to-rose-50 rounded-2xl p-5 sm:p-6 max-w-lg mx-auto shadow-2xl relative"
+                initial={{ scale: 0.9, opacity: 0, y: 20 }}
+                animate={{ scale: 1, opacity: 1, y: 0 }}
+                exit={{ scale: 0.9, opacity: 0, y: -20 }}
+                transition={{ type: "spring", damping: 20 }}
               >
-                <span className="text-2xl">{currentLetter.emoji}</span>
-              </motion.div>
+                {/* Decorative seal */}
+                <motion.div
+                  className={`absolute -top-5 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-gradient-to-br ${currentLetter.sealColor} shadow-xl flex items-center justify-center border-4 border-white`}
+                  initial={{ scale: 0, rotate: -180 }}
+                  animate={{ scale: 1, rotate: 0 }}
+                  transition={{ delay: 0.2, type: "spring" }}
+                >
+                  <span className="text-xl">{currentLetter.emoji}</span>
+                </motion.div>
 
-              {/* Letter content - scrollable */}
-              <motion.div
-                className="mt-6 space-y-4 overflow-y-auto pr-1"
-                style={{ maxHeight: 'calc(75vh - 100px)' }}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-              >
-                <h3 className="text-lg sm:text-xl font-serif text-rose-700 text-center font-bold">
-                  Letter {currentLetter.id}: {currentLetter.title}
-                </h3>
-                
-                <div className="h-px bg-gradient-to-r from-transparent via-rose-300 to-transparent" />
-                
-                <p className="text-gray-700 font-serif leading-relaxed whitespace-pre-line text-sm sm:text-base">
-                  {currentLetter.content}
-                </p>
-                
-                <div className="h-px bg-gradient-to-r from-transparent via-rose-300 to-transparent" />
-                
-                <p className="text-right text-rose-500 font-serif italic text-base sm:text-lg pb-2">
-                  With all my love ❤️
-                </p>
-              </motion.div>
+                {/* Letter content */}
+                <motion.div
+                  className="mt-5 space-y-4"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                >
+                  <h3 className="text-lg font-serif text-rose-700 text-center font-bold">
+                    {currentLetter.title}
+                  </h3>
+                  
+                  <div className="h-px bg-gradient-to-r from-transparent via-rose-300 to-transparent" />
+                  
+                  <p className="text-gray-700 font-serif leading-relaxed whitespace-pre-line text-sm sm:text-base">
+                    {currentLetter.content}
+                  </p>
+                  
+                  <div className="h-px bg-gradient-to-r from-transparent via-rose-300 to-transparent" />
+                  
+                  <p className="text-right text-rose-500 font-serif italic text-base sm:text-lg">
+                    With all my love ❤️
+                  </p>
+                </motion.div>
 
-              {/* Decorative corners */}
-              <div className="absolute top-2 left-2 w-6 h-6 border-l-2 border-t-2 border-rose-200 rounded-tl-lg" />
-              <div className="absolute top-2 right-2 w-6 h-6 border-r-2 border-t-2 border-rose-200 rounded-tr-lg" />
-              <div className="absolute bottom-2 left-2 w-6 h-6 border-l-2 border-b-2 border-rose-200 rounded-bl-lg" />
-              <div className="absolute bottom-2 right-2 w-6 h-6 border-r-2 border-b-2 border-rose-200 rounded-br-lg" />
-            </motion.div>
+                {/* Decorative corners */}
+                <div className="absolute top-2 left-2 w-5 h-5 border-l-2 border-t-2 border-rose-200 rounded-tl-lg" />
+                <div className="absolute top-2 right-2 w-5 h-5 border-r-2 border-t-2 border-rose-200 rounded-tr-lg" />
+                <div className="absolute bottom-2 left-2 w-5 h-5 border-l-2 border-b-2 border-rose-200 rounded-bl-lg" />
+                <div className="absolute bottom-2 right-2 w-5 h-5 border-r-2 border-b-2 border-rose-200 rounded-br-lg" />
+              </motion.div>
+            </div>
+
+            {/* Footer Navigation */}
+            <div className="p-4 border-t border-white/10">
+              {/* Letter indicators */}
+              <div className="flex justify-center gap-1.5 mb-3">
+                {letters.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => openLetter(letters[i], i)}
+                    className={`h-2 rounded-full transition-all ${
+                      i === currentIndex ? 'bg-rose-400 w-6' : 'bg-white/30 w-2 hover:bg-white/50'
+                    }`}
+                  />
+                ))}
+              </div>
+              
+              {/* Navigation buttons */}
+              <div className="flex gap-3">
+                <motion.button
+                  onClick={goPrev}
+                  disabled={currentIndex === 0}
+                  className={`flex-1 py-3 rounded-xl font-medium flex items-center justify-center gap-2 transition-all ${
+                    currentIndex === 0 
+                      ? 'bg-white/5 text-white/30' 
+                      : 'bg-white/10 text-white hover:bg-white/20'
+                  }`}
+                  whileTap={currentIndex > 0 ? { scale: 0.95 } : {}}
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                  Previous
+                </motion.button>
+                
+                <motion.button
+                  onClick={currentIndex < letters.length - 1 ? goToNext : closeLetter}
+                  className="flex-1 py-3 bg-gradient-to-r from-rose-500 to-pink-500 rounded-xl text-white font-medium flex items-center justify-center gap-2"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  {currentIndex < letters.length - 1 ? (
+                    <>
+                      Next
+                      <ChevronRight className="w-4 h-4" />
+                    </>
+                  ) : (
+                    <>
+                      Close 💕
+                    </>
+                  )}
+                </motion.button>
+              </div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

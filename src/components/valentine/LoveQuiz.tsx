@@ -45,6 +45,55 @@ const questions: Question[] = [
     options: ["100", "1,000", "10,000", "Infinite"],
     correctAnswer: 2,
     loveNote: "Even 10,000 isn't enough for what you mean to me 🌹"
+  },
+  {
+    id: 6,
+    question: "What do I want to bring you every morning?",
+    options: ["Breakfast in bed", "Tea and chocolates", "Flowers", "Nothing special"],
+    correctAnswer: 1,
+    loveNote: "Starting every day making you smile is my dream 🍵🍫"
+  },
+  {
+    id: 7,
+    question: "What do I love watching you do peacefully?",
+    options: ["Cook", "Dance", "Sleep", "Work"],
+    correctAnswer: 2,
+    loveNote: "Watching you sleep peacefully makes my heart full 💤"
+  },
+  {
+    id: 8,
+    question: "How many children do I dream of having with you?",
+    options: ["None", "One", "Two", "A whole team!"],
+    correctAnswer: 2,
+    loveNote: "Little versions of us, growing up seeing love 👨‍👩‍👧‍👦"
+  },
+  {
+    id: 9,
+    question: "What would I never do to you?",
+    options: ["Ignore you", "Raise my voice", "Leave you", "All of these"],
+    correctAnswer: 3,
+    loveNote: "Never any of these. You're too precious for pain 💝"
+  },
+  {
+    id: 10,
+    question: "What do you make me feel I can be again?",
+    options: ["A child", "A hero", "A prince", "A star"],
+    correctAnswer: 0,
+    loveNote: "With you, I don't have to pretend to be strong. I can just be me 🧒💕"
+  },
+  {
+    id: 11,
+    question: "What will I buy you for no reason at all?",
+    options: ["Jewelry", "Flowers", "Chocolates", "All gifts"],
+    correctAnswer: 1,
+    loveNote: "Random flowers just to see that beautiful smile 💐"
+  },
+  {
+    id: 12,
+    question: "What is my greatest fear about you?",
+    options: ["Losing you", "You crying", "You being hurt", "All of these"],
+    correctAnswer: 3,
+    loveNote: "I'd hurt myself a thousand times before letting you feel any pain 🛡️"
   }
 ];
 
@@ -105,22 +154,23 @@ export const LoveQuiz = () => {
           How Well Do You Know Our Love?
           <Heart className="w-5 h-5 fill-rose-400 text-rose-400" />
         </motion.h3>
+        <p className="text-white/50 text-xs mt-1">12 questions about us 💕</p>
       </div>
 
       {!isComplete ? (
         <>
           {/* Progress */}
-          <div className="flex justify-center gap-1.5">
+          <div className="flex justify-center gap-1 flex-wrap">
             {questions.map((_, i) => (
               <motion.div
                 key={i}
                 className={`h-1.5 rounded-full transition-all ${
-                  i === currentQuestion ? 'w-8 bg-rose-400' :
-                  i < currentQuestion ? 'w-4 bg-rose-500' : 'w-4 bg-white/20'
+                  i === currentQuestion ? 'w-6 bg-rose-400' :
+                  i < currentQuestion ? 'w-3 bg-rose-500' : 'w-3 bg-white/20'
                 }`}
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
-                transition={{ delay: i * 0.1 }}
+                transition={{ delay: i * 0.05 }}
               />
             ))}
           </div>
@@ -205,7 +255,7 @@ export const LoveQuiz = () => {
             animate={{ rotate: [0, 10, -10, 0], scale: [1, 1.1, 1] }}
             transition={{ duration: 1.5, repeat: Infinity }}
           >
-            {score === questions.length ? "💖" : score >= 3 ? "💕" : "💗"}
+            {score >= 10 ? "💖" : score >= 7 ? "💕" : score >= 4 ? "💗" : "💝"}
           </motion.div>
 
           <div>
@@ -214,22 +264,26 @@ export const LoveQuiz = () => {
             </p>
             <p className="text-rose-300 mt-1">
               {score === questions.length 
-                ? "Perfect! You know our love so well! 🥰" 
-                : score >= 3 
-                ? "Amazing! Our love is strong! ❤️" 
-                : "Every day we learn more about each other 💕"}
+                ? "PERFECT! You know my heart completely! 🥰" 
+                : score >= 10
+                ? "Amazing! Our souls are connected! ❤️"
+                : score >= 7 
+                ? "Wonderful! Our love grows stronger! 💕" 
+                : score >= 4
+                ? "Sweet! We're learning each other 💗"
+                : "Every day we discover more about us 💝"}
             </p>
           </div>
 
-          <div className="flex justify-center gap-2">
+          <div className="flex justify-center gap-1 flex-wrap max-w-xs mx-auto">
             {[...Array(score)].map((_, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, scale: 0 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: i * 0.1 }}
+                transition={{ delay: i * 0.08 }}
               >
-                <Star className="w-6 h-6 text-yellow-400 fill-yellow-400" />
+                <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" />
               </motion.div>
             ))}
           </div>
