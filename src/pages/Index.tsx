@@ -14,11 +14,14 @@ import { CandleCeremony } from "@/components/valentine/CandleCeremony";
 import { CountdownTimer } from "@/components/valentine/CountdownTimer";
 import { BackgroundMusic } from "@/components/valentine/BackgroundMusic";
 import { RoseCounter } from "@/components/valentine/RoseCounter";
+import { RoseBouquet } from "@/components/valentine/RoseBouquet";
 import { TeddyGallery } from "@/components/valentine/TeddyGallery";
 import { FallingStars } from "@/components/valentine/FallingStars";
 import { LetterGallery } from "@/components/valentine/LetterGallery";
 import { CinematicHug } from "@/components/valentine/CinematicHug";
 import { CinematicKiss } from "@/components/valentine/CinematicKiss";
+import { NepaliPoemLanding } from "@/components/valentine/NepaliPoemLanding";
+import { DressUpGame } from "@/components/valentine/DressUpGame";
 import { 
   ShakeHeartsExplosion, 
   KonamiSecret, 
@@ -104,19 +107,35 @@ const valentineDays = [
 
 // Personalized Messages for Puntuu
 const personalizedMessages = {
-  rose: `I was looking at this massive field of ten thousand roses, Puntuu, and all I could think about was how even this isn't enough to show you what you mean to me. People give roses because they're beautiful, but roses eventually fade. My love for you just keeps growing, deeper and stronger every single day. I don't just want to give you flowers; I want to give you a life where you never have to wonder if you're loved. You are my constant bloom, the brightest color in my world, and I am so incredibly lucky that I get to call you mine.`,
+  rose: `I was looking at this massive field of roses, Puntuu, and all I could think about was how even this isn't enough to show you what you mean to me. People give roses because they're beautiful, but roses eventually fade. My love for you just keeps growing, deeper and stronger every single day. I don't just want to give you flowers. I want to give you a life where you never have to wonder if you're loved. You are my constant bloom, the brightest color in my world, and I am so incredibly lucky that I get to call you mine. I love you 😙❤️`,
   
-  propose: `Puntuu, I've been playing this moment over in my head a thousand times. I chose this sunflower specifically because of how it lives—it spends its whole life turning its face toward the sun. That's exactly what my heart does with you. You are my light, my warmth, and my reason to keep moving forward. I'm not just asking you to be my girl for a day or a year; I'm asking you to be my partner in everything. Through the messy hair mornings, the loud laughs, and the quiet, hard days, I want it all. I want you. So, Puntuu... will you walk this journey with me forever?`,
+  propose: `Puntuu, I've been playing this moment over in my head a thousand times. I chose this sunflower specifically because of how it lives it spends its whole life turning its face toward the sun. That's exactly what my heart does with you. You are my light, my warmth, and my reason to keep moving forward. I'm not just asking you to be my girl for a day or a year I'm asking you to be my partner in everything. Through the messy hair mornings, the loud laughs, and the quiet, hard days, I want it all. I want you. So, Puntuu... will you walk this journey with me forever? I love you 😙❤️`,
   
-  chocolate: `You know what, Puntuu? Life is like a box of chocolates—unpredictable and sometimes bitter. But with you, every moment is the sweetest flavor. You're the one who makes everything taste better, feel warmer, and seem brighter. I could offer you all the chocolates in the world, but nothing will ever be as sweet as your smile. You're my favorite kind of sweetness—the kind that never gets old. 🍫`,
+  chocolate: `You know what, Puntuu? Life is like a box of chocolates—unpredictable and sometimes bitter. But with you, every moment is the sweetest flavor. You're the one who makes everything taste better, feel warmer, and seem brighter. I could offer you all the chocolates in the world, but nothing will ever be as sweet as your smile. You're my favorite kind of sweetness—the kind that never gets old. I love you 😙❤️`,
   
-  teddy: `I know I can't always be there to pull you close when you're tired or having a rough day, and honestly, that's the hardest part for me. So, I'm sending these teddies to keep your bed warm and to give you a place to rest your head when I'm not around. But just so we're clear, none of them are as soft as you, and none of them can give hugs as good as mine. Every time you see them, I want you to imagine me right there with you, holding you tight and telling you that everything is going to be okay. You're my precious Puntuu, always.`,
+  teddy: `I know I can't always be there to pull you close when you're tired or having a rough day, and honestly, that's the hardest part for me. So, I'm sending these teddies to keep your bed warm and to give you a place to rest your head when I'm not around. But just so we're clear, none of them are as soft as you, and none of them can give hugs as good as mine. Every time you see them, I want you to imagine me right there with you, holding you tight and telling you that everything is going to be okay. You're my precious Puntuu, always. I love you 😙❤️`,
   
-  promise: `Puntuu, I'm not going to make you generic promises that people just say because they sound good. I'm making these because I mean them from the bottom of my soul. I promise to never let go of your hand when things get scary. I promise to listen to you, even when you aren't saying anything at all. I promise to protect your smile like it's the most valuable thing in the world, because to me, it is. Most importantly, I promise that no matter how much time passes, I will never stop trying to win your heart. You'll never have to doubt where you stand with me. You are my first thought, my last wish, and my biggest priority.`,
+  promise: `Puntuu, I'm not going to make you fake promises that people just say because they sound good. I'm making these because I mean them from the bottom of my soul. I promise to never let go of your hand when things get scary. I promise to listen to you, even when you aren't saying anything at all. I promise to protect your smile like it's the most valuable thing in the world, because to me, it is. Most importantly, I promise that no matter how much time passes, I will never stop trying to win your heart. You'll never have to doubt where you stand with me. You are my first thought, my last wish, and my biggest priority. I love you 😙❤️`,
   
-  hug: `You know that feeling when you finally get home after a long, exhausting day and you can just finally breathe? That is exactly what your hug feels like to me, Puntuu. It's my favorite place in the world. When I'm holding you, the rest of the world just disappears. The noise stops, the stress fades, and it's just us. I'm sending you this digital squeeze, but I'm counting down the seconds until I can feel your heart beating against mine for real. You're my safety, my peace, and my home.`,
+  hug: `You know that feeling when you finally get home after a long, exhausting day and you can just finally breathe? That is exactly what your hug feels like to me, Puntuu. It's my favorite place in the world. When I'm holding you, the rest of the world just disappears. The noise stops, the stress fades, and it's just us. I'm sending you this digital tight hug, but I'm counting down the seconds until I can feel your heart beating against mine for real. You're my safety, my peace, and my home. I love you 😙❤️`,
   
-  kiss: `There's a specific kind of magic that happens when I kiss you, Puntuu. It's like time just glitches and stops moving. In that moment, nothing else matters—not the past, not the future, just the feeling of being completely connected to you. It's the way you make me feel alive and calm all at the same time. Every kiss we've shared is tucked away in my heart like a treasure. I'm so addicted to the way you love me, and I never want to spend a single day without your magic in my life.`,
+  kiss: `There's a specific kind of magic that happens when I kiss you, Puntuu. It's like time just glitches and stops moving. In that moment, nothing else matters not the past, not the future, just the feeling of being completely connected to you. It's the way you make me feel alive and calm all at the same time. Every kiss we've shared is tucked away in my heart like a treasure even tough it's just in calls😢 it's so addicted to the way i am with you and I never want to spend a single day without your magic in my life. I love you 😙❤️`,
+
+  finalLetter: `My Sweetest Puntuu,
+
+I was sitting here thinking about us, and I realized that we were just strangers once, passing through the same world and living separate stories. I don't know how it happened, but you've become the first thought in my mornings and the silent prayer in my nights. Honestly, if God handed me a book where anything I wrote became mine, I'd still cover every inch, every line, and every margin with your name 📖🖋️. You're everything I ever hoped for, shaped perfectly in a world that can be so messy.
+
+My chest actually pains when I can't tell you how badly I love you. I want you to know that without a blink of an eye, and without thinking twice, I will always choose you over anyone else even over myself 💖. I want to hold you tight while we play, share our clothes, and listen to the music you like. I don't need anyone else because everything I was searching for, I found in you 🏠✨.
+
+I have this strong urge to kneel down before you and tell you that I love you more than anything. I want to marry you one day and build a home full of love with no shouting and no loud sounds. I want our children to grow up seeing a father who kisses their mom every second and loves her completely. I'll be the one who sits with you when you miss your parents, and the one who holds your hand through birth. I want to be the one who feeds you with my own hand and kisses you when you don't feel like doing anything 🫂💓.
+
+I promise to be your shelter on rainy days and your loudest cheer on quiet ones. I will never raise my voice at you, and I'll buy you flowers for no reason at all 🌸. You can call me at 2:00 AM and I will always answer. Even if you try to push me away, I will never let you go because you're my priority.
+
+I will know all your worries and make them mine so nothing ever cracks your fragile heart. We've already done the hardest part, which was finding each other among millions of people now let's do the easiest thing, and never lose each other 🤝🌎.
+
+I love you more than any amount of distance and more than any fight we will ever have. You are my sweetest home, Puntuu. I am yours completely, honestly, and forever ♾️❤️.
+
+I Love You.`,
 };
 
 // Photo Gallery Data with your uploaded images
