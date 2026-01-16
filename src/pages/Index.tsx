@@ -38,6 +38,7 @@ import memory3 from "@/assets/memories/memory-3.png";
 import memory4 from "@/assets/memories/memory-4.png";
 import memory5 from "@/assets/memories/memory-5.png";
 import memory6 from "@/assets/memories/memory-6.png";
+import proposalPhoto from "@/assets/proposal-photo.jpg";
 
 // Valentine's Week Days Configuration
 const valentineDays = [
@@ -292,17 +293,32 @@ const ProposeDayContent = () => {
             animate={{ opacity: 1, y: 0 }}
             className="space-y-6"
           >
-            {/* Proposal Photo Placeholder */}
-            <GlassCard className="p-6 text-center">
+            {/* Proposal Photo */}
+            <GlassCard className="p-6 text-center overflow-hidden">
               <motion.div
-                className="w-48 h-48 mx-auto rounded-full bg-gradient-to-br from-amber-400/30 to-orange-500/30 flex items-center justify-center mb-4 border-4 border-amber-400/50"
-                animate={{ boxShadow: ["0 0 0 0 rgba(251, 191, 36, 0.4)", "0 0 0 20px rgba(251, 191, 36, 0)"] }}
-                transition={{ duration: 2, repeat: Infinity }}
+                className="relative w-64 h-64 mx-auto rounded-2xl overflow-hidden mb-4"
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
               >
-                <span className="text-6xl">🧎‍♂️🌻</span>
+                <motion.img 
+                  src={proposalPhoto}
+                  alt="Proposal moment"
+                  className="w-full h-full object-cover"
+                  animate={{ 
+                    scale: [1, 1.05, 1],
+                  }}
+                  transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                <motion.div 
+                  className="absolute inset-0 border-4 border-amber-400/50 rounded-2xl"
+                  animate={{ boxShadow: ["0 0 0 0 rgba(251, 191, 36, 0.4)", "0 0 20px 10px rgba(251, 191, 36, 0.2)"] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                />
               </motion.div>
               <p className="text-amber-200 text-sm italic">
-                (Your proposal photo will go here)
+                Forever turning towards you, my sun 🌻
               </p>
             </GlassCard>
 
@@ -525,7 +541,7 @@ const KissDayContent = () => {
 
 const ValentineDayContent = () => {
   const [triggerConfetti, setTriggerConfetti] = useState(false);
-  const [activeSection, setActiveSection] = useState<'gallery' | 'letters' | 'letter' | 'game'>('gallery');
+  const [activeSection, setActiveSection] = useState<'gallery' | 'letters' | 'letter' | 'game' | 'quiz' | 'wishes'>('gallery');
   
   useEffect(() => {
     setTriggerConfetti(true);
@@ -564,6 +580,8 @@ const ValentineDayContent = () => {
           { key: 'gallery', label: 'Memories', emoji: '📸' },
           { key: 'letters', label: '10 Letters', emoji: '💌' },
           { key: 'letter', label: 'Final Letter', emoji: '❤️' },
+          { key: 'quiz', label: 'Love Quiz', emoji: '💕' },
+          { key: 'wishes', label: 'Our Wishes', emoji: '🌟' },
           { key: 'game', label: 'Date Night', emoji: '👗' },
         ].map((tab) => (
           <motion.button
@@ -632,6 +650,32 @@ const ValentineDayContent = () => {
                   {personalizedMessages.finalLetter}
                 </p>
               </div>
+            </GlassCard>
+          </motion.div>
+        )}
+
+        {activeSection === 'quiz' && (
+          <motion.div
+            key="quiz"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+          >
+            <GlassCard className="p-6">
+              <LoveQuiz />
+            </GlassCard>
+          </motion.div>
+        )}
+
+        {activeSection === 'wishes' && (
+          <motion.div
+            key="wishes"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+          >
+            <GlassCard className="p-6">
+              <WishingWell />
             </GlassCard>
           </motion.div>
         )}
