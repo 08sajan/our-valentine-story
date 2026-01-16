@@ -11,43 +11,43 @@ export const NepaliPoemLanding = ({ onEnter }: NepaliPoemLandingProps) => {
 
   const handleEnter = () => {
     setIsExiting(true);
-    setTimeout(onEnter, 1000);
+    setTimeout(onEnter, 800);
   };
 
-  const nepaliPoem = `अब तिमीलाई भनौँ कसरी म तिमी कस्ती छौ।
-बानी व्यवराको कुरा गरुम् भने सबैभन्दा ज्ञानी छौ।
-नयनको कुरा गरुम् भने मलाई डुबाएर मार्ने खालकी छौ।
-बोलिको कुरा गरुम् भने घाँटीमा कोइलीलाई बास दिएकी छौ।
-
-केशको त झन के कुरा त्यो केस फिँजाउदा मन लोभ्याउने खालकी छौ।
-हेर्दामा धेरै नबोल्ने खालकी भएपनि मनले चन्चले स्वभावकी छौ।
-
-निधारमा कालो टिका लगाउँदा विश्व सुन्दरी देखिएकी छौ।
-सबै कुरा बुझ्दा बुझ्दै पनि नबुझेको नाटक पार्नमा उत्कृष्ट छौ।
-
-तिमी मेरो छेउमा नहुँदा मलाई शून्यता अनुभव गराउने खालकी छौ।
-मैले भगवानलाई आफ्नो लागि मागेको जीवनसंगिनी जस्ती छौ।
-
-रूपको कुरा गरुम् भने फूलभन्दा बढी मनमोहक छौ।
-सुन्दरताको कुरा गरुम् भने चन्द्रमा भन्दा राम्री छौ।
-
-चन्द्रमा जस्तो राम्रीमात्र हैन् मबाट चन्द्रमा जतिकै टाढा छौ।
-अब तिम्रो अरु के कुरा गर्नु तिमी छेउमा हुँदा मलाई स्वर्गको अनुभव दिलाउने खालकी छौ। 💕`;
-
-  const poemLines = nepaliPoem.split('\n');
+  const poemLines = [
+    "अब तिमीलाई भनौँ कसरी म तिमी कस्ती छौ।",
+    "बानी व्यवराको कुरा गरुम् भने सबैभन्दा ज्ञानी छौ।",
+    "नयनको कुरा गरुम् भने मलाई डुबाएर मार्ने खालकी छौ।",
+    "बोलिको कुरा गरुम् भने घाँटीमा कोइलीलाई बास दिएकी छौ।",
+    "",
+    "केशको त झन के कुरा त्यो केस फिँजाउदा मन लोभ्याउने खालकी छौ।",
+    "हेर्दामा धेरै नबोल्ने खालकी भएपनि मनले चन्चले स्वभावकी छौ।",
+    "",
+    "निधारमा कालो टिका लगाउँदा विश्व सुन्दरी देखिएकी छौ।",
+    "सबै कुरा बुझ्दा बुझ्दै पनि नबुझेको नाटक पार्नमा उत्कृष्ट छौ।",
+    "",
+    "तिमी मेरो छेउमा नहुँदा मलाई शून्यता अनुभव गराउने खालकी छौ।",
+    "मैले भगवानलाई आफ्नो लागि मागेको जीवनसंगिनी जस्ती छौ।",
+    "",
+    "रूपको कुरा गरुम् भने फूलभन्दा बढी मनमोहक छौ।",
+    "सुन्दरताको कुरा गरुम् भने चन्द्रमा भन्दा राम्री छौ।",
+    "",
+    "चन्द्रमा जस्तो राम्रीमात्र हैन् मबाट चन्द्रमा जतिकै टाढा छौ।",
+    "अब तिम्रो अरु के कुरा गर्नु तिमी छेउमा हुँदा मलाई स्वर्गको अनुभव दिलाउने खालकी छौ। 💕"
+  ];
 
   return (
     <AnimatePresence>
       {!isExiting && (
         <motion.div
-          className="fixed inset-0 z-[100] bg-gradient-to-br from-rose-950 via-pink-950 to-purple-950 flex items-center justify-center overflow-hidden"
+          className="fixed inset-0 z-[100] bg-gradient-to-br from-rose-950 via-pink-950 to-purple-950 overflow-y-auto"
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, scale: 1.1 }}
-          transition={{ duration: 1 }}
+          transition={{ duration: 0.8 }}
         >
           {/* Animated Stars Background */}
-          <div className="absolute inset-0 overflow-hidden">
-            {[...Array(50)].map((_, i) => (
+          <div className="fixed inset-0 overflow-hidden pointer-events-none">
+            {[...Array(40)].map((_, i) => (
               <motion.div
                 key={i}
                 className="absolute w-1 h-1 bg-white rounded-full"
@@ -69,18 +69,18 @@ export const NepaliPoemLanding = ({ onEnter }: NepaliPoemLandingProps) => {
           </div>
 
           {/* Floating Hearts */}
-          <div className="absolute inset-0 pointer-events-none">
-            {[...Array(15)].map((_, i) => (
+          <div className="fixed inset-0 pointer-events-none">
+            {[...Array(10)].map((_, i) => (
               <motion.div
                 key={i}
-                className="absolute text-2xl opacity-30"
+                className="absolute text-xl opacity-20"
                 style={{
                   left: `${Math.random() * 100}%`,
                 }}
                 initial={{ y: "100vh", rotate: 0 }}
                 animate={{ y: "-100vh", rotate: 360 }}
                 transition={{
-                  duration: 10 + Math.random() * 10,
+                  duration: 15 + Math.random() * 10,
                   repeat: Infinity,
                   delay: Math.random() * 5,
                   ease: "linear",
@@ -92,61 +92,54 @@ export const NepaliPoemLanding = ({ onEnter }: NepaliPoemLandingProps) => {
           </div>
 
           {/* Main Content */}
-          <motion.div
-            className="relative z-10 max-w-2xl mx-auto px-6 text-center"
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 1 }}
-          >
+          <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-8">
             {/* Title */}
             <motion.div
-              className="mb-8"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
+              className="text-center mb-6"
+              initial={{ opacity: 0, y: -30 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3 }}
             >
               <motion.div
-                className="inline-flex items-center gap-2 mb-4"
+                className="inline-flex items-center gap-2 mb-3"
                 animate={{ y: [0, -5, 0] }}
                 transition={{ duration: 2, repeat: Infinity }}
               >
-                <Heart className="w-8 h-8 text-rose-400 fill-rose-400" />
-                <Sparkles className="w-6 h-6 text-pink-400" />
-                <Heart className="w-8 h-8 text-rose-400 fill-rose-400" />
+                <Heart className="w-6 h-6 text-rose-400 fill-rose-400" />
+                <Sparkles className="w-5 h-5 text-pink-400" />
+                <Heart className="w-6 h-6 text-rose-400 fill-rose-400" />
               </motion.div>
-              <h1 className="text-4xl md:text-5xl font-serif text-transparent bg-clip-text bg-gradient-to-r from-rose-300 via-pink-300 to-purple-300">
+              <h1 className="text-2xl md:text-4xl font-serif text-transparent bg-clip-text bg-gradient-to-r from-rose-300 via-pink-300 to-purple-300">
                 For My Dearest Puntuu
               </h1>
-              <p className="text-rose-300/70 mt-2 font-serif italic">
+              <p className="text-rose-300/60 mt-1 text-sm font-serif italic">
                 A Valentine's Week Journey of Love 💕
               </p>
             </motion.div>
 
             {/* Nepali Poem */}
             <motion.div
-              className="backdrop-blur-xl bg-white/10 border border-white/20 rounded-3xl p-8 shadow-2xl mb-8"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8 }}
+              className="backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl p-5 shadow-2xl mb-6 max-w-lg w-full"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.5 }}
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent rounded-3xl pointer-events-none" />
-              
               <motion.div
-                className="text-3xl mb-4"
+                className="text-2xl mb-3 text-center"
                 animate={{ rotate: [0, 5, -5, 0] }}
                 transition={{ duration: 3, repeat: Infinity }}
               >
                 📜✨
               </motion.div>
 
-              <div className="space-y-3 text-rose-200 font-serif">
+              <div className="space-y-1 text-rose-200 font-serif text-center">
                 {poemLines.map((line, index) => (
-                  <motion.p
+              <motion.p
                     key={index}
-                    className={`text-lg md:text-xl ${line === '' ? 'h-2' : ''}`}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 1 + index * 0.15 }}
+                    className={`text-sm md:text-base ${line === '' ? 'h-2' : ''}`}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.5 + index * 0.05 }}
                   >
                     {line}
                   </motion.p>
@@ -154,13 +147,13 @@ export const NepaliPoemLanding = ({ onEnter }: NepaliPoemLandingProps) => {
               </div>
             </motion.div>
 
-            {/* Enter Button */}
+            {/* Enter Button - Appears quickly */}
             <motion.button
               onClick={handleEnter}
-              className="relative group px-8 py-4 bg-gradient-to-r from-rose-500 via-pink-500 to-purple-500 rounded-full text-white font-serif text-xl shadow-2xl overflow-hidden"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 3 }}
+              className="relative group px-8 py-4 bg-gradient-to-r from-rose-500 via-pink-500 to-purple-500 rounded-full text-white font-serif text-lg shadow-2xl overflow-hidden"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.5 }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -185,14 +178,14 @@ export const NepaliPoemLanding = ({ onEnter }: NepaliPoemLandingProps) => {
 
             {/* Hint */}
             <motion.p
-              className="text-rose-300/50 text-sm mt-6"
+              className="text-rose-300/40 text-xs mt-4 text-center"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 4 }}
+              transition={{ delay: 2 }}
             >
               ✨ 7 Days • 7 Surprises • 1 Forever Love ✨
             </motion.p>
-          </motion.div>
+          </div>
         </motion.div>
       )}
     </AnimatePresence>
