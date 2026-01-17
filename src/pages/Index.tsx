@@ -24,6 +24,7 @@ import { NepaliPoemLanding } from "@/components/valentine/NepaliPoemLanding";
 import { DressUpGame } from "@/components/valentine/DressUpGame";
 import { LoveQuiz } from "@/components/valentine/LoveQuiz";
 import { WishingWell } from "@/components/valentine/WishingWell";
+import { RelationshipCountdown } from "@/components/valentine/RelationshipCountdown";
 import { 
   ShakeHeartsExplosion, 
   KonamiSecret, 
@@ -541,7 +542,7 @@ const KissDayContent = () => {
 
 const ValentineDayContent = () => {
   const [triggerConfetti, setTriggerConfetti] = useState(false);
-  const [activeSection, setActiveSection] = useState<'gallery' | 'letters' | 'letter' | 'game' | 'quiz' | 'wishes'>('gallery');
+  const [activeSection, setActiveSection] = useState<'gallery' | 'letters' | 'letter' | 'game' | 'quiz' | 'wishes' | 'journey' | 'soulmate'>('gallery');
   
   useEffect(() => {
     setTriggerConfetti(true);
@@ -583,6 +584,8 @@ const ValentineDayContent = () => {
             { key: 'letter', label: 'Final Letter', emoji: '❤️' },
             { key: 'quiz', label: 'Love Quiz', emoji: '💕' },
             { key: 'wishes', label: 'Our Wishes', emoji: '🌟' },
+            { key: 'journey', label: 'Our Journey', emoji: '⏱️' },
+            { key: 'soulmate', label: 'Soulmate', emoji: '💫' },
             { key: 'game', label: 'Date Night', emoji: '👗' },
           ].map((tab) => (
             <motion.button
@@ -678,6 +681,91 @@ const ValentineDayContent = () => {
           >
             <GlassCard className="p-6">
               <WishingWell />
+            </GlassCard>
+          </motion.div>
+        )}
+
+        {activeSection === 'journey' && (
+          <motion.div
+            key="journey"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+          >
+            <GlassCard className="p-4 sm:p-6">
+              <RelationshipCountdown />
+            </GlassCard>
+          </motion.div>
+        )}
+
+        {activeSection === 'soulmate' && (
+          <motion.div
+            key="soulmate"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+          >
+            <GlassCard className="p-4 sm:p-6">
+              <div className="space-y-4">
+                <div className="text-center">
+                  <motion.h3
+                    className="text-base sm:text-lg font-serif text-rose-300 flex items-center justify-center gap-2"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                  >
+                    <Sparkles className="w-4 h-4 text-yellow-400" />
+                    I Want to Know You
+                    <Sparkles className="w-4 h-4 text-yellow-400" />
+                  </motion.h3>
+                  <p className="text-white/50 text-[10px] sm:text-xs mt-1">A letter to my soulmate 💫</p>
+                </div>
+                
+                <motion.div 
+                  className="bg-gradient-to-br from-rose-500/10 to-purple-500/10 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-white/10"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                >
+                  <p className="text-white/90 font-serif leading-relaxed text-xs sm:text-sm md:text-base whitespace-pre-line">
+{`I want to know your favourite flower and your favourite season. I want to know about your family and all about your childhood. I want to know your colour and your favourite movie, your favourite music, and your favourite food.
+
+I want to know what keeps you up at night and what makes you angry. I want to know what makes you happiest and what you love to do. I want to know your dreams and desires, your goals and aspirations. I want to know what made you.
+
+I want to know you.
+
+I want to know the small, hidden pieces of you, the parts you don't show to anyone. How your heart beats when you're afraid, the little joys that make you smile, the thoughts you never share.
+
+I wonder what comforts you when the world feels too heavy, what unsettles you when no one is watching. I want to understand all of you as if cradling your soul without touching it.
+
+I want to know the ways you ache, the ways you hope, the tiny corners of yourself you keep locked away, and still love you fully, completely, for everything you are, in the way no one ever has.`}
+                  </p>
+                  
+                  <motion.p 
+                    className="text-right text-rose-400 font-serif italic text-sm sm:text-base mt-4"
+                    animate={{ opacity: [0.7, 1, 0.7] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  >
+                    I love you so much 😙❤️
+                  </motion.p>
+                </motion.div>
+                
+                <motion.div 
+                  className="text-center pt-2"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.5 }}
+                >
+                  <motion.div
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 rounded-full"
+                    animate={{ scale: [1, 1.02, 1] }}
+                    transition={{ duration: 3, repeat: Infinity }}
+                  >
+                    <Heart className="w-4 h-4 text-rose-400 fill-rose-400" />
+                    <span className="text-white/60 text-xs sm:text-sm font-serif">Forever Yours, Puntuu</span>
+                    <Heart className="w-4 h-4 text-rose-400 fill-rose-400" />
+                  </motion.div>
+                </motion.div>
+              </div>
             </GlassCard>
           </motion.div>
         )}
