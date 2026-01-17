@@ -83,19 +83,19 @@ export const WishingWell = () => {
   const customWishes = wishes.filter(w => !presetWishes.includes(w));
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-4 sm:space-y-5">
       {/* Header */}
       <div className="text-center">
         <motion.h3
-          className="text-xl font-serif text-rose-300 flex items-center justify-center gap-2"
+          className="text-base sm:text-xl font-serif text-rose-300 flex items-center justify-center gap-1 sm:gap-2"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
         >
-          <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" />
-          Our Wishing Well
-          <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+          <Star className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400 fill-yellow-400" />
+          <span className="px-1">Our Wishing Well</span>
+          <Star className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400 fill-yellow-400" />
         </motion.h3>
-        <p className="text-white/50 text-sm mt-1">
+        <p className="text-white/50 text-xs sm:text-sm mt-1">
           Make wishes for our future together 💫
         </p>
       </div>
@@ -146,14 +146,14 @@ export const WishingWell = () => {
         )}
       </AnimatePresence>
 
-      {/* Preset wishes */}
-      <div className="grid grid-cols-2 gap-2">
+      {/* Preset wishes - Responsive grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 sm:gap-2 max-h-48 sm:max-h-none overflow-y-auto">
         {presetWishes.map((wish, index) => (
           <motion.button
             key={wish}
             onClick={() => makeWish(wish)}
             disabled={wishes.includes(wish)}
-            className={`p-3 rounded-xl text-xs text-left transition-all ${
+            className={`p-2.5 sm:p-3 rounded-lg sm:rounded-xl text-[11px] sm:text-xs text-left transition-all ${
               wishes.includes(wish)
                 ? 'bg-rose-500/20 border-rose-400/50 text-rose-300'
                 : 'bg-white/5 border-white/10 text-white/70 hover:bg-white/10'
@@ -177,12 +177,12 @@ export const WishingWell = () => {
           value={customWish}
           onChange={(e) => setCustomWish(e.target.value)}
           placeholder="Add your own wish..."
-          className="flex-1 px-4 py-2 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/40 text-sm focus:outline-none focus:border-rose-400"
+          className="flex-1 px-3 sm:px-4 py-2 bg-white/10 border border-white/20 rounded-lg sm:rounded-xl text-white placeholder-white/40 text-xs sm:text-sm focus:outline-none focus:border-rose-400"
           onKeyDown={(e) => e.key === 'Enter' && addCustomWish()}
         />
         <motion.button
           onClick={addCustomWish}
-          className="px-4 py-2 bg-gradient-to-r from-rose-500 to-pink-500 rounded-xl text-white text-sm font-medium"
+          className="px-3 sm:px-4 py-2 bg-gradient-to-r from-rose-500 to-pink-500 rounded-lg sm:rounded-xl text-white text-xs sm:text-sm font-medium whitespace-nowrap"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
