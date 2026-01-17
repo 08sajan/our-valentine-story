@@ -154,7 +154,7 @@ const memoriesData = [
 // Glassmorphism Container
 const GlassCard = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
   <motion.div
-    className={`relative backdrop-blur-xl bg-white/10 border border-white/20 rounded-3xl shadow-2xl overflow-hidden ${className}`}
+    className={`relative backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden ${className}`}
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.6 }}
@@ -574,30 +574,32 @@ const ValentineDayContent = () => {
         </p>
       </GlassCard>
 
-      {/* Navigation Tabs */}
-      <div className="flex flex-wrap justify-center gap-2">
-        {[
-          { key: 'gallery', label: 'Memories', emoji: '📸' },
-          { key: 'letters', label: '10 Letters', emoji: '💌' },
-          { key: 'letter', label: 'Final Letter', emoji: '❤️' },
-          { key: 'quiz', label: 'Love Quiz', emoji: '💕' },
-          { key: 'wishes', label: 'Our Wishes', emoji: '🌟' },
-          { key: 'game', label: 'Date Night', emoji: '👗' },
-        ].map((tab) => (
-          <motion.button
-            key={tab.key}
-            onClick={() => setActiveSection(tab.key as typeof activeSection)}
-            className={`px-3 py-2 rounded-full font-medium text-xs ${
-              activeSection === tab.key 
-                ? "bg-white/30 text-white" 
-                : "bg-white/10 text-white/70"
-            }`}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            {tab.emoji} {tab.label}
-          </motion.button>
-        ))}
+      {/* Navigation Tabs - Responsive */}
+      <div className="overflow-x-auto pb-2 -mx-2 px-2">
+        <div className="flex justify-start sm:justify-center gap-1.5 sm:gap-2 min-w-max sm:min-w-0 sm:flex-wrap">
+          {[
+            { key: 'gallery', label: 'Memories', emoji: '📸' },
+            { key: 'letters', label: '10 Letters', emoji: '💌' },
+            { key: 'letter', label: 'Final Letter', emoji: '❤️' },
+            { key: 'quiz', label: 'Love Quiz', emoji: '💕' },
+            { key: 'wishes', label: 'Our Wishes', emoji: '🌟' },
+            { key: 'game', label: 'Date Night', emoji: '👗' },
+          ].map((tab) => (
+            <motion.button
+              key={tab.key}
+              onClick={() => setActiveSection(tab.key as typeof activeSection)}
+              className={`px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-full font-medium text-[10px] sm:text-xs whitespace-nowrap transition-all ${
+                activeSection === tab.key 
+                  ? "bg-white/30 text-white shadow-lg" 
+                  : "bg-white/10 text-white/70"
+              }`}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {tab.emoji} {tab.label}
+            </motion.button>
+          ))}
+        </div>
       </div>
 
       {/* Content Sections */}
@@ -759,21 +761,21 @@ const DayNavCard = ({
   <motion.button
     onClick={onClick}
     disabled={!isUnlocked}
-    className={`relative flex flex-col items-center justify-center p-3 rounded-2xl transition-all min-w-[68px] backdrop-blur-md ${
+    className={`relative flex flex-col items-center justify-center p-2 sm:p-3 rounded-xl sm:rounded-2xl transition-all min-w-[56px] sm:min-w-[68px] backdrop-blur-md flex-shrink-0 ${
       isUnlocked 
         ? `bg-gradient-to-br ${day.gradient} text-white shadow-lg hover:shadow-xl cursor-pointer` 
         : "bg-white/10 text-white/40 cursor-not-allowed"
-    } ${isActive ? "ring-2 ring-white/60 scale-110" : ""}`}
+    } ${isActive ? "ring-2 ring-white/60 scale-105 sm:scale-110" : ""}`}
     whileHover={isUnlocked ? { scale: 1.1 } : {}}
     whileTap={isUnlocked ? { scale: 0.95 } : {}}
   >
-    <span className="text-2xl">{isUnlocked ? day.emoji : "🔒"}</span>
-    <span className="text-[10px] mt-1 font-medium opacity-90">
+    <span className="text-xl sm:text-2xl">{isUnlocked ? day.emoji : "🔒"}</span>
+    <span className="text-[9px] sm:text-[10px] mt-0.5 sm:mt-1 font-medium opacity-90">
       {day.name.split(" ")[0]}
     </span>
     {isActive && (
       <motion.div
-        className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-white rounded-full"
+        className="absolute -bottom-0.5 sm:-bottom-1 left-1/2 transform -translate-x-1/2 w-1.5 sm:w-2 h-1.5 sm:h-2 bg-white rounded-full"
         layoutId="activeIndicator"
       />
     )}
@@ -884,9 +886,9 @@ const Index = () => {
         )}
       </header>
       
-      {/* Day Navigation */}
-      <nav className="relative z-20 px-4 pb-4">
-        <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide justify-center">
+      {/* Day Navigation - Responsive scroll */}
+      <nav className="relative z-20 px-2 sm:px-4 pb-4">
+        <div className="flex gap-1.5 sm:gap-2 overflow-x-auto pb-2 scrollbar-hide sm:justify-center">
           {valentineDays.map((day, index) => (
             <DayNavCard
               key={index}
@@ -900,25 +902,25 @@ const Index = () => {
       </nav>
       
       {/* Main Content */}
-      <main className="relative z-10 px-4 py-6 pb-24">
+      <main className="relative z-10 px-3 sm:px-4 py-4 sm:py-6 pb-20 sm:pb-24">
         {/* Day Title */}
         <motion.div 
-          className="text-center mb-8"
+          className="text-center mb-4 sm:mb-8"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           key={currentDay}
         >
           <motion.span
-            className="text-6xl block mb-2 drop-shadow-lg"
+            className="text-4xl sm:text-6xl block mb-1 sm:mb-2 drop-shadow-lg"
             animate={{ rotate: [0, 10, -10, 0] }}
             transition={{ duration: 3, repeat: Infinity }}
           >
             {currentDayData.emoji}
           </motion.span>
-          <h1 className={`text-4xl font-serif bg-gradient-to-r ${currentDayData.gradient} bg-clip-text text-transparent drop-shadow-lg`}>
+          <h1 className={`text-2xl sm:text-4xl font-serif bg-gradient-to-r ${currentDayData.gradient} bg-clip-text text-transparent drop-shadow-lg`}>
             {currentDayData.name}
           </h1>
-          <p className="text-white/60 text-sm mt-2">
+          <p className="text-white/60 text-xs sm:text-sm mt-1 sm:mt-2">
             {currentDayData.date.toLocaleDateString('en-US', { 
               weekday: 'long',
               month: 'long', 

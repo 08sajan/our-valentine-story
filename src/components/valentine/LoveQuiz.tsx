@@ -142,19 +142,19 @@ export const LoveQuiz = () => {
   const isCorrect = selectedAnswer === currentQ.correctAnswer;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Header */}
       <div className="text-center">
         <motion.h3
-          className="text-xl font-serif text-rose-300 flex items-center justify-center gap-2"
+          className="text-base sm:text-xl font-serif text-rose-300 flex items-center justify-center gap-1 sm:gap-2"
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          <Heart className="w-5 h-5 fill-rose-400 text-rose-400" />
-          How Well Do You Know Our Love?
-          <Heart className="w-5 h-5 fill-rose-400 text-rose-400" />
+          <Heart className="w-4 h-4 sm:w-5 sm:h-5 fill-rose-400 text-rose-400" />
+          <span className="px-1">How Well Do You Know Our Love?</span>
+          <Heart className="w-4 h-4 sm:w-5 sm:h-5 fill-rose-400 text-rose-400" />
         </motion.h3>
-        <p className="text-white/50 text-xs mt-1">12 questions about us 💕</p>
+        <p className="text-white/50 text-[10px] sm:text-xs mt-1">12 questions about us 💕</p>
       </div>
 
       {!isComplete ? (
@@ -179,28 +179,28 @@ export const LoveQuiz = () => {
           <AnimatePresence mode="wait">
             <motion.div
               key={currentQuestion}
-              className="bg-white/10 backdrop-blur-xl rounded-2xl p-5 border border-white/20"
+              className="bg-white/10 backdrop-blur-xl rounded-xl sm:rounded-2xl p-4 sm:p-5 border border-white/20"
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -50 }}
               transition={{ type: "spring", damping: 20 }}
             >
-              <p className="text-white/50 text-sm mb-2">
+              <p className="text-white/50 text-xs sm:text-sm mb-2">
                 Question {currentQuestion + 1} of {questions.length}
               </p>
               
-              <h4 className="text-lg text-white font-medium mb-5">
+              <h4 className="text-sm sm:text-lg text-white font-medium mb-3 sm:mb-5">
                 {currentQ.question}
               </h4>
 
               {/* Options */}
-              <div className="space-y-3">
+              <div className="space-y-2 sm:space-y-3">
                 {currentQ.options.map((option, index) => (
                   <motion.button
                     key={index}
                     onClick={() => !showResult && handleAnswer(index)}
                     disabled={showResult}
-                    className={`w-full p-3 rounded-xl text-left transition-all ${
+                    className={`w-full p-2.5 sm:p-3 rounded-lg sm:rounded-xl text-left transition-all text-xs sm:text-sm ${
                       showResult && index === currentQ.correctAnswer
                         ? 'bg-green-500/30 border-green-400 text-green-200'
                         : showResult && index === selectedAnswer && !isCorrect
@@ -213,7 +213,7 @@ export const LoveQuiz = () => {
                     whileTap={!showResult ? { scale: 0.98 } : {}}
                   >
                     <span className="flex items-center gap-2">
-                      <span className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center text-sm">
+                      <span className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-white/10 flex items-center justify-center text-xs sm:text-sm flex-shrink-0">
                         {String.fromCharCode(65 + index)}
                       </span>
                       {option}
