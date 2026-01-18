@@ -937,7 +937,21 @@ const Index = () => {
   }
   
   return (
-    <div className={`min-h-screen bg-gradient-to-br ${currentDayData.bgGradient} transition-all duration-1000`}>
+    <div 
+      className={`relative bg-gradient-to-br ${currentDayData.bgGradient} transition-all duration-1000`}
+      style={{
+        minHeight: '100dvh',
+        width: '100%',
+        maxWidth: '100vw',
+        overflowX: 'hidden',
+      }}
+    >
+      {/* Full-screen gradient overlay to prevent white gaps */}
+      <div 
+        className={`fixed inset-0 bg-gradient-to-br ${currentDayData.bgGradient} -z-10`}
+        style={{ width: '100vw', height: '100vh' }}
+      />
+      
       {/* Global Effects */}
       <HeartCursor />
       <ParallaxStars />
