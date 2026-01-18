@@ -227,18 +227,29 @@ export const LetterGallery = () => {
         )}
       </AnimatePresence>
 
-      {/* FULL PAGE Letter View - Like Final Letter */}
+      {/* FULL PAGE Letter View - Mobile Optimized */}
       <AnimatePresence>
         {currentLetter && (
           <motion.div
-            className="fixed inset-0 z-[9999] bg-gradient-to-br from-rose-950 via-black to-purple-950"
+            className="fixed inset-0 z-[9999] flex flex-col"
+            style={{ 
+              height: '100dvh',
+              width: '100vw',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+            }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
+            {/* Full background - no gaps */}
+            <div className="absolute inset-0 bg-gradient-to-br from-rose-950 via-black to-purple-950" />
+            
             {/* Fixed Header */}
-            <div className="fixed top-0 left-0 right-0 z-50 bg-black/50 backdrop-blur-md border-b border-white/10 safe-area-inset-top">
-              <div className="flex items-center justify-between p-3 sm:p-4">
+            <div className="relative z-50 flex-shrink-0 bg-black/70 backdrop-blur-md border-b border-white/10">
+              <div className="flex items-center justify-between p-3 pt-[max(0.75rem,env(safe-area-inset-top))]">
                 <motion.button
                   onClick={closeLetter}
                   className="flex items-center gap-2 px-3 py-2 bg-white/10 hover:bg-white/20 rounded-full text-white transition-all"
@@ -249,7 +260,7 @@ export const LetterGallery = () => {
                 </motion.button>
                 
                 <div className="text-center">
-                  <p className="text-white/60 text-xs">Letter {currentIndex + 1} of {letters.length}</p>
+                  <p className="text-white/80 text-xs font-medium">Letter {currentIndex + 1} of {letters.length}</p>
                 </div>
                 
                 <motion.button
@@ -262,32 +273,32 @@ export const LetterGallery = () => {
               </div>
             </div>
 
-            {/* Scrollable Letter Content */}
-            <div className="absolute inset-0 pt-16 pb-24 overflow-y-auto">
-              <div className="min-h-full flex flex-col items-center justify-start p-4 sm:p-6">
+            {/* Scrollable Letter Content - Takes remaining space */}
+            <div className="relative z-10 flex-1 overflow-y-auto overflow-x-hidden">
+              <div className="min-h-full p-4 pb-6">
                 <motion.div
                   key={currentLetter.id}
-                  className="w-full max-w-2xl"
+                  className="w-full max-w-2xl mx-auto"
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -30 }}
                   transition={{ type: "spring", damping: 25 }}
                 >
                   {/* Letter Card */}
-                  <div className="bg-gradient-to-br from-amber-50/95 via-white/95 to-rose-50/95 rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden">
+                  <div className="bg-gradient-to-br from-amber-50 via-white to-rose-50 rounded-2xl shadow-2xl overflow-hidden">
                     {/* Letter Header with Seal */}
-                    <div className="relative bg-gradient-to-r from-rose-100 to-amber-100 p-4 sm:p-6 text-center border-b border-rose-200">
+                    <div className="relative bg-gradient-to-r from-rose-100 to-amber-100 p-4 text-center border-b border-rose-200">
                       <motion.div
-                        className={`w-14 h-14 sm:w-16 sm:h-16 mx-auto rounded-full bg-gradient-to-br ${currentLetter.sealColor} shadow-xl flex items-center justify-center border-4 border-white`}
+                        className={`w-14 h-14 mx-auto rounded-full bg-gradient-to-br ${currentLetter.sealColor} shadow-xl flex items-center justify-center border-4 border-white`}
                         initial={{ scale: 0, rotate: -180 }}
                         animate={{ scale: 1, rotate: 0 }}
                         transition={{ delay: 0.2, type: "spring" }}
                       >
-                        <span className="text-2xl sm:text-3xl">{currentLetter.emoji}</span>
+                        <span className="text-2xl">{currentLetter.emoji}</span>
                       </motion.div>
                       
                       <motion.h2
-                        className="mt-3 text-xl sm:text-2xl font-serif text-rose-700 font-bold"
+                        className="mt-3 text-xl font-serif text-rose-700 font-bold"
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.3 }}
@@ -297,42 +308,38 @@ export const LetterGallery = () => {
                     </div>
 
                     {/* Letter Body */}
-                    <div className="p-5 sm:p-8">
+                    <div className="p-4 sm:p-6">
                       <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.4 }}
                       >
-                        <p className="text-gray-700 font-serif text-sm sm:text-base md:text-lg leading-relaxed sm:leading-loose whitespace-pre-line">
+                        <p className="text-gray-700 font-serif text-sm sm:text-base leading-relaxed whitespace-pre-line">
                           {currentLetter.content}
                         </p>
                       </motion.div>
 
                       {/* Signature */}
                       <motion.div 
-                        className="mt-6 sm:mt-8 pt-4 border-t border-rose-200 text-right"
+                        className="mt-6 pt-4 border-t border-rose-200 text-right"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.6 }}
                       >
-                        <p className="text-rose-500 font-serif italic text-base sm:text-lg flex items-center justify-end gap-2">
+                        <p className="text-rose-500 font-serif italic text-base flex items-center justify-end gap-2">
                           With all my love
-                          <Heart className="w-4 h-4 sm:w-5 sm:h-5 fill-rose-500 text-rose-500" />
+                          <Heart className="w-4 h-4 fill-rose-500 text-rose-500" />
                         </p>
                       </motion.div>
                     </div>
-
-                    {/* Decorative corners */}
-                    <div className="absolute top-2 left-2 w-6 h-6 border-l-2 border-t-2 border-rose-300/50 rounded-tl-lg" />
-                    <div className="absolute top-2 right-2 w-6 h-6 border-r-2 border-t-2 border-rose-300/50 rounded-tr-lg" />
                   </div>
                 </motion.div>
               </div>
             </div>
 
             {/* Fixed Bottom Navigation */}
-            <div className="fixed bottom-0 left-0 right-0 z-50 bg-black/50 backdrop-blur-md border-t border-white/10 safe-area-inset-bottom">
-              <div className="p-3 sm:p-4">
+            <div className="relative z-50 flex-shrink-0 bg-black/70 backdrop-blur-md border-t border-white/10">
+              <div className="p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
                 {/* Letter indicators */}
                 <div className="flex justify-center gap-1.5 mb-3">
                   {letters.map((_, i) => (
