@@ -39,6 +39,11 @@ import memory3 from "@/assets/memories/memory-3.png";
 import memory4 from "@/assets/memories/memory-4.png";
 import memory5 from "@/assets/memories/memory-5.png";
 import memory6 from "@/assets/memories/memory-6.png";
+import memory7 from "@/assets/memories/memory-7.jpg";
+import memory8 from "@/assets/memories/memory-8.jpg";
+import memory9 from "@/assets/memories/memory-9.jpg";
+import memory10 from "@/assets/memories/memory-10.jpg";
+import memory11 from "@/assets/memories/memory-11.jpg";
 import proposalPhoto from "@/assets/proposal-photo.jpg";
 
 // Valentine's Week Days Configuration
@@ -150,19 +155,29 @@ const memoriesData = [
   { url: memory4, caption: "Peaceful dreams, my love 🌙" },
   { url: memory5, caption: "That smile that makes my day ✨" },
   { url: memory6, caption: "Missing you every second 💕" },
+  { url: memory7, caption: "Beautiful like a flower garden 🌺" },
+  { url: memory8, caption: "That innocent smile I fell for 🥰" },
+  { url: memory9, caption: "My gorgeous girl 💖" },
+  { url: memory10, caption: "So proud of my graduate! 🎓" },
+  { url: memory11, caption: "Traditional beauty that melts my heart ❤️" },
 ];
 
-// Glassmorphism Container
+// Glassmorphism Container - Fixed to prevent overflow
 const GlassCard = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
   <motion.div
-    className={`relative backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden ${className}`}
+    className={`relative backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl sm:rounded-3xl shadow-2xl ${className}`}
+    style={{
+      overflow: 'hidden',
+      maxWidth: '100%',
+      width: '100%',
+    }}
     initial={{ opacity: 0, y: 20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.6 }}
   >
     {/* Glass shine effect */}
     <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-transparent pointer-events-none" />
-    <div className="relative z-10">{children}</div>
+    <div className="relative z-10 overflow-hidden">{children}</div>
   </motion.div>
 );
 
@@ -551,7 +566,7 @@ const ValentineDayContent = () => {
   }, []);
   
   return (
-    <div className="space-y-6 sm:space-y-8">
+    <div className="space-y-6 sm:space-y-8 w-full max-w-full overflow-hidden">
       {/* Confetti */}
       <ConfettiCannon trigger={triggerConfetti} />
       
@@ -567,17 +582,17 @@ const ValentineDayContent = () => {
         >
           💕
         </motion.div>
-        <h2 className="text-2xl sm:text-4xl font-serif text-pink-300 mb-1 sm:mb-2">
+        <h2 className="text-xl sm:text-4xl font-serif text-pink-300 mb-1 sm:mb-2 break-words">
           Happy Valentine's Day
         </h2>
-        <p className="text-xl sm:text-3xl font-serif text-white">
+        <p className="text-lg sm:text-3xl font-serif text-white break-words">
           My Dearest Puntuu 💝
         </p>
       </GlassCard>
 
-      {/* Navigation Tabs - Responsive */}
-      <div className="overflow-x-auto pb-2 -mx-2 px-2">
-        <div className="flex justify-start sm:justify-center gap-1.5 sm:gap-2 min-w-max sm:min-w-0 sm:flex-wrap">
+      {/* Navigation Tabs - Responsive with proper scrolling */}
+      <div className="w-full overflow-x-auto pb-2 scrollbar-hide">
+        <div className="flex gap-1.5 sm:gap-2 px-1 min-w-max">
           {[
             { key: 'gallery', label: 'Memories', emoji: '📸' },
             { key: 'letters', label: '10 Letters', emoji: '💌' },
@@ -941,18 +956,25 @@ const Index = () => {
       className={`relative bg-gradient-to-br ${currentDayData.bgGradient} transition-all duration-1000`}
       style={{
         minHeight: '100dvh',
-        width: '100%',
+        width: '100vw',
         maxWidth: '100vw',
         overflowX: 'hidden',
+        overflowY: 'auto',
+        position: 'relative',
       }}
     >
       {/* Full-screen gradient overlay to prevent white gaps */}
       <div 
-        className={`fixed inset-0 bg-gradient-to-br ${currentDayData.bgGradient} -z-10`}
+        className={`fixed bg-gradient-to-br ${currentDayData.bgGradient}`}
         style={{ 
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
           width: '100vw', 
-          height: '100dvh',
-          minHeight: '100vh',
+          height: '100vh',
+          minHeight: '100dvh',
+          zIndex: -10,
         }}
       />
       
@@ -1008,7 +1030,7 @@ const Index = () => {
       </nav>
       
       {/* Main Content */}
-      <main className="relative z-10 px-3 sm:px-4 py-4 sm:py-6 pb-20 sm:pb-24">
+      <main className="relative z-10 px-3 sm:px-4 py-4 sm:py-6 pb-24 sm:pb-28 w-full max-w-full overflow-x-hidden">
         {/* Day Title */}
         <motion.div 
           className="text-center mb-4 sm:mb-8"
@@ -1053,7 +1075,7 @@ const Index = () => {
           </motion.button>
 
           {/* Content */}
-          <div className="flex-1 mx-4">
+          <div className="flex-1 mx-2 sm:mx-4 min-w-0 overflow-hidden">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentDay}
@@ -1061,7 +1083,7 @@ const Index = () => {
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, y: -20 }}
                 transition={{ duration: 0.5, ease: "easeOut" }}
-                className="max-w-lg mx-auto"
+                className="w-full max-w-lg mx-auto overflow-hidden"
               >
                 {isCurrentDayUnlocked ? (
                   <CurrentDayContent />
