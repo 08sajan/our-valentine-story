@@ -41,6 +41,10 @@ export const NepaliPoemLanding = ({ onEnter }: NepaliPoemLandingProps) => {
       {!isExiting && (
         <motion.div
           className="fixed inset-0 z-[100] bg-gradient-to-br from-rose-950 via-pink-950 to-purple-950 overflow-y-auto"
+          style={{
+            minHeight: '100dvh',
+            width: '100vw',
+          }}
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, scale: 1.1 }}
           transition={{ duration: 0.8 }}
@@ -92,7 +96,10 @@ export const NepaliPoemLanding = ({ onEnter }: NepaliPoemLandingProps) => {
           </div>
 
           {/* Main Content */}
-          <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-8">
+          <div 
+            className="relative z-10 flex flex-col items-center justify-center px-4 py-8"
+            style={{ minHeight: '100dvh' }}
+          >
             {/* Title */}
             <motion.div
               className="text-center mb-6"

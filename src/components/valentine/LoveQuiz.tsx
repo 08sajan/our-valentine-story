@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Heart, Star, Sparkles, HeartCrack } from "lucide-react";
+import { Heart, Star, Sparkles, HeartCrack, Music, PartyPopper } from "lucide-react";
+import ReactDOM from "react-dom";
 
 interface Question {
   id: number;
@@ -97,67 +98,491 @@ const questions: Question[] = [
   }
 ];
 
-// Floating hearts for celebration
-const FloatingHearts = () => (
-  <div className="fixed inset-0 pointer-events-none z-50 overflow-hidden">
-    {[...Array(30)].map((_, i) => (
-      <motion.div
-        key={i}
-        className="absolute text-2xl sm:text-4xl"
-        initial={{ 
-          x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 400),
-          y: (typeof window !== 'undefined' ? window.innerHeight : 800) + 50,
-          rotate: 0,
-          opacity: 1
-        }}
-        animate={{ 
-          y: -100,
-          rotate: Math.random() * 360,
-          opacity: [1, 1, 0]
-        }}
-        transition={{ 
-          duration: 3 + Math.random() * 2,
-          delay: Math.random() * 2,
-          ease: "easeOut"
-        }}
-      >
-        {["💕", "❤️", "💖", "💗", "💝", "🌹", "✨"][Math.floor(Math.random() * 7)]}
-      </motion.div>
-    ))}
-  </div>
-);
+// Massive celebration fullscreen modal
+const CelebrationModal = ({ onClose }: { onClose: () => void }) => {
+  const [showDancers, setShowDancers] = useState(false);
+  
+  useEffect(() => {
+    setTimeout(() => setShowDancers(true), 500);
+    
+    // Lock scroll
+    document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.inset = '0';
+    document.body.style.width = '100%';
+    
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.inset = '';
+      document.body.style.width = '';
+    };
+  }, []);
 
-// Broken heart animation
-const BrokenHeartAnimation = () => (
-  <div className="fixed inset-0 pointer-events-none z-50 overflow-hidden">
-    {[...Array(15)].map((_, i) => (
+  const content = (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      style={{
+        position: 'fixed',
+        inset: 0,
+        zIndex: 999999,
+        background: 'linear-gradient(135deg, #1a0505 0%, #4a1942 50%, #1a0a2e 100%)',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        overflow: 'hidden',
+      }}
+    >
+      {/* Confetti rain */}
+      {[...Array(60)].map((_, i) => (
+        <motion.div
+          key={i}
+          style={{
+            position: 'absolute',
+            left: `${Math.random() * 100}%`,
+            top: -20,
+            fontSize: `${1 + Math.random() * 1.5}rem`,
+          }}
+          animate={{
+            y: ['0vh', '110vh'],
+            rotate: [0, 720],
+            x: [0, Math.sin(i) * 50],
+          }}
+          transition={{
+            duration: 3 + Math.random() * 3,
+            repeat: Infinity,
+            delay: Math.random() * 3,
+            ease: 'linear',
+          }}
+        >
+          {['🎉', '💕', '❤️', '💖', '🎊', '✨', '💗', '🌹', '🥳', '💝'][i % 10]}
+        </motion.div>
+      ))}
+
+      {/* Spotlight effect */}
       <motion.div
-        key={i}
-        className="absolute text-2xl sm:text-3xl"
-        initial={{ 
-          x: (typeof window !== 'undefined' ? window.innerWidth / 2 : 200),
-          y: (typeof window !== 'undefined' ? window.innerHeight / 2 : 400),
-          scale: 0,
-          opacity: 1
+        style={{
+          position: 'absolute',
+          width: '200%',
+          height: '200%',
+          background: 'radial-gradient(circle at center, rgba(251, 113, 133, 0.3) 0%, transparent 50%)',
         }}
-        animate={{ 
-          x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 400),
-          y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 800),
-          scale: [0, 1.5, 1],
-          opacity: [1, 1, 0],
-          rotate: Math.random() * 360
+        animate={{
+          scale: [1, 1.2, 1],
+          opacity: [0.5, 0.8, 0.5],
         }}
-        transition={{ 
-          duration: 2 + Math.random(),
-          delay: Math.random() * 0.5,
-          ease: "easeOut"
+        transition={{ duration: 2, repeat: Infinity }}
+      />
+
+      {/* Main celebration content */}
+      <motion.div
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        transition={{ type: 'spring', damping: 10, delay: 0.3 }}
+        style={{
+          textAlign: 'center',
+          zIndex: 10,
+          padding: '20px',
         }}
       >
-        💔
+        {/* Giant hearts */}
+        <motion.div
+          animate={{
+            scale: [1, 1.2, 1],
+            rotate: [0, 10, -10, 0],
+          }}
+          transition={{ duration: 1.5, repeat: Infinity }}
+          style={{ fontSize: '6rem', marginBottom: '20px' }}
+        >
+          💕
+        </motion.div>
+
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+          style={{
+            fontSize: 'clamp(2rem, 8vw, 4rem)',
+            fontFamily: 'serif',
+            background: 'linear-gradient(135deg, #fb7185, #f472b6, #c084fc)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            marginBottom: '16px',
+            fontWeight: 'bold',
+          }}
+        >
+          YAAAY! 🎉💖🎉
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8 }}
+          style={{
+            color: 'white',
+            fontSize: 'clamp(1rem, 4vw, 1.5rem)',
+            fontFamily: 'serif',
+            marginBottom: '24px',
+          }}
+        >
+          You just made me the happiest person alive!
+        </motion.p>
+
+        {/* Dancing couple */}
+        <AnimatePresence>
+          {showDancers && (
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '20px',
+                marginBottom: '24px',
+              }}
+            >
+              {/* Dancing figures */}
+              <motion.div
+                animate={{
+                  rotate: [-10, 10, -10],
+                  y: [0, -15, 0],
+                }}
+                transition={{ duration: 0.6, repeat: Infinity }}
+                style={{ fontSize: '4rem' }}
+              >
+                👨‍❤️‍👩
+              </motion.div>
+              
+              <motion.div
+                animate={{
+                  scale: [1, 1.3, 1],
+                }}
+                transition={{ duration: 0.5, repeat: Infinity }}
+                style={{ fontSize: '2rem' }}
+              >
+                💃🕺
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Music notes floating */}
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginBottom: '24px' }}>
+          {['🎵', '🎶', '🎵', '🎶', '🎵'].map((note, i) => (
+            <motion.span
+              key={i}
+              animate={{
+                y: [0, -20, 0],
+                rotate: [-10, 10, -10],
+                opacity: [0.6, 1, 0.6],
+              }}
+              transition={{
+                duration: 1,
+                repeat: Infinity,
+                delay: i * 0.2,
+              }}
+              style={{ fontSize: '2rem' }}
+            >
+              {note}
+            </motion.span>
+          ))}
+        </div>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.2 }}
+          style={{
+            color: '#fb7185',
+            fontSize: 'clamp(0.9rem, 3vw, 1.2rem)',
+            fontFamily: 'serif',
+            fontStyle: 'italic',
+            marginBottom: '32px',
+          }}
+        >
+          "I promise to love you forever and always, my Puntuu 💕"
+        </motion.p>
+
+        {/* Emoji row */}
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', flexWrap: 'wrap', marginBottom: '32px' }}>
+          {['💕', '❤️', '💖', '💗', '💝', '🌹', '✨', '💐', '🥰', '😘', '🎊', '🎉'].map((emoji, i) => (
+            <motion.span
+              key={i}
+              initial={{ opacity: 0, scale: 0, rotate: -180 }}
+              animate={{ opacity: 1, scale: 1, rotate: 0 }}
+              transition={{ delay: 1.5 + i * 0.1, type: 'spring' }}
+              style={{ fontSize: '2rem' }}
+            >
+              {emoji}
+            </motion.span>
+          ))}
+        </div>
+
+        {/* Close button */}
+        <motion.button
+          onClick={onClose}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 2 }}
+          style={{
+            padding: '16px 40px',
+            background: 'linear-gradient(135deg, #f43f5e, #ec4899)',
+            borderRadius: '9999px',
+            color: 'white',
+            fontWeight: 600,
+            fontSize: '1.1rem',
+            border: 'none',
+            cursor: 'pointer',
+            boxShadow: '0 10px 40px rgba(244, 63, 94, 0.4)',
+          }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <Heart style={{ display: 'inline', marginRight: '8px', fill: 'white' }} size={20} />
+          Continue Celebrating! 🎉
+        </motion.button>
       </motion.div>
-    ))}
-  </div>
-);
+
+      {/* Edge sparkles */}
+      {[...Array(20)].map((_, i) => (
+        <motion.div
+          key={`sparkle-${i}`}
+          style={{
+            position: 'absolute',
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+          }}
+          animate={{
+            scale: [0, 1, 0],
+            opacity: [0, 1, 0],
+          }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            delay: Math.random() * 2,
+          }}
+        >
+          <Sparkles size={20} color="#fbbf24" />
+        </motion.div>
+      ))}
+    </motion.div>
+  );
+
+  return ReactDOM.createPortal(content, document.body);
+};
+
+// Heartbreak fullscreen modal
+const HeartbreakModal = ({ onClose }: { onClose: () => void }) => {
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.inset = '0';
+    document.body.style.width = '100%';
+    
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.inset = '';
+      document.body.style.width = '';
+    };
+  }, []);
+
+  const content = (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      style={{
+        position: 'fixed',
+        inset: 0,
+        zIndex: 999999,
+        background: 'linear-gradient(135deg, #0a0505 0%, #1a0a0a 50%, #0a0510 100%)',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        overflow: 'hidden',
+      }}
+    >
+      {/* Falling broken hearts */}
+      {[...Array(30)].map((_, i) => (
+        <motion.div
+          key={i}
+          style={{
+            position: 'absolute',
+            left: `${Math.random() * 100}%`,
+            top: -20,
+            fontSize: `${1 + Math.random()}rem`,
+          }}
+          animate={{
+            y: ['0vh', '110vh'],
+            rotate: [0, 360],
+            opacity: [1, 0.3],
+          }}
+          transition={{
+            duration: 4 + Math.random() * 3,
+            repeat: Infinity,
+            delay: Math.random() * 2,
+            ease: 'linear',
+          }}
+        >
+          💔
+        </motion.div>
+      ))}
+
+      {/* Rain effect */}
+      {[...Array(40)].map((_, i) => (
+        <motion.div
+          key={`rain-${i}`}
+          style={{
+            position: 'absolute',
+            left: `${Math.random() * 100}%`,
+            top: -10,
+            width: '2px',
+            height: '20px',
+            background: 'rgba(156, 163, 175, 0.3)',
+            borderRadius: '4px',
+          }}
+          animate={{
+            y: ['0vh', '110vh'],
+          }}
+          transition={{
+            duration: 0.8 + Math.random() * 0.5,
+            repeat: Infinity,
+            delay: Math.random() * 2,
+            ease: 'linear',
+          }}
+        />
+      ))}
+
+      {/* Content */}
+      <motion.div
+        initial={{ scale: 0.8 }}
+        animate={{ scale: 1 }}
+        style={{
+          textAlign: 'center',
+          zIndex: 10,
+          padding: '20px',
+        }}
+      >
+        {/* Broken heart icon */}
+        <motion.div
+          animate={{
+            scale: [1, 0.9, 1],
+            opacity: [0.8, 1, 0.8],
+          }}
+          transition={{ duration: 2, repeat: Infinity }}
+          style={{ marginBottom: '24px' }}
+        >
+          <HeartCrack size={120} color="#f87171" style={{ margin: '0 auto' }} />
+        </motion.div>
+
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+          style={{
+            fontSize: 'clamp(1.5rem, 6vw, 2.5rem)',
+            fontFamily: 'serif',
+            color: '#fda4af',
+            marginBottom: '16px',
+          }}
+        >
+          My heart is broken... 💔
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.6 }}
+          style={{
+            color: 'rgba(255,255,255,0.7)',
+            fontSize: 'clamp(0.9rem, 3vw, 1.2rem)',
+            marginBottom: '32px',
+          }}
+        >
+          But I won't give up on us...
+        </motion.p>
+
+        {/* Promise box */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1 }}
+          style={{
+            background: 'rgba(251, 113, 133, 0.1)',
+            border: '1px solid rgba(251, 113, 133, 0.3)',
+            borderRadius: '20px',
+            padding: '24px',
+            maxWidth: '400px',
+            margin: '0 auto 32px',
+          }}
+        >
+          <motion.p
+            animate={{ opacity: [0.7, 1, 0.7] }}
+            transition={{ duration: 2, repeat: Infinity }}
+            style={{
+              color: '#fda4af',
+              fontSize: 'clamp(1rem, 4vw, 1.3rem)',
+              fontFamily: 'serif',
+              fontStyle: 'italic',
+              lineHeight: 1.6,
+            }}
+          >
+            "I will ask you again next year... and every year after that, until you say yes 💕"
+          </motion.p>
+        </motion.div>
+
+        {/* Tear drops */}
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '16px', marginBottom: '32px' }}>
+          {['😢', '🥺', '💔', '🥺', '😢'].map((emoji, i) => (
+            <motion.span
+              key={i}
+              animate={{
+                y: [0, 5, 0],
+                opacity: [0.6, 1, 0.6],
+              }}
+              transition={{
+                duration: 1.5,
+                repeat: Infinity,
+                delay: i * 0.2,
+              }}
+              style={{ fontSize: '2rem' }}
+            >
+              {emoji}
+            </motion.span>
+          ))}
+        </div>
+
+        {/* Try again button */}
+        <motion.button
+          onClick={onClose}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5 }}
+          style={{
+            padding: '16px 40px',
+            background: 'rgba(255,255,255,0.1)',
+            border: '1px solid rgba(255,255,255,0.2)',
+            borderRadius: '9999px',
+            color: 'white',
+            fontWeight: 500,
+            fontSize: '1rem',
+            cursor: 'pointer',
+          }}
+          whileHover={{ scale: 1.05, background: 'rgba(255,255,255,0.15)' }}
+          whileTap={{ scale: 0.95 }}
+        >
+          Maybe reconsider? 🥺
+        </motion.button>
+      </motion.div>
+    </motion.div>
+  );
+
+  return ReactDOM.createPortal(content, document.body);
+};
 
 export const LoveQuiz = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -167,8 +592,8 @@ export const LoveQuiz = () => {
   const [isComplete, setIsComplete] = useState(false);
   const [showValentineQuestion, setShowValentineQuestion] = useState(false);
   const [valentineAnswer, setValentineAnswer] = useState<'yes' | 'no' | null>(null);
-  const [showCelebration, setShowCelebration] = useState(false);
-  const [showHeartbreak, setShowHeartbreak] = useState(false);
+  const [showCelebrationModal, setShowCelebrationModal] = useState(false);
+  const [showHeartbreakModal, setShowHeartbreakModal] = useState(false);
 
   const handleAnswer = (index: number) => {
     setSelectedAnswer(index);
@@ -177,7 +602,6 @@ export const LoveQuiz = () => {
       setScore(prev => prev + 1);
     }
 
-    // Haptic feedback
     if ('vibrate' in navigator) {
       navigator.vibrate(index === questions[currentQuestion].correctAnswer ? [50, 30, 50] : [100]);
     }
@@ -204,11 +628,9 @@ export const LoveQuiz = () => {
     }
 
     if (answer === 'yes') {
-      setShowCelebration(true);
-      setTimeout(() => setShowCelebration(false), 5000);
+      setShowCelebrationModal(true);
     } else {
-      setShowHeartbreak(true);
-      setTimeout(() => setShowHeartbreak(false), 3000);
+      setShowHeartbreakModal(true);
     }
   };
 
@@ -220,6 +642,8 @@ export const LoveQuiz = () => {
     setIsComplete(false);
     setShowValentineQuestion(false);
     setValentineAnswer(null);
+    setShowCelebrationModal(false);
+    setShowHeartbreakModal(false);
   };
 
   const currentQ = questions[currentQuestion];
@@ -227,9 +651,19 @@ export const LoveQuiz = () => {
 
   return (
     <div className="space-y-4 sm:space-y-6">
-      {/* Celebration Effects */}
-      {showCelebration && <FloatingHearts />}
-      {showHeartbreak && <BrokenHeartAnimation />}
+      {/* Celebration Modal */}
+      <AnimatePresence>
+        {showCelebrationModal && (
+          <CelebrationModal onClose={() => setShowCelebrationModal(false)} />
+        )}
+      </AnimatePresence>
+
+      {/* Heartbreak Modal */}
+      <AnimatePresence>
+        {showHeartbreakModal && (
+          <HeartbreakModal onClose={() => setShowHeartbreakModal(false)} />
+        )}
+      </AnimatePresence>
 
       {/* Header */}
       <div className="text-center">
@@ -263,14 +697,11 @@ export const LoveQuiz = () => {
                 transition={{ delay: i * 0.05 }}
               />
             ))}
-            {/* Extra dot for Valentine question */}
             <motion.div
               className="w-3 h-1.5 rounded-full bg-white/20"
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
-            >
-              <span className="sr-only">Valentine Question</span>
-            </motion.div>
+            />
           </div>
 
           {/* Question Card */}
@@ -291,7 +722,6 @@ export const LoveQuiz = () => {
                 {currentQ.question}
               </h4>
 
-              {/* Options */}
               <div className="space-y-2 sm:space-y-3">
                 {currentQ.options.map((option, index) => (
                   <motion.button
@@ -320,7 +750,6 @@ export const LoveQuiz = () => {
                 ))}
               </div>
 
-              {/* Love Note */}
               <AnimatePresence>
                 {showResult && (
                   <motion.div
@@ -342,7 +771,6 @@ export const LoveQuiz = () => {
           </AnimatePresence>
         </>
       ) : isComplete && !showValentineQuestion ? (
-        /* Quiz Results - Before Valentine Question */
         <motion.div
           className="text-center space-y-5"
           initial={{ opacity: 0, scale: 0.9 }}
@@ -401,7 +829,6 @@ export const LoveQuiz = () => {
           </motion.button>
         </motion.div>
       ) : showValentineQuestion && valentineAnswer === null ? (
-        /* Valentine Question */
         <motion.div
           className="text-center space-y-6"
           initial={{ opacity: 0, scale: 0.9 }}
@@ -452,132 +879,33 @@ export const LoveQuiz = () => {
             </motion.button>
           </div>
         </motion.div>
-      ) : valentineAnswer === 'yes' ? (
-        /* Yes Response - Celebration */
-        <motion.div
-          className="text-center space-y-6"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ type: "spring", damping: 10 }}
-        >
-          <motion.div
-            className="text-6xl sm:text-8xl"
-            animate={{ 
-              scale: [1, 1.3, 1],
-              rotate: [0, 360]
-            }}
-            transition={{ duration: 2, repeat: Infinity, repeatType: "reverse" }}
-          >
-            🎉💕🎉
-          </motion.div>
-
-          <motion.h4 
-            className="text-2xl sm:text-3xl md:text-4xl text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-pink-400 to-red-400 font-serif font-bold"
-            animate={{ scale: [1, 1.05, 1] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-          >
-            YAAAY! 🥰💖
-          </motion.h4>
-
-          <motion.p 
-            className="text-white/90 text-base sm:text-lg font-serif"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-          >
-            You just made me the happiest person in the world!
-          </motion.p>
-
-          <motion.p 
-            className="text-rose-300 text-sm sm:text-base"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1 }}
-          >
-            I promise to love you forever and always, Puntuu 💕
-          </motion.p>
-
-          <div className="flex justify-center gap-2 flex-wrap">
-            {["💕", "❤️", "💖", "💗", "💝", "🌹", "✨", "💐", "🥰", "😘"].map((emoji, i) => (
-              <motion.span
-                key={i}
-                className="text-2xl sm:text-3xl"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 * i }}
-              >
-                {emoji}
-              </motion.span>
-            ))}
-          </div>
-
-          <motion.button
-            onClick={resetQuiz}
-            className="px-6 py-2 bg-gradient-to-r from-rose-500 to-pink-500 rounded-full text-white font-medium mt-4"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <Sparkles className="w-4 h-4 inline mr-2" />
-            Play Again
-          </motion.button>
-        </motion.div>
       ) : (
-        /* No Response - Heartbreak */
         <motion.div
           className="text-center space-y-6"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
         >
           <motion.div
-            className="text-6xl sm:text-8xl"
-            animate={{ 
-              scale: [1, 0.9, 1],
-            }}
+            className="text-6xl"
+            animate={{ scale: [1, 1.2, 1] }}
             transition={{ duration: 2, repeat: Infinity }}
           >
-            <HeartCrack className="w-20 h-20 sm:w-28 sm:h-28 mx-auto text-rose-400" />
+            {valentineAnswer === 'yes' ? '💕' : '💔'}
           </motion.div>
-
-          <motion.h4 
-            className="text-xl sm:text-2xl text-rose-300 font-serif"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
-          >
-            My heart is broken... 💔
-          </motion.h4>
-
-          <motion.p 
-            className="text-white/70 text-sm sm:text-base max-w-xs mx-auto"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1 }}
-          >
-            But I won't give up on us...
-          </motion.p>
-
-          <motion.div 
-            className="bg-white/10 rounded-2xl p-4 sm:p-6 border border-rose-500/30 max-w-sm mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.5 }}
-          >
-            <motion.p 
-              className="text-rose-200 text-base sm:text-lg font-serif italic"
-              animate={{ opacity: [0.7, 1, 0.7] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            >
-              "I will ask you again next year... and every year after that, until you say yes 💕"
-            </motion.p>
-          </motion.div>
+          
+          <p className="text-white/70">
+            {valentineAnswer === 'yes' 
+              ? 'Thank you for saying yes! 🥰' 
+              : 'I\'ll wait for you forever 💕'}
+          </p>
 
           <motion.button
             onClick={resetQuiz}
-            className="px-6 py-2 bg-white/10 border border-white/20 rounded-full text-white font-medium mt-4"
+            className="px-6 py-2 bg-gradient-to-r from-rose-500 to-pink-500 rounded-full text-white font-medium"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            Try Again?
+            Play Again
           </motion.button>
         </motion.div>
       )}

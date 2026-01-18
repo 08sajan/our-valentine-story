@@ -551,14 +551,14 @@ const ValentineDayContent = () => {
   }, []);
   
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 sm:space-y-8">
       {/* Confetti */}
       <ConfettiCannon trigger={triggerConfetti} />
       
       {/* Hero */}
-      <GlassCard className="p-8 text-center">
+      <GlassCard className="p-4 sm:p-8 text-center">
         <motion.div
-          className="text-8xl mb-4"
+          className="text-5xl sm:text-8xl mb-2 sm:mb-4"
           animate={{ 
             scale: [1, 1.2, 1],
             rotate: [0, 5, -5, 0]
@@ -567,10 +567,10 @@ const ValentineDayContent = () => {
         >
           💕
         </motion.div>
-        <h2 className="text-4xl font-serif text-pink-300 mb-2">
+        <h2 className="text-2xl sm:text-4xl font-serif text-pink-300 mb-1 sm:mb-2">
           Happy Valentine's Day
         </h2>
-        <p className="text-3xl font-serif text-white">
+        <p className="text-xl sm:text-3xl font-serif text-white">
           My Dearest Puntuu 💝
         </p>
       </GlassCard>
@@ -949,7 +949,11 @@ const Index = () => {
       {/* Full-screen gradient overlay to prevent white gaps */}
       <div 
         className={`fixed inset-0 bg-gradient-to-br ${currentDayData.bgGradient} -z-10`}
-        style={{ width: '100vw', height: '100vh' }}
+        style={{ 
+          width: '100vw', 
+          height: '100dvh',
+          minHeight: '100vh',
+        }}
       />
       
       {/* Global Effects */}
@@ -1085,7 +1089,13 @@ const Index = () => {
       </main>
       
       {/* Footer */}
-      <footer className="fixed bottom-0 left-0 right-0 z-20 text-center py-4 bg-gradient-to-t from-black/50 to-transparent">
+      <footer 
+        className="fixed bottom-0 left-0 right-0 z-20 text-center bg-gradient-to-t from-black/70 via-black/40 to-transparent"
+        style={{ 
+          paddingTop: '16px',
+          paddingBottom: 'max(16px, env(safe-area-inset-bottom))',
+        }}
+      >
         <p className="text-pink-300/80 text-sm font-serif">
           Made with 💕 for my Puntuu
         </p>
