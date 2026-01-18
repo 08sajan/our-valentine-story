@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight, X, Heart, Mail } from "lucide-react";
+import { ChevronLeft, ChevronRight, X, Heart } from "lucide-react";
 
 interface Letter {
   id: number;
@@ -89,6 +89,129 @@ I promise never hurt you. I only want to make you feel safe enough to shine. I l
   }
 ];
 
+// 3D Envelope Component
+const Envelope3D = ({ 
+  letter, 
+  index, 
+  isOpened, 
+  onOpen 
+}: { 
+  letter: Letter; 
+  index: number; 
+  isOpened: boolean; 
+  onOpen: () => void;
+}) => {
+  return (
+    <motion.div
+      className="relative cursor-pointer"
+      style={{ 
+        perspective: "1000px",
+        transformStyle: "preserve-3d"
+      }}
+      initial={{ opacity: 0, rotateY: 180, scale: 0.5 }}
+      animate={{ opacity: 1, rotateY: 0, scale: 1 }}
+      transition={{ delay: index * 0.1, type: "spring", stiffness: 100 }}
+      whileHover={{ 
+        scale: 1.15, 
+        rotateY: 15,
+        rotateX: -10,
+        z: 50,
+      }}
+      whileTap={{ scale: 0.9 }}
+      onClick={onOpen}
+    >
+      <div 
+        className={`
+          relative w-14 h-14 sm:w-16 sm:h-16
+          ${isOpened ? 'opacity-50' : ''}
+        `}
+        style={{
+          transformStyle: "preserve-3d",
+          transform: "rotateX(10deg)",
+        }}
+      >
+        {/* Envelope back */}
+        <div 
+          className="absolute inset-0 bg-gradient-to-br from-amber-200 to-amber-300 rounded-lg"
+          style={{
+            transform: "translateZ(-2px)",
+            boxShadow: "0 8px 30px rgba(0,0,0,0.3)",
+          }}
+        />
+        
+        {/* Envelope front */}
+        <div 
+          className="absolute inset-0 bg-gradient-to-br from-amber-100 via-amber-50 to-amber-100 rounded-lg overflow-hidden"
+          style={{
+            transform: "translateZ(0px)",
+            boxShadow: "inset 0 2px 10px rgba(255,255,255,0.5), 0 4px 20px rgba(0,0,0,0.2)",
+          }}
+        >
+          {/* Envelope flap with 3D effect */}
+          <div 
+            className="absolute top-0 left-0 right-0 h-1/2"
+            style={{
+              background: "linear-gradient(135deg, #fde68a 0%, #fcd34d 50%, #f59e0b 100%)",
+              clipPath: "polygon(0 0, 100% 0, 50% 70%)",
+              transform: isOpened ? "rotateX(180deg) translateY(-50%)" : "rotateX(0deg)",
+              transformOrigin: "top center",
+              transition: "transform 0.3s ease",
+            }}
+          />
+          
+          {/* Inner paper peek */}
+          <div 
+            className="absolute top-1 left-1 right-1 h-1/3 bg-white rounded-t-sm"
+            style={{ opacity: isOpened ? 1 : 0.3 }}
+          />
+        </div>
+        
+        {/* 3D Wax Seal */}
+        <motion.div
+          className={`
+            absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
+            w-7 h-7 sm:w-8 sm:h-8 rounded-full
+            bg-gradient-to-br ${letter.sealColor}
+            flex items-center justify-center
+            border-2 border-white/30
+          `}
+          style={{
+            transform: "translateZ(8px) translate(-50%, -50%)",
+            boxShadow: `
+              0 4px 15px rgba(0,0,0,0.4),
+              inset 0 2px 4px rgba(255,255,255,0.3),
+              inset 0 -2px 4px rgba(0,0,0,0.2)
+            `,
+          }}
+          animate={!isOpened ? {
+            scale: [1, 1.1, 1],
+            rotateZ: [0, 5, -5, 0],
+          } : {}}
+          transition={{ duration: 2, repeat: Infinity }}
+        >
+          <span className="text-white text-xs font-bold drop-shadow-lg">
+            {isOpened ? "✓" : letter.id}
+          </span>
+        </motion.div>
+        
+        {/* Shine effect */}
+        {!isOpened && (
+          <motion.div
+            className="absolute inset-0 rounded-lg overflow-hidden pointer-events-none"
+            style={{ transform: "translateZ(1px)" }}
+          >
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent"
+              animate={{ x: ["-150%", "150%"] }}
+              transition={{ duration: 2, repeat: Infinity, repeatDelay: 1 }}
+            />
+          </motion.div>
+        )}
+      </div>
+    </motion.div>
+  );
+};
+
 export const LetterGallery = () => {
   const [openedLetters, setOpenedLetters] = useState<Set<number>>(new Set());
   const [currentLetter, setCurrentLetter] = useState<Letter | null>(null);
@@ -97,21 +220,24 @@ export const LetterGallery = () => {
   // Lock body scroll when letter is open
   useEffect(() => {
     if (currentLetter) {
-      document.body.style.overflow = 'hidden';
+      const scrollY = window.scrollY;
       document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
       document.body.style.width = '100%';
-      document.body.style.height = '100%';
+      document.body.style.overflow = 'hidden';
     } else {
-      document.body.style.overflow = '';
+      const scrollY = document.body.style.top;
       document.body.style.position = '';
+      document.body.style.top = '';
       document.body.style.width = '';
-      document.body.style.height = '';
+      document.body.style.overflow = '';
+      window.scrollTo(0, parseInt(scrollY || '0') * -1);
     }
     return () => {
-      document.body.style.overflow = '';
       document.body.style.position = '';
+      document.body.style.top = '';
       document.body.style.width = '';
-      document.body.style.height = '';
+      document.body.style.overflow = '';
     };
   }, [currentLetter]);
 
@@ -144,9 +270,9 @@ export const LetterGallery = () => {
   };
 
   return (
-    <div className="w-full max-w-full overflow-hidden">
+    <div className="w-full">
       {/* Progress */}
-      <div className="text-center mb-4">
+      <div className="text-center mb-6">
         <motion.p 
           className="text-rose-300 font-medium text-sm"
           animate={{ scale: openedLetters.size > 0 ? [1, 1.05, 1] : 1 }}
@@ -155,62 +281,23 @@ export const LetterGallery = () => {
           💌 {openedLetters.size}/{letters.length} letters opened
         </motion.p>
         <p className="text-white/50 text-xs mt-1">
-          Tap the envelopes to read my love letters
+          Tap the 3D envelopes to read my love letters
         </p>
       </div>
 
-      {/* Envelope Grid - Mobile Optimized */}
-      <div className="grid grid-cols-5 gap-2 w-full max-w-sm mx-auto px-2">
+      {/* 3D Envelope Grid */}
+      <div 
+        className="flex flex-wrap justify-center gap-3 sm:gap-4 px-2"
+        style={{ perspective: "1000px" }}
+      >
         {letters.map((letter, index) => (
-          <motion.button
+          <Envelope3D
             key={letter.id}
-            onClick={() => openLetter(letter, index)}
-            className="relative aspect-square w-full"
-            initial={{ opacity: 0, scale: 0, rotateY: 180 }}
-            animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-            transition={{ delay: index * 0.08, type: "spring" }}
-            whileHover={{ scale: 1.1, y: -4, zIndex: 10 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <motion.div 
-              className={`w-full h-full bg-gradient-to-br from-amber-100 to-amber-200 rounded-lg shadow-lg flex items-center justify-center relative overflow-hidden transition-all ${
-                openedLetters.has(letter.id) ? 'opacity-60 scale-95' : ''
-              }`}
-              animate={!openedLetters.has(letter.id) ? {
-                boxShadow: ["0 0 0 0 rgba(251, 191, 36, 0.4)", "0 0 12px 2px rgba(251, 191, 36, 0.2)", "0 0 0 0 rgba(251, 191, 36, 0.4)"]
-              } : {}}
-              transition={{ duration: 2, repeat: Infinity }}
-            >
-              {/* Envelope flap */}
-              <div className="absolute top-0 left-0 right-0 h-1/2">
-                <div 
-                  className="absolute top-0 left-0 right-0 border-l-[14px] border-r-[14px] border-t-[12px] border-l-transparent border-r-transparent border-t-amber-300"
-                />
-              </div>
-              
-              {/* Wax seal */}
-              <motion.div
-                className={`w-6 h-6 rounded-full bg-gradient-to-br ${letter.sealColor} shadow-lg flex items-center justify-center z-10 border-2 border-white/20`}
-                animate={!openedLetters.has(letter.id) ? { 
-                  scale: [1, 1.1, 1],
-                } : {}}
-                transition={{ duration: 1.5, repeat: Infinity }}
-              >
-                <span className="text-white text-[8px] font-bold">
-                  {openedLetters.has(letter.id) ? "✓" : letter.id}
-                </span>
-              </motion.div>
-              
-              {/* Shine effect */}
-              {!openedLetters.has(letter.id) && (
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
-                  animate={{ x: ["-100%", "100%"] }}
-                  transition={{ duration: 2, repeat: Infinity, repeatDelay: 2 }}
-                />
-              )}
-            </motion.div>
-          </motion.button>
+            letter={letter}
+            index={index}
+            isOpened={openedLetters.has(letter.id)}
+            onOpen={() => openLetter(letter, index)}
+          />
         ))}
       </div>
 
@@ -218,63 +305,65 @@ export const LetterGallery = () => {
       <AnimatePresence>
         {openedLetters.size === letters.length && !currentLetter && (
           <motion.div
-            className="text-center py-4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            className="text-center py-6"
+            initial={{ opacity: 0, y: 20, scale: 0.8 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
           >
             <motion.span
-              className="text-4xl"
-              animate={{ scale: [1, 1.2, 1], rotate: [0, 10, -10, 0] }}
+              className="text-5xl inline-block"
+              animate={{ 
+                scale: [1, 1.3, 1], 
+                rotate: [0, 15, -15, 0],
+                y: [0, -10, 0]
+              }}
               transition={{ duration: 2, repeat: Infinity }}
             >
               💕
             </motion.span>
-            <p className="text-rose-300 font-serif mt-2">
+            <p className="text-rose-300 font-serif mt-3 text-lg">
               You've read all my letters, Puntuu!
             </p>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* FULL SCREEN Letter Modal - True Full Page */}
+      {/* FULL SCREEN Letter Modal with 3D Animation */}
       <AnimatePresence>
         {currentLetter && (
           <motion.div
             className="fixed inset-0 z-[99999]"
-            style={{ 
-              position: 'fixed',
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              width: '100vw',
-              height: '100dvh',
-            }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           >
-            {/* Background - covers everything */}
-            <div 
+            {/* Background */}
+            <motion.div 
               className="absolute inset-0 bg-gradient-to-br from-rose-950 via-black to-purple-950"
-              style={{ minHeight: '100dvh' }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
             />
             
-            {/* Floating hearts background */}
+            {/* Floating 3D hearts */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-              {[...Array(8)].map((_, i) => (
+              {[...Array(12)].map((_, i) => (
                 <motion.div
                   key={i}
-                  className="absolute text-2xl opacity-20"
-                  style={{ left: `${10 + i * 12}%` }}
+                  className="absolute text-2xl"
+                  style={{ 
+                    left: `${5 + i * 8}%`,
+                    perspective: "500px"
+                  }}
+                  initial={{ y: '110%', opacity: 0 }}
                   animate={{
                     y: ['-10%', '110%'],
-                    rotate: [0, 360],
+                    rotateY: [0, 360],
+                    rotateX: [0, 180],
+                    opacity: [0.1, 0.3, 0.1],
                   }}
                   transition={{
-                    duration: 8 + i * 2,
+                    duration: 10 + i * 2,
                     repeat: Infinity,
-                    delay: i * 0.5,
+                    delay: i * 0.8,
                     ease: 'linear',
                   }}
                 >
@@ -283,67 +372,96 @@ export const LetterGallery = () => {
               ))}
             </div>
 
-            {/* Content Container - Full height flex */}
-            <div 
-              className="relative z-10 flex flex-col w-full"
-              style={{ height: '100dvh' }}
-            >
-              {/* Fixed Header */}
+            {/* Content Container */}
+            <div className="relative z-10 flex flex-col h-full">
+              {/* Header */}
               <div 
-                className="flex-shrink-0 bg-black/80 backdrop-blur-lg border-b border-white/10"
+                className="flex-shrink-0 bg-black/70 backdrop-blur-xl border-b border-white/10"
                 style={{ paddingTop: 'max(12px, env(safe-area-inset-top))' }}
               >
                 <div className="flex items-center justify-between px-4 py-3">
                   <motion.button
                     onClick={closeLetter}
-                    className="flex items-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 rounded-full text-white transition-all"
-                    whileTap={{ scale: 0.95 }}
+                    className="flex items-center gap-2 px-4 py-2.5 bg-white/10 hover:bg-white/20 rounded-full text-white transition-all active:scale-95"
+                    whileTap={{ scale: 0.9 }}
                   >
                     <ChevronLeft className="w-5 h-5" />
                     <span className="text-sm font-medium">Back</span>
                   </motion.button>
                   
                   <div className="text-center flex-1 mx-4">
-                    <p className="text-white text-sm font-medium">Letter {currentIndex + 1} of {letters.length}</p>
+                    <p className="text-white text-sm font-medium">
+                      Letter {currentIndex + 1} of {letters.length}
+                    </p>
                   </div>
                   
                   <motion.button
                     onClick={closeLetter}
-                    className="p-2 bg-white/10 hover:bg-white/20 rounded-full text-white transition-all"
-                    whileTap={{ scale: 0.95 }}
+                    className="p-2.5 bg-white/10 hover:bg-white/20 rounded-full text-white transition-all active:scale-95"
+                    whileTap={{ scale: 0.9 }}
                   >
                     <X className="w-5 h-5" />
                   </motion.button>
                 </div>
               </div>
 
-              {/* Scrollable Letter Content */}
+              {/* Letter Content with 3D effect */}
               <div className="flex-1 overflow-y-auto overflow-x-hidden">
-                <div className="p-4 pb-8">
+                <div className="p-4 pb-8" style={{ perspective: "1000px" }}>
                   <motion.div
                     key={currentLetter.id}
                     className="w-full max-w-lg mx-auto"
-                    initial={{ opacity: 0, y: 30, scale: 0.95 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: -30 }}
-                    transition={{ type: "spring", damping: 25 }}
+                    initial={{ opacity: 0, rotateX: -30, y: 50, scale: 0.9 }}
+                    animate={{ opacity: 1, rotateX: 0, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, rotateX: 30, y: -50 }}
+                    transition={{ type: "spring", damping: 20, stiffness: 100 }}
+                    style={{ transformStyle: "preserve-3d" }}
                   >
-                    {/* Letter Card */}
-                    <div className="bg-gradient-to-br from-amber-50 via-white to-rose-50 rounded-2xl shadow-2xl overflow-hidden">
-                      {/* Letter Header */}
-                      <div className="relative bg-gradient-to-r from-rose-100 to-amber-100 p-5 text-center border-b border-rose-200">
+                    {/* 3D Letter Card */}
+                    <div 
+                      className="bg-gradient-to-br from-amber-50 via-white to-rose-50 rounded-3xl overflow-hidden"
+                      style={{
+                        boxShadow: `
+                          0 25px 50px -12px rgba(0, 0, 0, 0.5),
+                          0 0 0 1px rgba(255, 255, 255, 0.1),
+                          inset 0 1px 0 rgba(255, 255, 255, 0.5)
+                        `,
+                        transform: "translateZ(20px)",
+                      }}
+                    >
+                      {/* Letter Header with 3D Seal */}
+                      <div 
+                        className="relative bg-gradient-to-r from-rose-100 via-amber-50 to-rose-100 p-6 text-center border-b border-rose-200"
+                        style={{
+                          boxShadow: "inset 0 -5px 15px rgba(0,0,0,0.05)",
+                        }}
+                      >
+                        {/* 3D Wax Seal */}
                         <motion.div
-                          className={`w-16 h-16 mx-auto rounded-full bg-gradient-to-br ${currentLetter.sealColor} shadow-xl flex items-center justify-center border-4 border-white`}
-                          initial={{ scale: 0, rotate: -180 }}
-                          animate={{ scale: 1, rotate: 0 }}
+                          className={`
+                            w-20 h-20 mx-auto rounded-full 
+                            bg-gradient-to-br ${currentLetter.sealColor}
+                            flex items-center justify-center
+                            border-4 border-white
+                          `}
+                          initial={{ scale: 0, rotateZ: -180 }}
+                          animate={{ scale: 1, rotateZ: 0 }}
                           transition={{ delay: 0.2, type: "spring" }}
+                          style={{
+                            boxShadow: `
+                              0 10px 30px rgba(0,0,0,0.3),
+                              inset 0 3px 6px rgba(255,255,255,0.4),
+                              inset 0 -3px 6px rgba(0,0,0,0.2)
+                            `,
+                            transform: "translateZ(30px)",
+                          }}
                         >
-                          <span className="text-2xl">{currentLetter.emoji}</span>
+                          <span className="text-3xl drop-shadow-lg">{currentLetter.emoji}</span>
                         </motion.div>
                         
                         <motion.h2
-                          className="mt-3 text-xl font-serif text-rose-700 font-bold"
-                          initial={{ opacity: 0, y: 10 }}
+                          className="mt-4 text-2xl font-serif text-rose-700 font-bold"
+                          initial={{ opacity: 0, y: 20 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: 0.3 }}
                         >
@@ -352,27 +470,32 @@ export const LetterGallery = () => {
                       </div>
 
                       {/* Letter Body */}
-                      <div className="p-5">
+                      <div className="p-6">
                         <motion.div
-                          initial={{ opacity: 0, y: 20 }}
+                          initial={{ opacity: 0, y: 30 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: 0.4 }}
                         >
-                          <p className="text-gray-700 font-serif text-base leading-relaxed whitespace-pre-line">
+                          <p className="text-gray-700 font-serif text-base sm:text-lg leading-relaxed whitespace-pre-line">
                             {currentLetter.content}
                           </p>
                         </motion.div>
 
                         {/* Signature */}
                         <motion.div 
-                          className="mt-6 pt-4 border-t border-rose-200 text-right"
+                          className="mt-8 pt-4 border-t border-rose-200 text-right"
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           transition={{ delay: 0.6 }}
                         >
-                          <p className="text-rose-500 font-serif italic text-base flex items-center justify-end gap-2">
+                          <p className="text-rose-500 font-serif italic text-lg flex items-center justify-end gap-2">
                             With all my love
-                            <Heart className="w-4 h-4 fill-rose-500 text-rose-500" />
+                            <motion.span
+                              animate={{ scale: [1, 1.2, 1] }}
+                              transition={{ duration: 1, repeat: Infinity }}
+                            >
+                              <Heart className="w-5 h-5 fill-rose-500 text-rose-500" />
+                            </motion.span>
                           </p>
                         </motion.div>
                       </div>
@@ -381,23 +504,25 @@ export const LetterGallery = () => {
                 </div>
               </div>
 
-              {/* Fixed Bottom Navigation */}
+              {/* Bottom Navigation */}
               <div 
-                className="flex-shrink-0 bg-black/80 backdrop-blur-lg border-t border-white/10"
+                className="flex-shrink-0 bg-black/70 backdrop-blur-xl border-t border-white/10"
                 style={{ paddingBottom: 'max(12px, env(safe-area-inset-bottom))' }}
               >
-                <div className="px-4 py-3">
+                <div className="px-4 py-4">
                   {/* Letter indicators */}
-                  <div className="flex justify-center gap-1.5 mb-4">
+                  <div className="flex justify-center gap-2 mb-4">
                     {letters.map((_, i) => (
-                      <button
+                      <motion.button
                         key={i}
                         onClick={() => openLetter(letters[i], i)}
                         className={`h-2 rounded-full transition-all ${
                           i === currentIndex 
-                            ? 'bg-rose-400 w-6' 
+                            ? 'bg-rose-400 w-8' 
                             : 'bg-white/30 w-2 hover:bg-white/50'
                         }`}
+                        whileHover={{ scale: 1.2 }}
+                        whileTap={{ scale: 0.9 }}
                       />
                     ))}
                   </div>
@@ -407,28 +532,28 @@ export const LetterGallery = () => {
                     <motion.button
                       onClick={goPrev}
                       disabled={currentIndex === 0}
-                      className={`flex-1 py-3 px-4 rounded-xl flex items-center justify-center gap-2 font-medium transition-all ${
+                      className={`flex-1 py-3.5 px-4 rounded-2xl flex items-center justify-center gap-2 font-medium transition-all ${
                         currentIndex === 0 
                           ? 'bg-white/5 text-white/30' 
-                          : 'bg-white/10 text-white hover:bg-white/20'
+                          : 'bg-white/15 text-white hover:bg-white/25 active:scale-95'
                       }`}
                       whileTap={currentIndex > 0 ? { scale: 0.95 } : {}}
                     >
                       <ChevronLeft className="w-5 h-5" />
-                      <span className="text-sm">Previous</span>
+                      <span>Previous</span>
                     </motion.button>
                     
                     <motion.button
                       onClick={goToNext}
                       disabled={currentIndex === letters.length - 1}
-                      className={`flex-1 py-3 px-4 rounded-xl flex items-center justify-center gap-2 font-medium transition-all ${
+                      className={`flex-1 py-3.5 px-4 rounded-2xl flex items-center justify-center gap-2 font-medium transition-all ${
                         currentIndex === letters.length - 1 
                           ? 'bg-white/5 text-white/30' 
-                          : 'bg-gradient-to-r from-rose-500 to-pink-500 text-white shadow-lg'
+                          : 'bg-gradient-to-r from-rose-500 to-pink-500 text-white shadow-lg shadow-rose-500/30 active:scale-95'
                       }`}
                       whileTap={currentIndex < letters.length - 1 ? { scale: 0.95 } : {}}
                     >
-                      <span className="text-sm">Next</span>
+                      <span>Next</span>
                       <ChevronRight className="w-5 h-5" />
                     </motion.button>
                   </div>
