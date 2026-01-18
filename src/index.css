@@ -159,6 +159,9 @@ All colors MUST be HSL.
     overflow-x: hidden;
     width: 100%;
     max-width: 100vw;
+    min-height: 100dvh;
+    /* Fallback dark background - prevents white flash */
+    background: #0d0d0d;
   }
 
   body {
@@ -167,8 +170,10 @@ All colors MUST be HSL.
     width: 100%;
     max-width: 100vw;
     min-height: 100dvh;
-    /* Prevent white gaps on mobile */
-    background: linear-gradient(135deg, #1a0a0a 0%, #2d1f3d 50%, #1a0a1a 100%);
+    /* Dark romantic gradient as fallback */
+    background: linear-gradient(135deg, #1a0a0a 0%, #2d1f3d 50%, #1a0a1a 100%) !important;
+    background-attachment: fixed;
+    -webkit-overflow-scrolling: touch;
   }
   
   #root {
@@ -176,6 +181,14 @@ All colors MUST be HSL.
     width: 100%;
     max-width: 100vw;
     overflow-x: hidden;
+    /* Ensure content takes full viewport */
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Prevent any white gaps on mobile */
+  .min-h-screen {
+    min-height: 100dvh !important;
   }
 }
 
