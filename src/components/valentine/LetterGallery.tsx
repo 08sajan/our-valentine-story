@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, X, Heart } from "lucide-react";
+import ReactDOM from "react-dom";
 
 interface Letter {
   id: number;
@@ -89,7 +90,351 @@ I promise never hurt you. I only want to make you feel safe enough to shine. I l
   }
 ];
 
-// 3D Envelope Component
+// Fullscreen Letter Modal - Rendered via Portal
+const FullscreenLetterModal = ({
+  letter,
+  currentIndex,
+  onClose,
+  onNext,
+  onPrev,
+  onSelectLetter,
+}: {
+  letter: Letter;
+  currentIndex: number;
+  onClose: () => void;
+  onNext: () => void;
+  onPrev: () => void;
+  onSelectLetter: (index: number) => void;
+}) => {
+  // Lock scroll
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    document.body.style.position = 'fixed';
+    document.body.style.inset = '0';
+    document.body.style.width = '100%';
+    
+    return () => {
+      document.body.style.overflow = '';
+      document.body.style.position = '';
+      document.body.style.inset = '';
+      document.body.style.width = '';
+    };
+  }, []);
+
+  const modalContent = (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        width: '100vw',
+        height: '100vh',
+        zIndex: 999999,
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
+      {/* Full Background - Gradient */}
+      <div 
+        style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'linear-gradient(135deg, #1a0a0a 0%, #0d0d0d 50%, #0a0a1a 100%)',
+        }}
+      />
+
+      {/* Floating Hearts */}
+      <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', pointerEvents: 'none' }}>
+        {[...Array(10)].map((_, i) => (
+          <motion.div
+            key={i}
+            style={{
+              position: 'absolute',
+              left: `${8 + i * 10}%`,
+              fontSize: '1.5rem',
+              opacity: 0.15,
+            }}
+            animate={{
+              y: ['-5%', '105%'],
+              rotate: [0, 360],
+            }}
+            transition={{
+              duration: 12 + i * 2,
+              repeat: Infinity,
+              delay: i * 1,
+              ease: 'linear',
+            }}
+          >
+            💕
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Header */}
+      <div 
+        style={{
+          flexShrink: 0,
+          background: 'rgba(0,0,0,0.8)',
+          backdropFilter: 'blur(20px)',
+          borderBottom: '1px solid rgba(255,255,255,0.1)',
+          paddingTop: 'max(16px, env(safe-area-inset-top))',
+          position: 'relative',
+          zIndex: 10,
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 16px' }}>
+          <motion.button
+            onClick={onClose}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+              padding: '10px 16px',
+              background: 'rgba(255,255,255,0.1)',
+              borderRadius: '9999px',
+              color: 'white',
+              border: 'none',
+              cursor: 'pointer',
+              fontSize: '14px',
+              fontWeight: 500,
+            }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <ChevronLeft size={20} />
+            <span>Back</span>
+          </motion.button>
+          
+          <p style={{ color: 'white', fontSize: '14px', fontWeight: 500 }}>
+            Letter {currentIndex + 1} of {letters.length}
+          </p>
+          
+          <motion.button
+            onClick={onClose}
+            style={{
+              padding: '10px',
+              background: 'rgba(255,255,255,0.1)',
+              borderRadius: '9999px',
+              color: 'white',
+              border: 'none',
+              cursor: 'pointer',
+            }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <X size={20} />
+          </motion.button>
+        </div>
+      </div>
+
+      {/* Scrollable Content */}
+      <div 
+        style={{
+          flex: 1,
+          overflowY: 'auto',
+          overflowX: 'hidden',
+          WebkitOverflowScrolling: 'touch',
+          position: 'relative',
+          zIndex: 5,
+        }}
+      >
+        <div style={{ padding: '20px 16px', paddingBottom: '40px' }}>
+          <motion.div
+            key={letter.id}
+            initial={{ opacity: 0, y: 40, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -40 }}
+            transition={{ type: 'spring', damping: 25 }}
+            style={{ maxWidth: '500px', margin: '0 auto' }}
+          >
+            {/* Letter Card */}
+            <div
+              style={{
+                background: 'linear-gradient(135deg, #fffbeb 0%, #ffffff 50%, #fff1f2 100%)',
+                borderRadius: '24px',
+                overflow: 'hidden',
+                boxShadow: '0 25px 60px rgba(0,0,0,0.5)',
+              }}
+            >
+              {/* Header with Seal */}
+              <div
+                style={{
+                  background: 'linear-gradient(135deg, #ffe4e6 0%, #fef3c7 100%)',
+                  padding: '24px',
+                  textAlign: 'center',
+                  borderBottom: '1px solid #fecdd3',
+                }}
+              >
+                <motion.div
+                  initial={{ scale: 0, rotate: -180 }}
+                  animate={{ scale: 1, rotate: 0 }}
+                  transition={{ delay: 0.2, type: 'spring' }}
+                  className={`w-20 h-20 mx-auto rounded-full bg-gradient-to-br ${letter.sealColor} flex items-center justify-center border-4 border-white`}
+                  style={{
+                    boxShadow: '0 10px 30px rgba(0,0,0,0.3)',
+                  }}
+                >
+                  <span style={{ fontSize: '2rem' }}>{letter.emoji}</span>
+                </motion.div>
+                
+                <motion.h2
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                  style={{
+                    marginTop: '16px',
+                    fontSize: '1.5rem',
+                    fontFamily: 'serif',
+                    color: '#be123c',
+                    fontWeight: 'bold',
+                  }}
+                >
+                  {letter.title}
+                </motion.h2>
+              </div>
+
+              {/* Letter Body */}
+              <div style={{ padding: '24px' }}>
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                  style={{
+                    color: '#374151',
+                    fontFamily: 'serif',
+                    fontSize: '1rem',
+                    lineHeight: 1.8,
+                    whiteSpace: 'pre-line',
+                  }}
+                >
+                  {letter.content}
+                </motion.p>
+
+                {/* Signature */}
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.6 }}
+                  style={{
+                    marginTop: '24px',
+                    paddingTop: '16px',
+                    borderTop: '1px solid #fecdd3',
+                    textAlign: 'right',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'flex-end',
+                    gap: '8px',
+                  }}
+                >
+                  <span style={{ color: '#f43f5e', fontFamily: 'serif', fontStyle: 'italic', fontSize: '1.1rem' }}>
+                    With all my love
+                  </span>
+                  <Heart size={18} fill="#f43f5e" color="#f43f5e" />
+                </motion.div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Bottom Navigation */}
+      <div
+        style={{
+          flexShrink: 0,
+          background: 'rgba(0,0,0,0.8)',
+          backdropFilter: 'blur(20px)',
+          borderTop: '1px solid rgba(255,255,255,0.1)',
+          paddingBottom: 'max(16px, env(safe-area-inset-bottom))',
+          position: 'relative',
+          zIndex: 10,
+        }}
+      >
+        <div style={{ padding: '16px' }}>
+          {/* Letter dots */}
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', marginBottom: '16px' }}>
+            {letters.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => onSelectLetter(i)}
+                style={{
+                  width: i === currentIndex ? '32px' : '10px',
+                  height: '10px',
+                  borderRadius: '9999px',
+                  background: i === currentIndex ? '#fb7185' : 'rgba(255,255,255,0.3)',
+                  border: 'none',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s',
+                }}
+              />
+            ))}
+          </div>
+          
+          {/* Nav buttons */}
+          <div style={{ display: 'flex', gap: '16px' }}>
+            <motion.button
+              onClick={onPrev}
+              disabled={currentIndex === 0}
+              style={{
+                flex: 1,
+                padding: '14px',
+                borderRadius: '16px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '8px',
+                background: currentIndex === 0 ? 'rgba(255,255,255,0.05)' : 'rgba(255,255,255,0.15)',
+                color: currentIndex === 0 ? 'rgba(255,255,255,0.3)' : 'white',
+                border: 'none',
+                cursor: currentIndex === 0 ? 'not-allowed' : 'pointer',
+                fontSize: '15px',
+                fontWeight: 500,
+              }}
+              whileTap={currentIndex > 0 ? { scale: 0.95 } : {}}
+            >
+              <ChevronLeft size={20} />
+              Previous
+            </motion.button>
+            
+            <motion.button
+              onClick={onNext}
+              disabled={currentIndex === letters.length - 1}
+              style={{
+                flex: 1,
+                padding: '14px',
+                borderRadius: '16px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '8px',
+                background: currentIndex === letters.length - 1 
+                  ? 'rgba(255,255,255,0.05)' 
+                  : 'linear-gradient(135deg, #f43f5e 0%, #ec4899 100%)',
+                color: currentIndex === letters.length - 1 ? 'rgba(255,255,255,0.3)' : 'white',
+                border: 'none',
+                cursor: currentIndex === letters.length - 1 ? 'not-allowed' : 'pointer',
+                fontSize: '15px',
+                fontWeight: 500,
+                boxShadow: currentIndex === letters.length - 1 ? 'none' : '0 10px 30px rgba(244, 63, 94, 0.4)',
+              }}
+              whileTap={currentIndex < letters.length - 1 ? { scale: 0.95 } : {}}
+            >
+              Next
+              <ChevronRight size={20} />
+            </motion.button>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+
+  // Render to body using portal
+  return ReactDOM.createPortal(modalContent, document.body);
+};
+
+// 3D Envelope
 const Envelope3D = ({ 
   letter, 
   index, 
@@ -100,172 +445,105 @@ const Envelope3D = ({
   index: number; 
   isOpened: boolean; 
   onOpen: () => void;
-}) => {
-  return (
-    <motion.div
-      className="relative cursor-pointer"
-      style={{ 
-        perspective: "1000px",
-        transformStyle: "preserve-3d"
-      }}
-      initial={{ opacity: 0, rotateY: 180, scale: 0.5 }}
-      animate={{ opacity: 1, rotateY: 0, scale: 1 }}
-      transition={{ delay: index * 0.1, type: "spring", stiffness: 100 }}
-      whileHover={{ 
-        scale: 1.15, 
-        rotateY: 15,
-        rotateX: -10,
-        z: 50,
-      }}
-      whileTap={{ scale: 0.9 }}
-      onClick={onOpen}
+}) => (
+  <motion.button
+    onClick={onOpen}
+    className="relative cursor-pointer border-none bg-transparent p-0"
+    style={{ perspective: '800px' }}
+    initial={{ opacity: 0, rotateY: 180, scale: 0.5 }}
+    animate={{ opacity: 1, rotateY: 0, scale: 1 }}
+    transition={{ delay: index * 0.08, type: 'spring', stiffness: 100 }}
+    whileHover={{ scale: 1.15, rotateY: 15, rotateX: -10 }}
+    whileTap={{ scale: 0.9 }}
+  >
+    <div 
+      className={`relative w-14 h-14 sm:w-16 sm:h-16 ${isOpened ? 'opacity-50' : ''}`}
+      style={{ transformStyle: 'preserve-3d', transform: 'rotateX(10deg)' }}
     >
+      {/* Back */}
       <div 
-        className={`
-          relative w-14 h-14 sm:w-16 sm:h-16
-          ${isOpened ? 'opacity-50' : ''}
-        `}
-        style={{
-          transformStyle: "preserve-3d",
-          transform: "rotateX(10deg)",
-        }}
+        className="absolute inset-0 bg-gradient-to-br from-amber-200 to-amber-300 rounded-lg"
+        style={{ transform: 'translateZ(-2px)', boxShadow: '0 8px 25px rgba(0,0,0,0.3)' }}
+      />
+      
+      {/* Front */}
+      <div 
+        className="absolute inset-0 bg-gradient-to-br from-amber-100 via-amber-50 to-amber-100 rounded-lg overflow-hidden"
+        style={{ boxShadow: 'inset 0 2px 10px rgba(255,255,255,0.5), 0 4px 20px rgba(0,0,0,0.2)' }}
       >
-        {/* Envelope back */}
+        {/* Flap */}
         <div 
-          className="absolute inset-0 bg-gradient-to-br from-amber-200 to-amber-300 rounded-lg"
           style={{
-            transform: "translateZ(-2px)",
-            boxShadow: "0 8px 30px rgba(0,0,0,0.3)",
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            height: '50%',
+            background: 'linear-gradient(135deg, #fde68a 0%, #fcd34d 50%, #f59e0b 100%)',
+            clipPath: 'polygon(0 0, 100% 0, 50% 70%)',
           }}
         />
         
-        {/* Envelope front */}
+        {/* Paper peek */}
         <div 
-          className="absolute inset-0 bg-gradient-to-br from-amber-100 via-amber-50 to-amber-100 rounded-lg overflow-hidden"
-          style={{
-            transform: "translateZ(0px)",
-            boxShadow: "inset 0 2px 10px rgba(255,255,255,0.5), 0 4px 20px rgba(0,0,0,0.2)",
-          }}
-        >
-          {/* Envelope flap with 3D effect */}
-          <div 
-            className="absolute top-0 left-0 right-0 h-1/2"
-            style={{
-              background: "linear-gradient(135deg, #fde68a 0%, #fcd34d 50%, #f59e0b 100%)",
-              clipPath: "polygon(0 0, 100% 0, 50% 70%)",
-              transform: isOpened ? "rotateX(180deg) translateY(-50%)" : "rotateX(0deg)",
-              transformOrigin: "top center",
-              transition: "transform 0.3s ease",
-            }}
-          />
-          
-          {/* Inner paper peek */}
-          <div 
-            className="absolute top-1 left-1 right-1 h-1/3 bg-white rounded-t-sm"
-            style={{ opacity: isOpened ? 1 : 0.3 }}
-          />
-        </div>
-        
-        {/* 3D Wax Seal */}
-        <motion.div
-          className={`
-            absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2
-            w-7 h-7 sm:w-8 sm:h-8 rounded-full
-            bg-gradient-to-br ${letter.sealColor}
-            flex items-center justify-center
-            border-2 border-white/30
-          `}
-          style={{
-            transform: "translateZ(8px) translate(-50%, -50%)",
-            boxShadow: `
-              0 4px 15px rgba(0,0,0,0.4),
-              inset 0 2px 4px rgba(255,255,255,0.3),
-              inset 0 -2px 4px rgba(0,0,0,0.2)
-            `,
-          }}
-          animate={!isOpened ? {
-            scale: [1, 1.1, 1],
-            rotateZ: [0, 5, -5, 0],
-          } : {}}
-          transition={{ duration: 2, repeat: Infinity }}
-        >
-          <span className="text-white text-xs font-bold drop-shadow-lg">
-            {isOpened ? "✓" : letter.id}
-          </span>
-        </motion.div>
-        
-        {/* Shine effect */}
-        {!isOpened && (
-          <motion.div
-            className="absolute inset-0 rounded-lg overflow-hidden pointer-events-none"
-            style={{ transform: "translateZ(1px)" }}
-          >
-            <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent"
-              animate={{ x: ["-150%", "150%"] }}
-              transition={{ duration: 2, repeat: Infinity, repeatDelay: 1 }}
-            />
-          </motion.div>
-        )}
+          className="absolute top-1 left-1 right-1 h-1/3 bg-white rounded-t-sm"
+          style={{ opacity: isOpened ? 1 : 0.3 }}
+        />
       </div>
-    </motion.div>
-  );
-};
+      
+      {/* Seal */}
+      <motion.div
+        className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-7 h-7 rounded-full bg-gradient-to-br ${letter.sealColor} flex items-center justify-center border-2 border-white/30`}
+        style={{
+          transform: 'translateZ(8px) translate(-50%, -50%)',
+          boxShadow: '0 4px 15px rgba(0,0,0,0.4), inset 0 2px 4px rgba(255,255,255,0.3)',
+        }}
+        animate={!isOpened ? { scale: [1, 1.1, 1] } : {}}
+        transition={{ duration: 1.5, repeat: Infinity }}
+      >
+        <span className="text-white text-[10px] font-bold">{isOpened ? '✓' : letter.id}</span>
+      </motion.div>
+      
+      {/* Shine */}
+      {!isOpened && (
+        <motion.div
+          className="absolute inset-0 rounded-lg overflow-hidden pointer-events-none"
+          style={{ transform: 'translateZ(1px)' }}
+        >
+          <motion.div
+            className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent"
+            animate={{ x: ['-150%', '150%'] }}
+            transition={{ duration: 2, repeat: Infinity, repeatDelay: 1 }}
+          />
+        </motion.div>
+      )}
+    </div>
+  </motion.button>
+);
 
 export const LetterGallery = () => {
   const [openedLetters, setOpenedLetters] = useState<Set<number>>(new Set());
   const [currentLetter, setCurrentLetter] = useState<Letter | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Lock body scroll when letter is open
-  useEffect(() => {
-    if (currentLetter) {
-      const scrollY = window.scrollY;
-      document.body.style.position = 'fixed';
-      document.body.style.top = `-${scrollY}px`;
-      document.body.style.width = '100%';
-      document.body.style.overflow = 'hidden';
-    } else {
-      const scrollY = document.body.style.top;
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.width = '';
-      document.body.style.overflow = '';
-      window.scrollTo(0, parseInt(scrollY || '0') * -1);
-    }
-    return () => {
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.width = '';
-      document.body.style.overflow = '';
-    };
-  }, [currentLetter]);
-
   const openLetter = (letter: Letter, index: number) => {
     setCurrentLetter(letter);
     setCurrentIndex(index);
     setOpenedLetters(prev => new Set([...prev, letter.id]));
-    
-    if ('vibrate' in navigator) {
-      navigator.vibrate([100]);
-    }
+    if ('vibrate' in navigator) navigator.vibrate([100]);
   };
 
-  const closeLetter = () => {
-    setCurrentLetter(null);
-  };
+  const closeLetter = () => setCurrentLetter(null);
 
   const goToNext = () => {
     if (currentIndex < letters.length - 1) {
-      const nextLetter = letters[currentIndex + 1];
-      openLetter(nextLetter, currentIndex + 1);
+      openLetter(letters[currentIndex + 1], currentIndex + 1);
     }
   };
 
   const goPrev = () => {
     if (currentIndex > 0) {
-      const prevLetter = letters[currentIndex - 1];
-      openLetter(prevLetter, currentIndex - 1);
+      openLetter(letters[currentIndex - 1], currentIndex - 1);
     }
   };
 
@@ -281,14 +559,14 @@ export const LetterGallery = () => {
           💌 {openedLetters.size}/{letters.length} letters opened
         </motion.p>
         <p className="text-white/50 text-xs mt-1">
-          Tap the 3D envelopes to read my love letters
+          Tap the envelopes to read my love letters
         </p>
       </div>
 
       {/* 3D Envelope Grid */}
       <div 
         className="flex flex-wrap justify-center gap-3 sm:gap-4 px-2"
-        style={{ perspective: "1000px" }}
+        style={{ perspective: '1000px' }}
       >
         {letters.map((letter, index) => (
           <Envelope3D
@@ -301,7 +579,7 @@ export const LetterGallery = () => {
         ))}
       </div>
 
-      {/* Celebration when all opened */}
+      {/* Celebration */}
       <AnimatePresence>
         {openedLetters.size === letters.length && !currentLetter && (
           <motion.div
@@ -311,11 +589,7 @@ export const LetterGallery = () => {
           >
             <motion.span
               className="text-5xl inline-block"
-              animate={{ 
-                scale: [1, 1.3, 1], 
-                rotate: [0, 15, -15, 0],
-                y: [0, -10, 0]
-              }}
+              animate={{ scale: [1, 1.3, 1], rotate: [0, 15, -15, 0], y: [0, -10, 0] }}
               transition={{ duration: 2, repeat: Infinity }}
             >
               💕
@@ -327,240 +601,17 @@ export const LetterGallery = () => {
         )}
       </AnimatePresence>
 
-      {/* FULL SCREEN Letter Modal with 3D Animation */}
+      {/* Fullscreen Modal via Portal */}
       <AnimatePresence>
         {currentLetter && (
-          <motion.div
-            className="fixed inset-0 z-[99999]"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            {/* Background */}
-            <motion.div 
-              className="absolute inset-0 bg-gradient-to-br from-rose-950 via-black to-purple-950"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-            />
-            
-            {/* Floating 3D hearts */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-              {[...Array(12)].map((_, i) => (
-                <motion.div
-                  key={i}
-                  className="absolute text-2xl"
-                  style={{ 
-                    left: `${5 + i * 8}%`,
-                    perspective: "500px"
-                  }}
-                  initial={{ y: '110%', opacity: 0 }}
-                  animate={{
-                    y: ['-10%', '110%'],
-                    rotateY: [0, 360],
-                    rotateX: [0, 180],
-                    opacity: [0.1, 0.3, 0.1],
-                  }}
-                  transition={{
-                    duration: 10 + i * 2,
-                    repeat: Infinity,
-                    delay: i * 0.8,
-                    ease: 'linear',
-                  }}
-                >
-                  💕
-                </motion.div>
-              ))}
-            </div>
-
-            {/* Content Container */}
-            <div className="relative z-10 flex flex-col h-full">
-              {/* Header */}
-              <div 
-                className="flex-shrink-0 bg-black/70 backdrop-blur-xl border-b border-white/10"
-                style={{ paddingTop: 'max(12px, env(safe-area-inset-top))' }}
-              >
-                <div className="flex items-center justify-between px-4 py-3">
-                  <motion.button
-                    onClick={closeLetter}
-                    className="flex items-center gap-2 px-4 py-2.5 bg-white/10 hover:bg-white/20 rounded-full text-white transition-all active:scale-95"
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    <ChevronLeft className="w-5 h-5" />
-                    <span className="text-sm font-medium">Back</span>
-                  </motion.button>
-                  
-                  <div className="text-center flex-1 mx-4">
-                    <p className="text-white text-sm font-medium">
-                      Letter {currentIndex + 1} of {letters.length}
-                    </p>
-                  </div>
-                  
-                  <motion.button
-                    onClick={closeLetter}
-                    className="p-2.5 bg-white/10 hover:bg-white/20 rounded-full text-white transition-all active:scale-95"
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    <X className="w-5 h-5" />
-                  </motion.button>
-                </div>
-              </div>
-
-              {/* Letter Content with 3D effect */}
-              <div className="flex-1 overflow-y-auto overflow-x-hidden">
-                <div className="p-4 pb-8" style={{ perspective: "1000px" }}>
-                  <motion.div
-                    key={currentLetter.id}
-                    className="w-full max-w-lg mx-auto"
-                    initial={{ opacity: 0, rotateX: -30, y: 50, scale: 0.9 }}
-                    animate={{ opacity: 1, rotateX: 0, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, rotateX: 30, y: -50 }}
-                    transition={{ type: "spring", damping: 20, stiffness: 100 }}
-                    style={{ transformStyle: "preserve-3d" }}
-                  >
-                    {/* 3D Letter Card */}
-                    <div 
-                      className="bg-gradient-to-br from-amber-50 via-white to-rose-50 rounded-3xl overflow-hidden"
-                      style={{
-                        boxShadow: `
-                          0 25px 50px -12px rgba(0, 0, 0, 0.5),
-                          0 0 0 1px rgba(255, 255, 255, 0.1),
-                          inset 0 1px 0 rgba(255, 255, 255, 0.5)
-                        `,
-                        transform: "translateZ(20px)",
-                      }}
-                    >
-                      {/* Letter Header with 3D Seal */}
-                      <div 
-                        className="relative bg-gradient-to-r from-rose-100 via-amber-50 to-rose-100 p-6 text-center border-b border-rose-200"
-                        style={{
-                          boxShadow: "inset 0 -5px 15px rgba(0,0,0,0.05)",
-                        }}
-                      >
-                        {/* 3D Wax Seal */}
-                        <motion.div
-                          className={`
-                            w-20 h-20 mx-auto rounded-full 
-                            bg-gradient-to-br ${currentLetter.sealColor}
-                            flex items-center justify-center
-                            border-4 border-white
-                          `}
-                          initial={{ scale: 0, rotateZ: -180 }}
-                          animate={{ scale: 1, rotateZ: 0 }}
-                          transition={{ delay: 0.2, type: "spring" }}
-                          style={{
-                            boxShadow: `
-                              0 10px 30px rgba(0,0,0,0.3),
-                              inset 0 3px 6px rgba(255,255,255,0.4),
-                              inset 0 -3px 6px rgba(0,0,0,0.2)
-                            `,
-                            transform: "translateZ(30px)",
-                          }}
-                        >
-                          <span className="text-3xl drop-shadow-lg">{currentLetter.emoji}</span>
-                        </motion.div>
-                        
-                        <motion.h2
-                          className="mt-4 text-2xl font-serif text-rose-700 font-bold"
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 0.3 }}
-                        >
-                          {currentLetter.title}
-                        </motion.h2>
-                      </div>
-
-                      {/* Letter Body */}
-                      <div className="p-6">
-                        <motion.div
-                          initial={{ opacity: 0, y: 30 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 0.4 }}
-                        >
-                          <p className="text-gray-700 font-serif text-base sm:text-lg leading-relaxed whitespace-pre-line">
-                            {currentLetter.content}
-                          </p>
-                        </motion.div>
-
-                        {/* Signature */}
-                        <motion.div 
-                          className="mt-8 pt-4 border-t border-rose-200 text-right"
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          transition={{ delay: 0.6 }}
-                        >
-                          <p className="text-rose-500 font-serif italic text-lg flex items-center justify-end gap-2">
-                            With all my love
-                            <motion.span
-                              animate={{ scale: [1, 1.2, 1] }}
-                              transition={{ duration: 1, repeat: Infinity }}
-                            >
-                              <Heart className="w-5 h-5 fill-rose-500 text-rose-500" />
-                            </motion.span>
-                          </p>
-                        </motion.div>
-                      </div>
-                    </div>
-                  </motion.div>
-                </div>
-              </div>
-
-              {/* Bottom Navigation */}
-              <div 
-                className="flex-shrink-0 bg-black/70 backdrop-blur-xl border-t border-white/10"
-                style={{ paddingBottom: 'max(12px, env(safe-area-inset-bottom))' }}
-              >
-                <div className="px-4 py-4">
-                  {/* Letter indicators */}
-                  <div className="flex justify-center gap-2 mb-4">
-                    {letters.map((_, i) => (
-                      <motion.button
-                        key={i}
-                        onClick={() => openLetter(letters[i], i)}
-                        className={`h-2 rounded-full transition-all ${
-                          i === currentIndex 
-                            ? 'bg-rose-400 w-8' 
-                            : 'bg-white/30 w-2 hover:bg-white/50'
-                        }`}
-                        whileHover={{ scale: 1.2 }}
-                        whileTap={{ scale: 0.9 }}
-                      />
-                    ))}
-                  </div>
-                  
-                  {/* Navigation buttons */}
-                  <div className="flex justify-between items-center gap-4">
-                    <motion.button
-                      onClick={goPrev}
-                      disabled={currentIndex === 0}
-                      className={`flex-1 py-3.5 px-4 rounded-2xl flex items-center justify-center gap-2 font-medium transition-all ${
-                        currentIndex === 0 
-                          ? 'bg-white/5 text-white/30' 
-                          : 'bg-white/15 text-white hover:bg-white/25 active:scale-95'
-                      }`}
-                      whileTap={currentIndex > 0 ? { scale: 0.95 } : {}}
-                    >
-                      <ChevronLeft className="w-5 h-5" />
-                      <span>Previous</span>
-                    </motion.button>
-                    
-                    <motion.button
-                      onClick={goToNext}
-                      disabled={currentIndex === letters.length - 1}
-                      className={`flex-1 py-3.5 px-4 rounded-2xl flex items-center justify-center gap-2 font-medium transition-all ${
-                        currentIndex === letters.length - 1 
-                          ? 'bg-white/5 text-white/30' 
-                          : 'bg-gradient-to-r from-rose-500 to-pink-500 text-white shadow-lg shadow-rose-500/30 active:scale-95'
-                      }`}
-                      whileTap={currentIndex < letters.length - 1 ? { scale: 0.95 } : {}}
-                    >
-                      <span>Next</span>
-                      <ChevronRight className="w-5 h-5" />
-                    </motion.button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
+          <FullscreenLetterModal
+            letter={currentLetter}
+            currentIndex={currentIndex}
+            onClose={closeLetter}
+            onNext={goToNext}
+            onPrev={goPrev}
+            onSelectLetter={(i) => openLetter(letters[i], i)}
+          />
         )}
       </AnimatePresence>
     </div>
