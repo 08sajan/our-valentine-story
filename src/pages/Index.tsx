@@ -705,28 +705,28 @@ const ValentineDayContent = () => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 20 }}
           >
-            <GlassCard className="p-4 sm:p-6">
-              <div className="space-y-4">
+            <GlassCard className="p-4 sm:p-6 md:p-8">
+              <div className="space-y-4 sm:space-y-6">
                 <div className="text-center">
                   <motion.h3
-                    className="text-base sm:text-lg font-serif text-rose-300 flex items-center justify-center gap-2"
+                    className="text-lg sm:text-xl md:text-2xl font-serif text-rose-300 flex items-center justify-center gap-2"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                   >
-                    <Sparkles className="w-4 h-4 text-yellow-400" />
+                    <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400" />
                     I Want to Know You
-                    <Sparkles className="w-4 h-4 text-yellow-400" />
+                    <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400" />
                   </motion.h3>
-                  <p className="text-white/50 text-[10px] sm:text-xs mt-1">A letter to my soulmate 💫</p>
+                  <p className="text-white/50 text-xs sm:text-sm mt-1">A letter to my soulmate 💫</p>
                 </div>
                 
                 <motion.div 
-                  className="bg-gradient-to-br from-rose-500/10 to-purple-500/10 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-white/10"
+                  className="bg-gradient-to-br from-rose-500/10 to-purple-500/10 rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 border border-white/10"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
                 >
-                  <p className="text-white/90 font-serif leading-relaxed text-xs sm:text-sm md:text-base whitespace-pre-line">
+                  <p className="text-white/90 font-serif leading-relaxed sm:leading-loose text-sm sm:text-base md:text-lg whitespace-pre-line">
 {`I want to know your favourite flower and your favourite season. I want to know about your family and all about your childhood. I want to know your colour and your favourite movie, your favourite music, and your favourite food.
 
 I want to know what keeps you up at night and what makes you angry. I want to know what makes you happiest and what you love to do. I want to know your dreams and desires, your goals and aspirations. I want to know what made you.
@@ -741,7 +741,7 @@ I want to know the ways you ache, the ways you hope, the tiny corners of yoursel
                   </p>
                   
                   <motion.p 
-                    className="text-right text-rose-400 font-serif italic text-sm sm:text-base mt-4"
+                    className="text-right text-rose-400 font-serif italic text-base sm:text-lg md:text-xl mt-4 sm:mt-6"
                     animate={{ opacity: [0.7, 1, 0.7] }}
                     transition={{ duration: 2, repeat: Infinity }}
                   >
@@ -761,7 +761,7 @@ I want to know the ways you ache, the ways you hope, the tiny corners of yoursel
                     transition={{ duration: 3, repeat: Infinity }}
                   >
                     <Heart className="w-4 h-4 text-rose-400 fill-rose-400" />
-                    <span className="text-white/60 text-xs sm:text-sm font-serif">Forever Yours, Puntuu</span>
+                    <span className="text-white/60 text-sm sm:text-base font-serif">Forever Yours, Puntuu</span>
                     <Heart className="w-4 h-4 text-rose-400 fill-rose-400" />
                   </motion.div>
                 </motion.div>
