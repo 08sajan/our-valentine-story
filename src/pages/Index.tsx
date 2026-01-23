@@ -357,10 +357,26 @@ const ProposeDayContent = () => {
 
 const ChocolateDayContent = () => {
   const [opened, setOpened] = useState(false);
-  const chocolates = ["🍫", "🍬", "🍭", "🧁", "🍰", "🎂", "🍪", "🍩"];
+  const [selectedChocolate, setSelectedChocolate] = useState<number | null>(null);
+  
+  // Real chocolate images - Dairy Milk, Fruits & Nuts, and more
+  const chocolates = [
+    { name: "Dairy Milk", image: "https://images.unsplash.com/photo-1606312619070-d48b4c652a52?w=200&h=200&fit=crop", desc: "Smooth & Creamy" },
+    { name: "Fruits & Nuts", image: "https://images.unsplash.com/photo-1549007994-cb92caebd54b?w=200&h=200&fit=crop", desc: "Crunchy Delight" },
+    { name: "Dark Chocolate", image: "https://images.unsplash.com/photo-1481391319762-47dff72954d9?w=200&h=200&fit=crop", desc: "Rich & Intense" },
+    { name: "Milk Chocolate", image: "https://images.unsplash.com/photo-1511381939415-e44015466834?w=200&h=200&fit=crop", desc: "Classic Love" },
+    { name: "Truffle", image: "https://images.unsplash.com/photo-1548907040-4baa42d10919?w=200&h=200&fit=crop", desc: "Melt in Mouth" },
+    { name: "Hazelnut", image: "https://images.unsplash.com/photo-1587132137056-bfbf0166836e?w=200&h=200&fit=crop", desc: "Nutty Bliss" },
+    { name: "Caramel", image: "https://images.unsplash.com/photo-1599599810769-bcde5a160d32?w=200&h=200&fit=crop", desc: "Sweet Swirl" },
+    { name: "White Choco", image: "https://images.unsplash.com/photo-1575377427642-087cf684f29d?w=200&h=200&fit=crop", desc: "Pure Vanilla" },
+    { name: "Ferrero", image: "https://images.unsplash.com/photo-1582176604856-e824b4736522?w=200&h=200&fit=crop", desc: "Golden Luxury" },
+    { name: "Praline", image: "https://images.unsplash.com/photo-1571506165871-ee72a35bc9d4?w=200&h=200&fit=crop", desc: "Elegant Taste" },
+    { name: "Almond Bar", image: "https://images.unsplash.com/photo-1623660053975-cf75a8be0908?w=200&h=200&fit=crop", desc: "Crunchy Joy" },
+    { name: "Heart Box", image: "https://images.unsplash.com/photo-1526081347589-7fa3cb41966e?w=200&h=200&fit=crop", desc: "Love Special" },
+  ];
   
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       <ScratchCard 
         coverText="Scratch to open the chocolate box" 
         coverEmoji="🎁"
@@ -369,29 +385,103 @@ const ChocolateDayContent = () => {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="text-center space-y-6 py-6"
+          className="text-center space-y-4 py-4"
         >
-          {/* Chocolate Box */}
-          <div className="grid grid-cols-4 gap-3 max-w-xs mx-auto">
+          <h3 className="text-xl font-serif text-amber-300">🍫 My Chocolate Collection For You 🍫</h3>
+          
+          {/* Chocolate Gallery Grid */}
+          <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 max-w-md mx-auto px-2">
             {chocolates.map((choco, i) => (
               <motion.div
                 key={i}
-                className="text-4xl p-3 bg-amber-900/50 rounded-xl"
+                className={`relative cursor-pointer rounded-xl overflow-hidden border-2 ${
+                  selectedChocolate === i ? 'border-amber-400 ring-2 ring-amber-400/50' : 'border-amber-800/50'
+                }`}
                 initial={{ scale: 0, rotate: -180 }}
                 animate={{ scale: 1, rotate: 0 }}
-                transition={{ delay: i * 0.1, type: "spring" }}
-                whileHover={{ scale: 1.2 }}
+                transition={{ delay: i * 0.08, type: "spring", stiffness: 200 }}
+                whileHover={{ scale: 1.08, zIndex: 10 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setSelectedChocolate(selectedChocolate === i ? null : i)}
               >
-                {choco}
+                <div className="aspect-square">
+                  <img 
+                    src={choco.image} 
+                    alt={choco.name}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-amber-950/90 via-transparent to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 p-1.5 text-center">
+                  <p className="text-[10px] sm:text-xs font-bold text-amber-200 truncate">{choco.name}</p>
+                  <p className="text-[8px] sm:text-[10px] text-amber-400/80 truncate">{choco.desc}</p>
+                </div>
+                
+                {/* Selection glow */}
+                {selectedChocolate === i && (
+                  <motion.div
+                    className="absolute inset-0 bg-amber-400/20"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: [0.2, 0.4, 0.2] }}
+                    transition={{ repeat: Infinity, duration: 1.5 }}
+                  />
+                )}
               </motion.div>
             ))}
           </div>
           
-          <p className="text-amber-200 text-lg font-serif">
-            A box of sweetness for my sweetest 💝
+          {/* Selected chocolate message */}
+          <AnimatePresence>
+            {selectedChocolate !== null && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className="bg-amber-900/60 rounded-xl p-3 mx-2 border border-amber-600/30"
+              >
+                <p className="text-amber-200 text-sm">
+                  You picked <span className="font-bold text-amber-300">{chocolates[selectedChocolate].name}</span>! 
+                  <br />
+                  <span className="text-amber-400/80 text-xs">
+                    Just like you - {chocolates[selectedChocolate].desc} 💝
+                  </span>
+                </p>
+              </motion.div>
+            )}
+          </AnimatePresence>
+          
+          <p className="text-amber-200 text-base font-serif">
+            Tap any chocolate to pick your favorite! 💝
           </p>
         </motion.div>
       </ScratchCard>
+
+      {/* Floating chocolates decoration */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 0 }}>
+        {[...Array(8)].map((_, i) => (
+          <motion.div
+            key={`float-choco-${i}`}
+            className="absolute text-3xl"
+            style={{
+              left: `${10 + (i * 12)}%`,
+              top: `${20 + (i % 3) * 25}%`,
+            }}
+            animate={{
+              y: [0, -20, 0],
+              rotate: [0, 10, -10, 0],
+              opacity: [0.3, 0.6, 0.3],
+            }}
+            transition={{
+              duration: 3 + i * 0.5,
+              repeat: Infinity,
+              delay: i * 0.3,
+            }}
+          >
+            {["🍫", "🍬", "🍭", "🧁", "🍰", "🎂", "🍪", "🍩"][i]}
+          </motion.div>
+        ))}
+      </div>
 
       <AnimatePresence>
         {opened && (
