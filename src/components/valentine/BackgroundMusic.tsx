@@ -15,15 +15,16 @@ export const BackgroundMusic = ({ autoPlay = true }: BackgroundMusicProps) => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    // Using a romantic instrumental that's legally free to use
-    // User can replace with their own "Lover" mp3 by placing it in public folder
+    // Taylor Swift - Lover (user should add lover-music.mp3 to public folder)
+    // Or use a royalty-free romantic track as fallback
     audioRef.current = new Audio("/lover-music.mp3");
     audioRef.current.loop = true;
     audioRef.current.volume = volume;
 
-    // Fallback to free romantic music if custom file doesn't exist
+    // Fallback to romantic music if custom file doesn't exist
     audioRef.current.onerror = () => {
       if (audioRef.current) {
+        // Using a free romantic instrumental as fallback
         audioRef.current.src = "https://www.bensound.com/bensound-music/bensound-love.mp3";
         audioRef.current.load();
       }
