@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Heart, Lock, Sparkles, ChevronRight, ChevronLeft, Star } from "lucide-react";
-
+import { Heart, Lock, Sparkles, ChevronRight, ChevronLeft } from "lucide-react";
+import ReactDOM from "react-dom";
 // Premium Components
 import { HeartCursor } from "@/components/valentine/HeartCursor";
 import { ParallaxStars } from "@/components/valentine/ParallaxStars";
@@ -25,6 +25,7 @@ import { DressUpGame } from "@/components/valentine/DressUpGame";
 import { LoveQuiz } from "@/components/valentine/LoveQuiz";
 import { WishingWell } from "@/components/valentine/WishingWell";
 import { RelationshipCountdown } from "@/components/valentine/RelationshipCountdown";
+import { WhenIMissYou } from "@/components/valentine/WhenIMissYou";
 import { 
   ShakeHeartsExplosion, 
   KonamiSecret, 
@@ -358,22 +359,209 @@ const ProposeDayContent = () => {
 const ChocolateDayContent = () => {
   const [opened, setOpened] = useState(false);
   const [selectedChocolate, setSelectedChocolate] = useState<number | null>(null);
+  const [viewingChocolate, setViewingChocolate] = useState<typeof chocolates[0] | null>(null);
   
   // Real chocolate images - Dairy Milk, Fruits & Nuts, and more
   const chocolates = [
-    { name: "Dairy Milk", image: "https://images.unsplash.com/photo-1606312619070-d48b4c652a52?w=200&h=200&fit=crop", desc: "Smooth & Creamy" },
-    { name: "Fruits & Nuts", image: "https://images.unsplash.com/photo-1549007994-cb92caebd54b?w=200&h=200&fit=crop", desc: "Crunchy Delight" },
-    { name: "Dark Chocolate", image: "https://images.unsplash.com/photo-1481391319762-47dff72954d9?w=200&h=200&fit=crop", desc: "Rich & Intense" },
-    { name: "Milk Chocolate", image: "https://images.unsplash.com/photo-1511381939415-e44015466834?w=200&h=200&fit=crop", desc: "Classic Love" },
-    { name: "Truffle", image: "https://images.unsplash.com/photo-1548907040-4baa42d10919?w=200&h=200&fit=crop", desc: "Melt in Mouth" },
-    { name: "Hazelnut", image: "https://images.unsplash.com/photo-1587132137056-bfbf0166836e?w=200&h=200&fit=crop", desc: "Nutty Bliss" },
-    { name: "Caramel", image: "https://images.unsplash.com/photo-1599599810769-bcde5a160d32?w=200&h=200&fit=crop", desc: "Sweet Swirl" },
-    { name: "White Choco", image: "https://images.unsplash.com/photo-1575377427642-087cf684f29d?w=200&h=200&fit=crop", desc: "Pure Vanilla" },
-    { name: "Ferrero", image: "https://images.unsplash.com/photo-1582176604856-e824b4736522?w=200&h=200&fit=crop", desc: "Golden Luxury" },
-    { name: "Praline", image: "https://images.unsplash.com/photo-1571506165871-ee72a35bc9d4?w=200&h=200&fit=crop", desc: "Elegant Taste" },
-    { name: "Almond Bar", image: "https://images.unsplash.com/photo-1623660053975-cf75a8be0908?w=200&h=200&fit=crop", desc: "Crunchy Joy" },
-    { name: "Heart Box", image: "https://images.unsplash.com/photo-1526081347589-7fa3cb41966e?w=200&h=200&fit=crop", desc: "Love Special" },
+    { name: "Dairy Milk", image: "https://images.unsplash.com/photo-1606312619070-d48b4c652a52?w=400", desc: "Smooth & Creamy - Just like my love for you" },
+    { name: "Fruits & Nuts", image: "https://images.unsplash.com/photo-1549007994-cb92caebd54b?w=400", desc: "Crunchy Delight - Our love has many flavors" },
+    { name: "Dark Chocolate", image: "https://images.unsplash.com/photo-1481391319762-47dff72954d9?w=400", desc: "Rich & Intense - Deep like my feelings" },
+    { name: "Milk Chocolate", image: "https://images.unsplash.com/photo-1511381939415-e44015466834?w=400", desc: "Classic Love - Timeless, just like us" },
+    { name: "Truffle", image: "https://images.unsplash.com/photo-1548907040-4baa42d10919?w=400", desc: "Melt in Mouth - You melt my heart" },
+    { name: "Hazelnut", image: "https://images.unsplash.com/photo-1587132137056-bfbf0166836e?w=400", desc: "Nutty Bliss - Crazy in love with you" },
+    { name: "Caramel", image: "https://images.unsplash.com/photo-1599599810769-bcde5a160d32?w=400", desc: "Sweet Swirl - Sweet like your smile" },
+    { name: "White Choco", image: "https://images.unsplash.com/photo-1575377427642-087cf684f29d?w=400", desc: "Pure Vanilla - Pure like your heart" },
+    { name: "Ferrero", image: "https://images.unsplash.com/photo-1582176604856-e824b4736522?w=400", desc: "Golden Luxury - You're my treasure" },
+    { name: "Praline", image: "https://images.unsplash.com/photo-1571506165871-ee72a35bc9d4?w=400", desc: "Elegant Taste - Classy like you" },
+    { name: "Almond Bar", image: "https://images.unsplash.com/photo-1623660053975-cf75a8be0908?w=400", desc: "Crunchy Joy - Joy you bring me" },
+    { name: "Heart Box", image: "https://images.unsplash.com/photo-1526081347589-7fa3cb41966e?w=400", desc: "Love Special - Made for my Puntuu" },
   ];
+
+  const handleChocolateClick = (index: number) => {
+    setSelectedChocolate(index);
+    setViewingChocolate(chocolates[index]);
+    if ('vibrate' in navigator) {
+      navigator.vibrate([50, 30, 50]);
+    }
+  };
+  
+  // Chocolate Modal
+  const ChocolateModal = () => {
+    if (!viewingChocolate) return null;
+    
+    return ReactDOM.createPortal(
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        style={{
+          position: 'fixed',
+          inset: 0,
+          zIndex: 999999,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          background: 'rgba(0,0,0,0.95)',
+          backdropFilter: 'blur(20px)',
+          padding: '20px',
+        }}
+        onClick={() => setViewingChocolate(null)}
+      >
+        {/* Floating chocolates */}
+        {[...Array(15)].map((_, i) => (
+          <motion.span
+            key={i}
+            style={{
+              position: 'absolute',
+              fontSize: '2rem',
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              y: [0, -30, 0],
+              opacity: [0.2, 0.5, 0.2],
+              rotate: [0, 360],
+            }}
+            transition={{
+              duration: 4 + Math.random() * 2,
+              repeat: Infinity,
+              delay: Math.random() * 2,
+            }}
+          >
+            {['🍫', '🍬', '💕', '✨', '🍭'][i % 5]}
+          </motion.span>
+        ))}
+
+        <motion.div
+          initial={{ scale: 0.5, y: 100 }}
+          animate={{ scale: 1, y: 0 }}
+          exit={{ scale: 0.5, y: 100 }}
+          onClick={(e) => e.stopPropagation()}
+          style={{
+            background: 'linear-gradient(135deg, rgba(120,70,30,0.3) 0%, rgba(80,40,20,0.3) 100%)',
+            borderRadius: '24px',
+            padding: '24px',
+            maxWidth: '380px',
+            width: '100%',
+            border: '1px solid rgba(255,200,100,0.3)',
+            position: 'relative',
+          }}
+        >
+          {/* Close button */}
+          <motion.button
+            onClick={() => setViewingChocolate(null)}
+            style={{
+              position: 'absolute',
+              top: '12px',
+              right: '12px',
+              background: 'rgba(255,255,255,0.1)',
+              borderRadius: '50%',
+              padding: '8px',
+              border: 'none',
+              color: 'white',
+              cursor: 'pointer',
+              zIndex: 10,
+            }}
+            whileTap={{ scale: 0.9 }}
+          >
+            ✕
+          </motion.button>
+
+          {/* Big Image */}
+          <motion.div
+            style={{
+              width: '100%',
+              aspectRatio: '1',
+              borderRadius: '20px',
+              overflow: 'hidden',
+              marginBottom: '20px',
+              boxShadow: '0 20px 60px rgba(0,0,0,0.5)',
+            }}
+            animate={{ 
+              boxShadow: [
+                '0 20px 60px rgba(0,0,0,0.5)',
+                '0 20px 80px rgba(180,100,30,0.3)',
+                '0 20px 60px rgba(0,0,0,0.5)'
+              ]
+            }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            <img
+              src={viewingChocolate.image}
+              alt={viewingChocolate.name}
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+              }}
+            />
+          </motion.div>
+
+          {/* Emoji */}
+          <motion.div
+            style={{ textAlign: 'center', marginBottom: '12px' }}
+            animate={{ scale: [1, 1.2, 1], rotate: [0, 10, -10, 0] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            <span style={{ fontSize: '3rem' }}>🍫</span>
+          </motion.div>
+
+          {/* Name */}
+          <h3 style={{
+            textAlign: 'center',
+            fontSize: '1.5rem',
+            fontFamily: 'serif',
+            color: '#DEB887',
+            marginBottom: '12px',
+          }}>
+            {viewingChocolate.name}
+          </h3>
+
+          {/* Description */}
+          <div style={{
+            background: 'rgba(255,255,255,0.1)',
+            borderRadius: '16px',
+            padding: '16px',
+          }}>
+            <p style={{
+              color: 'rgba(255,255,255,0.9)',
+              fontFamily: 'serif',
+              fontSize: '1rem',
+              lineHeight: 1.6,
+              textAlign: 'center',
+              fontStyle: 'italic',
+            }}>
+              "{viewingChocolate.desc}"
+            </p>
+          </div>
+
+          {/* Hearts */}
+          <motion.div
+            style={{ display: 'flex', justifyContent: 'center', marginTop: '16px', gap: '8px' }}
+          >
+            {[...Array(5)].map((_, i) => (
+              <motion.span
+                key={i}
+                animate={{ 
+                  scale: [1, 1.3, 1],
+                  y: [0, -5, 0]
+                }}
+                transition={{ 
+                  duration: 1,
+                  repeat: Infinity,
+                  delay: i * 0.1
+                }}
+                style={{ fontSize: '1.5rem' }}
+              >
+                💕
+              </motion.span>
+            ))}
+          </motion.div>
+        </motion.div>
+      </motion.div>,
+      document.body
+    );
+  };
   
   return (
     <div className="space-y-6">
@@ -388,6 +576,7 @@ const ChocolateDayContent = () => {
           className="text-center space-y-4 py-4"
         >
           <h3 className="text-xl font-serif text-amber-300">🍫 My Chocolate Collection For You 🍫</h3>
+          <p className="text-amber-200/70 text-xs">Tap any chocolate to see it bigger! 💕</p>
           
           {/* Chocolate Gallery Grid */}
           <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 max-w-md mx-auto px-2">
@@ -402,7 +591,7 @@ const ChocolateDayContent = () => {
                 transition={{ delay: i * 0.08, type: "spring", stiffness: 200 }}
                 whileHover={{ scale: 1.08, zIndex: 10 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => setSelectedChocolate(selectedChocolate === i ? null : i)}
+                onClick={() => handleChocolateClick(i)}
               >
                 <div className="aspect-square">
                   <img 
@@ -415,7 +604,6 @@ const ChocolateDayContent = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-amber-950/90 via-transparent to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-1.5 text-center">
                   <p className="text-[10px] sm:text-xs font-bold text-amber-200 truncate">{choco.name}</p>
-                  <p className="text-[8px] sm:text-[10px] text-amber-400/80 truncate">{choco.desc}</p>
                 </div>
                 
                 {/* Selection glow */}
@@ -430,30 +618,6 @@ const ChocolateDayContent = () => {
               </motion.div>
             ))}
           </div>
-          
-          {/* Selected chocolate message */}
-          <AnimatePresence>
-            {selectedChocolate !== null && (
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                className="bg-amber-900/60 rounded-xl p-3 mx-2 border border-amber-600/30"
-              >
-                <p className="text-amber-200 text-sm">
-                  You picked <span className="font-bold text-amber-300">{chocolates[selectedChocolate].name}</span>! 
-                  <br />
-                  <span className="text-amber-400/80 text-xs">
-                    Just like you - {chocolates[selectedChocolate].desc} 💝
-                  </span>
-                </p>
-              </motion.div>
-            )}
-          </AnimatePresence>
-          
-          <p className="text-amber-200 text-base font-serif">
-            Tap any chocolate to pick your favorite! 💝
-          </p>
         </motion.div>
       </ScratchCard>
 
@@ -501,6 +665,11 @@ const ChocolateDayContent = () => {
             </GlassCard>
           </motion.div>
         )}
+      </AnimatePresence>
+
+      {/* Chocolate Modal */}
+      <AnimatePresence>
+        {viewingChocolate && <ChocolateModal />}
       </AnimatePresence>
     </div>
   );
@@ -647,7 +816,7 @@ const KissDayContent = () => {
 
 const ValentineDayContent = () => {
   const [triggerConfetti, setTriggerConfetti] = useState(false);
-  const [activeSection, setActiveSection] = useState<'gallery' | 'letters' | 'letter' | 'game' | 'quiz' | 'wishes' | 'journey' | 'soulmate'>('gallery');
+  const [activeSection, setActiveSection] = useState<'gallery' | 'letters' | 'letter' | 'game' | 'quiz' | 'wishes' | 'journey' | 'soulmate' | 'missyou'>('gallery');
   
   useEffect(() => {
     setTriggerConfetti(true);
@@ -680,14 +849,33 @@ const ValentineDayContent = () => {
         </p>
       </GlassCard>
 
-      {/* Navigation Tabs - Responsive with proper scrolling */}
-      <div className="w-full overflow-x-auto pb-2 scrollbar-hide">
-        <div className="flex gap-1.5 sm:gap-2 px-1 min-w-max">
+      {/* Navigation Tabs - Two rows for better visibility */}
+      <div className="space-y-2">
+        <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 px-1">
           {[
             { key: 'gallery', label: 'Memories', emoji: '📸' },
             { key: 'letters', label: '10 Letters', emoji: '💌' },
             { key: 'letter', label: 'Final Letter', emoji: '❤️' },
             { key: 'quiz', label: 'Love Quiz', emoji: '💕' },
+            { key: 'missyou', label: 'Miss You', emoji: '🥺' },
+          ].map((tab) => (
+            <motion.button
+              key={tab.key}
+              onClick={() => setActiveSection(tab.key as typeof activeSection)}
+              className={`px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-full font-medium text-[10px] sm:text-xs whitespace-nowrap transition-all ${
+                activeSection === tab.key 
+                  ? "bg-white/30 text-white shadow-lg" 
+                  : "bg-white/10 text-white/70"
+              }`}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {tab.emoji} {tab.label}
+            </motion.button>
+          ))}
+        </div>
+        <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 px-1">
+          {[
             { key: 'wishes', label: 'Our Wishes', emoji: '🌟' },
             { key: 'journey', label: 'Our Journey', emoji: '⏱️' },
             { key: 'soulmate', label: 'Soulmate', emoji: '💫' },
