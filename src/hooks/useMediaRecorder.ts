@@ -1,99 +1,21 @@
 import { useState, useRef, useCallback } from 'react';
 
-export interface RecordedMedia {
-  id: string;
-  type: 'audio' | 'video';
-  blob: Blob;
-  url: string;
-  timestamp: number;
-  duration: number;
-}
+// Re-export storage functions from the new modular structure
+export type { RecordedMedia } from './media';
+export { 
+  saveRecordingToDB, 
+  getRecordingsFromDB, 
+  deleteRecordingFromDB,
+  // Type-specific exports
+  saveAudioToDB,
+  getAudioFromDB,
+  deleteAudioFromDB,
+  saveVideoToDB,
+  getVideoFromDB,
+  deleteVideoFromDB
+} from './media';
 
-// IndexedDB for persistent storage
-const DB_NAME = 'valentineMediaDB';
-const STORE_NAME = 'recordings';
-
-const openDB = (): Promise<IDBDatabase> => {
-  return new Promise((resolve, reject) => {
-    const request = indexedDB.open(DB_NAME, 1);
-    request.onerror = () => reject(request.error);
-    request.onsuccess = () => resolve(request.result);
-    request.onupgradeneeded = (event) => {
-      const db = (event.target as IDBOpenDBRequest).result;
-      if (!db.objectStoreNames.contains(STORE_NAME)) {
-        db.createObjectStore(STORE_NAME, { keyPath: 'id' });
-      }
-    };
-  });
-};
-
-export const saveRecordingToDB = async (letterId: string, media: RecordedMedia): Promise<void> => {
-  // Convert blob to array buffer BEFORE opening transaction
-  const buffer = await media.blob.arrayBuffer();
-  
-  const db = await openDB();
-  return new Promise((resolve, reject) => {
-    const transaction = db.transaction(STORE_NAME, 'readwrite');
-    const store = transaction.objectStore(STORE_NAME);
-    
-    const record = {
-      id: media.id || `${letterId}_${media.type}_${Date.now()}`,
-      letterId,
-      type: media.type,
-      data: buffer,
-      mimeType: media.blob.type,
-      timestamp: media.timestamp,
-      duration: media.duration
-    };
-    
-    const request = store.put(record);
-    request.onsuccess = () => resolve();
-    request.onerror = () => reject(request.error);
-    transaction.onerror = () => reject(transaction.error);
-  });
-};
-
-export const getRecordingsFromDB = async (letterId: string): Promise<RecordedMedia[]> => {
-  const db = await openDB();
-  return new Promise((resolve, reject) => {
-    const transaction = db.transaction(STORE_NAME, 'readonly');
-    const store = transaction.objectStore(STORE_NAME);
-    const results: RecordedMedia[] = [];
-    
-    const request = store.openCursor();
-    request.onsuccess = (event) => {
-      const cursor = (event.target as IDBRequest<IDBCursorWithValue>).result;
-      if (cursor) {
-        if (cursor.value.letterId === letterId) {
-          const blob = new Blob([cursor.value.data], { type: cursor.value.mimeType });
-          results.push({
-            id: cursor.value.id,
-            type: cursor.value.type,
-            blob,
-            url: URL.createObjectURL(blob),
-            timestamp: cursor.value.timestamp,
-            duration: cursor.value.duration
-          });
-        }
-        cursor.continue();
-      } else {
-        resolve(results);
-      }
-    };
-    request.onerror = () => reject(request.error);
-  });
-};
-
-export const deleteRecordingFromDB = async (recordId: string): Promise<void> => {
-  const db = await openDB();
-  return new Promise((resolve, reject) => {
-    const transaction = db.transaction(STORE_NAME, 'readwrite');
-    const store = transaction.objectStore(STORE_NAME);
-    const request = store.delete(recordId);
-    request.onsuccess = () => resolve();
-    request.onerror = () => reject(request.error);
-  });
-};
+import { RecordedMedia } from './media';
 
 export const useMediaRecorder = () => {
   const [isRecording, setIsRecording] = useState(false);
@@ -105,7 +27,7 @@ export const useMediaRecorder = () => {
   const chunksRef = useRef<Blob[]>([]);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const startTimeRef = useRef<number>(0);
-  const recordingTypeRef = useRef<'audio' | 'video' | null>(null); // Fix: use ref to track type
+  const recordingTypeRef = useRef<'audio' | 'video' | null>(null);
 
   const startRecording = useCallback(async (type: 'audio' | 'video'): Promise<void> => {
     try {
@@ -132,7 +54,7 @@ export const useMediaRecorder = () => {
       
       mediaRecorder.start(100);
       startTimeRef.current = Date.now();
-      recordingTypeRef.current = type; // Fix: store in ref
+      recordingTypeRef.current = type;
       setIsRecording(true);
       setRecordingType(type);
       setRecordingTime(0);
@@ -155,14 +77,13 @@ export const useMediaRecorder = () => {
       }
       
       const mediaRecorder = mediaRecorderRef.current;
-      const currentType = recordingTypeRef.current || 'audio'; // Fix: use ref value
+      const currentType = recordingTypeRef.current || 'audio';
       
       mediaRecorder.onstop = () => {
         const blob = new Blob(chunksRef.current, { type: mediaRecorder.mimeType });
         const url = URL.createObjectURL(blob);
         const duration = Math.floor((Date.now() - startTimeRef.current) / 1000);
         
-        // Stop all tracks
         mediaRecorderRef.current = null;
         
         if (timerRef.current) {
@@ -177,7 +98,7 @@ export const useMediaRecorder = () => {
         
         resolve({
           id: `recording_${Date.now()}`,
-          type: currentType, // Fix: use captured ref value
+          type: currentType,
           blob,
           url,
           timestamp: Date.now(),
