@@ -834,7 +834,7 @@ const KissDayContent = () => {
 
 const ValentineDayContent = () => {
   const [triggerConfetti, setTriggerConfetti] = useState(false);
-  const [activeSection, setActiveSection] = useState<'gallery' | 'letters' | 'letter' | 'game' | 'quiz' | 'wishes' | 'journey' | 'soulmate' | 'missyou' | 'photobooth' | 'openwhen' | 'hearts' | 'comfort' | 'music' | 'dreams' | 'growth' | 'future' | 'decide' | 'coupons' | 'private' | 'recordings' | 'birthday' | 'bouquets'>('gallery');
+  const [activeSection, setActiveSection] = useState<'gallery' | 'letters' | 'letter' | 'game' | 'quiz' | 'wishes' | 'journey' | 'soulmate' | 'missyou' | 'photobooth' | 'openwhen' | 'hearts' | 'comfort' | 'music' | 'dreams' | 'growth' | 'future' | 'decide' | 'coupons' | 'private' | 'recordings' | 'birthday' | 'bouquets' | 'fights' | 'languages' | 'proposal'>('gallery');
   
   useEffect(() => {
     setTriggerConfetti(true);
@@ -966,6 +966,8 @@ const ValentineDayContent = () => {
             { key: 'recordings', label: 'Voice/Video', emoji: '🎤' },
             { key: 'birthday', label: 'Birthday', emoji: '🎂' },
             { key: 'bouquets', label: 'Bouquets', emoji: '💐' },
+            { key: 'fights', label: 'When We Fight', emoji: '🌧️' },
+            { key: 'languages', label: 'I Love You', emoji: '🌍' },
           ].map((tab) => (
             <motion.button
               key={tab.key}
@@ -974,6 +976,25 @@ const ValentineDayContent = () => {
                 activeSection === tab.key 
                   ? "bg-white/30 text-white shadow-lg" 
                   : "bg-white/10 text-white/70"
+              }`}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {tab.emoji} {tab.label}
+            </motion.button>
+          ))}
+        </div>
+        <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 px-1">
+          {[
+            { key: 'proposal', label: 'Be My Valentine?', emoji: '💕' },
+          ].map((tab) => (
+            <motion.button
+              key={tab.key}
+              onClick={() => setActiveSection(tab.key as typeof activeSection)}
+              className={`px-3 sm:px-4 py-2 sm:py-3 rounded-full font-medium text-xs sm:text-sm whitespace-nowrap transition-all bg-gradient-to-r from-pink-500 to-rose-500 ${
+                activeSection === tab.key 
+                  ? "ring-2 ring-white shadow-lg shadow-pink-500/50" 
+                  : "opacity-90"
               }`}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -1354,6 +1375,45 @@ I want to know the ways you ache, the ways you hope, the tiny corners of yoursel
           >
             <GlassCard className="p-4">
               <FlowerBouquetGallery />
+            </GlassCard>
+          </motion.div>
+        )}
+
+        {activeSection === 'fights' && (
+          <motion.div
+            key="fights"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+          >
+            <GlassCard className="p-4">
+              <WhenWeFight />
+            </GlassCard>
+          </motion.div>
+        )}
+
+        {activeSection === 'languages' && (
+          <motion.div
+            key="languages"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+          >
+            <GlassCard className="p-4">
+              <ILoveYouLanguages />
+            </GlassCard>
+          </motion.div>
+        )}
+
+        {activeSection === 'proposal' && (
+          <motion.div
+            key="proposal"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+          >
+            <GlassCard className="p-4">
+              <ValentineProposal />
             </GlassCard>
           </motion.div>
         )}
