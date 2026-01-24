@@ -64,8 +64,16 @@ const RecordingModal = ({
   };
 
   const handleStop = async () => {
-    const media = await stopRecording();
-    setRecordedMedia(media);
+    try {
+      const media = await stopRecording();
+      // Stop preview stream tracks
+      if (previewStream) {
+        previewStream.getTracks().forEach(track => track.stop());
+      }
+      setRecordedMedia(media);
+    } catch (error) {
+      console.error('Failed to stop recording:', error);
+    }
   };
 
   const handleSave = () => {
