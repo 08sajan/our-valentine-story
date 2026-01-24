@@ -16,7 +16,7 @@ const playlist: Song[] = [
     id: '1',
     title: 'Lover',
     artist: 'Taylor Swift',
-    whyItRemindsMeOfYou: 'Because every word feels like our story - I want to be your forever and always.',
+    whyItRemindsMeOfYou: 'Every word feels like our story, Puntuu. "Can I go where you go? Can we always be this close?" - I want to be your end game, your first string, your forever and always.',
     coverGradient: 'from-pink-400 via-rose-400 to-red-400',
     emoji: '💕'
   },
@@ -24,7 +24,7 @@ const playlist: Song[] = [
     id: '2',
     title: 'Perfect',
     artist: 'Ed Sheeran',
-    whyItRemindsMeOfYou: 'Because you truly are perfect in my eyes, even when you don\'t believe it yourself.',
+    whyItRemindsMeOfYou: 'Because you truly ARE perfect in my eyes, even when you don\'t believe it. "I found a love for me, darling just dive right in" - that\'s exactly what I did with you.',
     coverGradient: 'from-blue-400 via-indigo-400 to-purple-400',
     emoji: '✨'
   },
@@ -32,7 +32,7 @@ const playlist: Song[] = [
     id: '3',
     title: 'All of Me',
     artist: 'John Legend',
-    whyItRemindsMeOfYou: 'Because I love all of you - every curve, every edge, every perfect imperfection.',
+    whyItRemindsMeOfYou: 'Because I love ALL of you - every curve, every edge, every mood, every laugh, every tear. Your imperfections are perfect to me.',
     coverGradient: 'from-amber-400 via-orange-400 to-red-400',
     emoji: '🌹'
   },
@@ -40,7 +40,7 @@ const playlist: Song[] = [
     id: '4',
     title: 'Thinking Out Loud',
     artist: 'Ed Sheeran',
-    whyItRemindsMeOfYou: 'Because I know I\'ll still love you when we\'re 70, holding hands with wrinkled fingers.',
+    whyItRemindsMeOfYou: 'Because I know I\'ll still love you when we\'re 70, sitting on the porch with wrinkled fingers still intertwined. Our love is timeless.',
     coverGradient: 'from-emerald-400 via-teal-400 to-cyan-400',
     emoji: '💚'
   },
@@ -48,7 +48,7 @@ const playlist: Song[] = [
     id: '5',
     title: 'A Thousand Years',
     artist: 'Christina Perri',
-    whyItRemindsMeOfYou: 'Because my heart beats for you like it has waited lifetimes to find you.',
+    whyItRemindsMeOfYou: 'Because my heart has been waiting lifetimes for you. "I have died every day waiting for you" - every moment before you was just waiting for my life to begin.',
     coverGradient: 'from-violet-400 via-purple-400 to-fuchsia-400',
     emoji: '💜'
   },
@@ -56,7 +56,7 @@ const playlist: Song[] = [
     id: '6',
     title: 'Can\'t Help Falling in Love',
     artist: 'Elvis Presley',
-    whyItRemindsMeOfYou: 'Because falling for you wasn\'t a choice - it was destiny I couldn\'t escape.',
+    whyItRemindsMeOfYou: 'Because falling for you wasn\'t a choice - it was destiny. "Take my hand, take my whole life too" - that\'s exactly what I\'m offering you.',
     coverGradient: 'from-rose-400 via-pink-400 to-fuchsia-400',
     emoji: '🎵'
   },
@@ -64,7 +64,7 @@ const playlist: Song[] = [
     id: '7',
     title: 'Die With A Smile',
     artist: 'Bruno Mars & Lady Gaga',
-    whyItRemindsMeOfYou: 'Because no matter what happens, being with you makes everything worth it.',
+    whyItRemindsMeOfYou: 'Because no matter what happens in this crazy world, if I have you, I\'ll face anything with a smile. You make everything worth it.',
     coverGradient: 'from-yellow-400 via-amber-400 to-orange-400',
     emoji: '😊'
   },
@@ -72,7 +72,7 @@ const playlist: Song[] = [
     id: '8',
     title: 'Tera Ban Jaunga',
     artist: 'Akhil Sachdeva',
-    whyItRemindsMeOfYou: 'Because I want to become yours completely - मैं तेरा बन जाऊंगा।',
+    whyItRemindsMeOfYou: 'तेरा बन जाऊंगा - I want to become completely yours. Every word of this song is my promise to you, Puntuu.',
     coverGradient: 'from-red-400 via-rose-500 to-pink-500',
     emoji: '🇮🇳'
   },
@@ -80,7 +80,7 @@ const playlist: Song[] = [
     id: '9',
     title: 'Tum Hi Ho',
     artist: 'Arijit Singh',
-    whyItRemindsMeOfYou: 'Because you\'re my everything - मेरी अधूरी जिंदगी को पूरा करती हो तुम।',
+    whyItRemindsMeOfYou: 'तुम ही हो - You are my EVERYTHING. मेरी अधूरी जिंदगी को पूरा करती हो तुम। Before you, I was incomplete.',
     coverGradient: 'from-indigo-400 via-blue-500 to-cyan-500',
     emoji: '💙'
   },
@@ -88,9 +88,25 @@ const playlist: Song[] = [
     id: '10',
     title: 'Raataan Lambiyan',
     artist: 'Jubin Nautiyal & Asees Kaur',
-    whyItRemindsMeOfYou: 'Because the nights feel endless when I\'m not with you, thinking only of you.',
+    whyItRemindsMeOfYou: 'Every night without you feels endless. The nights are so long when I\'m not with you, thinking only of you, waiting only for you.',
     coverGradient: 'from-purple-400 via-violet-500 to-indigo-500',
     emoji: '🌙'
+  },
+  {
+    id: '11',
+    title: 'Pehle Bhi Main',
+    artist: 'Vishal Mishra',
+    whyItRemindsMeOfYou: 'Because I feel like I\'ve loved you in every lifetime before this one, and I\'ll love you in every lifetime after. You\'re my eternal love.',
+    coverGradient: 'from-teal-400 via-emerald-500 to-green-500',
+    emoji: '🔄'
+  },
+  {
+    id: '12',
+    title: 'Hawayein',
+    artist: 'Arijit Singh',
+    whyItRemindsMeOfYou: 'Because even the wind reminds me of you. Everything in nature conspires to make me think of you. You\'re everywhere.',
+    coverGradient: 'from-sky-400 via-blue-400 to-indigo-500',
+    emoji: '🌬️'
   }
 ];
 
