@@ -41,6 +41,9 @@ import { IntimateSection } from "@/components/valentine/IntimateSection";
 import { VoiceVideoMessages } from "@/components/valentine/VoiceVideoMessages";
 import { BirthdayCelebration } from "@/components/valentine/BirthdayCelebration";
 import { FlowerBouquetGallery } from "@/components/valentine/FlowerBouquetGallery";
+import { WhenWeFight } from "@/components/valentine/WhenWeFight";
+import { ILoveYouLanguages } from "@/components/valentine/ILoveYouLanguages";
+import { ValentineProposal } from "@/components/valentine/ValentineProposal";
 import { 
   ShakeHeartsExplosion, 
   KonamiSecret, 

@@ -452,43 +452,55 @@ export const VoiceVideoMessages = () => {
       {/* Messages Grid */}
       {messages.length > 0 && (
         <div className="grid grid-cols-2 gap-3">
-          {messages.map((message, index) => (
-            <motion.button
-              key={message.id}
-              onClick={() => setViewingMessage(message)}
-              className="relative bg-white/10 rounded-2xl overflow-hidden text-left border border-pink-500/20 hover:border-pink-500/50 transition-all"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.05 }}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <div className="aspect-square flex items-center justify-center bg-gradient-to-br from-pink-500/20 to-rose-500/20">
-                <motion.div
-                  className="w-16 h-16 rounded-full bg-gradient-to-r from-pink-500/50 to-rose-500/50 flex items-center justify-center"
-                  animate={{ scale: [1, 1.1, 1] }}
-                  transition={{ duration: 2, repeat: Infinity, delay: index * 0.2 }}
-                >
-                  {message.type === 'video' ? (
-                    <Video size={28} className="text-white" />
-                  ) : (
-                    <Mic size={28} className="text-white" />
-                  )}
-                </motion.div>
-              </div>
-              <div className="p-3">
-                <h4 className="text-white font-medium text-sm truncate">{message.title}</h4>
-                <p className="text-white/50 text-xs flex items-center gap-1 mt-1">
-                  <Clock size={10} />
-                  {formatDuration(message.duration)}
-                </p>
-              </div>
-              {/* Play indicator */}
-              <div className="absolute top-2 right-2 w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-                <Play size={14} className="text-white ml-0.5" />
-              </div>
-            </motion.button>
-          ))}
+          {messages.map((message, index) => {
+            const recordedDate = new Date(message.timestamp);
+            const dayName = recordedDate.toLocaleDateString('en-US', { weekday: 'short' });
+            const dateStr = recordedDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+            const timeStr = recordedDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+            
+            return (
+              <motion.button
+                key={message.id}
+                onClick={() => setViewingMessage(message)}
+                className="relative bg-white/10 rounded-2xl overflow-hidden text-left border border-pink-500/20 hover:border-pink-500/50 transition-all"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.05 }}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                {/* Recording date badge */}
+                <div className="absolute top-2 right-2 bg-black/50 px-2 py-1 rounded-full z-10">
+                  <span className="text-white/80 text-[10px]">{dayName}</span>
+                </div>
+                
+                <div className="aspect-square flex items-center justify-center bg-gradient-to-br from-pink-500/20 to-rose-500/20">
+                  <motion.div
+                    className="w-16 h-16 rounded-full bg-gradient-to-r from-pink-500/50 to-rose-500/50 flex items-center justify-center"
+                    animate={{ scale: [1, 1.1, 1] }}
+                    transition={{ duration: 2, repeat: Infinity, delay: index * 0.2 }}
+                  >
+                    {message.type === 'video' ? (
+                      <Video size={28} className="text-white" />
+                    ) : (
+                      <Mic size={28} className="text-white" />
+                    )}
+                  </motion.div>
+                </div>
+                <div className="p-3">
+                  <h4 className="text-white font-medium text-sm truncate">{message.title}</h4>
+                  <p className="text-pink-300/80 text-[10px] mt-1">📅 {dateStr}</p>
+                  <p className="text-white/50 text-xs flex items-center gap-1 mt-1">
+                    <Clock size={10} /> {timeStr} • {formatDuration(message.duration)}
+                  </p>
+                </div>
+                {/* Play indicator */}
+                <div className="absolute top-2 right-2 w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                  <Play size={14} className="text-white ml-0.5" />
+                </div>
+              </motion.button>
+            );
+          })}
         </div>
       )}
 
