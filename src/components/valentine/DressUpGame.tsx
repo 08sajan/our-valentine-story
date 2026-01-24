@@ -673,6 +673,7 @@ export const DressUpGame = ({ onComplete }: DressUpGameProps) => {
     extras: null,
   });
   const [showResult, setShowResult] = useState(false);
+  const [previewItem, setPreviewItem] = useState<{ item: Item; category: Category } | null>(null);
 
   const handleSelect = (category: Category, itemId: string) => {
     setSelections(prev => ({ ...prev, [category]: itemId }));
@@ -828,6 +829,7 @@ export const DressUpGame = ({ onComplete }: DressUpGameProps) => {
                 item={item}
                 isSelected={selections[activeCategory] === item.id}
                 onSelect={() => handleSelect(activeCategory, item.id)}
+                onPreview={() => setPreviewItem({ item, category: activeCategory })}
                 index={index}
               />
             ))}
@@ -923,6 +925,18 @@ export const DressUpGame = ({ onComplete }: DressUpGameProps) => {
           <DateNightModal 
             selections={selections} 
             onClose={() => setShowResult(false)} 
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Item Preview Modal */}
+      <AnimatePresence>
+        {previewItem && (
+          <ItemPreviewModal
+            item={previewItem.item}
+            category={categories.find(c => c.key === previewItem.category)?.label || previewItem.category}
+            onClose={() => setPreviewItem(null)}
+            onSelect={() => handleSelect(previewItem.category, previewItem.item.id)}
           />
         )}
       </AnimatePresence>
