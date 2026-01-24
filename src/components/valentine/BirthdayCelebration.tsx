@@ -16,11 +16,10 @@ interface YearLetter {
 }
 
 const generateLetters = (): YearLetter[] => {
-  const currentYear = new Date().getFullYear();
   const letters: YearLetter[] = [];
 
-  // Letters from birth (2000) to future (current year + 5)
-  for (let year = 2000; year <= currentYear + 10; year++) {
+  // Letters from birth (2000) to age 100 (year 2100)
+  for (let year = 2000; year <= 2100; year++) {
     const age = year - 2000;
     letters.push(getLetterForYear(year, age));
   }
@@ -462,31 +461,34 @@ export const BirthdayCelebration = () => {
         </motion.div>
       </div>
 
-      {/* Year Grid */}
-      <div className="grid grid-cols-5 gap-2">
+      {/* Year Grid - Scrollable to show all 101 years */}
+      <div className="grid grid-cols-5 gap-2 max-h-[300px] overflow-y-auto pr-1">
         {letters.map((letter, index) => {
-          const isFuture = letter.year > new Date().getFullYear();
+          const currentYear = new Date().getFullYear();
+          const isFuture = letter.year > currentYear;
           const isCurrent = letter.age === currentAge;
           const isBirthYear = letter.year === 2000;
+          const isLocked = isFuture;
 
           return (
             <motion.button
               key={letter.year}
-              onClick={() => setSelectedIndex(index)}
+              onClick={() => !isLocked && setSelectedIndex(index)}
+              disabled={isLocked}
               className={`relative aspect-square rounded-xl flex flex-col items-center justify-center text-xs font-medium transition-all ${
                 isCurrent 
                   ? 'bg-gradient-to-br from-pink-500 to-rose-500 text-white shadow-lg shadow-pink-500/30'
                   : isBirthYear
                   ? 'bg-gradient-to-br from-amber-500 to-orange-500 text-white'
-                  : isFuture
-                  ? 'bg-white/5 text-white/40 border border-white/10'
+                  : isLocked
+                  ? 'bg-white/5 text-white/30 border border-white/10 cursor-not-allowed'
                   : 'bg-white/10 text-white/80 hover:bg-white/20'
               }`}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={!isLocked ? { scale: 1.05 } : {}}
+              whileTap={!isLocked ? { scale: 0.95 } : {}}
               initial={{ opacity: 0, scale: 0.5 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: index * 0.02 }}
+              transition={{ delay: Math.min(index * 0.01, 0.5) }}
             >
               <span className="text-lg">{letter.year.toString().slice(-2)}</span>
               {isCurrent && (
@@ -497,29 +499,32 @@ export const BirthdayCelebration = () => {
                 />
               )}
               {isBirthYear && <span className="text-[8px]">Born!</span>}
+              {isLocked && (
+                <span className="absolute text-[10px]">🔒</span>
+              )}
             </motion.button>
           );
         })}
       </div>
 
       {/* Legend */}
-      <div className="flex justify-center gap-4 text-xs text-white/50">
+      <div className="flex flex-wrap justify-center gap-3 text-xs text-white/50">
         <span className="flex items-center gap-1">
           <div className="w-3 h-3 rounded bg-gradient-to-r from-amber-500 to-orange-500" />
-          Birth Year
+          Birth
         </span>
         <span className="flex items-center gap-1">
           <div className="w-3 h-3 rounded bg-gradient-to-r from-pink-500 to-rose-500" />
-          Current Age
+          Now
         </span>
         <span className="flex items-center gap-1">
           <div className="w-3 h-3 rounded bg-white/5 border border-white/10" />
-          Future
+          🔒 Future
         </span>
       </div>
 
       <p className="text-center text-pink-400/70 text-xs">
-        Tap any year to read your birthday letter & receive your gift! 🎁
+        {letters.length} birthdays from 2000-2100! Future letters unlock on that year 🎁
       </p>
 
       {/* Letter Modal */}
