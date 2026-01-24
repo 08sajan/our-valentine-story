@@ -1,13 +1,20 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export const CinematicKiss = () => {
   const [kissed, setKissed] = useState(false);
   const [kissCount, setKissCount] = useState(0);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   const sendKiss = () => {
     setKissed(true);
     setKissCount(prev => prev + 1);
+
+    // Play video
+    if (videoRef.current) {
+      videoRef.current.currentTime = 0;
+      videoRef.current.play();
+    }
 
     // Vibrate
     if ('vibrate' in navigator) {
@@ -16,12 +23,12 @@ export const CinematicKiss = () => {
 
     setTimeout(() => {
       setKissed(false);
-    }, 4000);
+    }, 6000);
   };
 
   return (
     <div className="relative text-center space-y-6">
-      {/* Kiss Animation Container */}
+      {/* Kiss Video Container */}
       <div className="relative h-80 flex items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-b from-red-900/30 to-pink-900/30">
         
         {/* Romantic sunset background */}
@@ -34,22 +41,40 @@ export const CinematicKiss = () => {
           transition={{ duration: 2, repeat: Infinity }}
         />
 
-        {/* Real Romantic Couple Kiss Image */}
+        {/* Real Romantic Kiss Video */}
         <motion.div
           className="relative z-10 w-full h-full overflow-hidden"
           initial={{ scale: 1 }}
           animate={kissed ? { scale: 1.05 } : { scale: 1 }}
           transition={{ duration: 0.8 }}
         >
-          <img
-            src="https://images.unsplash.com/photo-1494774157365-9e04c6720e47?w=800"
-            alt="Romantic couple kissing"
+          {/* Video element */}
+          <video
+            ref={videoRef}
             className="w-full h-full object-cover transition-all duration-700"
             style={{ 
               objectPosition: 'center 25%',
               filter: kissed ? 'brightness(1.1) saturate(1.2)' : 'brightness(1)'
             }}
-          />
+            loop
+            muted
+            playsInline
+            poster="https://images.unsplash.com/photo-1494774157365-9e04c6720e47?w=800"
+          >
+            {/* Using romantic kiss video */}
+            <source src="https://player.vimeo.com/external/368484050.sd.mp4?s=73ed0f0f3e1e3c1a7e8e9d7c3f3e4d5c6b7a8b9c&profile_id=164&oauth2_token_id=57447761" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+          
+          {/* Fallback image when video not playing */}
+          {!kissed && (
+            <img
+              src="https://images.unsplash.com/photo-1494774157365-9e04c6720e47?w=800"
+              alt="Romantic couple kissing"
+              className="absolute inset-0 w-full h-full object-cover transition-all duration-700"
+              style={{ objectPosition: 'center 25%' }}
+            />
+          )}
           
           {/* Pink glow overlay when kissing */}
           <motion.div 
@@ -161,7 +186,7 @@ export const CinematicKiss = () => {
         whileHover={!kissed ? { scale: 1.05 } : {}}
         whileTap={!kissed ? { scale: 0.95 } : {}}
       >
-        {kissed ? "💋 Sending love..." : "Send a Kiss 💋"}
+        {kissed ? "💋 Sending love..." : "Send a Passionate Kiss 💋"}
       </motion.button>
 
       {/* Kiss Counter */}

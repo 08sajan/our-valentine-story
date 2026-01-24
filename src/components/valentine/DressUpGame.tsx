@@ -15,7 +15,6 @@ interface Item {
   image: string;
   color: string;
   description: string;
-  price: string;
   brand: string;
 }
 
@@ -28,57 +27,97 @@ const categories: { key: Category; label: string; emoji: string }[] = [
   { key: 'extras', label: 'Extras', emoji: '✨' },
 ];
 
-// Realistic items with shopping website style
+// Lots of sexy, cute, hot dresses for a perfect date - NO PRICES
 const items: Record<Category, Item[]> = {
   dresses: [
-    { id: 'red-velvet-gown', name: 'Red Velvet Evening Gown', image: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600', color: '#dc2626', description: 'Luxurious floor-length velvet with sweetheart neckline, perfect for romantic dinner dates', price: '₹12,999', brand: 'Sabyasachi' },
-    { id: 'blush-tulle', name: 'Blush Tulle Princess Dress', image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600', color: '#fda4af', description: 'Romantic layered tulle ballgown with delicate beading', price: '₹18,499', brand: 'Manish Malhotra' },
-    { id: 'gold-sequin', name: 'Gold Sequin Mermaid Gown', image: 'https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=600', color: '#fbbf24', description: 'Stunning all-over sequin mermaid dress that catches every light', price: '₹25,999', brand: 'Tarun Tahiliani' },
-    { id: 'emerald-satin', name: 'Emerald Satin Slip Dress', image: 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=600', color: '#10b981', description: 'Elegant bias-cut silk satin for understated glamour', price: '₹8,999', brand: 'Anita Dongre' },
-    { id: 'burgundy-lace', name: 'Burgundy French Lace Gown', image: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600', color: '#7f1d1d', description: 'Intricate French lace overlay with romantic details', price: '₹22,500', brand: 'Ritu Kumar' },
-    { id: 'champagne-beaded', name: 'Champagne Beaded Gown', image: 'https://images.unsplash.com/photo-1551803091-e20673f15770?w=600', color: '#fef3c7', description: 'Hand-beaded bodice with flowing organza skirt', price: '₹35,000', brand: 'Falguni Shane' },
-    { id: 'black-velvet', name: 'Black Velvet Drama Dress', image: 'https://images.unsplash.com/photo-1550639524-a6f58345a2ca?w=600', color: '#1f2937', description: 'Classic old Hollywood glamour with modern edge', price: '₹15,999', brand: 'Rohit Bal' },
-    { id: 'pink-lehenga', name: 'Pink Bridal Lehenga Set', image: 'https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=600', color: '#ec4899', description: 'Traditional embroidered bridal lehenga with heavy work', price: '₹1,25,000', brand: 'Sabyasachi' },
+    // Red & Romantic
+    { id: 'red-slit-gown', name: 'Sexy Red Slit Gown', image: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600', color: '#dc2626', description: 'Stunning red gown with thigh-high slit - perfect for making hearts race', brand: 'Date Night Collection' },
+    { id: 'wine-bodycon', name: 'Wine Bodycon Dress', image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600', color: '#7f1d1d', description: 'Figure-hugging wine dress that shows off your beautiful curves', brand: 'Seductive Elegance' },
+    { id: 'scarlet-velvet', name: 'Scarlet Velvet Dress', image: 'https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=600', color: '#ef4444', description: 'Luxurious velvet that feels as good as it looks on you', brand: 'Romantic Nights' },
+    
+    // Pink & Cute
+    { id: 'blush-princess', name: 'Blush Princess Gown', image: 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=600', color: '#fda4af', description: 'Fairytale princess dress with tulle layers - absolutely adorable!', brand: 'Sweet Dreams' },
+    { id: 'hot-pink-mini', name: 'Hot Pink Mini Dress', image: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600', color: '#ec4899', description: 'Flirty and fun mini dress that shows off your legs', brand: 'Cute & Flirty' },
+    { id: 'rose-gold-shimmer', name: 'Rose Gold Shimmer', image: 'https://images.unsplash.com/photo-1551803091-e20673f15770?w=600', color: '#fbbf24', description: 'Shimmering rose gold that catches every light beautifully', brand: 'Glamour Queen' },
+    { id: 'baby-pink-satin', name: 'Baby Pink Satin', image: 'https://images.unsplash.com/photo-1550639524-a6f58345a2ca?w=600', color: '#fbcfe8', description: 'Soft satin in the sweetest pink - angelic and cute', brand: 'Angel Vibes' },
+    
+    // Black & Sexy
+    { id: 'little-black-dress', name: 'Classic LBD', image: 'https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=600', color: '#1f2937', description: 'The iconic little black dress - timeless and irresistible', brand: 'Midnight Allure' },
+    { id: 'black-lace-bodycon', name: 'Black Lace Seduction', image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600', color: '#000000', description: 'Seductive lace dress that reveals just enough mystery', brand: 'Dark Romance' },
+    { id: 'black-backless', name: 'Backless Black Gown', image: 'https://images.unsplash.com/photo-1562137369-1a1a0bc66744?w=600', color: '#111827', description: 'Dramatic backless gown that will make jaws drop', brand: 'Show Stopper' },
+    
+    // Gold & Glamour
+    { id: 'gold-sequin-mini', name: 'Gold Sequin Party', image: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=600', color: '#fbbf24', description: 'Sparkle like the star you are in this gold sequin mini', brand: 'Party Princess' },
+    { id: 'champagne-silk', name: 'Champagne Silk Slip', image: 'https://images.unsplash.com/photo-1568252542512-9fe8fe9c87bb?w=600', color: '#fef3c7', description: 'Elegant silk slip dress - effortlessly sexy', brand: 'Silk Dreams' },
+    
+    // Emerald & Sophisticated
+    { id: 'emerald-goddess', name: 'Emerald Goddess Gown', image: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=600', color: '#10b981', description: 'Majestic emerald gown fit for a goddess', brand: 'Royal Collection' },
+    { id: 'teal-cocktail', name: 'Teal Cocktail Dress', image: 'https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=600', color: '#14b8a6', description: 'Sophisticated cocktail dress in stunning teal', brand: 'Elegant Evenings' },
+    
+    // White & Angelic
+    { id: 'white-angel', name: 'White Angel Dress', image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600', color: '#ffffff', description: 'Pure white elegance - looking like an angel from heaven', brand: 'Heavenly' },
+    { id: 'ivory-lace', name: 'Ivory Lace Romance', image: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600', color: '#fffbeb', description: 'Delicate ivory lace for that romantic dream look', brand: 'Bridal Dreams' },
+    
+    // Purple & Mysterious
+    { id: 'purple-velvet', name: 'Purple Velvet Drama', image: 'https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=600', color: '#7c3aed', description: 'Mysterious purple velvet - royally beautiful', brand: 'Midnight Purple' },
+    { id: 'lavender-fairy', name: 'Lavender Fairy Dress', image: 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=600', color: '#c4b5fd', description: 'Whimsical lavender dress like a fairy princess', brand: 'Fantasy Wear' },
+    
+    // Floral & Romantic
+    { id: 'floral-maxi', name: 'Romantic Floral Maxi', image: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600', color: '#f472b6', description: 'Beautiful floral print maxi - garden party perfect', brand: 'Garden Romance' },
+    { id: 'rose-print', name: 'Rose Print Dress', image: 'https://images.unsplash.com/photo-1551803091-e20673f15770?w=600', color: '#f43f5e', description: 'Romantic roses printed on soft fabric - dreamy!', brand: 'Rose Garden' },
+    
+    // Sparkle & Shine
+    { id: 'silver-glitter', name: 'Silver Glitter Bomb', image: 'https://images.unsplash.com/photo-1550639524-a6f58345a2ca?w=600', color: '#e2e8f0', description: 'Disco ball vibes - shine bright like a diamond!', brand: 'Sparkle Queen' },
+    { id: 'holographic-dream', name: 'Holographic Fantasy', image: 'https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=600', color: '#a78bfa', description: 'Futuristic holographic dress - unique and stunning', brand: 'Future Fashion' },
+    
+    // Traditional & Elegant
+    { id: 'pink-lehenga', name: 'Pink Bridal Lehenga', image: 'https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=600', color: '#ec4899', description: 'Traditional embroidered lehenga - bride-to-be vibes!', brand: 'Bridal Couture' },
+    { id: 'red-saree-gown', name: 'Red Saree Gown Fusion', image: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600', color: '#dc2626', description: 'Modern saree-gown fusion - best of both worlds', brand: 'Fusion Collection' },
   ],
   earrings: [
-    { id: 'diamond-drops', name: 'Diamond Teardrop Earrings', image: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600', color: '#e0f2fe', description: 'Elegant VS1 clarity diamond teardrops in 18k white gold', price: '₹85,000', brand: 'Tanishq' },
-    { id: 'gold-chandeliers', name: 'Gold Chandelier Earrings', image: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600', color: '#fcd34d', description: 'Statement 22k gold chandelier earrings with intricate filigree', price: '₹45,000', brand: 'Kalyan Jewellers' },
-    { id: 'pearl-studs', name: 'Akoya Pearl Studs', image: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=600', color: '#faf5ff', description: 'Classic AAA grade Akoya pearl studs in platinum setting', price: '₹28,000', brand: 'Mikimoto' },
-    { id: 'ruby-dangles', name: 'Burma Ruby Dangles', image: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600', color: '#ef4444', description: 'Pigeon blood Burma ruby drops with diamond halo', price: '₹1,50,000', brand: 'Cartier' },
-    { id: 'emerald-hoops', name: 'Emerald Encrusted Hoops', image: 'https://images.unsplash.com/photo-1630019852942-f89202989a59?w=600', color: '#34d399', description: 'Zambian emerald-encrusted 18k gold hoops', price: '₹65,000', brand: 'Bulgari' },
-    { id: 'kundan-jhumkas', name: 'Royal Kundan Jhumkas', image: 'https://images.unsplash.com/photo-1610694955371-d4a3e0ce4b52?w=600', color: '#f59e0b', description: 'Traditional Rajasthani kundan polki jhumka earrings', price: '₹55,000', brand: 'Amrapali' },
+    { id: 'diamond-drops', name: 'Diamond Teardrop', image: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600', color: '#e0f2fe', description: 'Elegant VS1 clarity diamond teardrops', brand: 'Luxury Gems' },
+    { id: 'gold-chandeliers', name: 'Gold Chandeliers', image: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600', color: '#fcd34d', description: 'Statement gold chandelier earrings', brand: 'Gold Dreams' },
+    { id: 'pearl-studs', name: 'Pearl Studs', image: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=600', color: '#faf5ff', description: 'Classic pearl studs - timeless elegance', brand: 'Pearl Paradise' },
+    { id: 'ruby-dangles', name: 'Ruby Dangles', image: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600', color: '#ef4444', description: 'Gorgeous ruby drops with diamond halo', brand: 'Ruby Romance' },
+    { id: 'emerald-hoops', name: 'Emerald Hoops', image: 'https://images.unsplash.com/photo-1630019852942-f89202989a59?w=600', color: '#34d399', description: 'Emerald-encrusted gold hoops', brand: 'Green Glory' },
+    { id: 'kundan-jhumkas', name: 'Kundan Jhumkas', image: 'https://images.unsplash.com/photo-1610694955371-d4a3e0ce4b52?w=600', color: '#f59e0b', description: 'Traditional Rajasthani kundan jhumkas', brand: 'Royal Heritage' },
+    { id: 'heart-studs', name: 'Heart Shaped Studs', image: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600', color: '#f43f5e', description: 'Cute heart-shaped diamond studs', brand: 'Love Collection' },
+    { id: 'butterfly-dangles', name: 'Butterfly Dangles', image: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600', color: '#a78bfa', description: 'Delicate butterfly earrings - so pretty!', brand: 'Flutter By' },
   ],
   necklaces: [
-    { id: 'diamond-choker', name: 'Diamond Tennis Choker', image: 'https://images.unsplash.com/photo-1599643477877-530eb83abc8e?w=600', color: '#f0f9ff', description: '10 carat brilliant-cut diamond choker in platinum', price: '₹5,00,000', brand: 'Tiffany & Co.' },
-    { id: 'gold-layered', name: 'Gold Layered Chain Set', image: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600', color: '#fcd34d', description: 'Delicate 22k gold layered chains with pendants', price: '₹75,000', brand: 'Malabar Gold' },
-    { id: 'pearl-strand', name: 'South Sea Pearl Strand', image: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=600', color: '#fffbeb', description: 'Classic graduated South Sea pearl necklace', price: '₹2,50,000', brand: 'Paspaley' },
-    { id: 'statement-bib', name: 'Crystal Statement Bib', image: 'https://images.unsplash.com/photo-1599643477877-530eb83abc8e?w=600', color: '#a78bfa', description: 'Swarovski crystal-encrusted statement bib necklace', price: '₹35,000', brand: 'Swarovski' },
-    { id: 'kundan-set', name: 'Kundan Bridal Set', image: 'https://images.unsplash.com/photo-1610694955371-d4a3e0ce4b52?w=600', color: '#fbbf24', description: 'Traditional kundan polki bridal necklace with matching tikka', price: '₹3,00,000', brand: 'Hazoorilal' },
-    { id: 'pendant-chain', name: 'Diamond Heart Pendant', image: 'https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?w=600', color: '#fb7185', description: 'Romantic diamond heart pendant on 18k rose gold chain', price: '₹45,000', brand: 'Tanishq' },
+    { id: 'diamond-choker', name: 'Diamond Choker', image: 'https://images.unsplash.com/photo-1599643477877-530eb83abc8e?w=600', color: '#f0f9ff', description: 'Stunning diamond choker', brand: 'Diamond Dreams' },
+    { id: 'gold-layered', name: 'Layered Gold Chains', image: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600', color: '#fcd34d', description: 'Trendy layered gold chains', brand: 'Layer Love' },
+    { id: 'pearl-strand', name: 'Pearl Strand', image: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=600', color: '#fffbeb', description: 'Classic pearl strand necklace', brand: 'Pearl Elegance' },
+    { id: 'heart-pendant', name: 'Heart Pendant', image: 'https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?w=600', color: '#fb7185', description: 'Romantic heart pendant - my heart for you!', brand: 'Heart to Heart' },
+    { id: 'kundan-set', name: 'Kundan Bridal Set', image: 'https://images.unsplash.com/photo-1610694955371-d4a3e0ce4b52?w=600', color: '#fbbf24', description: 'Traditional kundan bridal set', brand: 'Bridal Treasure' },
+    { id: 'infinity-pendant', name: 'Infinity Pendant', image: 'https://images.unsplash.com/photo-1599643477877-530eb83abc8e?w=600', color: '#a78bfa', description: 'Infinity symbol - our forever love!', brand: 'Forever Yours' },
   ],
   shoes: [
-    { id: 'crystal-stilettos', name: 'Crystal Cinderella Heels', image: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=600', color: '#e0f2fe', description: 'Hand-placed Swarovski crystal stilettos, 4" heel', price: '₹85,000', brand: 'Jimmy Choo' },
-    { id: 'red-pumps', name: 'Red Satin Pumps', image: 'https://images.unsplash.com/photo-1596703263926-eb0762ee17e4?w=600', color: '#dc2626', description: 'Classic red carpet Christian Louboutin style stilettos', price: '₹65,000', brand: 'Louboutin' },
-    { id: 'gold-strappy', name: 'Gold Strappy Sandals', image: 'https://images.unsplash.com/photo-1603808033192-082d6919d3e1?w=600', color: '#fbbf24', description: 'Elegant metallic gold strappy evening sandals', price: '₹35,000', brand: 'Stuart Weitzman' },
-    { id: 'nude-platforms', name: 'Nude Platform Heels', image: 'https://images.unsplash.com/photo-1515347619252-60a4bf4fff4f?w=600', color: '#fed7aa', description: 'Comfortable nude patent leather platforms, 5" heel', price: '₹28,000', brand: 'Gianvito Rossi' },
-    { id: 'silver-sparkle', name: 'Silver Glitter Pumps', image: 'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=600', color: '#e2e8f0', description: 'Sparkling silver glitter pumps for special occasions', price: '₹42,000', brand: 'Miu Miu' },
-    { id: 'rose-gold-sandals', name: 'Rose Gold Sandals', image: 'https://images.unsplash.com/photo-1596703263926-eb0762ee17e4?w=600', color: '#fda4af', description: 'Delicate rose gold evening sandals with ankle strap', price: '₹32,000', brand: 'Aquazzura' },
+    { id: 'crystal-stilettos', name: 'Crystal Stilettos', image: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=600', color: '#e0f2fe', description: 'Cinderella-worthy crystal heels', brand: 'Fairy Tale' },
+    { id: 'red-pumps', name: 'Red Stiletto Pumps', image: 'https://images.unsplash.com/photo-1596703263926-eb0762ee17e4?w=600', color: '#dc2626', description: 'Sexy red heels - instant confidence boost!', brand: 'Red Hot' },
+    { id: 'gold-strappy', name: 'Gold Strappy Heels', image: 'https://images.unsplash.com/photo-1603808033192-082d6919d3e1?w=600', color: '#fbbf24', description: 'Elegant gold strappy sandals', brand: 'Golden Steps' },
+    { id: 'nude-platforms', name: 'Nude Platform Heels', image: 'https://images.unsplash.com/photo-1515347619252-60a4bf4fff4f?w=600', color: '#fed7aa', description: 'Comfortable nude platforms', brand: 'Nude Elegance' },
+    { id: 'pink-heels', name: 'Pink Princess Heels', image: 'https://images.unsplash.com/photo-1596703263926-eb0762ee17e4?w=600', color: '#f472b6', description: 'Pretty pink heels for a princess', brand: 'Pink Dreams' },
+    { id: 'black-stilettos', name: 'Black Stilettos', image: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=600', color: '#1f2937', description: 'Classic black stilettos - always sexy', brand: 'Night Out' },
+    { id: 'rose-gold-sandals', name: 'Rose Gold Sandals', image: 'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=600', color: '#fda4af', description: 'Delicate rose gold sandals', brand: 'Rose Dreams' },
   ],
   hairstyles: [
-    { id: 'elegant-updo', name: 'Classic Twisted Chignon', image: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600', color: '#78350f', description: 'Elegant twisted chignon perfect for formal occasions', price: 'Styling', brand: 'Aalim Hakim' },
-    { id: 'hollywood-waves', name: 'Hollywood Finger Waves', image: 'https://images.unsplash.com/photo-1562322140-8baeececf3df?w=600', color: '#92400e', description: 'Old Hollywood glamour with perfectly sculpted waves', price: 'Styling', brand: 'Sapna Bhavnani' },
-    { id: 'braided-crown', name: 'Romantic Braided Crown', image: 'https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=600', color: '#451a03', description: 'Romantic Dutch braided crown style with loose tendrils', price: 'Styling', brand: 'Ambika Pillai' },
-    { id: 'loose-curls', name: 'Soft Romantic Curls', image: 'https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=600', color: '#78350f', description: 'Soft bouncy curls for a romantic, effortless look', price: 'Styling', brand: 'Adhuna Bhabani' },
-    { id: 'sleek-ponytail', name: 'Sleek High Ponytail', image: 'https://images.unsplash.com/photo-1554519515-242161756769?w=600', color: '#1c1917', description: 'Dramatic sleek high ponytail for a powerful look', price: 'Styling', brand: 'Hakim Aalim' },
-    { id: 'flower-bun', name: 'Floral Decorated Bun', image: 'https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=600', color: '#be185d', description: 'Traditional low bun adorned with fresh flowers', price: 'Styling', brand: 'Bianca Hartkopf' },
+    { id: 'elegant-updo', name: 'Elegant Chignon', image: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600', color: '#78350f', description: 'Classic twisted chignon - so elegant!', brand: 'Updo Queen' },
+    { id: 'hollywood-waves', name: 'Hollywood Waves', image: 'https://images.unsplash.com/photo-1562322140-8baeececf3df?w=600', color: '#92400e', description: 'Old Hollywood glamour waves', brand: 'Vintage Glam' },
+    { id: 'braided-crown', name: 'Braided Crown', image: 'https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=600', color: '#451a03', description: 'Romantic braided crown style', brand: 'Boho Beauty' },
+    { id: 'loose-curls', name: 'Soft Romantic Curls', image: 'https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=600', color: '#78350f', description: 'Soft bouncy curls - effortlessly pretty', brand: 'Curl Crush' },
+    { id: 'sleek-ponytail', name: 'Sleek Ponytail', image: 'https://images.unsplash.com/photo-1554519515-242161756769?w=600', color: '#1c1917', description: 'Dramatic high ponytail', brand: 'Power Pony' },
+    { id: 'flower-bun', name: 'Floral Decorated Bun', image: 'https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=600', color: '#be185d', description: 'Beautiful bun with fresh flowers', brand: 'Flower Girl' },
+    { id: 'messy-bun', name: 'Cute Messy Bun', image: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600', color: '#92400e', description: 'Adorably messy bun - casually cute', brand: 'Effortless' },
   ],
   extras: [
-    { id: 'diamond-ring', name: 'Solitaire Diamond Ring', image: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=600', color: '#f0f9ff', description: '2 carat D-color flawless solitaire in platinum', price: '₹8,00,000', brand: 'De Beers' },
-    { id: 'gold-bangles', name: 'Gold Bangle Stack', image: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600', color: '#fcd34d', description: 'Set of 12 delicate 22k gold bangles with texture', price: '₹1,20,000', brand: 'Senco Gold' },
-    { id: 'clutch-rose', name: 'Rose Gold Box Clutch', image: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600', color: '#fda4af', description: 'Elegant rose gold metal box clutch with crystals', price: '₹25,000', brand: 'Judith Leiber' },
-    { id: 'tiara', name: 'Crystal Bridal Tiara', image: 'https://images.unsplash.com/photo-1546961342-ea5f71b193f3?w=600', color: '#e0f2fe', description: 'Princess-worthy Swarovski crystal tiara', price: '₹35,000', brand: 'Oscar de la Renta' },
-    { id: 'maang-tikka', name: 'Kundan Maang Tikka', image: 'https://images.unsplash.com/photo-1610694955371-d4a3e0ce4b52?w=600', color: '#fbbf24', description: 'Traditional kundan polki maang tikka with pearls', price: '₹45,000', brand: 'Amrapali' },
-    { id: 'silk-wrap', name: 'Silk Evening Shawl', image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=600', color: '#a78bfa', description: 'Luxurious hand-embroidered silk pashmina shawl', price: '₹18,000', brand: 'Pashmina' },
+    { id: 'diamond-ring', name: 'Solitaire Ring', image: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=600', color: '#f0f9ff', description: 'Beautiful solitaire diamond ring', brand: 'Forever Yours' },
+    { id: 'gold-bangles', name: 'Gold Bangle Stack', image: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600', color: '#fcd34d', description: 'Stack of delicate gold bangles', brand: 'Bangle Beauty' },
+    { id: 'clutch-rose', name: 'Rose Gold Clutch', image: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600', color: '#fda4af', description: 'Elegant rose gold evening clutch', brand: 'Clutch Queen' },
+    { id: 'tiara', name: 'Crystal Tiara', image: 'https://images.unsplash.com/photo-1546961342-ea5f71b193f3?w=600', color: '#e0f2fe', description: 'Princess-worthy crystal tiara', brand: 'Crown Jewels' },
+    { id: 'maang-tikka', name: 'Kundan Maang Tikka', image: 'https://images.unsplash.com/photo-1610694955371-d4a3e0ce4b52?w=600', color: '#fbbf24', description: 'Traditional kundan tikka', brand: 'Royal Touch' },
+    { id: 'silk-wrap', name: 'Silk Evening Shawl', image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=600', color: '#a78bfa', description: 'Luxurious silk pashmina', brand: 'Silk Whispers' },
+    { id: 'statement-bracelet', name: 'Statement Bracelet', image: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600', color: '#f43f5e', description: 'Bold statement bracelet', brand: 'Wrist Candy' },
   ],
 };
 
@@ -232,21 +271,6 @@ const ItemPreviewModal = ({
             {item.name}
           </h2>
 
-          {/* Price */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'baseline',
-            gap: '8px',
-            marginBottom: '16px',
-          }}>
-            <span style={{ color: '#fbbf24', fontSize: '1.5rem', fontWeight: 700 }}>
-              {item.price}
-            </span>
-            <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '12px' }}>
-              (Worth every penny for you!)
-            </span>
-          </div>
-
           {/* Color Indicator */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
             <span style={{ color: 'rgba(255,255,255,0.6)', fontSize: '14px' }}>Color:</span>
@@ -269,7 +293,7 @@ const ItemPreviewModal = ({
             border: '1px solid rgba(255,255,255,0.1)',
           }}>
             <h3 style={{ color: 'rgba(255,255,255,0.8)', fontSize: '12px', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '1px' }}>
-              Product Details
+              Why You'll Love It
             </h3>
             <p style={{ color: 'white', fontSize: '14px', lineHeight: 1.6 }}>
               {item.description}
@@ -343,7 +367,7 @@ const ItemPreviewModal = ({
   );
 };
 
-// Realistic Item Card Component
+// Realistic Item Card Component - NO PRICE SHOWN
 const ItemCard = ({ 
   item, 
   isSelected, 
@@ -436,11 +460,10 @@ const ItemCard = ({
           )}
         </div>
         
-        {/* Item Info */}
+        {/* Item Info - NO PRICE */}
         <div className="p-3">
           <p className="text-[10px] text-rose-400 font-medium mb-0.5">{item.brand}</p>
           <p className="text-sm text-white font-medium truncate">{item.name}</p>
-          <p className="text-xs text-amber-400 font-bold mt-1">{item.price}</p>
         </div>
         
         {/* Selection glow */}
@@ -598,62 +621,54 @@ const DateNightModal = ({
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '16px' }}>
           {selectedItems.map(({ category, item }, index) => (
             <motion.div
-              key={item.id}
+              key={category}
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.4 + index * 0.1 }}
+              transition={{ delay: 0.5 + index * 0.1 }}
               style={{
-                background: 'rgba(255,255,255,0.1)',
+                background: 'rgba(255,255,255,0.05)',
                 borderRadius: '16px',
                 overflow: 'hidden',
-                border: '1px solid rgba(255,255,255,0.2)',
+                border: '1px solid rgba(255,255,255,0.1)',
               }}
             >
-              <img 
-                src={item.image} 
-                alt={item.name}
-                style={{ width: '100%', aspectRatio: '1', objectFit: 'cover' }}
-              />
+              <div style={{ aspectRatio: '1', overflow: 'hidden' }}>
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                />
+              </div>
               <div style={{ padding: '12px' }}>
-                <p style={{ color: 'white', fontSize: '12px', fontWeight: 500 }}>{item.name}</p>
-                <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '10px', marginTop: '2px' }}>
-                  {category.charAt(0).toUpperCase() + category.slice(1)}
+                <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '10px', textTransform: 'uppercase' }}>
+                  {category}
+                </p>
+                <p style={{ color: 'white', fontSize: '12px', fontWeight: 500 }}>
+                  {item.name}
                 </p>
               </div>
             </motion.div>
           ))}
         </div>
 
-        {/* Romantic Date Scene */}
+        {/* Final romantic note */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5 }}
           style={{
-            marginTop: '24px',
-            padding: '24px',
-            background: 'linear-gradient(135deg, rgba(31, 41, 55, 0.8) 0%, rgba(17, 24, 39, 0.9) 100%)',
-            borderRadius: '24px',
             textAlign: 'center',
-            border: '1px solid rgba(251, 191, 36, 0.3)',
+            marginTop: '24px',
+            padding: '20px',
           }}
         >
-          <motion.div
-            animate={{ y: [0, -5, 0] }}
-            transition={{ duration: 3, repeat: Infinity }}
-            style={{ fontSize: '4rem', marginBottom: '16px' }}
+          <motion.p
+            style={{ color: 'white', fontFamily: 'serif', fontSize: '1rem', fontStyle: 'italic' }}
+            animate={{ opacity: [0.8, 1, 0.8] }}
+            transition={{ duration: 2, repeat: Infinity }}
           >
-            🌙🍷🕯️
-          </motion.div>
-          <h3 style={{ color: '#fbbf24', fontFamily: 'serif', fontSize: '1.5rem', marginBottom: '12px' }}>
-            Our Dream Date Night
-          </h3>
-          <p style={{ color: 'rgba(255,255,255,0.8)', lineHeight: 1.8 }}>
-            A candlelit dinner at our favorite restaurant...
-            Soft music playing in the background...
-            Your hand in mine across the table...
-            This is all I ever dreamed of, Puntuu. 💕
-          </p>
+            "Can't wait to see you wearing all this on our date night... You're going to take my breath away! 💕"
+          </motion.p>
         </motion.div>
       </div>
     </motion.div>
@@ -678,253 +693,124 @@ export const DressUpGame = ({ onComplete }: DressUpGameProps) => {
   const handleSelect = (category: Category, itemId: string) => {
     setSelections(prev => ({ ...prev, [category]: itemId }));
     if ('vibrate' in navigator) {
-      navigator.vibrate([50]);
+      navigator.vibrate(50);
     }
   };
 
-  const completedCount = Object.values(selections).filter(Boolean).length;
-  const allSelected = completedCount === categories.length;
-
-  const handleComplete = () => {
-    setShowResult(true);
-    if ('vibrate' in navigator) {
-      navigator.vibrate([100, 50, 100]);
-    }
-    onComplete?.();
-  };
-
-  const getSelectedItem = (category: Category) => {
-    const itemId = selections[category];
-    return items[category].find(item => item.id === itemId);
-  };
-
-  const activeCategoryIndex = categories.findIndex(c => c.key === activeCategory);
-
-  const goToPrevCategory = () => {
-    if (activeCategoryIndex > 0) {
-      setActiveCategory(categories[activeCategoryIndex - 1].key);
-    }
-  };
-
-  const goToNextCategory = () => {
-    if (activeCategoryIndex < categories.length - 1) {
-      setActiveCategory(categories[activeCategoryIndex + 1].key);
-    }
-  };
+  const isComplete = Object.values(selections).filter(Boolean).length >= 3;
 
   return (
-    <div className="w-full space-y-4">
+    <div className="space-y-6">
       {/* Header */}
-      <motion.div
+      <motion.div 
         className="text-center"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        <div className="flex items-center justify-center gap-2 mb-2">
-          <motion.div
-            animate={{ rotateY: [0, 360] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-          >
-            <Crown className="w-6 h-6 text-amber-400" />
-          </motion.div>
-          <h3 className="text-lg font-serif text-rose-300">
-            Get Ready for Our Date 💕
+        <motion.div
+          className="flex items-center justify-center gap-2 mb-2"
+          animate={{ scale: [1, 1.05, 1] }}
+          transition={{ duration: 2, repeat: Infinity }}
+        >
+          <Crown className="w-6 h-6 text-amber-400" />
+          <h3 className="text-xl font-serif text-rose-300">
+            Date Night Wardrobe 👗
           </h3>
-          <motion.div
-            animate={{ rotateY: [0, -360] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-          >
-            <Crown className="w-6 h-6 text-amber-400" />
-          </motion.div>
-        </div>
-        <p className="text-white/70 text-xs">
-          Choose your perfect look from our collection ✨
+          <Crown className="w-6 h-6 text-amber-400" />
+        </motion.div>
+        <p className="text-white/60 text-sm">
+          Pick your perfect outfit for our romantic dinner date! 💕
         </p>
       </motion.div>
 
-      {/* Progress bar */}
-      <div className="px-4">
-        <div className="h-2 bg-white/10 rounded-full overflow-hidden">
-          <motion.div 
-            className="h-full bg-gradient-to-r from-rose-500 to-pink-500"
-            initial={{ width: 0 }}
-            animate={{ width: `${(completedCount / categories.length) * 100}%` }}
-            transition={{ duration: 0.5 }}
-          />
-        </div>
-        <p className="text-center text-white/50 text-xs mt-2">
-          {completedCount} of {categories.length} selected
-        </p>
-      </div>
-
-      {/* Category Navigation with arrows */}
-      <div className="flex items-center gap-2 px-2">
-        <motion.button
-          onClick={goToPrevCategory}
-          disabled={activeCategoryIndex === 0}
-          className={`p-2 rounded-full ${
-            activeCategoryIndex === 0 
-              ? 'bg-white/5 text-white/30' 
-              : 'bg-white/10 text-white hover:bg-white/20'
-          }`}
-          whileTap={{ scale: 0.9 }}
-        >
-          <ChevronLeft className="w-5 h-5" />
-        </motion.button>
-        
-        <div className="flex-1 overflow-x-auto scrollbar-hide">
-          <div className="flex gap-2 min-w-max justify-center">
-            {categories.map((cat) => (
-              <motion.button
-                key={cat.key}
-                onClick={() => setActiveCategory(cat.key)}
-                className={`
-                  flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium 
-                  flex items-center gap-2 whitespace-nowrap transition-all
-                  ${activeCategory === cat.key
-                    ? 'bg-gradient-to-r from-rose-500 to-pink-500 text-white shadow-lg'
-                    : 'bg-white/10 text-white/70 hover:bg-white/20'
-                  }
-                  ${selections[cat.key] ? 'ring-2 ring-green-400/50' : ''}
-                `}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <span className="text-base">{cat.emoji}</span>
-                <span className="hidden sm:inline">{cat.label}</span>
-                {selections[cat.key] && <Check className="w-3 h-3 text-green-400" />}
-              </motion.button>
-            ))}
-          </div>
-        </div>
-        
-        <motion.button
-          onClick={goToNextCategory}
-          disabled={activeCategoryIndex === categories.length - 1}
-          className={`p-2 rounded-full ${
-            activeCategoryIndex === categories.length - 1 
-              ? 'bg-white/5 text-white/30' 
-              : 'bg-white/10 text-white hover:bg-white/20'
-          }`}
-          whileTap={{ scale: 0.9 }}
-        >
-          <ChevronRight className="w-5 h-5" />
-        </motion.button>
+      {/* Category Tabs */}
+      <div className="flex flex-wrap justify-center gap-2">
+        {categories.map((cat) => (
+          <motion.button
+            key={cat.key}
+            onClick={() => setActiveCategory(cat.key)}
+            className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all flex items-center gap-1 ${
+              activeCategory === cat.key
+                ? 'bg-gradient-to-r from-rose-500 to-pink-500 text-white shadow-lg shadow-rose-500/30'
+                : 'bg-white/10 text-white/70 hover:bg-white/20'
+            }`}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <span>{cat.emoji}</span>
+            <span>{cat.label}</span>
+            {selections[cat.key] && (
+              <Check className="w-3 h-3 ml-0.5" />
+            )}
+          </motion.button>
+        ))}
       </div>
 
       {/* Items Grid */}
-      <div className="relative bg-gradient-to-br from-black/40 to-purple-900/30 rounded-2xl p-4 border border-white/10">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeCategory}
-            className="grid grid-cols-2 gap-3"
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            transition={{ duration: 0.3 }}
-          >
-            {items[activeCategory].map((item, index) => (
-              <ItemCard
-                key={item.id}
-                item={item}
-                isSelected={selections[activeCategory] === item.id}
-                onSelect={() => handleSelect(activeCategory, item.id)}
-                onPreview={() => setPreviewItem({ item, category: activeCategory })}
-                index={index}
-              />
-            ))}
-          </motion.div>
-        </AnimatePresence>
-      </div>
-
-      {/* Selected Preview */}
-      <div className="bg-gradient-to-br from-amber-900/30 to-rose-900/30 rounded-2xl p-4 border border-amber-500/30">
-        <h4 className="text-center text-rose-300 text-sm mb-3 flex items-center justify-center gap-2">
-          <Gem className="w-4 h-4" />
-          Your Look
-          <Gem className="w-4 h-4" />
-        </h4>
-        
-        <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-2">
-          {categories.map((cat) => {
-            const selected = getSelectedItem(cat.key);
-            return (
-              <motion.div
-                key={cat.key}
-                className="flex-shrink-0 w-16 text-center"
-                animate={selected ? { y: [0, -3, 0] } : {}}
-                transition={{ duration: 2, repeat: selected ? Infinity : 0 }}
-              >
-                <div 
-                  className={`
-                    w-14 h-14 mx-auto rounded-xl overflow-hidden
-                    ${selected 
-                      ? 'ring-2 ring-rose-400 shadow-lg shadow-rose-500/30' 
-                      : 'bg-white/10 border border-dashed border-white/30'
-                    }
-                  `}
-                >
-                  {selected ? (
-                    <img 
-                      src={selected.image} 
-                      alt={selected.name}
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center text-xl opacity-40">
-                      {cat.emoji}
-                    </div>
-                  )}
-                </div>
-                <p className="text-[10px] text-white/60 mt-1 truncate">{cat.label}</p>
-              </motion.div>
-            );
-          })}
-        </div>
-      </div>
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={activeCategory}
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -20 }}
+          transition={{ duration: 0.2 }}
+          className="grid grid-cols-2 sm:grid-cols-3 gap-3"
+        >
+          {items[activeCategory].map((item, index) => (
+            <ItemCard
+              key={item.id}
+              item={item}
+              isSelected={selections[activeCategory] === item.id}
+              onSelect={() => handleSelect(activeCategory, item.id)}
+              onPreview={() => setPreviewItem({ item, category: activeCategory })}
+              index={index}
+            />
+          ))}
+        </motion.div>
+      </AnimatePresence>
 
       {/* Complete Button */}
-      <motion.button
-        onClick={handleComplete}
-        disabled={!allSelected}
-        className={`
-          w-full py-4 rounded-2xl text-white font-medium
-          flex items-center justify-center gap-3
-          ${allSelected
-            ? 'bg-gradient-to-r from-rose-500 via-pink-500 to-purple-500 shadow-xl shadow-rose-500/30'
-            : 'bg-white/10 text-white/40 cursor-not-allowed'
-          }
-        `}
-        whileHover={allSelected ? { scale: 1.02 } : {}}
-        whileTap={allSelected ? { scale: 0.98 } : {}}
-        animate={allSelected ? {
-          boxShadow: [
-            '0 10px 40px rgba(251, 113, 133, 0.3)',
-            '0 10px 60px rgba(251, 113, 133, 0.5)',
-            '0 10px 40px rgba(251, 113, 133, 0.3)',
-          ]
-        } : {}}
-        transition={{ duration: 2, repeat: allSelected ? Infinity : 0 }}
-      >
-        {allSelected ? (
-          <>
-            <Heart className="w-5 h-5" fill="white" />
-            Ready for Our Date Night! 💕
-            <Sparkles className="w-5 h-5" />
-          </>
-        ) : (
-          <>
-            Complete all selections ({completedCount}/{categories.length})
-          </>
+      <AnimatePresence>
+        {isComplete && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            className="text-center"
+          >
+            <motion.button
+              onClick={() => {
+                setShowResult(true);
+                onComplete?.();
+              }}
+              className="px-8 py-4 bg-gradient-to-r from-rose-500 via-pink-500 to-purple-500 text-white rounded-full font-medium shadow-xl shadow-pink-500/30"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              animate={{ 
+                boxShadow: [
+                  '0 10px 40px rgba(236, 72, 153, 0.3)',
+                  '0 10px 60px rgba(236, 72, 153, 0.5)',
+                  '0 10px 40px rgba(236, 72, 153, 0.3)',
+                ]
+              }}
+              transition={{ duration: 2, repeat: Infinity }}
+            >
+              <span className="flex items-center gap-2">
+                <Sparkles className="w-5 h-5" />
+                See My Date Night Look! 💕
+                <Sparkles className="w-5 h-5" />
+              </span>
+            </motion.button>
+          </motion.div>
         )}
-      </motion.button>
+      </AnimatePresence>
 
       {/* Result Modal */}
       <AnimatePresence>
         {showResult && (
-          <DateNightModal 
-            selections={selections} 
-            onClose={() => setShowResult(false)} 
+          <DateNightModal
+            selections={selections}
+            onClose={() => setShowResult(false)}
           />
         )}
       </AnimatePresence>

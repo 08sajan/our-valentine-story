@@ -1,25 +1,32 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export const CinematicHug = () => {
   const [isHugging, setIsHugging] = useState(false);
   const [hugCount, setHugCount] = useState(0);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   const sendHug = () => {
     setIsHugging(true);
     setHugCount(prev => prev + 1);
+    
+    // Play video
+    if (videoRef.current) {
+      videoRef.current.currentTime = 0;
+      videoRef.current.play();
+    }
     
     // Vibrate pattern like a heartbeat
     if ('vibrate' in navigator) {
       navigator.vibrate([100, 100, 100, 100, 200]);
     }
 
-    setTimeout(() => setIsHugging(false), 4000);
+    setTimeout(() => setIsHugging(false), 6000);
   };
 
   return (
     <div className="relative text-center space-y-6">
-      {/* Cinematic Hug Animation Container */}
+      {/* Cinematic Hug Video Container */}
       <div className="relative h-80 flex items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-b from-orange-900/30 to-rose-900/30">
         
         {/* Romantic background glow */}
@@ -29,22 +36,41 @@ export const CinematicHug = () => {
           transition={{ duration: 2, repeat: Infinity }}
         />
 
-        {/* Real Romantic Couple Image */}
+        {/* Real Romantic Couple Hug Video */}
         <motion.div
           className="relative z-10 w-full h-full overflow-hidden"
           initial={{ scale: 1 }}
           animate={isHugging ? { scale: 1.05 } : { scale: 1 }}
           transition={{ duration: 0.8 }}
         >
-          <img
-            src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=800"
-            alt="Romantic couple embracing at sunset"
-            className="w-full h-full object-cover transition-all duration-700"
+          {/* Video element */}
+          <video
+            ref={videoRef}
+            className="w-full h-full object-cover"
             style={{ 
               objectPosition: 'center 30%',
               filter: isHugging ? 'brightness(1.1) saturate(1.2)' : 'brightness(1)'
             }}
-          />
+            loop
+            muted
+            playsInline
+            poster="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=800"
+          >
+            {/* Using romantic couple video */}
+            <source src="https://player.vimeo.com/external/371834002.sd.mp4?s=8b72ece00e76c68de5f64f88e04e3a9e3e58fcbc&profile_id=164&oauth2_token_id=57447761" type="video/mp4" />
+            {/* Fallback image */}
+            Your browser does not support the video tag.
+          </video>
+          
+          {/* Fallback image when video not playing */}
+          {!isHugging && (
+            <img
+              src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=800"
+              alt="Romantic couple embracing"
+              className="absolute inset-0 w-full h-full object-cover transition-all duration-700"
+              style={{ objectPosition: 'center 30%' }}
+            />
+          )}
           
           {/* Warm glow overlay when hugging */}
           <motion.div 
@@ -129,7 +155,7 @@ export const CinematicHug = () => {
         whileHover={!isHugging ? { scale: 1.05 } : {}}
         whileTap={!isHugging ? { scale: 0.95 } : {}}
       >
-        {isHugging ? "🤗 Feeling the warmth..." : "Send a Virtual Hug 🫂"}
+        {isHugging ? "🤗 Feeling the warmth..." : "Send a Tight Hug 🫂"}
       </motion.button>
 
       {/* Hug Counter */}

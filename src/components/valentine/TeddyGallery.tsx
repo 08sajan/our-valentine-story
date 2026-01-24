@@ -11,69 +11,91 @@ interface TeddyItem {
   color: string;
 }
 
+// Super cute, girly teddies perfect for girls!
 const teddies: TeddyItem[] = [
   { 
-    emoji: "🧸", 
-    name: "Mr. Cuddly Bear", 
-    message: "For cozy night hugs when you miss me",
-    image: "https://images.unsplash.com/photo-1559454403-b8fb88521f11?w=600",
-    color: "#D4A574"
-  },
-  { 
-    emoji: "🧸", 
-    name: "Honey Teddy", 
-    message: "As sweet as you, my Puntuu",
+    emoji: "🧸💕", 
+    name: "Princess Pink Bear", 
+    message: "A pink princess bear for my princess! You deserve all the cute things in the world 💕",
     image: "https://images.unsplash.com/photo-1558679908-541bcf1249ff?w=600",
-    color: "#8B4513"
+    color: "#FFC0CB"
   },
   { 
-    emoji: "🧸", 
-    name: "Giant Love Bear", 
-    message: "Big enough to wrap you in warmth",
+    emoji: "🧸🌸", 
+    name: "Fluffy White Cutie", 
+    message: "Soft as clouds, pure as your heart - cuddle me when you miss him!",
     image: "https://images.unsplash.com/photo-1585155770447-2f66e2a397b5?w=600",
-    color: "#F5F5DC"
+    color: "#FFFAFA"
   },
   { 
-    emoji: "🧸", 
-    name: "Dream Guardian", 
-    message: "Guards your sleep and brings sweet dreams of me",
+    emoji: "🧸💗", 
+    name: "Valentine Heart Bear", 
+    message: "Holding a heart that represents my love for you - forever! 💝",
+    image: "https://images.unsplash.com/photo-1602734846297-9299fc2d4703?w=600",
+    color: "#FF69B4"
+  },
+  { 
+    emoji: "🧸🎀", 
+    name: "Ribbon Bow Teddy", 
+    message: "With a pretty bow just like you - adorable and perfect!",
+    image: "https://images.unsplash.com/photo-1559454403-b8fb88521f11?w=600",
+    color: "#FFB6C1"
+  },
+  { 
+    emoji: "🧸✨", 
+    name: "Sparkle Dream Bear", 
+    message: "Sprinkled with dreams and starlight, just like my love for you ✨",
     image: "https://images.unsplash.com/photo-1615031335599-92a2f7d93c80?w=600",
     color: "#DEB887"
   },
   { 
-    emoji: "🧸", 
-    name: "Pink Princess Bear", 
-    message: "For my princess who deserves the world",
-    image: "https://images.unsplash.com/photo-1563396983906-b3795482a59a?w=600",
-    color: "#FFC0CB"
-  },
-  { 
-    emoji: "🧸", 
-    name: "Valentine Bear", 
-    message: "Holding a heart just like I hold yours",
-    image: "https://images.unsplash.com/photo-1602734846297-9299fc2d4703?w=600",
-    color: "#DC143C"
-  },
-  { 
-    emoji: "🧸", 
-    name: "Fluffy Cloud Bear", 
-    message: "Soft as clouds, warm as my love",
+    emoji: "🧸🌙", 
+    name: "Sleepy Moon Teddy", 
+    message: "To guard your dreams and keep you company through the night 🌙",
     image: "https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?w=600",
-    color: "#FFFAFA"
+    color: "#E6E6FA"
   },
   { 
-    emoji: "🧸", 
-    name: "Chocolate Teddy", 
-    message: "Sweet & cuddly, just for you",
+    emoji: "🧸💜", 
+    name: "Lavender Love Bear", 
+    message: "Soft lavender colored bear for peaceful cuddles 💜",
+    image: "https://images.unsplash.com/photo-1563396983906-b3795482a59a?w=600",
+    color: "#E6E6FA"
+  },
+  { 
+    emoji: "🧸🍓", 
+    name: "Strawberry Sweetie", 
+    message: "Sweet as strawberries, cute as you, Puntuu! 🍓",
     image: "https://images.unsplash.com/photo-1595526051245-4506e0005bd0?w=600",
-    color: "#8B4513"
+    color: "#FF6B6B"
   },
   { 
-    emoji: "🧸", 
-    name: "Forever Friend Bear", 
-    message: "A friend until I can be there myself",
+    emoji: "🧸👑", 
+    name: "Royal Queen Bear", 
+    message: "A teddy fit for a queen - because that's what you are! 👑",
     image: "https://images.unsplash.com/photo-1562040506-a9b32cb51b94?w=600",
-    color: "#C4A35A"
+    color: "#FFD700"
+  },
+  { 
+    emoji: "🧸💐", 
+    name: "Flower Bouquet Bear", 
+    message: "This teddy comes with virtual flowers - roses for my rose! 🌹",
+    image: "https://images.unsplash.com/photo-1559454403-b8fb88521f11?w=600",
+    color: "#FFA07A"
+  },
+  { 
+    emoji: "🧸🦋", 
+    name: "Butterfly Kiss Teddy", 
+    message: "Soft butterfly kisses from this teddy to you! 🦋",
+    image: "https://images.unsplash.com/photo-1585155770447-2f66e2a397b5?w=600",
+    color: "#87CEEB"
+  },
+  { 
+    emoji: "🧸🌈", 
+    name: "Rainbow Happiness Bear", 
+    message: "Bringing all colors of happiness into your life! 🌈",
+    image: "https://images.unsplash.com/photo-1602734846297-9299fc2d4703?w=600",
+    color: "#FFE4E1"
   },
 ];
 
@@ -103,8 +125,8 @@ const TeddyModal = ({
       }}
       onClick={onClose}
     >
-      {/* Floating love */}
-      {[...Array(20)].map((_, i) => (
+      {/* Floating hearts and sparkles */}
+      {[...Array(25)].map((_, i) => (
         <motion.span
           key={i}
           style={{
@@ -115,8 +137,9 @@ const TeddyModal = ({
           }}
           animate={{
             y: [0, -50, 0],
-            opacity: [0.2, 0.6, 0.2],
+            opacity: [0.2, 0.8, 0.2],
             scale: [1, 1.2, 1],
+            rotate: [0, 10, -10, 0],
           }}
           transition={{
             duration: 3 + Math.random() * 2,
@@ -124,7 +147,7 @@ const TeddyModal = ({
             delay: Math.random() * 2,
           }}
         >
-          {['💕', '🧸', '💗', '✨', '🤗'][i % 5]}
+          {['💕', '🧸', '💗', '✨', '🎀', '💖', '🌸'][i % 7]}
         </motion.span>
       ))}
 
@@ -135,12 +158,12 @@ const TeddyModal = ({
         transition={{ type: "spring", damping: 20 }}
         onClick={(e) => e.stopPropagation()}
         style={{
-          background: 'linear-gradient(135deg, rgba(255,200,150,0.15) 0%, rgba(180,100,60,0.15) 100%)',
+          background: 'linear-gradient(135deg, rgba(255,182,193,0.2) 0%, rgba(255,105,180,0.15) 100%)',
           borderRadius: '24px',
           padding: '24px',
           maxWidth: '380px',
           width: '100%',
-          border: '1px solid rgba(255,255,255,0.2)',
+          border: '1px solid rgba(255,182,193,0.4)',
           position: 'relative',
         }}
       >
@@ -172,13 +195,13 @@ const TeddyModal = ({
             borderRadius: '20px',
             overflow: 'hidden',
             marginBottom: '20px',
-            boxShadow: '0 20px 60px rgba(0,0,0,0.5)',
+            boxShadow: '0 20px 60px rgba(255,105,180,0.3)',
           }}
           animate={{ 
             boxShadow: [
-              '0 20px 60px rgba(0,0,0,0.5)',
-              '0 20px 80px rgba(212,165,116,0.3)',
-              '0 20px 60px rgba(0,0,0,0.5)'
+              '0 20px 60px rgba(255,105,180,0.3)',
+              '0 20px 80px rgba(255,182,193,0.5)',
+              '0 20px 60px rgba(255,105,180,0.3)'
             ]
           }}
           transition={{ duration: 2, repeat: Infinity }}
@@ -208,7 +231,7 @@ const TeddyModal = ({
           textAlign: 'center',
           fontSize: '1.5rem',
           fontFamily: 'serif',
-          color: '#DEB887',
+          color: '#FFB6C1',
           marginBottom: '12px',
         }}>
           {teddy.name}
@@ -250,7 +273,7 @@ const TeddyModal = ({
               }}
               style={{ fontSize: '1.5rem' }}
             >
-              💕
+              {['💕', '🎀', '✨', '💖', '🌸'][i]}
             </motion.span>
           ))}
         </motion.div>
@@ -284,12 +307,12 @@ export const TeddyGallery = () => {
         animate={{ scale: hugCount > 0 ? [1, 1.1, 1] : 1 }}
         key={hugCount}
       >
-        <span className="text-amber-400 font-medium">
-          💕 You've sent {hugCount} virtual hugs!
+        <span className="text-pink-400 font-medium">
+          💕 You've hugged {hugCount} adorable teddies!
         </span>
       </motion.div>
 
-      {/* Teddy Grid - with real images */}
+      {/* Teddy Grid - cute pink themed */}
       <div className="grid grid-cols-3 gap-3">
         {teddies.map((teddy, index) => (
           <motion.button
@@ -297,7 +320,7 @@ export const TeddyGallery = () => {
             onClick={() => handleHug(index)}
             className="relative rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all"
             style={{
-              background: 'linear-gradient(135deg, rgba(255,200,150,0.2) 0%, rgba(180,100,60,0.2) 100%)',
+              background: 'linear-gradient(135deg, rgba(255,182,193,0.2) 0%, rgba(255,105,180,0.2) 100%)',
             }}
             whileHover={{ scale: 1.05, y: -5 }}
             whileTap={{ scale: 0.95 }}
@@ -313,7 +336,7 @@ export const TeddyGallery = () => {
                 className="w-full h-full object-cover"
                 loading="lazy"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-amber-950/80 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-pink-950/80 via-transparent to-transparent" />
             </div>
             
             {/* Overlay content */}
@@ -328,7 +351,7 @@ export const TeddyGallery = () => {
               >
                 {teddy.emoji}
               </motion.span>
-              <p className="text-[10px] text-amber-200 font-medium truncate">{teddy.name}</p>
+              <p className="text-[10px] text-pink-200 font-medium truncate">{teddy.name}</p>
             </div>
             
             {/* Hug animation */}
@@ -340,7 +363,7 @@ export const TeddyGallery = () => {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                 >
-                  {[...Array(5)].map((_, i) => (
+                  {[...Array(6)].map((_, i) => (
                     <motion.span
                       key={i}
                       className="absolute text-xl"
@@ -348,12 +371,12 @@ export const TeddyGallery = () => {
                       animate={{
                         scale: [0, 1.5],
                         opacity: [1, 0],
-                        x: Math.cos(i * 72 * Math.PI / 180) * 40,
-                        y: Math.sin(i * 72 * Math.PI / 180) * 40,
+                        x: Math.cos(i * 60 * Math.PI / 180) * 40,
+                        y: Math.sin(i * 60 * Math.PI / 180) * 40,
                       }}
                       transition={{ duration: 0.8 }}
                     >
-                      💕
+                      {['💕', '🎀', '✨', '💖', '🌸', '💗'][i]}
                     </motion.span>
                   ))}
                 </motion.div>
@@ -364,8 +387,8 @@ export const TeddyGallery = () => {
       </div>
 
       {/* Tap hint */}
-      <p className="text-center text-amber-400/70 text-xs">
-        Tap any teddy to see it bigger! 🧸
+      <p className="text-center text-pink-400/70 text-xs">
+        Tap any teddy to give it a big hug! 🧸💕
       </p>
 
       {/* Fullscreen Modal */}
