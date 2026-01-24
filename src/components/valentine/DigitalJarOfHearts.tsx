@@ -1,47 +1,66 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Heart } from 'lucide-react';
+import { X, Heart, RefreshCw } from 'lucide-react';
 import { createPortal } from 'react-dom';
 
 interface HeartContent {
-  type: 'compliment' | 'memory';
+  type: 'compliment' | 'memory' | 'reason';
   text: string;
 }
 
 const heartContents: HeartContent[] = [
-  // Compliments
-  { type: 'compliment', text: 'Your smile is the first thing I think of every morning 💕' },
-  { type: 'compliment', text: 'You have the most beautiful soul I\'ve ever encountered ✨' },
-  { type: 'compliment', text: 'Your laugh is my favorite sound in the entire universe 🎵' },
-  { type: 'compliment', text: 'You make everyone around you feel special just by being you 🌟' },
-  { type: 'compliment', text: 'Your eyes hold galaxies I want to explore forever 👁️' },
-  { type: 'compliment', text: 'You\'re the most beautiful person, inside and out 🌹' },
-  { type: 'compliment', text: 'Your kindness could heal the world 💝' },
-  { type: 'compliment', text: 'You\'re stronger than you know, braver than you believe 💪' },
-  { type: 'compliment', text: 'Being loved by you is the greatest gift of my life 🎁' },
-  { type: 'compliment', text: 'You make ordinary moments feel magical ✨' },
-  { type: 'compliment', text: 'Your voice is the melody my heart beats to 💓' },
-  { type: 'compliment', text: 'You\'re my favorite hello and my hardest goodbye 🥺' },
-  { type: 'compliment', text: 'Every love song suddenly makes sense because of you 🎶' },
-  { type: 'compliment', text: 'You\'re the reason I believe in forever 💍' },
-  { type: 'compliment', text: 'Your hugs feel like coming home 🏠' },
+  // Compliments - More Personal and Specific
+  { type: 'compliment', text: 'Your smile is the first thing I think of every morning and the last image before I sleep 💕' },
+  { type: 'compliment', text: 'You have the most beautiful soul I\'ve ever encountered - pure, kind, and so incredibly rare ✨' },
+  { type: 'compliment', text: 'Your laugh is my favorite sound in the entire universe - I would do anything just to hear it 🎵' },
+  { type: 'compliment', text: 'You make everyone around you feel special just by being your authentic, wonderful self 🌟' },
+  { type: 'compliment', text: 'Your eyes hold entire galaxies - I could get lost in them forever and never want to be found 👁️' },
+  { type: 'compliment', text: 'You\'re the most beautiful person, inside and out - I still can\'t believe you\'re mine 🌹' },
+  { type: 'compliment', text: 'Your kindness could heal the world - the way you care for others takes my breath away 💝' },
+  { type: 'compliment', text: 'You\'re so much stronger than you know, braver than you believe, and more loved than you can imagine 💪' },
+  { type: 'compliment', text: 'Being loved by you is the greatest gift of my entire life - I treasure every moment 🎁' },
+  { type: 'compliment', text: 'You make ordinary moments feel like magic - every second with you is an adventure ✨' },
+  { type: 'compliment', text: 'Your voice is the melody my heart beats to - I could listen to you talk forever 💓' },
+  { type: 'compliment', text: 'You\'re my favorite hello and my hardest goodbye - distance means nothing when someone means everything 🥺' },
+  { type: 'compliment', text: 'Every love song suddenly makes sense because of you - you\'re my living love story 🎶' },
+  { type: 'compliment', text: 'You\'re the reason I believe in forever - with you, I want eternity 💍' },
+  { type: 'compliment', text: 'Your hugs feel like coming home after years away - my safe place in this chaotic world 🏠' },
+  { type: 'compliment', text: 'You\'re not just beautiful - you\'re the entire definition of beauty reimagined 🌸' },
+  { type: 'compliment', text: 'The way you care about the little things shows how big your heart really is 💗' },
+  { type: 'compliment', text: 'You make me want to be a better man every single day - you inspire me 🌟' },
   
-  // Memories
-  { type: 'memory', text: 'Remember our first call? My heart was racing the entire time 📞' },
-  { type: 'memory', text: 'The way you laugh when I make silly jokes... I live for that moment 😂' },
-  { type: 'memory', text: 'When you fell asleep on call and I just listened to you breathe 😴' },
-  { type: 'memory', text: 'That time you got shy when I complimented you... so adorable! 🙈' },
-  { type: 'memory', text: 'Staying up until 3 AM talking about everything and nothing 🌙' },
-  { type: 'memory', text: 'When you sent me that voice note... I\'ve listened to it 100 times 🔁' },
-  { type: 'memory', text: 'The first time you said "I love you" - my heart literally stopped 💓' },
-  { type: 'memory', text: 'Our silly video calls where we just stare at each other and smile 📱' },
-  { type: 'memory', text: 'When you got jealous... it was cute (don\'t be mad!) 😏' },
-  { type: 'memory', text: 'The way you say my name makes everything feel right 🥰' },
-  { type: 'memory', text: 'Our inside jokes that no one else understands 😆' },
-  { type: 'memory', text: 'When you trusted me with your fears... I felt so honored 🤝' },
-  { type: 'memory', text: 'Planning our future together at 2 AM... I can\'t wait 🏡' },
-  { type: 'memory', text: 'That song that now belongs only to us 🎵' },
-  { type: 'memory', text: 'Every goodnight message that makes me sleep with a smile 😊' },
+  // Memories - Real and Intimate
+  { type: 'memory', text: 'Remember our first call? My heart was racing the entire time and I couldn\'t stop smiling for hours 📞' },
+  { type: 'memory', text: 'The way you laugh when I make silly jokes... I make those jokes just to see your face light up 😂' },
+  { type: 'memory', text: 'When you fell asleep on call and I just listened to you breathe... that\'s when I knew I was in deep 😴' },
+  { type: 'memory', text: 'That time you got shy when I complimented your eyes... so adorable I wanted to squeeze you through the screen 🙈' },
+  { type: 'memory', text: 'Staying up until 3 AM talking about our dreams, fears, and everything in between 🌙' },
+  { type: 'memory', text: 'When you sent me that voice note saying you missed me... I\'ve saved it and listened to it 100+ times 🔁' },
+  { type: 'memory', text: 'The first time you said "I love you" - my heart literally stopped, then exploded with happiness 💓' },
+  { type: 'memory', text: 'Our silly video calls where we just stare at each other and smile like idiots in love 📱' },
+  { type: 'memory', text: 'When you got a little jealous... it was so cute, it made me love you even more 😏' },
+  { type: 'memory', text: 'The way you say my name makes everything feel right - like I was born just to hear you say it 🥰' },
+  { type: 'memory', text: 'Our inside jokes that nobody else would understand - that\'s our secret language 😆' },
+  { type: 'memory', text: 'When you trusted me with your deepest fears... I felt so honored to hold your heart 🤝' },
+  { type: 'memory', text: 'Planning our future together at 2 AM - I can\'t wait to make all those dreams real 🏡' },
+  { type: 'memory', text: 'That song that now belongs only to us - I can\'t hear it without thinking of you 🎵' },
+  { type: 'memory', text: 'Every goodnight message that makes me sleep with the biggest smile on my face 😊' },
+  { type: 'memory', text: 'The first photo you sent me... I still look at it every day 📸' },
+  { type: 'memory', text: 'When you cried and let me be there for you - even through a screen, I felt so close to you 🫂' },
+  
+  // 100 Reasons I Love You (samples)
+  { type: 'reason', text: 'Reason #1: The way your nose crinkles when you laugh really hard ❤️' },
+  { type: 'reason', text: 'Reason #7: How you always think of others before yourself 💕' },
+  { type: 'reason', text: 'Reason #13: The little sounds you make when you\'re comfortable 🥰' },
+  { type: 'reason', text: 'Reason #21: Your determination to achieve your dreams inspires me daily ⭐' },
+  { type: 'reason', text: 'Reason #34: The way you get excited about the little things in life 🎉' },
+  { type: 'reason', text: 'Reason #42: How you make even boring moments feel special just by existing 💫' },
+  { type: 'reason', text: 'Reason #55: Your patience with me when I\'m being difficult 🙏' },
+  { type: 'reason', text: 'Reason #67: The way you say "I love you" like you mean it every single time 💝' },
+  { type: 'reason', text: 'Reason #78: How you remember the little things I tell you 🧠' },
+  { type: 'reason', text: 'Reason #89: Your beautiful, pure heart that loves so deeply 💗' },
+  { type: 'reason', text: 'Reason #95: The way you look at me like I\'m the only person in the world 👀' },
+  { type: 'reason', text: 'Reason #100: Simply because you\'re YOU - and that\'s enough for a lifetime of love 💕' },
 ];
 
 interface FloatingHeart {
@@ -63,34 +82,45 @@ const heartColors = [
 ];
 
 const ContentModal = ({ content, onClose }: { content: HeartContent; onClose: () => void }) => {
+  const getTypeConfig = () => {
+    switch (content.type) {
+      case 'compliment':
+        return { emoji: '💝', label: 'A Compliment For You', gradient: 'linear-gradient(145deg, #ff6b9d, #ff8fab)' };
+      case 'memory':
+        return { emoji: '📸', label: 'A Memory Snack', gradient: 'linear-gradient(145deg, #a855f7, #c084fc)' };
+      case 'reason':
+        return { emoji: '❤️', label: 'Why I Love You', gradient: 'linear-gradient(145deg, #ef4444, #f87171)' };
+      default:
+        return { emoji: '💕', label: 'For You', gradient: 'linear-gradient(145deg, #ff6b9d, #ff8fab)' };
+    }
+  };
+
+  const config = getTypeConfig();
+
   return createPortal(
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       className="fixed inset-0 z-[9999] flex items-center justify-center p-6"
-      style={{ backgroundColor: 'rgba(0,0,0,0.85)' }}
+      style={{ backgroundColor: 'rgba(0,0,0,0.9)' }}
       onClick={onClose}
     >
       {/* Burst of hearts */}
-      {[...Array(15)].map((_, i) => (
+      {[...Array(20)].map((_, i) => (
         <motion.div
           key={i}
           className="absolute text-3xl pointer-events-none"
-          initial={{ 
-            x: '50%', 
-            y: '50%',
-            scale: 0
-          }}
+          initial={{ x: '50%', y: '50%', scale: 0 }}
           animate={{ 
-            x: `${50 + (Math.random() - 0.5) * 100}%`,
-            y: `${50 + (Math.random() - 0.5) * 100}%`,
+            x: `${50 + (Math.random() - 0.5) * 120}%`,
+            y: `${50 + (Math.random() - 0.5) * 120}%`,
             scale: [0, 1.5, 0],
             rotate: Math.random() * 360
           }}
-          transition={{ duration: 1.5, delay: i * 0.05 }}
+          transition={{ duration: 2, delay: i * 0.05 }}
         >
-          💕
+          {['💕', '💗', '💖', '💓', '❤️'][i % 5]}
         </motion.div>
       ))}
 
@@ -104,9 +134,7 @@ const ContentModal = ({ content, onClose }: { content: HeartContent; onClose: ()
         <div 
           className="rounded-3xl p-8 text-center"
           style={{
-            background: content.type === 'compliment' 
-              ? 'linear-gradient(145deg, #ff6b9d, #ff8fab)' 
-              : 'linear-gradient(145deg, #a855f7, #c084fc)',
+            background: config.gradient,
             boxShadow: '0 25px 80px rgba(255,100,150,0.5)'
           }}
         >
@@ -120,13 +148,13 @@ const ContentModal = ({ content, onClose }: { content: HeartContent; onClose: ()
           <motion.div
             animate={{ scale: [1, 1.2, 1] }}
             transition={{ duration: 1, repeat: Infinity }}
-            className="text-5xl mb-4"
+            className="text-6xl mb-4"
           >
-            {content.type === 'compliment' ? '💝' : '📸'}
+            {config.emoji}
           </motion.div>
 
-          <p className="text-sm text-white/60 uppercase tracking-wider mb-2">
-            {content.type === 'compliment' ? 'A Compliment For You' : 'A Memory Snack'}
+          <p className="text-sm text-white/70 uppercase tracking-wider mb-3">
+            {config.label}
           </p>
 
           <p className="text-white text-lg font-medium leading-relaxed">
@@ -137,7 +165,7 @@ const ContentModal = ({ content, onClose }: { content: HeartContent; onClose: ()
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
-            className="mt-6 text-white/60 text-sm"
+            className="mt-6 text-white/50 text-sm"
           >
             Tap anywhere to close 💕
           </motion.div>
@@ -151,20 +179,28 @@ const ContentModal = ({ content, onClose }: { content: HeartContent; onClose: ()
 export const DigitalJarOfHearts = () => {
   const [hearts, setHearts] = useState<FloatingHeart[]>([]);
   const [selectedContent, setSelectedContent] = useState<HeartContent | null>(null);
-  const [clickedCount, setClickedCount] = useState(0);
+  const [clickedCount, setClickedCount] = useState(() => {
+    const saved = localStorage.getItem('hearts-clicked-count');
+    return saved ? parseInt(saved) : 0;
+  });
+
+  // Save clicked count
+  useEffect(() => {
+    localStorage.setItem('hearts-clicked-count', clickedCount.toString());
+  }, [clickedCount]);
 
   // Generate floating hearts
   useEffect(() => {
     const generateHearts = () => {
       const newHearts: FloatingHeart[] = [];
-      for (let i = 0; i < 20; i++) {
+      for (let i = 0; i < 25; i++) {
         newHearts.push({
           id: i,
-          x: Math.random() * 100,
-          y: Math.random() * 100,
-          size: 20 + Math.random() * 30,
-          duration: 5 + Math.random() * 5,
-          delay: Math.random() * 5,
+          x: Math.random() * 90 + 5,
+          y: Math.random() * 80 + 10,
+          size: 24 + Math.random() * 28,
+          duration: 4 + Math.random() * 4,
+          delay: Math.random() * 3,
           color: heartColors[Math.floor(Math.random() * heartColors.length)]
         });
       }
@@ -179,11 +215,14 @@ export const DigitalJarOfHearts = () => {
     setSelectedContent(randomContent);
     setClickedCount(prev => prev + 1);
     
-    // Vibrate on mobile
     if (navigator.vibrate) {
-      navigator.vibrate(50);
+      navigator.vibrate([30, 20, 50]);
     }
   }, []);
+
+  const complimentCount = heartContents.filter(h => h.type === 'compliment').length;
+  const memoryCount = heartContents.filter(h => h.type === 'memory').length;
+  const reasonCount = heartContents.filter(h => h.type === 'reason').length;
 
   return (
     <div className="py-8 px-4">
@@ -198,25 +237,29 @@ export const DigitalJarOfHearts = () => {
         <p className="text-white/70 text-sm mb-2">
           Catch a floating heart for a dose of love
         </p>
-        <p className="text-pink-300 text-xs">
+        <motion.p 
+          className="text-pink-300 text-sm font-medium"
+          animate={{ scale: [1, 1.05, 1] }}
+          transition={{ duration: 2, repeat: Infinity }}
+        >
           Hearts caught: {clickedCount} 💕
-        </p>
+        </motion.p>
       </div>
 
       {/* Jar Container */}
       <div 
-        className="relative h-96 rounded-3xl overflow-hidden"
+        className="relative h-[400px] rounded-3xl overflow-hidden"
         style={{
-          background: 'linear-gradient(180deg, rgba(255,100,150,0.1) 0%, rgba(255,150,180,0.2) 100%)',
+          background: 'linear-gradient(180deg, rgba(255,100,150,0.15) 0%, rgba(255,150,180,0.25) 100%)',
           border: '3px solid rgba(255,255,255,0.2)',
-          boxShadow: 'inset 0 0 60px rgba(255,100,150,0.2)'
+          boxShadow: 'inset 0 0 80px rgba(255,100,150,0.3), 0 20px 60px rgba(0,0,0,0.3)'
         }}
       >
-        {/* Jar lid effect */}
+        {/* Glass reflection */}
         <div 
-          className="absolute top-0 left-0 right-0 h-6 rounded-t-3xl"
+          className="absolute top-0 left-0 right-0 h-8 rounded-t-3xl"
           style={{
-            background: 'linear-gradient(180deg, rgba(255,255,255,0.3), transparent)'
+            background: 'linear-gradient(180deg, rgba(255,255,255,0.4), transparent)'
           }}
         />
 
@@ -224,12 +267,12 @@ export const DigitalJarOfHearts = () => {
         {hearts.map((heart) => (
           <motion.button
             key={heart.id}
-            className={`absolute cursor-pointer ${heart.color} hover:scale-125 transition-transform`}
-            style={{ left: `${heart.x}%`, fontSize: heart.size }}
+            className={`absolute cursor-pointer ${heart.color} hover:scale-125 active:scale-90 transition-transform z-10`}
+            style={{ left: `${heart.x}%`, top: `${heart.y}%`, fontSize: heart.size }}
             animate={{
-              y: [0, -30, 0, 30, 0],
-              x: [0, 15, 0, -15, 0],
-              rotate: [0, 10, 0, -10, 0]
+              y: [0, -25, 0, 25, 0],
+              x: [0, 12, 0, -12, 0],
+              rotate: [0, 8, 0, -8, 0]
             }}
             transition={{
               duration: heart.duration,
@@ -238,29 +281,29 @@ export const DigitalJarOfHearts = () => {
               ease: "easeInOut"
             }}
             onClick={() => handleHeartClick(heart.id)}
-            whileHover={{ scale: 1.3 }}
-            whileTap={{ scale: 0.8 }}
+            whileHover={{ scale: 1.4 }}
+            whileTap={{ scale: 0.7 }}
           >
-            <Heart className="fill-current" style={{ width: heart.size, height: heart.size }} />
+            <Heart className="fill-current drop-shadow-lg" style={{ width: heart.size, height: heart.size }} />
           </motion.button>
         ))}
 
         {/* Sparkle effects */}
-        {[...Array(10)].map((_, i) => (
+        {[...Array(15)].map((_, i) => (
           <motion.div
             key={`sparkle-${i}`}
-            className="absolute w-2 h-2 bg-white rounded-full"
+            className="absolute w-1.5 h-1.5 bg-white rounded-full"
             style={{ 
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`
             }}
             animate={{
-              scale: [0, 1, 0],
+              scale: [0, 1.5, 0],
               opacity: [0, 1, 0]
             }}
             transition={{
               duration: 2,
-              delay: i * 0.3,
+              delay: i * 0.2,
               repeat: Infinity
             }}
           />
@@ -268,12 +311,12 @@ export const DigitalJarOfHearts = () => {
 
         {/* Instructions */}
         <motion.div
-          className="absolute bottom-4 left-0 right-0 text-center"
+          className="absolute bottom-4 left-0 right-0 text-center z-20"
           animate={{ y: [0, -5, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
         >
-          <p className="text-white/60 text-sm">
-            👆 Tap any heart
+          <p className="text-white/70 text-sm bg-black/30 inline-block px-4 py-2 rounded-full backdrop-blur-sm">
+            👆 Tap any heart for love
           </p>
         </motion.div>
       </div>
@@ -282,17 +325,22 @@ export const DigitalJarOfHearts = () => {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="mt-4 flex justify-center gap-4 text-sm"
+        className="mt-4 flex flex-wrap justify-center gap-2 text-xs"
       >
-        <div className="bg-white/10 px-4 py-2 rounded-full">
-          <span className="text-white/60">Compliments: </span>
-          <span className="text-pink-300">{heartContents.filter(h => h.type === 'compliment').length}</span>
+        <div className="bg-pink-500/20 px-3 py-1.5 rounded-full flex items-center gap-1">
+          <span className="text-pink-300">💝 {complimentCount}</span>
         </div>
-        <div className="bg-white/10 px-4 py-2 rounded-full">
-          <span className="text-white/60">Memories: </span>
-          <span className="text-purple-300">{heartContents.filter(h => h.type === 'memory').length}</span>
+        <div className="bg-purple-500/20 px-3 py-1.5 rounded-full flex items-center gap-1">
+          <span className="text-purple-300">📸 {memoryCount}</span>
+        </div>
+        <div className="bg-red-500/20 px-3 py-1.5 rounded-full flex items-center gap-1">
+          <span className="text-red-300">❤️ {reasonCount}</span>
         </div>
       </motion.div>
+
+      <p className="text-center text-white/40 text-xs mt-3">
+        {heartContents.length} love messages inside 💕
+      </p>
 
       <AnimatePresence>
         {selectedContent && (

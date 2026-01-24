@@ -17,83 +17,103 @@ interface FuturePin {
 const futurePins: FuturePin[] = [
   {
     id: '1',
-    title: 'Our First Home',
-    description: 'A cozy apartment with a balcony where we\'ll have morning coffee together. Just you, me, and our dreams.',
+    title: 'Our First Meeting',
+    description: 'The moment I finally get to hold you in my arms. The airport, the train station, wherever it is - it will be the most magical moment of my life. I\'ll probably cry.',
+    timeline: 'Counting the days...',
+    x: 50,
+    y: 25,
+    emoji: '🫂',
+    gradient: 'from-pink-400 to-rose-500'
+  },
+  {
+    id: '2',
+    title: 'Our First Home Together',
+    description: 'A cozy apartment with a balcony where we\'ll have morning chai together. Where we\'ll cook dinner, watch movies, and build our life. Just you, me, and our dreams.',
     timeline: 'When we\'re ready',
     x: 25,
-    y: 30,
+    y: 35,
     emoji: '🏠',
     gradient: 'from-amber-400 to-orange-500'
   },
   {
-    id: '2',
-    title: 'Beach Getaway',
-    description: 'Walking hand in hand on white sand beaches. Watching the sunset paint the sky just for us.',
+    id: '3',
+    title: 'Disney World Magic',
+    description: 'Walking through Magic Kingdom holding your hand. Watching fireworks over Cinderella\'s Castle. I want to see your face light up like a kid again.',
+    timeline: 'Dream vacation',
+    x: 75,
+    y: 30,
+    emoji: '🏰',
+    gradient: 'from-blue-400 to-purple-500'
+  },
+  {
+    id: '4',
+    title: 'Beach Paradise',
+    description: 'Walking hand in hand on white sand beaches at sunset. Collecting shells together. Building sandcastles. Just us and the ocean.',
     timeline: 'Our first vacation',
-    x: 70,
-    y: 45,
+    x: 65,
+    y: 50,
     emoji: '🏖️',
     gradient: 'from-cyan-400 to-blue-500'
   },
   {
-    id: '3',
-    title: 'Paris, My Love',
-    description: 'Kissing you under the Eiffel Tower at midnight. The city of love with the love of my life.',
+    id: '5',
+    title: 'Paris, City of Love',
+    description: 'Kissing you under the Eiffel Tower at midnight. Coffee at a tiny cafe. Dancing by the Seine. The city of love with the love of my life.',
     timeline: 'One magical day',
-    x: 45,
-    y: 25,
+    x: 40,
+    y: 20,
     emoji: '🗼',
-    gradient: 'from-pink-400 to-rose-500'
+    gradient: 'from-rose-400 to-pink-500'
   },
   {
-    id: '4',
+    id: '6',
+    title: 'Our Wedding Day',
+    description: 'The day I officially become yours forever. I\'ll be waiting at the altar, trying not to cry as you walk towards me. The beginning of our forever.',
+    timeline: 'When the stars align',
+    x: 15,
+    y: 55,
+    emoji: '💒',
+    gradient: 'from-violet-400 to-purple-500'
+  },
+  {
+    id: '7',
     title: 'Mountain Retreat',
-    description: 'Snuggling in a cabin surrounded by snow, with a fireplace and hot chocolate. Just us against the world.',
+    description: 'Snuggling in a cabin surrounded by snow, with a fireplace and hot chocolate. Reading books together. Just us against the world.',
     timeline: 'A winter someday',
-    x: 60,
-    y: 20,
+    x: 55,
+    y: 15,
     emoji: '🏔️',
     gradient: 'from-slate-400 to-gray-500'
   },
   {
-    id: '5',
-    title: 'Our Special Restaurant',
-    description: 'A fancy dinner where I\'ll look across the table and thank the universe for you. Maybe for an anniversary?',
-    timeline: 'Special occasions',
-    x: 35,
-    y: 55,
-    emoji: '🍽️',
-    gradient: 'from-violet-400 to-purple-500'
-  },
-  {
-    id: '6',
-    title: 'Secret Garden Picnic',
-    description: 'A blanket under the stars, fairy lights in the trees, and just us sharing dreams until dawn.',
-    timeline: 'This summer',
+    id: '8',
+    title: 'Our Secret Garden',
+    description: 'A picnic under the stars, fairy lights in the trees, rose petals everywhere. Where I\'ll slow dance with you until the sun comes up.',
+    timeline: 'Every anniversary',
     x: 80,
     y: 65,
     emoji: '🌸',
     gradient: 'from-green-400 to-emerald-500'
   },
   {
-    id: '7',
-    title: 'Sunrise Point',
-    description: 'Waking up early just to watch the sunrise together. Starting new days, new beginnings, with you.',
-    timeline: 'Any morning with you',
-    x: 15,
+    id: '9',
+    title: 'Our Baby\'s First Steps',
+    description: 'A little version of us taking their first wobbly steps. Your eyes, my smile. Watching them grow with the love we\'ve built together.',
+    timeline: 'Our greatest adventure',
+    x: 30,
     y: 70,
-    emoji: '🌅',
-    gradient: 'from-yellow-400 to-red-500'
+    emoji: '👶',
+    gradient: 'from-yellow-400 to-amber-500'
   },
   {
-    id: '8',
-    title: 'Our Forever Place',
-    description: 'The place where we\'ll grow old together. Where our love story will continue for decades.',
+    id: '10',
+    title: 'Growing Old Together',
+    description: 'Two rocking chairs on a porch. Grey hair and wrinkled hands still intertwined. Telling our grandkids our love story. Forever and always.',
     timeline: 'Our lifetime',
     x: 50,
-    y: 75,
-    emoji: '💍',
-    gradient: 'from-rose-400 to-red-500'
+    y: 80,
+    emoji: '💕',
+    gradient: 'from-red-400 to-rose-500'
   }
 ];
 
