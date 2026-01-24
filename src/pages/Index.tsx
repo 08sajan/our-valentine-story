@@ -40,6 +40,7 @@ import { PermissionSlips } from "@/components/valentine/PermissionSlips";
 import { IntimateSection } from "@/components/valentine/IntimateSection";
 import { VoiceVideoMessages } from "@/components/valentine/VoiceVideoMessages";
 import { BirthdayCelebration } from "@/components/valentine/BirthdayCelebration";
+import { FlowerBouquetGallery } from "@/components/valentine/FlowerBouquetGallery";
 import { 
   ShakeHeartsExplosion, 
   KonamiSecret, 
@@ -830,7 +831,7 @@ const KissDayContent = () => {
 
 const ValentineDayContent = () => {
   const [triggerConfetti, setTriggerConfetti] = useState(false);
-  const [activeSection, setActiveSection] = useState<'gallery' | 'letters' | 'letter' | 'game' | 'quiz' | 'wishes' | 'journey' | 'soulmate' | 'missyou' | 'photobooth' | 'openwhen' | 'hearts' | 'comfort' | 'music' | 'dreams' | 'growth' | 'future' | 'decide' | 'coupons' | 'private' | 'recordings' | 'birthday'>('gallery');
+  const [activeSection, setActiveSection] = useState<'gallery' | 'letters' | 'letter' | 'game' | 'quiz' | 'wishes' | 'journey' | 'soulmate' | 'missyou' | 'photobooth' | 'openwhen' | 'hearts' | 'comfort' | 'music' | 'dreams' | 'growth' | 'future' | 'decide' | 'coupons' | 'private' | 'recordings' | 'birthday' | 'bouquets'>('gallery');
   
   useEffect(() => {
     setTriggerConfetti(true);
@@ -961,6 +962,7 @@ const ValentineDayContent = () => {
           {[
             { key: 'recordings', label: 'Voice/Video', emoji: '🎤' },
             { key: 'birthday', label: 'Birthday', emoji: '🎂' },
+            { key: 'bouquets', label: 'Bouquets', emoji: '💐' },
           ].map((tab) => (
             <motion.button
               key={tab.key}
@@ -1336,6 +1338,19 @@ I want to know the ways you ache, the ways you hope, the tiny corners of yoursel
           >
             <GlassCard className="p-4">
               <BirthdayCelebration />
+            </GlassCard>
+          </motion.div>
+        )}
+
+        {activeSection === 'bouquets' && (
+          <motion.div
+            key="bouquets"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+          >
+            <GlassCard className="p-4">
+              <FlowerBouquetGallery />
             </GlassCard>
           </motion.div>
         )}

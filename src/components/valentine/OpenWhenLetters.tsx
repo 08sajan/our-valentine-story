@@ -197,6 +197,193 @@ You are loved. You are cherished. You are adored.
 
 With all my heart,
 Yours completely and forever 💕`
+  },
+  {
+    id: 'feeling-angry',
+    mood: 'You Feel Angry',
+    emoji: '😤',
+    icon: <Cloud className="w-6 h-6" />,
+    gradient: 'from-red-400 to-orange-500',
+    title: 'When Frustration Takes Over...',
+    content: `My fierce Puntuu,
+
+I know you're upset right now. And you know what? That's okay. Your feelings are valid - every single one.
+
+Take a deep breath. Then another. Feel that fire in your chest? Channel it.
+
+Sometimes we need to feel the anger to process it. But don't let it consume your beautiful heart.
+
+Remember: The things that make you angry are often the things you care about most.
+
+I'm here. Always. Even when the world feels unfair.
+
+Your safe space,
+The one who loves you in every emotion 🔥`
+  },
+  {
+    id: 'feel-proud',
+    mood: 'You Did Something Great',
+    emoji: '🏆',
+    icon: <Star className="w-6 h-6" />,
+    gradient: 'from-amber-400 to-yellow-500',
+    title: 'Celebrate Your Victory!',
+    content: `MY INCREDIBLE PUNTUU! 🎉
+
+YOU DID IT! Whatever it was - big or small - you did it and I'm SO PROUD OF YOU!
+
+Take a moment. Close your eyes. Feel that pride swelling in your chest.
+
+You worked for this. You earned this. This is YOUR moment.
+
+I always knew you could do it. There was never a doubt in my mind.
+
+Now go celebrate! You deserve it, champion! 🏆
+
+Your number one fan,
+The one who's bursting with pride 🌟`
+  },
+  {
+    id: 'feeling-grateful',
+    mood: 'Feeling Grateful',
+    emoji: '🙏',
+    icon: <Heart className="w-6 h-6" />,
+    gradient: 'from-pink-400 to-purple-500',
+    title: 'Gratitude & Love...',
+    content: `My grateful Puntuu,
+
+If you opened this letter, your heart must be feeling full. That makes me so happy!
+
+Here are things I'm grateful for about YOU:
+💕 Your smile that lights up my world
+💕 Your laugh that's my favorite music
+💕 Your kindness that inspires me daily
+💕 The way you love me so purely
+
+Gratitude is such a beautiful feeling. Hold onto it. Let it fill every corner of your heart.
+
+Thank you for being you.
+
+Forever grateful for you,
+Your loving partner 🌸`
+  },
+  {
+    id: 'need-hug',
+    mood: 'You Need a Hug',
+    emoji: '🤗',
+    icon: <Heart className="w-6 h-6" />,
+    gradient: 'from-orange-400 to-pink-500',
+    title: 'Virtual Hug Incoming!',
+    content: `Come here, my Puntuu 🤗
+
+*wraps arms around you tightly*
+
+Feel that? That's me, holding you close. Your head fits perfectly under my chin. I'm rubbing gentle circles on your back.
+
+You can stay here as long as you need. There's no rush. No place I'd rather be.
+
+*squeezes a little tighter*
+
+I've got you. I'll always have you.
+
+Sending infinite hugs,
+Your personal hug provider 💕`
+  },
+  {
+    id: 'feeling-lonely',
+    mood: 'Feeling Lonely',
+    emoji: '💙',
+    icon: <Moon className="w-6 h-6" />,
+    gradient: 'from-blue-400 to-indigo-500',
+    title: 'You Are Never Alone...',
+    content: `My precious Puntuu,
+
+I know loneliness can feel like a heavy blanket, weighing you down. But I need you to know something important...
+
+You are never truly alone. My love is with you always, like an invisible thread connecting our hearts across any distance.
+
+Right now, look outside. See that sky? I'm looking at the same one, thinking of you.
+
+Feel the air on your skin? That's my love, surrounding you always.
+
+Distance is just a number. My heart lives with you.
+
+Connected forever,
+The one who carries you in their heart 💫`
+  },
+  {
+    id: 'need-adventure',
+    mood: 'Need Adventure',
+    emoji: '🗺️',
+    icon: <Sparkles className="w-6 h-6" />,
+    gradient: 'from-teal-400 to-cyan-500',
+    title: 'Adventure Awaits!',
+    content: `Adventurous Puntuu! 🌍
+
+So you're craving something new, something exciting? I love that about you!
+
+Here's a secret: Every day with you is an adventure for me.
+
+But I get it. You want to explore, to discover, to feel alive!
+
+Close your eyes. Imagine us: standing on a mountaintop, walking through a foreign city, discovering hidden beaches...
+
+One day, we'll do it all. Together. I promise.
+
+For now, dream big. Plan wild. I'm right beside you.
+
+Your adventure partner,
+The one ready to explore the world with you 🚀`
+  },
+  {
+    id: 'random-love',
+    mood: 'Just Because',
+    emoji: '💝',
+    icon: <Heart className="w-6 h-6" />,
+    gradient: 'from-pink-400 to-rose-500',
+    title: 'A Random Love Note...',
+    content: `Hey, beautiful 💕
+
+There's no special reason I wrote this. No mood you need to be in. I just wanted to remind you...
+
+I love you.
+
+Not because of anything you did. Not because of how you look. Not because of what you give me.
+
+I love you because you're YOU.
+
+Every weird quirk. Every random thought. Every silent moment. Every loud laugh.
+
+All of it. All of you. Forever.
+
+Just because,
+Your person 💕`
+  },
+  {
+    id: 'stressed',
+    mood: 'Feeling Stressed',
+    emoji: '😰',
+    icon: <Cloud className="w-6 h-6" />,
+    gradient: 'from-gray-400 to-slate-500',
+    title: 'When Stress Takes Over...',
+    content: `My overwhelmed Puntuu,
+
+Stop. Breathe. Read this slowly.
+
+You are doing the best you can. And that is enough. YOU are enough.
+
+Let's break this down:
+1. What can you control? Focus there.
+2. What can't you control? Let it go.
+3. What can wait? Let it wait.
+
+You don't have to solve everything today. You don't have to be perfect. You just have to keep going.
+
+And I'll be right here, cheering you on.
+
+Take a breath. You've got this.
+
+Your calm in the storm,
+Always here for you 🌊`
   }
 ];
 
