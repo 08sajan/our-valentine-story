@@ -1,328 +1,16 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  Mic, MicOff, Play, Pause, Trash2, Music, Heart, 
-  Star, Clock, Lock, X, Volume2, ChevronRight
+  Mic, Play, Trash2, Music, 
+  Clock, Lock, X, Volume2, ChevronRight
 } from 'lucide-react';
 import { createPortal } from 'react-dom';
-import { useMediaRecorder, RecordedMedia } from '@/hooks/useMediaRecorder';
+import { useMediaRecorder } from '@/hooks/useMediaRecorder';
 import { openDB } from '@/hooks/media/db';
+import { allSongs, getLyricsPlaceholder, getLanguages, Song } from './karaokeSongs';
 
 const SECRET_PASSWORD = 'Anjalisajan';
 const DB_STORE = 'recordings';
-
-interface Song {
-  id: string;
-  title: string;
-  artist: string;
-  emoji: string;
-  genre: string;
-  lyrics: string[];
-  duration: string;
-}
-
-const songs: Song[] = [
-  {
-    id: 'tum-hi-ho',
-    title: 'Tum Hi Ho',
-    artist: 'Arijit Singh',
-    emoji: '💕',
-    genre: 'Romantic',
-    duration: '4:22',
-    lyrics: [
-      "🎵 Search for lyrics online 🎵",
-      "♪ Sing along with your heart ♪",
-      "💕 This song is about eternal love 💕",
-      "",
-      "🎤 Record your beautiful voice! 🎤",
-    ]
-  },
-  {
-    id: 'raabta',
-    title: 'Raabta',
-    artist: 'Arijit Singh',
-    emoji: '🌙',
-    genre: 'Romantic',
-    duration: '4:45',
-    lyrics: [
-      "🎵 Search for lyrics online 🎵",
-      "♪ A song about destined connections ♪",
-      "🌙 Let the melody guide you 🌙",
-      "",
-      "🎤 Record your version! 🎤",
-    ]
-  },
-  {
-    id: 'kal-ho-naa-ho',
-    title: 'Kal Ho Naa Ho',
-    artist: 'Sonu Nigam',
-    emoji: '⭐',
-    genre: 'Emotional',
-    duration: '5:20',
-    lyrics: [
-      "🎵 Search for lyrics online 🎵",
-      "♪ Live every moment fully ♪",
-      "⭐ An iconic emotional ballad ⭐",
-      "",
-      "🎤 Sing from the heart! 🎤",
-    ]
-  },
-  {
-    id: 'tujhe-dekha',
-    title: 'Tujhe Dekha To',
-    artist: 'Kumar Sanu & Lata',
-    emoji: '🎬',
-    genre: 'Classic',
-    duration: '5:45',
-    lyrics: [
-      "🎵 Search for lyrics online 🎵",
-      "♪ A classic Bollywood romance ♪",
-      "🎬 From DDLJ - timeless love 🎬",
-      "",
-      "🎤 Create your duet! 🎤",
-    ]
-  },
-  {
-    id: 'pehla-nasha',
-    title: 'Pehla Nasha',
-    artist: 'Udit Narayan',
-    emoji: '🦋',
-    genre: 'Classic',
-    duration: '5:10',
-    lyrics: [
-      "🎵 Search for lyrics online 🎵",
-      "♪ First love feelings ♪",
-      "🦋 A timeless classic 🦋",
-      "",
-      "🎤 Record your rendition! 🎤",
-    ]
-  },
-  {
-    id: 'channa-mereya',
-    title: 'Channa Mereya',
-    artist: 'Arijit Singh',
-    emoji: '💔',
-    genre: 'Emotional',
-    duration: '4:49',
-    lyrics: [
-      "🎵 Search for lyrics online 🎵",
-      "♪ A heart-touching farewell song ♪",
-      "💔 Feel every emotion 💔",
-      "",
-      "🎤 Pour your heart out! 🎤",
-    ]
-  },
-  {
-    id: 'mere-haath-mein',
-    title: 'Mere Haath Mein',
-    artist: 'Sonu Nigam',
-    emoji: '🤝',
-    genre: 'Romantic',
-    duration: '5:15',
-    lyrics: [
-      "🎵 Search for lyrics online 🎵",
-      "♪ Hand in hand forever ♪",
-      "🤝 A beautiful promise song 🤝",
-      "",
-      "🎤 Sing it for your love! 🎤",
-    ]
-  },
-  {
-    id: 'kabira',
-    title: 'Kabira',
-    artist: 'Arijit Singh & Harshdeep',
-    emoji: '🎭',
-    genre: 'Soulful',
-    duration: '3:42',
-    lyrics: [
-      "🎵 Search for lyrics online 🎵",
-      "♪ A soulful masterpiece ♪",
-      "🎭 Deep and meaningful 🎭",
-      "",
-      "🎤 Express your soul! 🎤",
-    ]
-  },
-  {
-    id: 'tera-ban-jaunga',
-    title: 'Tera Ban Jaunga',
-    artist: 'Akhil & Tulsi Kumar',
-    emoji: '💑',
-    genre: 'Romantic',
-    duration: '3:56',
-    lyrics: [
-      "🎵 Search for lyrics online 🎵",
-      "♪ I'll become yours ♪",
-      "💑 Pure romantic devotion 💑",
-      "",
-      "🎤 Dedicate this to someone! 🎤",
-    ]
-  },
-  {
-    id: 'tere-sang-yaara',
-    title: 'Tere Sang Yaara',
-    artist: 'Atif Aslam',
-    emoji: '🌅',
-    genre: 'Romantic',
-    duration: '4:31',
-    lyrics: [
-      "🎵 Search for lyrics online 🎵",
-      "♪ With you, my friend ♪",
-      "🌅 A beautiful journey together 🌅",
-      "",
-      "🎤 Record your version! 🎤",
-    ]
-  },
-  {
-    id: 'kuch-kuch',
-    title: 'Kuch Kuch Hota Hai',
-    artist: 'Udit & Alka',
-    emoji: '💝',
-    genre: 'Classic',
-    duration: '5:24',
-    lyrics: [
-      "🎵 Search for lyrics online 🎵",
-      "♪ Something happens in the heart ♪",
-      "💝 Iconic 90s romance 💝",
-      "",
-      "🎤 Relive the magic! 🎤",
-    ]
-  },
-  {
-    id: 'ae-dil-hai-mushkil',
-    title: 'Ae Dil Hai Mushkil',
-    artist: 'Arijit Singh',
-    emoji: '💫',
-    genre: 'Emotional',
-    duration: '4:29',
-    lyrics: [
-      "🎵 Search for lyrics online 🎵",
-      "♪ Oh heart, it's difficult ♪",
-      "💫 Love and longing 💫",
-      "",
-      "🎤 Sing with passion! 🎤",
-    ]
-  },
-  {
-    id: 'gerua',
-    title: 'Gerua',
-    artist: 'Arijit Singh & Antara',
-    emoji: '🧡',
-    genre: 'Romantic',
-    duration: '5:48',
-    lyrics: [
-      "🎵 Search for lyrics online 🎵",
-      "♪ Color me in your love ♪",
-      "🧡 Vibrant and passionate 🧡",
-      "",
-      "🎤 Feel the colors! 🎤",
-    ]
-  },
-  {
-    id: 'hawayein',
-    title: 'Hawayein',
-    artist: 'Arijit Singh',
-    emoji: '🌊',
-    genre: 'Romantic',
-    duration: '4:50',
-    lyrics: [
-      "🎵 Search for lyrics online 🎵",
-      "♪ The winds bring your memories ♪",
-      "🌊 Gentle and soothing 🌊",
-      "",
-      "🎤 Let it flow! 🎤",
-    ]
-  },
-  {
-    id: 'bekhayali',
-    title: 'Bekhayali',
-    artist: 'Sachet Tandon',
-    emoji: '🔥',
-    genre: 'Intense',
-    duration: '3:55',
-    lyrics: [
-      "🎵 Search for lyrics online 🎵",
-      "♪ Lost in thoughts of you ♪",
-      "🔥 Intense and powerful 🔥",
-      "",
-      "🎤 Feel the intensity! 🎤",
-    ]
-  },
-  {
-    id: 'kesariya',
-    title: 'Kesariya',
-    artist: 'Arijit Singh',
-    emoji: '🌸',
-    genre: 'Romantic',
-    duration: '4:28',
-    lyrics: [
-      "🎵 Search for lyrics online 🎵",
-      "♪ Your love colors me saffron ♪",
-      "🌸 Modern romantic classic 🌸",
-      "",
-      "🎤 Sing with love! 🎤",
-    ]
-  },
-  {
-    id: 'dil-diyan-gallan',
-    title: 'Dil Diyan Gallan',
-    artist: 'Atif Aslam',
-    emoji: '💗',
-    genre: 'Romantic',
-    duration: '4:40',
-    lyrics: [
-      "🎵 Search for lyrics online 🎵",
-      "♪ Words from the heart ♪",
-      "💗 Sweet and melodious 💗",
-      "",
-      "🎤 Express your feelings! 🎤",
-    ]
-  },
-  {
-    id: 'janam-janam',
-    title: 'Janam Janam',
-    artist: 'Arijit Singh & Antara',
-    emoji: '♾️',
-    genre: 'Romantic',
-    duration: '5:16',
-    lyrics: [
-      "🎵 Search for lyrics online 🎵",
-      "♪ Lifetime after lifetime ♪",
-      "♾️ Eternal love promise ♾️",
-      "",
-      "🎤 A timeless dedication! 🎤",
-    ]
-  },
-  {
-    id: 'lag-ja-gale',
-    title: 'Lag Ja Gale',
-    artist: 'Lata Mangeshkar',
-    emoji: '🌹',
-    genre: 'Classic',
-    duration: '4:05',
-    lyrics: [
-      "🎵 Search for lyrics online 🎵",
-      "♪ Hold me close tonight ♪",
-      "🌹 Timeless classic 🌹",
-      "",
-      "🎤 A legendary song! 🎤",
-    ]
-  },
-  {
-    id: 'tera-hone-laga',
-    title: 'Tera Hone Laga Hoon',
-    artist: 'Atif Aslam & Alisha',
-    emoji: '🌟',
-    genre: 'Romantic',
-    duration: '4:27',
-    lyrics: [
-      "🎵 Search for lyrics online 🎵",
-      "♪ I'm becoming yours ♪",
-      "🌟 Sweet surrender 🌟",
-      "",
-      "🎤 Sing with joy! 🎤",
-    ]
-  },
-];
 
 interface KaraokeRecording {
   id: string;
@@ -540,16 +228,17 @@ const KaraokePlayer = ({
   const audioRef = useRef<HTMLAudioElement | null>(null);
   
   const songRecordings = recordings.filter(r => r.songId === song.id);
+  const lyrics = useMemo(() => getLyricsPlaceholder(song), [song]);
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
     if (isPlaying) {
       interval = setInterval(() => {
-        setCurrentLyricIndex(prev => (prev + 1) % song.lyrics.length);
+        setCurrentLyricIndex(prev => (prev + 1) % lyrics.length);
       }, 3000);
     }
     return () => clearInterval(interval);
-  }, [isPlaying, song.lyrics.length]);
+  }, [isPlaying, lyrics.length]);
 
   const handleStartRecording = async () => {
     try {
@@ -643,7 +332,7 @@ const KaraokePlayer = ({
               exit={{ opacity: 0, y: -20 }}
               className="text-center"
             >
-              {song.lyrics.slice(currentLyricIndex, currentLyricIndex + 3).map((line, idx) => (
+              {lyrics.slice(currentLyricIndex, currentLyricIndex + 3).map((line, idx) => (
                 <p 
                   key={idx}
                   className={`text-lg mb-2 transition-all ${
@@ -678,7 +367,7 @@ const KaraokePlayer = ({
             {isPlaying ? 'Pause Scroll' : 'Auto Scroll'}
           </button>
           <button
-            onClick={() => setCurrentLyricIndex(prev => Math.min(song.lyrics.length - 1, prev + 1))}
+            onClick={() => setCurrentLyricIndex(prev => Math.min(lyrics.length - 1, prev + 1))}
             className="bg-white/10 px-4 py-2 rounded-xl text-white text-sm"
           >
             Next →
@@ -793,6 +482,7 @@ export const KaraokeSection: React.FC = () => {
   const [selectedSong, setSelectedSong] = useState<Song | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedGenre, setSelectedGenre] = useState<string | null>(null);
+  const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null);
 
   useEffect(() => {
     loadRecordings();
@@ -825,13 +515,15 @@ export const KaraokeSection: React.FC = () => {
     }
   };
 
-  const genres = [...new Set(songs.map(s => s.genre))];
+  const genres = [...new Set(allSongs.map(s => s.genre))];
+  const languages = getLanguages();
 
-  const filteredSongs = songs.filter(song => {
+  const filteredSongs = allSongs.filter(song => {
     const matchesSearch = song.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          song.artist.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesGenre = !selectedGenre || song.genre === selectedGenre;
-    return matchesSearch && matchesGenre;
+    const matchesLanguage = !selectedLanguage || song.language === selectedLanguage;
+    return matchesSearch && matchesGenre && matchesLanguage;
   });
 
   return (
@@ -861,6 +553,29 @@ export const KaraokeSection: React.FC = () => {
         />
       </div>
 
+      {/* Language Filter */}
+      <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+        <button
+          onClick={() => setSelectedLanguage(null)}
+          className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all ${
+            !selectedLanguage ? 'bg-purple-500 text-white' : 'bg-purple-500/20 text-pink-200'
+          }`}
+        >
+          All Languages
+        </button>
+        {languages.map((lang) => (
+          <button
+            key={lang}
+            onClick={() => setSelectedLanguage(lang)}
+            className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all ${
+              selectedLanguage === lang ? 'bg-purple-500 text-white' : 'bg-purple-500/20 text-pink-200'
+            }`}
+          >
+            {lang === 'Hindi' ? '🇮🇳' : lang === 'English' ? '🇺🇸' : '🇳🇵'} {lang}
+          </button>
+        ))}
+      </div>
+
       {/* Genre Filter */}
       <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
         <button
@@ -869,7 +584,7 @@ export const KaraokeSection: React.FC = () => {
             !selectedGenre ? 'bg-pink-500 text-white' : 'bg-pink-500/20 text-pink-200'
           }`}
         >
-          All Songs
+          All Genres
         </button>
         {genres.map((genre) => (
           <button
@@ -887,8 +602,12 @@ export const KaraokeSection: React.FC = () => {
       {/* Stats */}
       <div className="flex justify-center gap-6 py-2">
         <div className="text-center">
-          <p className="text-2xl font-bold text-pink-100">{songs.length}</p>
+          <p className="text-2xl font-bold text-pink-100">{allSongs.length}</p>
           <p className="text-pink-300/70 text-xs">Songs</p>
+        </div>
+        <div className="text-center">
+          <p className="text-2xl font-bold text-pink-100">{filteredSongs.length}</p>
+          <p className="text-pink-300/70 text-xs">Showing</p>
         </div>
         <div className="text-center">
           <p className="text-2xl font-bold text-pink-100">{recordings.length}</p>

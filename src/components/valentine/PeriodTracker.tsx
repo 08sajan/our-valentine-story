@@ -4,7 +4,7 @@ import {
   Calendar, Heart, Droplets, Moon, Sun, Sparkles, 
   ThermometerSun, Pill, Coffee, Bath, Bed, Music,
   Flower2, HeartPulse, Cookie, Salad, ChevronLeft, 
-  ChevronRight, Check, AlertCircle, Info
+  ChevronRight, Check, AlertCircle, Info, Gift, Send
 } from 'lucide-react';
 
 interface PeriodData {
@@ -95,13 +95,48 @@ const careMessages = [
   "Let me know how I can make you feel better 🥰",
 ];
 
+// Care Package items
+interface CareItem {
+  id: string;
+  emoji: string;
+  name: string;
+  message: string;
+  color: string;
+}
+
+const carePackageItems: CareItem[] = [
+  { id: 'tea', emoji: '☕', name: 'Warm Tea', message: "Here's a warm cup of tea to comfort you 🍵", color: 'from-amber-500/30 to-orange-500/30' },
+  { id: 'heating-pad', emoji: '🔥', name: 'Heating Pad', message: "A warm heating pad for your tummy 💝", color: 'from-red-500/30 to-orange-500/30' },
+  { id: 'chocolate', emoji: '🍫', name: 'Chocolate', message: "Your favorite chocolate to sweeten your day 🍫", color: 'from-amber-700/30 to-amber-900/30' },
+  { id: 'blanket', emoji: '🛋️', name: 'Cozy Blanket', message: "Wrapping you in the softest blanket 🥰", color: 'from-purple-500/30 to-pink-500/30' },
+  { id: 'flowers', emoji: '💐', name: 'Fresh Flowers', message: "Beautiful flowers to brighten your day 🌸", color: 'from-pink-500/30 to-rose-500/30' },
+  { id: 'hug', emoji: '🤗', name: 'Virtual Hug', message: "The biggest, warmest hug coming your way! 💕", color: 'from-pink-500/30 to-red-500/30' },
+  { id: 'movie', emoji: '🎬', name: 'Movie Night', message: "Let's watch your favorite movie together 🍿", color: 'from-blue-500/30 to-purple-500/30' },
+  { id: 'ice-cream', emoji: '🍦', name: 'Ice Cream', message: "Your favorite ice cream flavor! 🍨", color: 'from-pink-300/30 to-blue-300/30' },
+  { id: 'massage', emoji: '💆', name: 'Back Massage', message: "A gentle massage to ease the pain 💆‍♀️", color: 'from-teal-500/30 to-green-500/30' },
+  { id: 'music', emoji: '🎵', name: 'Relaxing Music', message: "Soft music to soothe your soul 🎶", color: 'from-violet-500/30 to-purple-500/30' },
+  { id: 'bath-bomb', emoji: '🛁', name: 'Bath Bomb', message: "A relaxing bath with your favorite scent 🧼", color: 'from-pink-400/30 to-purple-400/30' },
+  { id: 'cuddles', emoji: '🥰', name: 'Cuddle Session', message: "Unlimited cuddles and kisses for you 💋", color: 'from-red-400/30 to-pink-400/30' },
+  { id: 'painkillers', emoji: '💊', name: 'Pain Relief', message: "Here to take care of all your needs 🏥", color: 'from-blue-400/30 to-cyan-400/30' },
+  { id: 'water', emoji: '💧', name: 'Warm Water', message: "Stay hydrated, my love 💦", color: 'from-cyan-400/30 to-blue-400/30' },
+  { id: 'pillow', emoji: '🛏️', name: 'Extra Pillow', message: "The comfiest pillow for my queen 👑", color: 'from-indigo-400/30 to-purple-400/30' },
+  { id: 'love-letter', emoji: '💌', name: 'Love Letter', message: "You are the most amazing person in my life. I love you more than words can express. 💕", color: 'from-rose-400/30 to-pink-400/30' },
+];
+
+interface SentCarePackage {
+  itemId: string;
+  timestamp: number;
+}
+
 export const PeriodTracker: React.FC = () => {
   const [data, setData] = useState<PeriodData>(defaultData);
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [activeTab, setActiveTab] = useState<'tracker' | 'tips' | 'care'>('tracker');
+  const [activeTab, setActiveTab] = useState<'tracker' | 'tips' | 'care' | 'package'>('tracker');
   const [showSymptomModal, setShowSymptomModal] = useState(false);
   const [todaySymptoms, setTodaySymptoms] = useState<string[]>([]);
+  const [sentPackages, setSentPackages] = useState<SentCarePackage[]>([]);
+  const [showSentAnimation, setShowSentAnimation] = useState<string | null>(null);
 
   useEffect(() => {
     const saved = localStorage.getItem('periodTrackerData');
@@ -114,6 +149,10 @@ export const PeriodTracker: React.FC = () => {
       if (parsed.date === new Date().toDateString()) {
         setTodaySymptoms(parsed.symptoms);
       }
+    }
+    const savedPackages = localStorage.getItem('sentCarePackages');
+    if (savedPackages) {
+      setSentPackages(JSON.parse(savedPackages));
     }
   }, []);
 
@@ -128,6 +167,20 @@ export const PeriodTracker: React.FC = () => {
       date: new Date().toDateString(),
       symptoms
     }));
+  };
+
+  const sendCarePackage = (itemId: string) => {
+    const newPackage: SentCarePackage = { itemId, timestamp: Date.now() };
+    const updated = [...sentPackages, newPackage];
+    setSentPackages(updated);
+    localStorage.setItem('sentCarePackages', JSON.stringify(updated));
+    setShowSentAnimation(itemId);
+    setTimeout(() => setShowSentAnimation(null), 2000);
+  };
+
+  const getRecentPackages = () => {
+    const oneDayAgo = Date.now() - 24 * 60 * 60 * 1000;
+    return sentPackages.filter(p => p.timestamp > oneDayAgo);
   };
 
   const getDayInfo = (date: Date): DayInfo => {
@@ -301,24 +354,25 @@ export const PeriodTracker: React.FC = () => {
         )}
 
         {/* Tabs */}
-        <div className="flex gap-2 mb-6">
+        <div className="flex gap-2 mb-6 flex-wrap">
           {[
             { id: 'tracker', label: 'Tracker', icon: <Calendar className="w-4 h-4" /> },
-            { id: 'tips', label: 'Health Tips', icon: <Heart className="w-4 h-4" /> },
+            { id: 'tips', label: 'Tips', icon: <Heart className="w-4 h-4" /> },
             { id: 'care', label: 'Self Care', icon: <Sparkles className="w-4 h-4" /> },
+            { id: 'package', label: 'Care Package', icon: <Gift className="w-4 h-4" /> },
           ].map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as any)}
               className={`
-                flex-1 flex items-center justify-center gap-2 py-3 rounded-xl font-medium transition-all
+                flex-1 min-w-[70px] flex items-center justify-center gap-1 py-2 px-2 rounded-xl font-medium transition-all text-xs
                 ${activeTab === tab.id 
                   ? 'bg-pink-500 text-white' 
                   : 'bg-pink-500/20 text-pink-200 hover:bg-pink-500/30'}
               `}
             >
               {tab.icon}
-              <span className="text-sm">{tab.label}</span>
+              <span>{tab.label}</span>
             </button>
           ))}
         </div>
@@ -599,6 +653,75 @@ export const PeriodTracker: React.FC = () => {
                   </div>
                 </div>
               </motion.div>
+            </motion.div>
+          )}
+
+          {/* Care Package Tab */}
+          {activeTab === 'package' && (
+            <motion.div
+              key="package"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 20 }}
+              className="space-y-4"
+            >
+              <div className="text-center mb-4">
+                <motion.div
+                  animate={{ scale: [1, 1.1, 1] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                  className="inline-block text-4xl mb-2"
+                >
+                  🎁
+                </motion.div>
+                <h3 className="text-lg font-semibold text-pink-100">Send a Care Package</h3>
+                <p className="text-pink-300/70 text-sm">Virtual comfort items for you 💕</p>
+              </div>
+
+              {/* Recent Sent Items */}
+              {getRecentPackages().length > 0 && (
+                <div className="bg-green-500/20 rounded-xl p-3 border border-green-400/30">
+                  <p className="text-green-200 text-sm text-center">
+                    ✅ {getRecentPackages().length} care items sent today!
+                  </p>
+                </div>
+              )}
+
+              {/* Care Items Grid */}
+              <div className="grid grid-cols-2 gap-3">
+                {carePackageItems.map((item) => (
+                  <motion.button
+                    key={item.id}
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
+                    onClick={() => sendCarePackage(item.id)}
+                    className={`relative bg-gradient-to-r ${item.color} rounded-xl p-4 border border-pink-400/20 text-center overflow-hidden`}
+                  >
+                    <AnimatePresence>
+                      {showSentAnimation === item.id && (
+                        <motion.div
+                          initial={{ opacity: 0, scale: 0.5 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 1.5 }}
+                          className="absolute inset-0 bg-green-500/80 flex items-center justify-center z-10"
+                        >
+                          <div className="text-white text-center">
+                            <Send className="w-6 h-6 mx-auto mb-1" />
+                            <p className="text-sm font-medium">Sent! 💕</p>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                    <span className="text-3xl block mb-2">{item.emoji}</span>
+                    <p className="text-pink-100 font-medium text-sm">{item.name}</p>
+                  </motion.button>
+                ))}
+              </div>
+
+              <div className="bg-pink-500/20 rounded-xl p-4 border border-pink-400/30 text-center">
+                <p className="text-pink-200 text-sm italic">
+                  "Tap any item to send virtual comfort your way! Each one comes with love 💝"
+                </p>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
