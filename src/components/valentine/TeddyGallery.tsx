@@ -12,89 +12,90 @@ interface TeddyItem {
 }
 
 // Super cute, girly teddies perfect for girls!
+// Super cute, real teddy bear images perfect for Puntuu!
 const teddies: TeddyItem[] = [
   { 
     emoji: "🧸💕", 
-    name: "Princess Pink Bear", 
-    message: "A pink princess bear for my princess! You deserve all the cute things in the world 💕",
-    image: "https://images.unsplash.com/photo-1558679908-541bcf1249ff?w=600",
+    name: "Fluffy Pink Teddy", 
+    message: "A soft pink teddy just for you, my princess! Cuddle me when you miss him! 💕",
+    image: "https://images.pexels.com/photos/5053740/pexels-photo-5053740.jpeg?auto=compress&cs=tinysrgb&w=600",
     color: "#FFC0CB"
   },
   { 
     emoji: "🧸🌸", 
-    name: "Fluffy White Cutie", 
-    message: "Soft as clouds, pure as your heart - cuddle me when you miss him!",
-    image: "https://images.unsplash.com/photo-1585155770447-2f66e2a397b5?w=600",
-    color: "#FFFAFA"
+    name: "Cuddly Brown Bear", 
+    message: "Warm hugs from this fuzzy friend until I can hold you myself!",
+    image: "https://images.pexels.com/photos/1028723/pexels-photo-1028723.jpeg?auto=compress&cs=tinysrgb&w=600",
+    color: "#D2691E"
   },
   { 
     emoji: "🧸💗", 
-    name: "Valentine Heart Bear", 
-    message: "Holding a heart that represents my love for you - forever! 💝",
-    image: "https://images.unsplash.com/photo-1602734846297-9299fc2d4703?w=600",
+    name: "Love Heart Teddy", 
+    message: "Holding a heart that says 'I Love You' - just like me forever! 💝",
+    image: "https://images.pexels.com/photos/6869634/pexels-photo-6869634.jpeg?auto=compress&cs=tinysrgb&w=600",
     color: "#FF69B4"
   },
   { 
     emoji: "🧸🎀", 
-    name: "Ribbon Bow Teddy", 
-    message: "With a pretty bow just like you - adorable and perfect!",
-    image: "https://images.unsplash.com/photo-1559454403-b8fb88521f11?w=600",
+    name: "Ribbon Bow Cutie", 
+    message: "A pretty teddy with a bow, wrapped in love just for you!",
+    image: "https://images.pexels.com/photos/3648552/pexels-photo-3648552.jpeg?auto=compress&cs=tinysrgb&w=600",
     color: "#FFB6C1"
   },
   { 
     emoji: "🧸✨", 
-    name: "Sparkle Dream Bear", 
-    message: "Sprinkled with dreams and starlight, just like my love for you ✨",
-    image: "https://images.unsplash.com/photo-1615031335599-92a2f7d93c80?w=600",
-    color: "#DEB887"
+    name: "Giant Fluffy Bear", 
+    message: "Bigger than life, softer than clouds - just like my love for you! ✨",
+    image: "https://images.pexels.com/photos/7176026/pexels-photo-7176026.jpeg?auto=compress&cs=tinysrgb&w=600",
+    color: "#F5DEB3"
   },
   { 
     emoji: "🧸🌙", 
-    name: "Sleepy Moon Teddy", 
-    message: "To guard your dreams and keep you company through the night 🌙",
-    image: "https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?w=600",
+    name: "Sleepy Cozy Teddy", 
+    message: "For when you need a bedtime buddy - dream of me! 🌙",
+    image: "https://images.pexels.com/photos/6869596/pexels-photo-6869596.jpeg?auto=compress&cs=tinysrgb&w=600",
     color: "#E6E6FA"
   },
   { 
     emoji: "🧸💜", 
-    name: "Lavender Love Bear", 
-    message: "Soft lavender colored bear for peaceful cuddles 💜",
-    image: "https://images.unsplash.com/photo-1563396983906-b3795482a59a?w=600",
-    color: "#E6E6FA"
+    name: "Soft Plush Friend", 
+    message: "So soft you'll never want to let go - like my love! 💜",
+    image: "https://images.pexels.com/photos/12211/pexels-photo-12211.jpeg?auto=compress&cs=tinysrgb&w=600",
+    color: "#DDA0DD"
   },
   { 
     emoji: "🧸🍓", 
-    name: "Strawberry Sweetie", 
-    message: "Sweet as strawberries, cute as you, Puntuu! 🍓",
-    image: "https://images.unsplash.com/photo-1595526051245-4506e0005bd0?w=600",
+    name: "Sweet Valentine Bear", 
+    message: "Sweet as strawberries, cute as you, my Puntuu! 🍓",
+    image: "https://images.pexels.com/photos/7175997/pexels-photo-7175997.jpeg?auto=compress&cs=tinysrgb&w=600",
     color: "#FF6B6B"
   },
   { 
     emoji: "🧸👑", 
-    name: "Royal Queen Bear", 
+    name: "Princess Bear", 
     message: "A teddy fit for a queen - because that's what you are! 👑",
-    image: "https://images.unsplash.com/photo-1562040506-a9b32cb51b94?w=600",
+    image: "https://images.pexels.com/photos/1314550/pexels-photo-1314550.jpeg?auto=compress&cs=tinysrgb&w=600",
     color: "#FFD700"
   },
   { 
     emoji: "🧸💐", 
-    name: "Flower Bouquet Bear", 
-    message: "This teddy comes with virtual flowers - roses for my rose! 🌹",
-    image: "https://images.unsplash.com/photo-1559454403-b8fb88521f11?w=600",
+    name: "Adorable Cuddle Buddy", 
+    message: "This fuzzy friend will keep you company until we meet again! 🌹",
+    image: "https://images.pexels.com/photos/3933250/pexels-photo-3933250.jpeg?auto=compress&cs=tinysrgb&w=600",
     color: "#FFA07A"
   },
   { 
     emoji: "🧸🦋", 
-    name: "Butterfly Kiss Teddy", 
-    message: "Soft butterfly kisses from this teddy to you! 🦋",
-    image: "https://images.unsplash.com/photo-1585155770447-2f66e2a397b5?w=600",
+    name: "Tiny Precious Bear", 
+    message: "Small but full of love, just like every message I send you! 🦋",
+    image: "https://images.pexels.com/photos/8105066/pexels-photo-8105066.jpeg?auto=compress&cs=tinysrgb&w=600",
     color: "#87CEEB"
   },
   { 
     emoji: "🧸🌈", 
-    name: "Rainbow Happiness Bear", 
-    message: "Bringing all colors of happiness into your life! 🌈",
-    image: "https://images.unsplash.com/photo-1602734846297-9299fc2d4703?w=600",
+    name: "Happiness Bear", 
+    message: "Bringing all colors of happiness into your life, my love! 🌈",
+    image: "https://images.pexels.com/photos/6044266/pexels-photo-6044266.jpeg?auto=compress&cs=tinysrgb&w=600",
     color: "#FFE4E1"
   },
 ];

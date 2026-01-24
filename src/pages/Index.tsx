@@ -38,6 +38,8 @@ import { FutureMaps } from "@/components/valentine/FutureMaps";
 import { DecisionMaker } from "@/components/valentine/DecisionMaker";
 import { PermissionSlips } from "@/components/valentine/PermissionSlips";
 import { IntimateSection } from "@/components/valentine/IntimateSection";
+import { VoiceVideoMessages } from "@/components/valentine/VoiceVideoMessages";
+import { BirthdayCelebration } from "@/components/valentine/BirthdayCelebration";
 import { 
   ShakeHeartsExplosion, 
   KonamiSecret, 
@@ -828,7 +830,7 @@ const KissDayContent = () => {
 
 const ValentineDayContent = () => {
   const [triggerConfetti, setTriggerConfetti] = useState(false);
-  const [activeSection, setActiveSection] = useState<'gallery' | 'letters' | 'letter' | 'game' | 'quiz' | 'wishes' | 'journey' | 'soulmate' | 'missyou' | 'photobooth' | 'openwhen' | 'hearts' | 'comfort' | 'music' | 'dreams' | 'growth' | 'future' | 'decide' | 'coupons' | 'private'>('gallery');
+  const [activeSection, setActiveSection] = useState<'gallery' | 'letters' | 'letter' | 'game' | 'quiz' | 'wishes' | 'journey' | 'soulmate' | 'missyou' | 'photobooth' | 'openwhen' | 'hearts' | 'comfort' | 'music' | 'dreams' | 'growth' | 'future' | 'decide' | 'coupons' | 'private' | 'recordings' | 'birthday'>('gallery');
   
   useEffect(() => {
     setTriggerConfetti(true);
@@ -939,6 +941,26 @@ const ValentineDayContent = () => {
             { key: 'soulmate', label: 'Soulmate', emoji: '💫' },
             { key: 'letter', label: 'Final Letter', emoji: '❤️' },
             { key: 'private', label: 'Private', emoji: '🔥' },
+          ].map((tab) => (
+            <motion.button
+              key={tab.key}
+              onClick={() => setActiveSection(tab.key as typeof activeSection)}
+              className={`px-2 sm:px-3 py-1.5 sm:py-2 rounded-full font-medium text-[9px] sm:text-xs whitespace-nowrap transition-all ${
+                activeSection === tab.key 
+                  ? "bg-white/30 text-white shadow-lg" 
+                  : "bg-white/10 text-white/70"
+              }`}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {tab.emoji} {tab.label}
+            </motion.button>
+          ))}
+        </div>
+        <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 px-1">
+          {[
+            { key: 'recordings', label: 'Voice/Video', emoji: '🎤' },
+            { key: 'birthday', label: 'Birthday', emoji: '🎂' },
           ].map((tab) => (
             <motion.button
               key={tab.key}
@@ -1288,6 +1310,32 @@ I want to know the ways you ache, the ways you hope, the tiny corners of yoursel
           >
             <GlassCard className="p-4">
               <IntimateSection />
+            </GlassCard>
+          </motion.div>
+        )}
+
+        {activeSection === 'recordings' && (
+          <motion.div
+            key="recordings"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+          >
+            <GlassCard className="p-4">
+              <VoiceVideoMessages />
+            </GlassCard>
+          </motion.div>
+        )}
+
+        {activeSection === 'birthday' && (
+          <motion.div
+            key="birthday"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+          >
+            <GlassCard className="p-4">
+              <BirthdayCelebration />
             </GlassCard>
           </motion.div>
         )}
