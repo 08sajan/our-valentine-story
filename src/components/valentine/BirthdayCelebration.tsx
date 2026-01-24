@@ -237,14 +237,77 @@ const getLetterForYear = (year: number, age: number): YearLetter => {
   };
 };
 
-// Letter Modal
+// Cake Celebration Animation
+const CakeCelebration = ({ age }: { age: number }) => {
+  const [candlesBlown, setCandlesBlown] = useState(false);
+
+  return (
+    <motion.div
+      className="bg-gradient-to-r from-amber-500/20 to-pink-500/20 rounded-2xl p-4 mb-4 border border-amber-500/30 text-center"
+      initial={{ scale: 0 }}
+      animate={{ scale: 1 }}
+    >
+      <p className="text-amber-300 text-sm font-medium mb-2">🎂 Birthday Cake</p>
+      
+      <div className="relative inline-block">
+        {/* Cake */}
+        <motion.div
+          className="text-6xl"
+          animate={{ scale: [1, 1.05, 1] }}
+          transition={{ duration: 2, repeat: Infinity }}
+        >
+          🎂
+        </motion.div>
+        
+        {/* Candles */}
+        {!candlesBlown && (
+          <motion.div
+            className="absolute -top-2 left-1/2 transform -translate-x-1/2 flex gap-1"
+            animate={{ opacity: [0.8, 1, 0.8] }}
+            transition={{ duration: 0.5, repeat: Infinity }}
+          >
+            {[...Array(Math.min(age, 5))].map((_, i) => (
+              <span key={i} className="text-sm">🕯️</span>
+            ))}
+          </motion.div>
+        )}
+      </div>
+      
+      <motion.button
+        onClick={() => setCandlesBlown(true)}
+        className={`mt-3 px-4 py-2 rounded-full text-sm font-medium ${
+          candlesBlown 
+            ? 'bg-green-500/30 text-green-300' 
+            : 'bg-amber-500/30 text-amber-300'
+        }`}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+      >
+        {candlesBlown ? '🎉 Wish Granted! 🎉' : '💨 Blow Candles & Make a Wish'}
+      </motion.button>
+      
+      {candlesBlown && (
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="text-pink-300 text-xs mt-2 italic"
+        >
+          "May all your dreams come true, my love!" 💕
+        </motion.p>
+      )}
+    </motion.div>
+  );
+};
+
+// Letter Modal - FIXED to prevent future message reveal
 const LetterModal = ({
   letterData,
   onClose,
   onNext,
   onPrev,
   hasNext,
-  hasPrev
+  hasPrev,
+  isLocked
 }: {
   letterData: YearLetter;
   onClose: () => void;
@@ -252,7 +315,11 @@ const LetterModal = ({
   onPrev: () => void;
   hasNext: boolean;
   hasPrev: boolean;
+  isLocked: boolean;
 }) => {
+  const currentYear = new Date().getFullYear();
+  const isFuture = letterData.year > currentYear;
+
   return ReactDOM.createPortal(
     <motion.div
       initial={{ opacity: 0 }}
@@ -315,42 +382,67 @@ const LetterModal = ({
 
         {/* Title */}
         <h3 className="text-2xl font-serif text-pink-300 text-center mb-4">
-          {letterData.title}
+          {isFuture ? "🔮 Future Awaits..." : letterData.title}
         </h3>
 
-        {/* Letter Content */}
+        {/* Letter Content - LOCKED for future */}
         <div className="bg-white/10 rounded-2xl p-4 mb-4">
-          <p className="text-white/90 font-serif leading-relaxed text-justify">
-            {letterData.letter}
-          </p>
+          {isFuture ? (
+            <div className="text-center py-6">
+              <motion.div
+                className="text-5xl mb-4"
+                animate={{ rotate: [0, 10, -10, 0] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              >
+                🔒
+              </motion.div>
+              <p className="text-white/70 font-serif">
+                This letter will be unlocked on November 16, {letterData.year}
+              </p>
+              <p className="text-pink-300/60 text-sm mt-2 italic">
+                "Good things come to those who wait, my love" 💕
+              </p>
+            </div>
+          ) : (
+            <p className="text-white/90 font-serif leading-relaxed text-justify">
+              {letterData.letter}
+            </p>
+          )}
         </div>
 
-        {/* Gift Section */}
-        <div className="bg-gradient-to-r from-amber-500/20 to-pink-500/20 rounded-2xl p-4 mb-4 border border-amber-500/30">
-          <div className="flex items-center gap-3">
-            <motion.span
-              className="text-4xl"
-              animate={{ rotate: [0, 10, -10, 0], scale: [1, 1.1, 1] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            >
-              {letterData.giftEmoji}
-            </motion.span>
-            <div>
-              <p className="text-amber-300 text-sm font-medium">🎁 Birthday Gift</p>
-              <p className="text-white font-medium">{letterData.gift}</p>
+        {/* Cake Celebration - Only for unlocked */}
+        {!isFuture && <CakeCelebration age={letterData.age} />}
+
+        {/* Gift Section - Only for unlocked */}
+        {!isFuture && (
+          <div className="bg-gradient-to-r from-amber-500/20 to-pink-500/20 rounded-2xl p-4 mb-4 border border-amber-500/30">
+            <div className="flex items-center gap-3">
+              <motion.span
+                className="text-4xl"
+                animate={{ rotate: [0, 10, -10, 0], scale: [1, 1.1, 1] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              >
+                {letterData.giftEmoji}
+              </motion.span>
+              <div>
+                <p className="text-amber-300 text-sm font-medium">🎁 Birthday Gift</p>
+                <p className="text-white font-medium">{letterData.gift}</p>
+              </div>
             </div>
           </div>
-        </div>
+        )}
 
-        {/* Milestone */}
-        <div className="text-center mb-4">
-          <div className="inline-flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full">
-            <Star size={16} className="text-yellow-400" />
-            <span className="text-white/80 text-sm">{letterData.milestone}</span>
+        {/* Milestone - Only for unlocked */}
+        {!isFuture && (
+          <div className="text-center mb-4">
+            <div className="inline-flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full">
+              <Star size={16} className="text-yellow-400" />
+              <span className="text-white/80 text-sm">{letterData.milestone}</span>
+            </div>
           </div>
-        </div>
+        )}
 
-        {/* Navigation */}
+        {/* Navigation - Prevent going to future unlocked years */}
         <div className="flex justify-between items-center">
           <motion.button
             onClick={onPrev}
@@ -363,7 +455,7 @@ const LetterModal = ({
           </motion.button>
 
           <span className="text-white/50 text-sm">
-            Year {letterData.year}
+            {isFuture ? `🔒 Locked until ${letterData.year}` : `Year ${letterData.year}`}
           </span>
 
           <motion.button
@@ -536,6 +628,7 @@ export const BirthdayCelebration = () => {
             onNext={handleNext}
             onPrev={handlePrev}
             hasNext={selectedIndex < letters.length - 1}
+            isLocked={letters[selectedIndex].year > new Date().getFullYear()}
             hasPrev={selectedIndex > 0}
           />
         )}
