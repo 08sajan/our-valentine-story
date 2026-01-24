@@ -44,6 +44,7 @@ import { FlowerBouquetGallery } from "@/components/valentine/FlowerBouquetGaller
 import { WhenWeFight } from "@/components/valentine/WhenWeFight";
 import { ILoveYouLanguages } from "@/components/valentine/ILoveYouLanguages";
 import { ValentineProposal } from "@/components/valentine/ValentineProposal";
+import { PeriodTracker } from "@/components/valentine/PeriodTracker";
 import { 
   ShakeHeartsExplosion, 
   KonamiSecret, 
@@ -834,7 +835,7 @@ const KissDayContent = () => {
 
 const ValentineDayContent = () => {
   const [triggerConfetti, setTriggerConfetti] = useState(false);
-  const [activeSection, setActiveSection] = useState<'gallery' | 'letters' | 'letter' | 'game' | 'quiz' | 'wishes' | 'journey' | 'soulmate' | 'missyou' | 'photobooth' | 'openwhen' | 'hearts' | 'comfort' | 'music' | 'dreams' | 'growth' | 'future' | 'decide' | 'coupons' | 'private' | 'recordings' | 'birthday' | 'bouquets' | 'fights' | 'languages' | 'proposal'>('gallery');
+  const [activeSection, setActiveSection] = useState<'gallery' | 'letters' | 'letter' | 'game' | 'quiz' | 'wishes' | 'journey' | 'soulmate' | 'missyou' | 'photobooth' | 'openwhen' | 'hearts' | 'comfort' | 'music' | 'dreams' | 'growth' | 'future' | 'decide' | 'coupons' | 'private' | 'recordings' | 'birthday' | 'bouquets' | 'fights' | 'languages' | 'proposal' | 'period'>('gallery');
   
   useEffect(() => {
     setTriggerConfetti(true);
@@ -966,6 +967,7 @@ const ValentineDayContent = () => {
             { key: 'recordings', label: 'Voice/Video', emoji: '🎤' },
             { key: 'birthday', label: 'Birthday', emoji: '🎂' },
             { key: 'bouquets', label: 'Bouquets', emoji: '💐' },
+            { key: 'period', label: 'Period Care', emoji: '🌸' },
             { key: 'fights', label: 'When We Fight', emoji: '🌧️' },
             { key: 'languages', label: 'I Love You', emoji: '🌍' },
           ].map((tab) => (
@@ -1414,6 +1416,19 @@ I want to know the ways you ache, the ways you hope, the tiny corners of yoursel
           >
             <GlassCard className="p-4">
               <ValentineProposal />
+            </GlassCard>
+          </motion.div>
+        )}
+
+        {activeSection === 'period' && (
+          <motion.div
+            key="period"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+          >
+            <GlassCard className="p-4">
+              <PeriodTracker />
             </GlassCard>
           </motion.div>
         )}
