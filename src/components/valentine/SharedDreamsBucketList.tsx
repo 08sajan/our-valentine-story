@@ -17,26 +17,38 @@ const initialBucketList: BucketItem[] = [
   { id: '2', title: 'Beach Vacation', description: 'Walk hand in hand on white sand beaches', category: 'adventure', icon: <MapPin className="w-5 h-5" />, completed: false },
   { id: '3', title: 'Northern Lights', description: 'Watch the aurora borealis wrapped in a blanket together', category: 'adventure', icon: <Star className="w-5 h-5" />, completed: false },
   { id: '4', title: 'Road Trip Adventure', description: 'Drive cross country with our favorite playlist', category: 'adventure', icon: <Music className="w-5 h-5" />, completed: false },
+  { id: '5', title: '✨ Disney World Magic', description: 'Hold hands at the Magic Kingdom, watch fireworks over Cinderella Castle', category: 'adventure', icon: <Star className="w-5 h-5" />, completed: false },
+  { id: '6', title: 'Tokyo Love Story', description: 'Get lost in cherry blossoms and neon lights together', category: 'adventure', icon: <Plane className="w-5 h-5" />, completed: false },
+  { id: '7', title: 'Maldives Overwater Villa', description: 'Wake up to turquoise waters and breakfast in bed', category: 'adventure', icon: <MapPin className="w-5 h-5" />, completed: false },
+  { id: '8', title: 'Safari Adventure', description: 'Watch lions at sunrise, fall asleep under African stars', category: 'adventure', icon: <Star className="w-5 h-5" />, completed: false },
   
   // Simple Pleasures
-  { id: '5', title: 'Breakfast in Bed', description: 'I make you pancakes shaped like hearts', category: 'simple', icon: <Coffee className="w-5 h-5" />, completed: false },
-  { id: '6', title: 'Picnic Under Stars', description: 'Lay on a blanket and count shooting stars', category: 'simple', icon: <Star className="w-5 h-5" />, completed: false },
-  { id: '7', title: 'Cook a Fancy Dinner', description: 'Try that complicated recipe together (and probably fail adorably)', category: 'simple', icon: <Utensils className="w-5 h-5" />, completed: false },
-  { id: '8', title: 'Photo Booth Date', description: 'Fill an album with our silly faces', category: 'simple', icon: <Camera className="w-5 h-5" />, completed: false },
-  { id: '9', title: 'Late Night Ice Cream', description: 'Sneak out at midnight for ice cream runs', category: 'simple', icon: <Heart className="w-5 h-5" />, completed: false },
-  { id: '10', title: 'Dance in the Rain', description: 'Get completely soaked while slow dancing', category: 'simple', icon: <Music className="w-5 h-5" />, completed: false },
+  { id: '9', title: 'Breakfast in Bed', description: 'I make you pancakes shaped like hearts', category: 'simple', icon: <Coffee className="w-5 h-5" />, completed: false },
+  { id: '10', title: 'Picnic Under Stars', description: 'Lay on a blanket and count shooting stars', category: 'simple', icon: <Star className="w-5 h-5" />, completed: false },
+  { id: '11', title: 'Cook a Fancy Dinner', description: 'Try that complicated recipe together (and probably fail adorably)', category: 'simple', icon: <Utensils className="w-5 h-5" />, completed: false },
+  { id: '12', title: 'Photo Booth Date', description: 'Fill an album with our silly faces', category: 'simple', icon: <Camera className="w-5 h-5" />, completed: false },
+  { id: '13', title: 'Late Night Ice Cream', description: 'Sneak out at midnight for ice cream runs', category: 'simple', icon: <Heart className="w-5 h-5" />, completed: false },
+  { id: '14', title: 'Dance in the Rain', description: 'Get completely soaked while slow dancing', category: 'simple', icon: <Music className="w-5 h-5" />, completed: false },
+  { id: '15', title: 'Build a Blanket Fort', description: 'Movie marathon inside our cozy fortress', category: 'simple', icon: <Home className="w-5 h-5" />, completed: false },
+  { id: '16', title: 'Spa Day at Home', description: 'Face masks, candles, and pampering each other', category: 'simple', icon: <Heart className="w-5 h-5" />, completed: false },
   
   // Milestones
-  { id: '11', title: 'Our First Home', description: 'Build our quiet sanctuary filled with love', category: 'milestone', icon: <Home className="w-5 h-5" />, completed: false },
-  { id: '12', title: 'Adopt a Pet', description: 'Get a furry baby to spoil together', category: 'milestone', icon: <Heart className="w-5 h-5" />, completed: false },
-  { id: '13', title: 'Plant a Garden', description: 'Watch our love grow like our flowers', category: 'milestone', icon: <Star className="w-5 h-5" />, completed: false },
-  { id: '14', title: 'Anniversary Traditions', description: 'Create rituals that are only ours', category: 'milestone', icon: <Heart className="w-5 h-5" />, completed: false },
+  { id: '17', title: 'Our First Home', description: 'Build our quiet sanctuary filled with love', category: 'milestone', icon: <Home className="w-5 h-5" />, completed: false },
+  { id: '18', title: 'Adopt a Pet', description: 'Get a furry baby to spoil together', category: 'milestone', icon: <Heart className="w-5 h-5" />, completed: false },
+  { id: '19', title: 'Plant a Garden', description: 'Watch our love grow like our flowers', category: 'milestone', icon: <Star className="w-5 h-5" />, completed: false },
+  { id: '20', title: 'Anniversary Traditions', description: 'Create rituals that are only ours', category: 'milestone', icon: <Heart className="w-5 h-5" />, completed: false },
+  { id: '21', title: '👶 Start Our Family', description: 'Bring beautiful little versions of us into the world', category: 'milestone', icon: <Heart className="w-5 h-5" />, completed: false },
+  { id: '22', title: 'Grow Old Together', description: 'Hold hands on the porch swing at 80, still madly in love', category: 'milestone', icon: <Heart className="w-5 h-5" />, completed: false },
+  { id: '23', title: 'Renew Our Vows', description: 'Promise forever to each other again and again', category: 'milestone', icon: <Star className="w-5 h-5" />, completed: false },
+  { id: '24', title: 'Buy Matching Rings', description: 'Symbols of our unbreakable bond', category: 'milestone', icon: <Heart className="w-5 h-5" />, completed: false },
   
   // Romance
-  { id: '15', title: 'Surprise Love Letters', description: 'Hide notes for you to find randomly', category: 'romance', icon: <Heart className="w-5 h-5" />, completed: false },
-  { id: '16', title: 'Recreate First Date', description: 'Relive the magic of our beginning', category: 'romance', icon: <Star className="w-5 h-5" />, completed: false },
-  { id: '17', title: 'Couple Photoshoot', description: 'Professional photos to hang on our walls', category: 'romance', icon: <Camera className="w-5 h-5" />, completed: false },
-  { id: '18', title: 'Watch Every Sunset', description: 'Make it a tradition to never miss one together', category: 'romance', icon: <Star className="w-5 h-5" />, completed: false },
+  { id: '25', title: 'Surprise Love Letters', description: 'Hide notes for you to find randomly', category: 'romance', icon: <Heart className="w-5 h-5" />, completed: false },
+  { id: '26', title: 'Recreate First Date', description: 'Relive the magic of our beginning', category: 'romance', icon: <Star className="w-5 h-5" />, completed: false },
+  { id: '27', title: 'Couple Photoshoot', description: 'Professional photos to hang on our walls', category: 'romance', icon: <Camera className="w-5 h-5" />, completed: false },
+  { id: '28', title: 'Watch Every Sunset', description: 'Make it a tradition to never miss one together', category: 'romance', icon: <Star className="w-5 h-5" />, completed: false },
+  { id: '29', title: 'Write Our Love Story', description: 'Document every chapter from the beginning', category: 'romance', icon: <Heart className="w-5 h-5" />, completed: false },
+  { id: '30', title: 'Slow Dance at Home', description: 'No music needed, just our heartbeats', category: 'romance', icon: <Music className="w-5 h-5" />, completed: false },
 ];
 
 const categoryStyles = {
