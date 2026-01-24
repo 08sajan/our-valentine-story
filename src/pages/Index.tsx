@@ -45,6 +45,7 @@ import { WhenWeFight } from "@/components/valentine/WhenWeFight";
 import { ILoveYouLanguages } from "@/components/valentine/ILoveYouLanguages";
 import { ValentineProposal } from "@/components/valentine/ValentineProposal";
 import { PeriodTracker } from "@/components/valentine/PeriodTracker";
+import { KaraokeSection } from "@/components/valentine/KaraokeSection";
 import { 
   ShakeHeartsExplosion, 
   KonamiSecret, 
@@ -835,7 +836,7 @@ const KissDayContent = () => {
 
 const ValentineDayContent = () => {
   const [triggerConfetti, setTriggerConfetti] = useState(false);
-  const [activeSection, setActiveSection] = useState<'gallery' | 'letters' | 'letter' | 'game' | 'quiz' | 'wishes' | 'journey' | 'soulmate' | 'missyou' | 'photobooth' | 'openwhen' | 'hearts' | 'comfort' | 'music' | 'dreams' | 'growth' | 'future' | 'decide' | 'coupons' | 'private' | 'recordings' | 'birthday' | 'bouquets' | 'fights' | 'languages' | 'proposal' | 'period'>('gallery');
+  const [activeSection, setActiveSection] = useState<'gallery' | 'letters' | 'letter' | 'game' | 'quiz' | 'wishes' | 'journey' | 'soulmate' | 'missyou' | 'photobooth' | 'openwhen' | 'hearts' | 'comfort' | 'music' | 'dreams' | 'growth' | 'future' | 'decide' | 'coupons' | 'private' | 'recordings' | 'birthday' | 'bouquets' | 'fights' | 'languages' | 'proposal' | 'period' | 'karaoke'>('gallery');
   
   useEffect(() => {
     setTriggerConfetti(true);
@@ -988,6 +989,7 @@ const ValentineDayContent = () => {
         </div>
         <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 px-1">
           {[
+            { key: 'karaoke', label: 'Karaoke', emoji: '🎤' },
             { key: 'proposal', label: 'Be My Valentine?', emoji: '💕' },
           ].map((tab) => (
             <motion.button
@@ -1429,6 +1431,19 @@ I want to know the ways you ache, the ways you hope, the tiny corners of yoursel
           >
             <GlassCard className="p-4">
               <PeriodTracker />
+            </GlassCard>
+          </motion.div>
+        )}
+
+        {activeSection === 'karaoke' && (
+          <motion.div
+            key="karaoke"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+          >
+            <GlassCard className="p-4">
+              <KaraokeSection />
             </GlassCard>
           </motion.div>
         )}
