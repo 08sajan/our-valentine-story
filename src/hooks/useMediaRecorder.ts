@@ -103,6 +103,7 @@ export const useMediaRecorder = () => {
   const chunksRef = useRef<Blob[]>([]);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const startTimeRef = useRef<number>(0);
+  const recordingTypeRef = useRef<'audio' | 'video' | null>(null); // Fix: use ref to track type
 
   const startRecording = useCallback(async (type: 'audio' | 'video'): Promise<void> => {
     try {
@@ -129,6 +130,7 @@ export const useMediaRecorder = () => {
       
       mediaRecorder.start(100);
       startTimeRef.current = Date.now();
+      recordingTypeRef.current = type; // Fix: store in ref
       setIsRecording(true);
       setRecordingType(type);
       setRecordingTime(0);
@@ -151,6 +153,7 @@ export const useMediaRecorder = () => {
       }
       
       const mediaRecorder = mediaRecorderRef.current;
+      const currentType = recordingTypeRef.current || 'audio'; // Fix: use ref value
       
       mediaRecorder.onstop = () => {
         const blob = new Blob(chunksRef.current, { type: mediaRecorder.mimeType });
@@ -158,10 +161,7 @@ export const useMediaRecorder = () => {
         const duration = Math.floor((Date.now() - startTimeRef.current) / 1000);
         
         // Stop all tracks
-        if (previewStream) {
-          previewStream.getTracks().forEach(track => track.stop());
-        }
-        setPreviewStream(null);
+        mediaRecorderRef.current = null;
         
         if (timerRef.current) {
           clearInterval(timerRef.current);
@@ -171,10 +171,11 @@ export const useMediaRecorder = () => {
         setIsRecording(false);
         setRecordingType(null);
         setRecordingTime(0);
+        recordingTypeRef.current = null;
         
         resolve({
           id: `recording_${Date.now()}`,
-          type: recordingType || 'audio',
+          type: currentType, // Fix: use captured ref value
           blob,
           url,
           timestamp: Date.now(),
@@ -184,7 +185,7 @@ export const useMediaRecorder = () => {
       
       mediaRecorder.stop();
     });
-  }, [previewStream, recordingType]);
+  }, []);
 
   const cancelRecording = useCallback(() => {
     if (mediaRecorderRef.current && isRecording) {
