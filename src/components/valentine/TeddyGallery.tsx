@@ -14,45 +14,66 @@ interface TeddyItem {
 const teddies: TeddyItem[] = [
   { 
     emoji: "🧸", 
-    name: "Mr. Cuddly", 
+    name: "Mr. Cuddly Bear", 
     message: "For cozy night hugs when you miss me",
-    image: "https://images.unsplash.com/photo-1559454403-b8fb88521f11?w=400",
+    image: "https://images.unsplash.com/photo-1559454403-b8fb88521f11?w=600",
     color: "#D4A574"
   },
   { 
-    emoji: "🐻", 
-    name: "Honey Bear", 
+    emoji: "🧸", 
+    name: "Honey Teddy", 
     message: "As sweet as you, my Puntuu",
-    image: "https://images.unsplash.com/photo-1558679908-541bcf1249ff?w=400",
+    image: "https://images.unsplash.com/photo-1558679908-541bcf1249ff?w=600",
     color: "#8B4513"
   },
   { 
-    emoji: "🐻‍❄️", 
-    name: "Snow Bear", 
-    message: "For cold winter nights when you need warmth",
-    image: "https://images.unsplash.com/photo-1585155770447-2f66e2a397b5?w=400",
+    emoji: "🧸", 
+    name: "Giant Love Bear", 
+    message: "Big enough to wrap you in warmth",
+    image: "https://images.unsplash.com/photo-1585155770447-2f66e2a397b5?w=600",
     color: "#F5F5DC"
   },
   { 
     emoji: "🧸", 
-    name: "Dream Keeper", 
+    name: "Dream Guardian", 
     message: "Guards your sleep and brings sweet dreams of me",
-    image: "https://images.unsplash.com/photo-1615031335599-92a2f7d93c80?w=400",
+    image: "https://images.unsplash.com/photo-1615031335599-92a2f7d93c80?w=600",
     color: "#DEB887"
   },
   { 
-    emoji: "🐨", 
-    name: "Koala Cutie", 
-    message: "Never lets go, just like my love for you",
-    image: "https://images.unsplash.com/photo-1474511320723-9a56873571b7?w=400",
-    color: "#808080"
+    emoji: "🧸", 
+    name: "Pink Princess Bear", 
+    message: "For my princess who deserves the world",
+    image: "https://images.unsplash.com/photo-1563396983906-b3795482a59a?w=600",
+    color: "#FFC0CB"
   },
   { 
-    emoji: "🐼", 
-    name: "Panda Love", 
-    message: "Black, white & loved all over - like our love story",
-    image: "https://images.unsplash.com/photo-1564349683136-77e08dba1ef7?w=400",
-    color: "#1a1a1a"
+    emoji: "🧸", 
+    name: "Valentine Bear", 
+    message: "Holding a heart just like I hold yours",
+    image: "https://images.unsplash.com/photo-1602734846297-9299fc2d4703?w=600",
+    color: "#DC143C"
+  },
+  { 
+    emoji: "🧸", 
+    name: "Fluffy Cloud Bear", 
+    message: "Soft as clouds, warm as my love",
+    image: "https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?w=600",
+    color: "#FFFAFA"
+  },
+  { 
+    emoji: "🧸", 
+    name: "Chocolate Teddy", 
+    message: "Sweet & cuddly, just for you",
+    image: "https://images.unsplash.com/photo-1595526051245-4506e0005bd0?w=600",
+    color: "#8B4513"
+  },
+  { 
+    emoji: "🧸", 
+    name: "Forever Friend Bear", 
+    message: "A friend until I can be there myself",
+    image: "https://images.unsplash.com/photo-1562040506-a9b32cb51b94?w=600",
+    color: "#C4A35A"
   },
 ];
 

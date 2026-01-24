@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Heart, Sparkles, Check, Crown, Gem, Star, ChevronLeft, ChevronRight, X } from "lucide-react";
+import { Heart, Sparkles, Check, Crown, Gem, Star, ChevronLeft, ChevronRight, X, Eye } from "lucide-react";
 import ReactDOM from "react-dom";
 
 interface DressUpGameProps {
@@ -15,6 +15,8 @@ interface Item {
   image: string;
   color: string;
   description: string;
+  price: string;
+  brand: string;
 }
 
 const categories: { key: Category; label: string; emoji: string }[] = [
@@ -26,70 +28,333 @@ const categories: { key: Category; label: string; emoji: string }[] = [
   { key: 'extras', label: 'Extras', emoji: '✨' },
 ];
 
-// Realistic items with Pinterest-inspired descriptions
+// Realistic items with shopping website style
 const items: Record<Category, Item[]> = {
   dresses: [
-    { id: 'red-velvet-gown', name: 'Red Velvet Gown', image: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=400', color: '#dc2626', description: 'Luxurious floor-length velvet with sweetheart neckline' },
-    { id: 'blush-tulle', name: 'Blush Tulle Princess', image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400', color: '#fda4af', description: 'Romantic layered tulle ballgown' },
-    { id: 'gold-sequin', name: 'Gold Sequin Glamour', image: 'https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=400', color: '#fbbf24', description: 'Stunning all-over sequin mermaid dress' },
-    { id: 'emerald-satin', name: 'Emerald Satin Slip', image: 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=400', color: '#10b981', description: 'Elegant bias-cut silk satin' },
-    { id: 'burgundy-lace', name: 'Burgundy Lace', image: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=400', color: '#7f1d1d', description: 'Intricate French lace overlay' },
-    { id: 'champagne-beaded', name: 'Champagne Beaded', image: 'https://images.unsplash.com/photo-1551803091-e20673f15770?w=400', color: '#fef3c7', description: 'Hand-beaded bodice with flowing skirt' },
-    { id: 'black-velvet', name: 'Black Velvet Drama', image: 'https://images.unsplash.com/photo-1550639524-a6f58345a2ca?w=400', color: '#1f2937', description: 'Classic old Hollywood glamour' },
-    { id: 'pink-lehenga', name: 'Pink Bridal Lehenga', image: 'https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=400', color: '#ec4899', description: 'Traditional embroidered bridal lehenga' },
+    { id: 'red-velvet-gown', name: 'Red Velvet Evening Gown', image: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600', color: '#dc2626', description: 'Luxurious floor-length velvet with sweetheart neckline, perfect for romantic dinner dates', price: '₹12,999', brand: 'Sabyasachi' },
+    { id: 'blush-tulle', name: 'Blush Tulle Princess Dress', image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600', color: '#fda4af', description: 'Romantic layered tulle ballgown with delicate beading', price: '₹18,499', brand: 'Manish Malhotra' },
+    { id: 'gold-sequin', name: 'Gold Sequin Mermaid Gown', image: 'https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=600', color: '#fbbf24', description: 'Stunning all-over sequin mermaid dress that catches every light', price: '₹25,999', brand: 'Tarun Tahiliani' },
+    { id: 'emerald-satin', name: 'Emerald Satin Slip Dress', image: 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=600', color: '#10b981', description: 'Elegant bias-cut silk satin for understated glamour', price: '₹8,999', brand: 'Anita Dongre' },
+    { id: 'burgundy-lace', name: 'Burgundy French Lace Gown', image: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600', color: '#7f1d1d', description: 'Intricate French lace overlay with romantic details', price: '₹22,500', brand: 'Ritu Kumar' },
+    { id: 'champagne-beaded', name: 'Champagne Beaded Gown', image: 'https://images.unsplash.com/photo-1551803091-e20673f15770?w=600', color: '#fef3c7', description: 'Hand-beaded bodice with flowing organza skirt', price: '₹35,000', brand: 'Falguni Shane' },
+    { id: 'black-velvet', name: 'Black Velvet Drama Dress', image: 'https://images.unsplash.com/photo-1550639524-a6f58345a2ca?w=600', color: '#1f2937', description: 'Classic old Hollywood glamour with modern edge', price: '₹15,999', brand: 'Rohit Bal' },
+    { id: 'pink-lehenga', name: 'Pink Bridal Lehenga Set', image: 'https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=600', color: '#ec4899', description: 'Traditional embroidered bridal lehenga with heavy work', price: '₹1,25,000', brand: 'Sabyasachi' },
   ],
   earrings: [
-    { id: 'diamond-drops', name: 'Diamond Drops', image: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=400', color: '#e0f2fe', description: 'Elegant teardrop diamond earrings' },
-    { id: 'gold-chandeliers', name: 'Gold Chandeliers', image: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400', color: '#fcd34d', description: 'Statement chandelier earrings' },
-    { id: 'pearl-studs', name: 'Pearl Studs', image: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400', color: '#faf5ff', description: 'Classic freshwater pearl studs' },
-    { id: 'ruby-dangles', name: 'Ruby Dangles', image: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=400', color: '#ef4444', description: 'Cascading ruby drop earrings' },
-    { id: 'emerald-hoops', name: 'Emerald Hoops', image: 'https://images.unsplash.com/photo-1630019852942-f89202989a59?w=400', color: '#34d399', description: 'Delicate emerald-encrusted hoops' },
-    { id: 'kundan-jhumkas', name: 'Kundan Jhumkas', image: 'https://images.unsplash.com/photo-1610694955371-d4a3e0ce4b52?w=400', color: '#f59e0b', description: 'Traditional Indian jhumka earrings' },
+    { id: 'diamond-drops', name: 'Diamond Teardrop Earrings', image: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600', color: '#e0f2fe', description: 'Elegant VS1 clarity diamond teardrops in 18k white gold', price: '₹85,000', brand: 'Tanishq' },
+    { id: 'gold-chandeliers', name: 'Gold Chandelier Earrings', image: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600', color: '#fcd34d', description: 'Statement 22k gold chandelier earrings with intricate filigree', price: '₹45,000', brand: 'Kalyan Jewellers' },
+    { id: 'pearl-studs', name: 'Akoya Pearl Studs', image: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=600', color: '#faf5ff', description: 'Classic AAA grade Akoya pearl studs in platinum setting', price: '₹28,000', brand: 'Mikimoto' },
+    { id: 'ruby-dangles', name: 'Burma Ruby Dangles', image: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600', color: '#ef4444', description: 'Pigeon blood Burma ruby drops with diamond halo', price: '₹1,50,000', brand: 'Cartier' },
+    { id: 'emerald-hoops', name: 'Emerald Encrusted Hoops', image: 'https://images.unsplash.com/photo-1630019852942-f89202989a59?w=600', color: '#34d399', description: 'Zambian emerald-encrusted 18k gold hoops', price: '₹65,000', brand: 'Bulgari' },
+    { id: 'kundan-jhumkas', name: 'Royal Kundan Jhumkas', image: 'https://images.unsplash.com/photo-1610694955371-d4a3e0ce4b52?w=600', color: '#f59e0b', description: 'Traditional Rajasthani kundan polki jhumka earrings', price: '₹55,000', brand: 'Amrapali' },
   ],
   necklaces: [
-    { id: 'diamond-choker', name: 'Diamond Choker', image: 'https://images.unsplash.com/photo-1599643477877-530eb83abc8e?w=400', color: '#f0f9ff', description: 'Brilliant-cut diamond choker' },
-    { id: 'gold-layered', name: 'Gold Layered Set', image: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400', color: '#fcd34d', description: 'Delicate layered gold chains' },
-    { id: 'pearl-strand', name: 'Pearl Strand', image: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400', color: '#fffbeb', description: 'Classic Akoya pearl necklace' },
-    { id: 'statement-bib', name: 'Statement Bib', image: 'https://images.unsplash.com/photo-1599643477877-530eb83abc8e?w=400', color: '#a78bfa', description: 'Crystal-encrusted statement piece' },
-    { id: 'kundan-set', name: 'Kundan Bridal Set', image: 'https://images.unsplash.com/photo-1610694955371-d4a3e0ce4b52?w=400', color: '#fbbf24', description: 'Traditional kundan polki necklace' },
-    { id: 'pendant-chain', name: 'Heart Pendant', image: 'https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?w=400', color: '#fb7185', description: 'Romantic heart pendant on chain' },
+    { id: 'diamond-choker', name: 'Diamond Tennis Choker', image: 'https://images.unsplash.com/photo-1599643477877-530eb83abc8e?w=600', color: '#f0f9ff', description: '10 carat brilliant-cut diamond choker in platinum', price: '₹5,00,000', brand: 'Tiffany & Co.' },
+    { id: 'gold-layered', name: 'Gold Layered Chain Set', image: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600', color: '#fcd34d', description: 'Delicate 22k gold layered chains with pendants', price: '₹75,000', brand: 'Malabar Gold' },
+    { id: 'pearl-strand', name: 'South Sea Pearl Strand', image: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=600', color: '#fffbeb', description: 'Classic graduated South Sea pearl necklace', price: '₹2,50,000', brand: 'Paspaley' },
+    { id: 'statement-bib', name: 'Crystal Statement Bib', image: 'https://images.unsplash.com/photo-1599643477877-530eb83abc8e?w=600', color: '#a78bfa', description: 'Swarovski crystal-encrusted statement bib necklace', price: '₹35,000', brand: 'Swarovski' },
+    { id: 'kundan-set', name: 'Kundan Bridal Set', image: 'https://images.unsplash.com/photo-1610694955371-d4a3e0ce4b52?w=600', color: '#fbbf24', description: 'Traditional kundan polki bridal necklace with matching tikka', price: '₹3,00,000', brand: 'Hazoorilal' },
+    { id: 'pendant-chain', name: 'Diamond Heart Pendant', image: 'https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?w=600', color: '#fb7185', description: 'Romantic diamond heart pendant on 18k rose gold chain', price: '₹45,000', brand: 'Tanishq' },
   ],
   shoes: [
-    { id: 'crystal-stilettos', name: 'Crystal Stilettos', image: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=400', color: '#e0f2fe', description: 'Cinderella-inspired crystal heels' },
-    { id: 'red-pumps', name: 'Red Satin Pumps', image: 'https://images.unsplash.com/photo-1596703263926-eb0762ee17e4?w=400', color: '#dc2626', description: 'Classic red carpet stilettos' },
-    { id: 'gold-strappy', name: 'Gold Strappy Heels', image: 'https://images.unsplash.com/photo-1603808033192-082d6919d3e1?w=400', color: '#fbbf24', description: 'Elegant strappy sandals' },
-    { id: 'nude-platforms', name: 'Nude Platforms', image: 'https://images.unsplash.com/photo-1515347619252-60a4bf4fff4f?w=400', color: '#fed7aa', description: 'Comfortable platform heels' },
-    { id: 'silver-sparkle', name: 'Silver Sparkle', image: 'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=400', color: '#e2e8f0', description: 'Glittering silver pumps' },
-    { id: 'rose-gold-sandals', name: 'Rose Gold Sandals', image: 'https://images.unsplash.com/photo-1596703263926-eb0762ee17e4?w=400', color: '#fda4af', description: 'Delicate rose gold evening sandals' },
+    { id: 'crystal-stilettos', name: 'Crystal Cinderella Heels', image: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=600', color: '#e0f2fe', description: 'Hand-placed Swarovski crystal stilettos, 4" heel', price: '₹85,000', brand: 'Jimmy Choo' },
+    { id: 'red-pumps', name: 'Red Satin Pumps', image: 'https://images.unsplash.com/photo-1596703263926-eb0762ee17e4?w=600', color: '#dc2626', description: 'Classic red carpet Christian Louboutin style stilettos', price: '₹65,000', brand: 'Louboutin' },
+    { id: 'gold-strappy', name: 'Gold Strappy Sandals', image: 'https://images.unsplash.com/photo-1603808033192-082d6919d3e1?w=600', color: '#fbbf24', description: 'Elegant metallic gold strappy evening sandals', price: '₹35,000', brand: 'Stuart Weitzman' },
+    { id: 'nude-platforms', name: 'Nude Platform Heels', image: 'https://images.unsplash.com/photo-1515347619252-60a4bf4fff4f?w=600', color: '#fed7aa', description: 'Comfortable nude patent leather platforms, 5" heel', price: '₹28,000', brand: 'Gianvito Rossi' },
+    { id: 'silver-sparkle', name: 'Silver Glitter Pumps', image: 'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=600', color: '#e2e8f0', description: 'Sparkling silver glitter pumps for special occasions', price: '₹42,000', brand: 'Miu Miu' },
+    { id: 'rose-gold-sandals', name: 'Rose Gold Sandals', image: 'https://images.unsplash.com/photo-1596703263926-eb0762ee17e4?w=600', color: '#fda4af', description: 'Delicate rose gold evening sandals with ankle strap', price: '₹32,000', brand: 'Aquazzura' },
   ],
   hairstyles: [
-    { id: 'elegant-updo', name: 'Elegant Updo', image: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=400', color: '#78350f', description: 'Classic twisted chignon' },
-    { id: 'hollywood-waves', name: 'Hollywood Waves', image: 'https://images.unsplash.com/photo-1562322140-8baeececf3df?w=400', color: '#92400e', description: 'Old Hollywood finger waves' },
-    { id: 'braided-crown', name: 'Braided Crown', image: 'https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=400', color: '#451a03', description: 'Romantic braided crown style' },
-    { id: 'loose-curls', name: 'Loose Romantic Curls', image: 'https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=400', color: '#78350f', description: 'Soft bouncy curls' },
-    { id: 'sleek-ponytail', name: 'Sleek High Ponytail', image: 'https://images.unsplash.com/photo-1554519515-242161756769?w=400', color: '#1c1917', description: 'Dramatic high ponytail' },
-    { id: 'flower-bun', name: 'Floral Bun', image: 'https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=400', color: '#be185d', description: 'Traditional bun with fresh flowers' },
+    { id: 'elegant-updo', name: 'Classic Twisted Chignon', image: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=600', color: '#78350f', description: 'Elegant twisted chignon perfect for formal occasions', price: 'Styling', brand: 'Aalim Hakim' },
+    { id: 'hollywood-waves', name: 'Hollywood Finger Waves', image: 'https://images.unsplash.com/photo-1562322140-8baeececf3df?w=600', color: '#92400e', description: 'Old Hollywood glamour with perfectly sculpted waves', price: 'Styling', brand: 'Sapna Bhavnani' },
+    { id: 'braided-crown', name: 'Romantic Braided Crown', image: 'https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=600', color: '#451a03', description: 'Romantic Dutch braided crown style with loose tendrils', price: 'Styling', brand: 'Ambika Pillai' },
+    { id: 'loose-curls', name: 'Soft Romantic Curls', image: 'https://images.unsplash.com/photo-1580618672591-eb180b1a973f?w=600', color: '#78350f', description: 'Soft bouncy curls for a romantic, effortless look', price: 'Styling', brand: 'Adhuna Bhabani' },
+    { id: 'sleek-ponytail', name: 'Sleek High Ponytail', image: 'https://images.unsplash.com/photo-1554519515-242161756769?w=600', color: '#1c1917', description: 'Dramatic sleek high ponytail for a powerful look', price: 'Styling', brand: 'Hakim Aalim' },
+    { id: 'flower-bun', name: 'Floral Decorated Bun', image: 'https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=600', color: '#be185d', description: 'Traditional low bun adorned with fresh flowers', price: 'Styling', brand: 'Bianca Hartkopf' },
   ],
   extras: [
-    { id: 'diamond-ring', name: 'Diamond Ring', image: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=400', color: '#f0f9ff', description: 'Stunning engagement ring' },
-    { id: 'gold-bangles', name: 'Gold Bangles Set', image: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400', color: '#fcd34d', description: 'Stack of delicate gold bangles' },
-    { id: 'clutch-rose', name: 'Rose Gold Clutch', image: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400', color: '#fda4af', description: 'Elegant evening clutch' },
-    { id: 'tiara', name: 'Crystal Tiara', image: 'https://images.unsplash.com/photo-1546961342-ea5f71b193f3?w=400', color: '#e0f2fe', description: 'Princess-worthy crystal tiara' },
-    { id: 'maang-tikka', name: 'Maang Tikka', image: 'https://images.unsplash.com/photo-1610694955371-d4a3e0ce4b52?w=400', color: '#fbbf24', description: 'Traditional forehead jewelry' },
-    { id: 'silk-wrap', name: 'Silk Evening Wrap', image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400', color: '#a78bfa', description: 'Luxurious silk shawl' },
+    { id: 'diamond-ring', name: 'Solitaire Diamond Ring', image: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=600', color: '#f0f9ff', description: '2 carat D-color flawless solitaire in platinum', price: '₹8,00,000', brand: 'De Beers' },
+    { id: 'gold-bangles', name: 'Gold Bangle Stack', image: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600', color: '#fcd34d', description: 'Set of 12 delicate 22k gold bangles with texture', price: '₹1,20,000', brand: 'Senco Gold' },
+    { id: 'clutch-rose', name: 'Rose Gold Box Clutch', image: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600', color: '#fda4af', description: 'Elegant rose gold metal box clutch with crystals', price: '₹25,000', brand: 'Judith Leiber' },
+    { id: 'tiara', name: 'Crystal Bridal Tiara', image: 'https://images.unsplash.com/photo-1546961342-ea5f71b193f3?w=600', color: '#e0f2fe', description: 'Princess-worthy Swarovski crystal tiara', price: '₹35,000', brand: 'Oscar de la Renta' },
+    { id: 'maang-tikka', name: 'Kundan Maang Tikka', image: 'https://images.unsplash.com/photo-1610694955371-d4a3e0ce4b52?w=600', color: '#fbbf24', description: 'Traditional kundan polki maang tikka with pearls', price: '₹45,000', brand: 'Amrapali' },
+    { id: 'silk-wrap', name: 'Silk Evening Shawl', image: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=600', color: '#a78bfa', description: 'Luxurious hand-embroidered silk pashmina shawl', price: '₹18,000', brand: 'Pashmina' },
   ],
+};
+
+// Full Item Preview Modal (Shopping Website Style)
+const ItemPreviewModal = ({
+  item,
+  category,
+  onClose,
+  onSelect
+}: {
+  item: Item;
+  category: string;
+  onClose: () => void;
+  onSelect: () => void;
+}) => {
+  return ReactDOM.createPortal(
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      style={{
+        position: 'fixed',
+        inset: 0,
+        zIndex: 999999,
+        display: 'flex',
+        flexDirection: 'column',
+        background: 'linear-gradient(135deg, #1a0505 0%, #2d1f3d 50%, #1a0a1a 100%)',
+      }}
+    >
+      {/* Header */}
+      <div
+        style={{
+          flexShrink: 0,
+          background: 'rgba(0,0,0,0.6)',
+          backdropFilter: 'blur(20px)',
+          padding: '16px',
+          paddingTop: 'max(16px, env(safe-area-inset-top))',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}
+      >
+        <motion.button
+          onClick={onClose}
+          style={{
+            padding: '10px',
+            background: 'rgba(255,255,255,0.1)',
+            borderRadius: '9999px',
+            color: 'white',
+            border: 'none',
+            cursor: 'pointer',
+          }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <ChevronLeft size={20} />
+        </motion.button>
+        <span style={{ color: 'white', fontFamily: 'serif', fontSize: '1rem' }}>
+          {item.brand}
+        </span>
+        <motion.button
+          onClick={onClose}
+          style={{
+            padding: '10px',
+            background: 'rgba(255,255,255,0.1)',
+            borderRadius: '9999px',
+            color: 'white',
+            border: 'none',
+            cursor: 'pointer',
+          }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <X size={20} />
+        </motion.button>
+      </div>
+
+      {/* Main Content - Scrollable */}
+      <div style={{ flex: 1, overflow: 'auto', paddingBottom: 'max(100px, env(safe-area-inset-bottom))' }}>
+        {/* Large Product Image */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          style={{
+            width: '100%',
+            aspectRatio: '1',
+            position: 'relative',
+            overflow: 'hidden',
+          }}
+        >
+          <img
+            src={item.image}
+            alt={item.name}
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+            }}
+          />
+          <motion.div
+            style={{
+              position: 'absolute',
+              bottom: '16px',
+              right: '16px',
+              background: 'rgba(0,0,0,0.6)',
+              borderRadius: '9999px',
+              padding: '8px 16px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+            }}
+            animate={{ scale: [1, 1.05, 1] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            <Heart className="w-4 h-4 text-rose-400" fill="#fb7185" />
+            <span style={{ color: 'white', fontSize: '12px' }}>For My Puntuu</span>
+          </motion.div>
+        </motion.div>
+
+        {/* Product Details */}
+        <div style={{ padding: '20px' }}>
+          {/* Brand & Category */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+            <span style={{ 
+              background: 'linear-gradient(135deg, #ec4899, #f43f5e)', 
+              color: 'white',
+              fontSize: '10px',
+              padding: '4px 10px',
+              borderRadius: '9999px',
+              fontWeight: 600,
+            }}>
+              {item.brand}
+            </span>
+            <span style={{ 
+              background: 'rgba(255,255,255,0.1)', 
+              color: 'white',
+              fontSize: '10px',
+              padding: '4px 10px',
+              borderRadius: '9999px',
+            }}>
+              {category}
+            </span>
+          </div>
+
+          {/* Product Name */}
+          <h2 style={{
+            color: 'white',
+            fontFamily: 'serif',
+            fontSize: '1.5rem',
+            marginBottom: '8px',
+            lineHeight: 1.3,
+          }}>
+            {item.name}
+          </h2>
+
+          {/* Price */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'baseline',
+            gap: '8px',
+            marginBottom: '16px',
+          }}>
+            <span style={{ color: '#fbbf24', fontSize: '1.5rem', fontWeight: 700 }}>
+              {item.price}
+            </span>
+            <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '12px' }}>
+              (Worth every penny for you!)
+            </span>
+          </div>
+
+          {/* Color Indicator */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
+            <span style={{ color: 'rgba(255,255,255,0.6)', fontSize: '14px' }}>Color:</span>
+            <div style={{
+              width: '28px',
+              height: '28px',
+              borderRadius: '50%',
+              background: item.color,
+              border: '2px solid white',
+              boxShadow: '0 4px 15px rgba(0,0,0,0.3)',
+            }} />
+          </div>
+
+          {/* Description */}
+          <div style={{
+            background: 'rgba(255,255,255,0.05)',
+            borderRadius: '16px',
+            padding: '16px',
+            marginBottom: '20px',
+            border: '1px solid rgba(255,255,255,0.1)',
+          }}>
+            <h3 style={{ color: 'rgba(255,255,255,0.8)', fontSize: '12px', marginBottom: '8px', textTransform: 'uppercase', letterSpacing: '1px' }}>
+              Product Details
+            </h3>
+            <p style={{ color: 'white', fontSize: '14px', lineHeight: 1.6 }}>
+              {item.description}
+            </p>
+          </div>
+
+          {/* Romantic Note */}
+          <motion.div
+            style={{
+              background: 'linear-gradient(135deg, rgba(236, 72, 153, 0.2), rgba(168, 85, 247, 0.2))',
+              borderRadius: '16px',
+              padding: '16px',
+              textAlign: 'center',
+              border: '1px solid rgba(236, 72, 153, 0.3)',
+            }}
+            animate={{ boxShadow: ['0 0 20px rgba(236,72,153,0.2)', '0 0 40px rgba(236,72,153,0.4)', '0 0 20px rgba(236,72,153,0.2)'] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            <motion.span
+              style={{ fontSize: '2rem', display: 'block', marginBottom: '8px' }}
+              animate={{ scale: [1, 1.2, 1] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+            >
+              💕
+            </motion.span>
+            <p style={{ color: 'white', fontFamily: 'serif', fontSize: '14px', fontStyle: 'italic' }}>
+              "You'd look absolutely stunning in this, my love!"
+            </p>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Fixed Bottom CTA */}
+      <div style={{
+        position: 'fixed',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        padding: '16px 20px',
+        paddingBottom: 'max(16px, env(safe-area-inset-bottom))',
+        background: 'linear-gradient(to top, rgba(0,0,0,0.95), rgba(0,0,0,0.8))',
+        backdropFilter: 'blur(20px)',
+      }}>
+        <motion.button
+          onClick={() => { onSelect(); onClose(); }}
+          style={{
+            width: '100%',
+            padding: '16px',
+            borderRadius: '16px',
+            background: 'linear-gradient(135deg, #ec4899, #f43f5e)',
+            color: 'white',
+            border: 'none',
+            cursor: 'pointer',
+            fontSize: '16px',
+            fontWeight: 600,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '8px',
+            boxShadow: '0 10px 40px rgba(236, 72, 153, 0.4)',
+          }}
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+        >
+          <Check className="w-5 h-5" />
+          Select This For Our Date 💕
+        </motion.button>
+      </div>
+    </motion.div>,
+    document.body
+  );
 };
 
 // Realistic Item Card Component
 const ItemCard = ({ 
   item, 
   isSelected, 
-  onSelect, 
+  onSelect,
+  onPreview,
   index 
 }: { 
   item: Item; 
   isSelected: boolean; 
-  onSelect: () => void; 
+  onSelect: () => void;
+  onPreview: () => void;
   index: number;
 }) => {
   return (
@@ -125,18 +390,21 @@ const ItemCard = ({
           />
           
           {/* Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
           
-          {/* Color dot indicator */}
-          <div 
-            className="absolute top-2 left-2 w-4 h-4 rounded-full border-2 border-white/50"
-            style={{ backgroundColor: item.color }}
-          />
+          {/* Quick View Button */}
+          <motion.button
+            onClick={(e) => { e.stopPropagation(); onPreview(); }}
+            className="absolute top-2 right-2 w-8 h-8 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+            whileTap={{ scale: 0.9 }}
+          >
+            <Eye className="w-4 h-4 text-white" />
+          </motion.button>
           
           {/* Selection indicator */}
           {isSelected && (
             <motion.div
-              className="absolute top-2 right-2 w-7 h-7 bg-gradient-to-r from-rose-500 to-pink-500 rounded-full flex items-center justify-center"
+              className="absolute top-2 left-2 w-7 h-7 bg-gradient-to-r from-rose-500 to-pink-500 rounded-full flex items-center justify-center"
               initial={{ scale: 0, rotate: -180 }}
               animate={{ scale: 1, rotate: 0 }}
               style={{
@@ -151,14 +419,14 @@ const ItemCard = ({
           {isSelected && (
             <>
               <motion.div
-                className="absolute bottom-12 left-2"
+                className="absolute bottom-14 left-2"
                 animate={{ rotate: 360, scale: [1, 1.3, 1] }}
                 transition={{ duration: 3, repeat: Infinity }}
               >
                 <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
               </motion.div>
               <motion.div
-                className="absolute bottom-12 right-2"
+                className="absolute bottom-14 right-2"
                 animate={{ rotate: -360, scale: [1, 1.3, 1] }}
                 transition={{ duration: 3, repeat: Infinity, delay: 0.5 }}
               >
@@ -170,8 +438,9 @@ const ItemCard = ({
         
         {/* Item Info */}
         <div className="p-3">
+          <p className="text-[10px] text-rose-400 font-medium mb-0.5">{item.brand}</p>
           <p className="text-sm text-white font-medium truncate">{item.name}</p>
-          <p className="text-[10px] text-white/60 mt-0.5 line-clamp-1">{item.description}</p>
+          <p className="text-xs text-amber-400 font-bold mt-1">{item.price}</p>
         </div>
         
         {/* Selection glow */}
