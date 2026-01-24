@@ -26,6 +26,7 @@ import { LoveQuiz } from "@/components/valentine/LoveQuiz";
 import { WishingWell } from "@/components/valentine/WishingWell";
 import { RelationshipCountdown } from "@/components/valentine/RelationshipCountdown";
 import { WhenIMissYou } from "@/components/valentine/WhenIMissYou";
+import { PhotoBooth } from "@/components/valentine/PhotoBooth";
 import { 
   ShakeHeartsExplosion, 
   KonamiSecret, 
@@ -816,7 +817,7 @@ const KissDayContent = () => {
 
 const ValentineDayContent = () => {
   const [triggerConfetti, setTriggerConfetti] = useState(false);
-  const [activeSection, setActiveSection] = useState<'gallery' | 'letters' | 'letter' | 'game' | 'quiz' | 'wishes' | 'journey' | 'soulmate' | 'missyou'>('gallery');
+  const [activeSection, setActiveSection] = useState<'gallery' | 'letters' | 'letter' | 'game' | 'quiz' | 'wishes' | 'journey' | 'soulmate' | 'missyou' | 'photobooth'>('gallery');
   
   useEffect(() => {
     setTriggerConfetti(true);
@@ -876,15 +877,16 @@ const ValentineDayContent = () => {
         </div>
         <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 px-1">
           {[
-            { key: 'wishes', label: 'Our Wishes', emoji: '🌟' },
-            { key: 'journey', label: 'Our Journey', emoji: '⏱️' },
+            { key: 'wishes', label: 'Wishes', emoji: '🌟' },
+            { key: 'journey', label: 'Journey', emoji: '⏱️' },
             { key: 'soulmate', label: 'Soulmate', emoji: '💫' },
             { key: 'game', label: 'Date Night', emoji: '👗' },
+            { key: 'photobooth', label: 'Photos', emoji: '📷' },
           ].map((tab) => (
             <motion.button
               key={tab.key}
               onClick={() => setActiveSection(tab.key as typeof activeSection)}
-              className={`px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-full font-medium text-[10px] sm:text-xs whitespace-nowrap transition-all ${
+              className={`px-2 sm:px-3 py-1.5 sm:py-2 rounded-full font-medium text-[9px] sm:text-xs whitespace-nowrap transition-all ${
                 activeSection === tab.key 
                   ? "bg-white/30 text-white shadow-lg" 
                   : "bg-white/10 text-white/70"
@@ -1072,6 +1074,32 @@ I want to know the ways you ache, the ways you hope, the tiny corners of yoursel
           >
             <GlassCard className="p-6">
               <DressUpGame />
+            </GlassCard>
+          </motion.div>
+        )}
+
+        {activeSection === 'missyou' && (
+          <motion.div
+            key="missyou"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+          >
+            <GlassCard className="p-6">
+              <WhenIMissYou />
+            </GlassCard>
+          </motion.div>
+        )}
+
+        {activeSection === 'photobooth' && (
+          <motion.div
+            key="photobooth"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+          >
+            <GlassCard className="p-6">
+              <PhotoBooth />
             </GlassCard>
           </motion.div>
         )}
