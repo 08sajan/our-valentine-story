@@ -123,6 +123,7 @@ const RecordingModal = ({
               muted
               playsInline
               className="w-full h-full object-cover"
+              style={{ transform: 'scaleX(-1)' }}
             />
           )}
           
