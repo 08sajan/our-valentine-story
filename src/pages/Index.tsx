@@ -27,6 +27,17 @@ import { WishingWell } from "@/components/valentine/WishingWell";
 import { RelationshipCountdown } from "@/components/valentine/RelationshipCountdown";
 import { WhenIMissYou } from "@/components/valentine/WhenIMissYou";
 import { PhotoBooth } from "@/components/valentine/PhotoBooth";
+// New Romantic Sections
+import { OpenWhenLetters } from "@/components/valentine/OpenWhenLetters";
+import { SharedDreamsBucketList } from "@/components/valentine/SharedDreamsBucketList";
+import { CuratedSoundscapes } from "@/components/valentine/CuratedSoundscapes";
+import { DigitalJarOfHearts } from "@/components/valentine/DigitalJarOfHearts";
+import { EmergencyComfortButton } from "@/components/valentine/EmergencyComfortButton";
+import { GrowthArchive } from "@/components/valentine/GrowthArchive";
+import { FutureMaps } from "@/components/valentine/FutureMaps";
+import { DecisionMaker } from "@/components/valentine/DecisionMaker";
+import { PermissionSlips } from "@/components/valentine/PermissionSlips";
+import { IntimateSection } from "@/components/valentine/IntimateSection";
 import { 
   ShakeHeartsExplosion, 
   KonamiSecret, 
@@ -817,7 +828,7 @@ const KissDayContent = () => {
 
 const ValentineDayContent = () => {
   const [triggerConfetti, setTriggerConfetti] = useState(false);
-  const [activeSection, setActiveSection] = useState<'gallery' | 'letters' | 'letter' | 'game' | 'quiz' | 'wishes' | 'journey' | 'soulmate' | 'missyou' | 'photobooth'>('gallery');
+  const [activeSection, setActiveSection] = useState<'gallery' | 'letters' | 'letter' | 'game' | 'quiz' | 'wishes' | 'journey' | 'soulmate' | 'missyou' | 'photobooth' | 'openwhen' | 'hearts' | 'comfort' | 'music' | 'dreams' | 'growth' | 'future' | 'decide' | 'coupons' | 'private'>('gallery');
   
   useEffect(() => {
     setTriggerConfetti(true);
@@ -850,20 +861,20 @@ const ValentineDayContent = () => {
         </p>
       </GlassCard>
 
-      {/* Navigation Tabs - Two rows for better visibility */}
+      {/* Navigation Tabs - Four rows for all sections */}
       <div className="space-y-2">
         <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 px-1">
           {[
             { key: 'gallery', label: 'Memories', emoji: '📸' },
-            { key: 'letters', label: '10 Letters', emoji: '💌' },
-            { key: 'letter', label: 'Final Letter', emoji: '❤️' },
-            { key: 'quiz', label: 'Love Quiz', emoji: '💕' },
-            { key: 'missyou', label: 'Miss You', emoji: '🥺' },
+            { key: 'letters', label: 'Letters', emoji: '💌' },
+            { key: 'openwhen', label: 'Open When', emoji: '📬' },
+            { key: 'quiz', label: 'Quiz', emoji: '💕' },
+            { key: 'hearts', label: 'Hearts', emoji: '💖' },
           ].map((tab) => (
             <motion.button
               key={tab.key}
               onClick={() => setActiveSection(tab.key as typeof activeSection)}
-              className={`px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-full font-medium text-[10px] sm:text-xs whitespace-nowrap transition-all ${
+              className={`px-2 sm:px-3 py-1.5 sm:py-2 rounded-full font-medium text-[9px] sm:text-xs whitespace-nowrap transition-all ${
                 activeSection === tab.key 
                   ? "bg-white/30 text-white shadow-lg" 
                   : "bg-white/10 text-white/70"
@@ -877,11 +888,57 @@ const ValentineDayContent = () => {
         </div>
         <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 px-1">
           {[
-            { key: 'wishes', label: 'Wishes', emoji: '🌟' },
+            { key: 'comfort', label: 'Comfort', emoji: '🆘' },
+            { key: 'music', label: 'Music', emoji: '🎵' },
+            { key: 'dreams', label: 'Dreams', emoji: '🌟' },
+            { key: 'growth', label: 'Growth', emoji: '🌱' },
+            { key: 'future', label: 'Future', emoji: '📍' },
+          ].map((tab) => (
+            <motion.button
+              key={tab.key}
+              onClick={() => setActiveSection(tab.key as typeof activeSection)}
+              className={`px-2 sm:px-3 py-1.5 sm:py-2 rounded-full font-medium text-[9px] sm:text-xs whitespace-nowrap transition-all ${
+                activeSection === tab.key 
+                  ? "bg-white/30 text-white shadow-lg" 
+                  : "bg-white/10 text-white/70"
+              }`}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {tab.emoji} {tab.label}
+            </motion.button>
+          ))}
+        </div>
+        <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 px-1">
+          {[
+            { key: 'decide', label: 'Decide', emoji: '🎲' },
+            { key: 'coupons', label: 'Coupons', emoji: '🎫' },
+            { key: 'game', label: 'Dress Up', emoji: '👗' },
+            { key: 'missyou', label: 'Miss You', emoji: '🥺' },
+            { key: 'photobooth', label: 'Photos', emoji: '📷' },
+          ].map((tab) => (
+            <motion.button
+              key={tab.key}
+              onClick={() => setActiveSection(tab.key as typeof activeSection)}
+              className={`px-2 sm:px-3 py-1.5 sm:py-2 rounded-full font-medium text-[9px] sm:text-xs whitespace-nowrap transition-all ${
+                activeSection === tab.key 
+                  ? "bg-white/30 text-white shadow-lg" 
+                  : "bg-white/10 text-white/70"
+              }`}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {tab.emoji} {tab.label}
+            </motion.button>
+          ))}
+        </div>
+        <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 px-1">
+          {[
+            { key: 'wishes', label: 'Wishes', emoji: '✨' },
             { key: 'journey', label: 'Journey', emoji: '⏱️' },
             { key: 'soulmate', label: 'Soulmate', emoji: '💫' },
-            { key: 'game', label: 'Date Night', emoji: '👗' },
-            { key: 'photobooth', label: 'Photos', emoji: '📷' },
+            { key: 'letter', label: 'Final Letter', emoji: '❤️' },
+            { key: 'private', label: 'Private', emoji: '🔥' },
           ].map((tab) => (
             <motion.button
               key={tab.key}
@@ -1100,6 +1157,137 @@ I want to know the ways you ache, the ways you hope, the tiny corners of yoursel
           >
             <GlassCard className="p-6">
               <PhotoBooth />
+            </GlassCard>
+          </motion.div>
+        )}
+
+        {/* New Romantic Sections */}
+        {activeSection === 'openwhen' && (
+          <motion.div
+            key="openwhen"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+          >
+            <GlassCard className="p-4">
+              <OpenWhenLetters />
+            </GlassCard>
+          </motion.div>
+        )}
+
+        {activeSection === 'hearts' && (
+          <motion.div
+            key="hearts"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+          >
+            <GlassCard className="p-4">
+              <DigitalJarOfHearts />
+            </GlassCard>
+          </motion.div>
+        )}
+
+        {activeSection === 'comfort' && (
+          <motion.div
+            key="comfort"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+          >
+            <GlassCard className="p-4">
+              <EmergencyComfortButton />
+            </GlassCard>
+          </motion.div>
+        )}
+
+        {activeSection === 'music' && (
+          <motion.div
+            key="music"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+          >
+            <GlassCard className="p-4">
+              <CuratedSoundscapes />
+            </GlassCard>
+          </motion.div>
+        )}
+
+        {activeSection === 'dreams' && (
+          <motion.div
+            key="dreams"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+          >
+            <GlassCard className="p-4">
+              <SharedDreamsBucketList />
+            </GlassCard>
+          </motion.div>
+        )}
+
+        {activeSection === 'growth' && (
+          <motion.div
+            key="growth"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+          >
+            <GlassCard className="p-4">
+              <GrowthArchive />
+            </GlassCard>
+          </motion.div>
+        )}
+
+        {activeSection === 'future' && (
+          <motion.div
+            key="future"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+          >
+            <GlassCard className="p-4">
+              <FutureMaps />
+            </GlassCard>
+          </motion.div>
+        )}
+
+        {activeSection === 'decide' && (
+          <motion.div
+            key="decide"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+          >
+            <GlassCard className="p-4">
+              <DecisionMaker />
+            </GlassCard>
+          </motion.div>
+        )}
+
+        {activeSection === 'coupons' && (
+          <motion.div
+            key="coupons"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+          >
+            <GlassCard className="p-4">
+              <PermissionSlips />
+            </GlassCard>
+          </motion.div>
+        )}
+
+        {activeSection === 'private' && (
+          <motion.div
+            key="private"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+          >
+            <GlassCard className="p-4">
+              <IntimateSection />
             </GlassCard>
           </motion.div>
         )}
