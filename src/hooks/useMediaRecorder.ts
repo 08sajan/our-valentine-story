@@ -28,26 +28,28 @@ const openDB = (): Promise<IDBDatabase> => {
 };
 
 export const saveRecordingToDB = async (letterId: string, media: RecordedMedia): Promise<void> => {
+  // Convert blob to array buffer BEFORE opening transaction
+  const buffer = await media.blob.arrayBuffer();
+  
   const db = await openDB();
   return new Promise((resolve, reject) => {
     const transaction = db.transaction(STORE_NAME, 'readwrite');
     const store = transaction.objectStore(STORE_NAME);
     
-    // Convert blob to array buffer for storage
-    media.blob.arrayBuffer().then(buffer => {
-      const record = {
-        id: `${letterId}_${media.type}`,
-        letterId,
-        type: media.type,
-        data: buffer,
-        mimeType: media.blob.type,
-        timestamp: media.timestamp,
-        duration: media.duration
-      };
-      const request = store.put(record);
-      request.onsuccess = () => resolve();
-      request.onerror = () => reject(request.error);
-    });
+    const record = {
+      id: media.id || `${letterId}_${media.type}_${Date.now()}`,
+      letterId,
+      type: media.type,
+      data: buffer,
+      mimeType: media.blob.type,
+      timestamp: media.timestamp,
+      duration: media.duration
+    };
+    
+    const request = store.put(record);
+    request.onsuccess = () => resolve();
+    request.onerror = () => reject(request.error);
+    transaction.onerror = () => reject(transaction.error);
   });
 };
 
