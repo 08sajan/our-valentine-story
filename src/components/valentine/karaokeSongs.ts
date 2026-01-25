@@ -136,10 +136,53 @@ const nepaliSongs: Song[] = [
   { id: 'paheli-nazar-ma', title: 'Paheli Nazar Ma', artist: 'Deepak Bajracharya', emoji: '👀', genre: 'Romantic', language: 'Nepali', duration: '4:35', mood: 'Love at first sight', theme: 'First glance magic', singingTips: 'Classic romantic, instant connection' },
   { id: 'malai-maaf-garideu', title: 'Malai Maaf Garideu', artist: 'Sabin Rai', emoji: '🙏', genre: 'Emotional', language: 'Nepali', duration: '5:15', mood: 'Seeking forgiveness', theme: 'Please forgive me', singingTips: 'Sabin Rai\'s emotional depth, genuine apology' },
   { id: 'bistarai', title: 'Bistarai', artist: 'Rohit Shakya', emoji: '🐢', genre: 'Romantic', language: 'Nepali', duration: '4:22', mood: 'Slow and steady', theme: 'Love slowly building', singingTips: 'Take it slow, gentle pace of growing love' },
+  { id: 'kina-kina', title: 'Kina Kina', artist: 'Sugam Pokhrel', emoji: '💫', genre: 'Romantic', language: 'Nepali', duration: '4:10', mood: 'Questioning love', theme: 'Why do I love you?', singingTips: 'Sugam\'s pop style, catchy and heartfelt' },
+  { id: 'phutki-gaya', title: 'Phutki Gayo', artist: 'Swoopna Suman', emoji: '🌸', genre: 'Romantic', language: 'Nepali', duration: '3:55', mood: 'Blossoming love', theme: 'Heart has opened', singingTips: 'Spring romance, blooming feelings' },
+  { id: 'timi-sanga', title: 'Timi Sanga', artist: 'Naren Limbu', emoji: '🤗', genre: 'Romantic', language: 'Nepali', duration: '4:18', mood: 'Together moments', theme: 'With you', singingTips: 'Naren\'s smooth voice, being together' },
+  { id: 'saani', title: 'Saani', artist: 'Sajjan Raj Vaidya', emoji: '👧', genre: 'Romantic', language: 'Nepali', duration: '4:05', mood: 'Sweet affection', theme: 'My dear one', singingTips: 'Sweet and endearing, calling your beloved' },
+  { id: 'farkera-hera', title: 'Farkera Hera Na', artist: 'Sanjeev Singh', emoji: '👀', genre: 'Emotional', language: 'Nepali', duration: '4:42', mood: 'Longing look', theme: 'Look back at me once', singingTips: 'Classic emotional ballad, yearning for attention' },
+];
+
+// Additional Hindi Songs
+const moreHindiSongs: Song[] = [
+  { id: 'tere-liye', title: 'Tere Liye', artist: 'Atif Aslam', emoji: '🌹', genre: 'Romantic', language: 'Hindi', duration: '4:55', mood: 'Devoted love', theme: 'Everything for you', singingTips: 'Atif\'s signature style, emotional and devoted' },
+  { id: 'maahi-ve', title: 'Maahi Ve', artist: 'A.R. Rahman', emoji: '💃', genre: 'Upbeat', language: 'Hindi', duration: '5:10', mood: 'Celebratory love', theme: 'My beloved', singingTips: 'Fun and energetic, celebratory wedding vibes' },
+  { id: 'tum-jo-aaye', title: 'Tum Jo Aaye', artist: 'Rahat Fateh Ali Khan', emoji: '🌟', genre: 'Romantic', language: 'Hindi', duration: '5:20', mood: 'Life changed', theme: 'When you came into my life', singingTips: 'Rahat\'s qawwali-influenced style, transformative love' },
+  { id: 'saiyaara', title: 'Saiyaara', artist: 'Mohit Chauhan', emoji: '🌙', genre: 'Romantic', language: 'Hindi', duration: '5:15', mood: 'Wandering together', theme: 'Travelers in love', singingTips: 'Rustic voice, journey of love together' },
+  { id: 'ishq-wala-love', title: 'Ishq Wala Love', artist: 'Various', emoji: '💝', genre: 'Upbeat', language: 'Hindi', duration: '3:45', mood: 'Young love', theme: 'This is love!', singingTips: 'Fun and youthful, perfect for dancing' },
+  { id: 'meri-aashiqui', title: 'Meri Aashiqui', artist: 'Arijit Singh', emoji: '💕', genre: 'Romantic', language: 'Hindi', duration: '4:38', mood: 'Deep love', theme: 'My only love', singingTips: 'Arijit\'s trademark emotion, pour your heart out' },
+  { id: 'khairiyat', title: 'Khairiyat', artist: 'Arijit Singh', emoji: '🥺', genre: 'Emotional', language: 'Hindi', duration: '4:30', mood: 'Missing someone', theme: 'How are you without me?', singingTips: 'Gentle and caring, checking on your love' },
+  { id: 'enna-sona', title: 'Enna Sona', artist: 'Arijit Singh', emoji: '😍', genre: 'Romantic', language: 'Hindi', duration: '4:05', mood: 'So beautiful', theme: 'You are so beautiful', singingTips: 'A.R. Rahman composition, melodic and heartfelt' },
+  { id: 'bulleya', title: 'Bulleya', artist: 'Papon', emoji: '🎭', genre: 'Soulful', language: 'Hindi', duration: '5:35', mood: 'Spiritual love', theme: 'Lost in divine love', singingTips: 'Sufi style, spiritual connection, building intensity' },
+  { id: 'nazm-nazm', title: 'Nazm Nazm', artist: 'Arko Pravo Mukherjee', emoji: '📜', genre: 'Romantic', language: 'Hindi', duration: '3:55', mood: 'Poetry of love', theme: 'Love is my poem', singingTips: 'Poetic and gentle, beautiful melody' },
+  { id: 'duniyaa', title: 'Duniyaa', artist: 'Akhil & Dhvani', emoji: '🌍', genre: 'Romantic', language: 'Hindi', duration: '3:35', mood: 'You are my world', theme: 'My whole world', singingTips: 'Catchy duet, perfect chemistry' },
+  { id: 'kalank-title', title: 'Kalank Nahi Ishq Hai', artist: 'Arijit Singh', emoji: '🌊', genre: 'Emotional', language: 'Hindi', duration: '5:05', mood: 'Epic love', theme: 'Not a stain, but love', singingTips: 'Grand and epic, powerful crescendo' },
+  { id: 'o-maahi', title: 'O Maahi', artist: 'Arijit Singh', emoji: '❤️', genre: 'Romantic', language: 'Hindi', duration: '3:50', mood: 'Calling beloved', theme: 'Oh my love', singingTips: 'Simple and sweet, calling out to your love' },
+  { id: 'humdard', title: 'Humdard', artist: 'Arijit Singh', emoji: '💗', genre: 'Romantic', language: 'Hindi', duration: '4:42', mood: 'Pain partner', theme: 'Share your pain with me', singingTips: 'Emotional support, being there always' },
+  { id: 'dil-mein-ho-tum', title: 'Dil Mein Ho Tum', artist: 'Armaan Malik', emoji: '💖', genre: 'Romantic', language: 'Hindi', duration: '3:58', mood: 'Heart belongs to you', theme: 'You are in my heart', singingTips: 'Armaan\'s smooth vocals, romantic confession' },
+];
+
+// Additional English Songs
+const moreEnglishSongs: Song[] = [
+  { id: 'at-last', title: 'At Last', artist: 'Etta James', emoji: '✨', genre: 'Classic', language: 'English', duration: '3:02', mood: 'Finally found love', theme: 'Love has arrived', singingTips: 'Jazz classic, smooth and soulful, first dance perfection' },
+  { id: 'your-song', title: 'Your Song', artist: 'Elton John', emoji: '🎹', genre: 'Classic', language: 'English', duration: '4:01', mood: 'Gift of song', theme: 'This song is for you', singingTips: 'Piano ballad, simple and genuine, Elton\'s classic' },
+  { id: 'the-way-you-look', title: 'The Way You Look Tonight', artist: 'Frank Sinatra', emoji: '🎩', genre: 'Classic', language: 'English', duration: '3:22', mood: 'Timeless elegance', theme: 'Captivated by beauty', singingTips: 'Sinatra smooth, classic crooner style' },
+  { id: 'unforgettable', title: 'Unforgettable', artist: 'Nat King Cole', emoji: '👑', genre: 'Classic', language: 'English', duration: '3:28', mood: 'Memorable love', theme: 'You are unforgettable', singingTips: 'Timeless, smooth, duet-worthy classic' },
+  { id: 'i-dont-want-to-miss', title: "I Don't Want to Miss a Thing", artist: 'Aerosmith', emoji: '🌠', genre: 'Rock', language: 'English', duration: '4:58', mood: 'Cherishing every moment', theme: 'Don\'t want to miss anything', singingTips: 'Power ballad, build to emotional explosion' },
+  { id: 'truly-madly-deeply', title: 'Truly Madly Deeply', artist: 'Savage Garden', emoji: '🏔️', genre: 'Pop', language: 'English', duration: '4:38', mood: '90s romance', theme: 'Stand with you on a mountain', singingTips: '90s classic, nostalgic and genuine' },
+  { id: 'everytime-we-touch', title: 'Everytime We Touch', artist: 'Cascada', emoji: '⚡', genre: 'Dance', language: 'English', duration: '3:24', mood: 'Electric connection', theme: 'Touch brings magic', singingTips: 'Energetic, dance while singing!' },
+  { id: 'heaven', title: 'Heaven', artist: 'Bryan Adams', emoji: '☁️', genre: 'Rock', language: 'English', duration: '4:03', mood: 'Paradise together', theme: 'Being with you is heaven', singingTips: 'Bryan Adams rock ballad, heartfelt' },
+  { id: 'everything-i-do', title: 'Everything I Do (I Do It for You)', artist: 'Bryan Adams', emoji: '🏹', genre: 'Rock', language: 'English', duration: '6:33', mood: 'Complete devotion', theme: 'Everything is for you', singingTips: 'Robin Hood classic, epic declaration' },
+  { id: 'crazy-in-love', title: 'Crazy in Love', artist: 'Beyoncé', emoji: '🔥', genre: 'Pop', language: 'English', duration: '3:56', mood: 'Wild love', theme: 'Crazy about you', singingTips: 'Beyoncé energy, confident and fierce' },
+  { id: 'like-im-gonna-lose', title: "Like I'm Gonna Lose You", artist: 'Meghan Trainor', emoji: '💑', genre: 'Pop', language: 'English', duration: '3:45', mood: 'Cherishing now', theme: 'Love like there\'s no tomorrow', singingTips: 'Duet with John Legend, tender and urgent' },
+  { id: 'lucky', title: 'Lucky', artist: 'Jason Mraz', emoji: '🍀', genre: 'Pop', language: 'English', duration: '3:08', mood: 'Lucky in love', theme: 'So lucky to be in love', singingTips: 'Colbie Caillat duet, cheerful and sweet' },
+  { id: 'die-with-a-smile', title: 'Die With A Smile', artist: 'Lady Gaga & Bruno Mars', emoji: '😊', genre: 'Pop', language: 'English', duration: '4:11', mood: 'Until the end', theme: 'Together until the last moment', singingTips: 'Modern classic duet, emotional and powerful' },
+  { id: 'shallow', title: 'Shallow', artist: 'Lady Gaga & Bradley Cooper', emoji: '🎬', genre: 'Pop', language: 'English', duration: '3:36', mood: 'Deep dive into love', theme: 'Are you happy in this modern world?', singingTips: 'A Star is Born emotion, building to glory' },
+  { id: 'rewrite-the-stars', title: 'Rewrite the Stars', artist: 'Zac Efron & Zendaya', emoji: '⭐', genre: 'Musical', language: 'English', duration: '3:37', mood: 'Defying fate', theme: 'What if we rewrite our destiny?', singingTips: 'Greatest Showman magic, theatrical duet' },
 ];
 
 // Combine all songs
-export const allSongs: Song[] = [...hindiSongs, ...englishSongs, ...nepaliSongs];
+export const allSongs: Song[] = [...hindiSongs, ...moreHindiSongs, ...englishSongs, ...moreEnglishSongs, ...nepaliSongs];
 
 // Get rich song description for display
 export const getSongDescription = (song: Song): string[] => {
