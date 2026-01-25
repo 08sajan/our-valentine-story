@@ -851,7 +851,7 @@ const KissDayContent = () => {
 
 const ValentineDayContent = () => {
   const [triggerConfetti, setTriggerConfetti] = useState(false);
-  const [activeSection, setActiveSection] = useState<'gallery' | 'letters' | 'letter' | 'game' | 'quiz' | 'wishes' | 'journey' | 'soulmate' | 'missyou' | 'photobooth' | 'openwhen' | 'hearts' | 'comfort' | 'music' | 'dreams' | 'growth' | 'future' | 'decide' | 'coupons' | 'private' | 'recordings' | 'birthday' | 'bouquets' | 'fights' | 'languages' | 'proposal' | 'period' | 'karaoke' | 'health' | 'food' | 'compliments' | 'jokes' | 'truthordare' | 'affirmations' | 'mood' | 'selfcare' | 'naughty' | 'treats' | 'pinterest' | 'escape' | 'airhostess' | 'matchgame'>('gallery');
+  const [activeSection, setActiveSection] = useState<'gallery' | 'letters' | 'letter' | 'game' | 'quiz' | 'wishes' | 'journey' | 'soulmate' | 'missyou' | 'photobooth' | 'openwhen' | 'hearts' | 'comfort' | 'music' | 'dreams' | 'growth' | 'future' | 'decide' | 'coupons' | 'private' | 'recordings' | 'birthday' | 'bouquets' | 'fights' | 'languages' | 'proposal' | 'period' | 'karaoke' | 'health' | 'food' | 'compliments' | 'jokes' | 'truthordare' | 'affirmations' | 'mood' | 'selfcare' | 'naughty' | 'treats' | 'pinterest' | 'escape' | 'airhostess' | 'matchgame' | 'wouldyourather'>('gallery');
   const [journeyPassword, setJourneyPassword] = useState('');
   const [journeyUnlocked, setJourneyUnlocked] = useState(false);
   
@@ -1057,6 +1057,7 @@ const ValentineDayContent = () => {
             { key: 'pinterest', label: 'Our Board', emoji: '📌' },
             { key: 'naughty', label: 'Naughty Q', emoji: '🔥' },
             { key: 'karaoke', label: 'Karaoke', emoji: '🎤' },
+            { key: 'wouldyourather', label: 'Would Rather', emoji: '🤔' },
             { key: 'proposal', label: 'Be My Valentine?', emoji: '💕' },
           ].map((tab) => (
             <motion.button
@@ -1729,6 +1730,17 @@ I want to know the ways you ache, the ways you hope, the tiny corners of yoursel
             <GlassCard className="p-4">
               <MemoryMatchGame />
             </GlassCard>
+          </motion.div>
+        )}
+
+        {activeSection === 'wouldyourather' && (
+          <motion.div
+            key="wouldyourather"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+          >
+            <WouldYouRather />
           </motion.div>
         )}
       </AnimatePresence>
