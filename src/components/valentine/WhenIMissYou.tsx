@@ -109,8 +109,104 @@ const activities: ActivityItem[] = [
     color: "from-yellow-400 to-amber-500",
     funMessage: "I pray for us every single day - for your happiness, our love, and our beautiful future together 💫"
   },
+  // NEW ACTIVITIES
+  {
+    id: "perfume",
+    title: "Smell Something of Mine",
+    description: "My shirt, my perfume, anything",
+    emoji: "👃",
+    color: "from-fuchsia-400 to-pink-500",
+    funMessage: "Scent is the strongest memory trigger! When you smell my perfume, I'm right there with you in spirit 🌸"
+  },
+  {
+    id: "dance",
+    title: "Dance to Our Song",
+    description: "Close your eyes and feel me there",
+    emoji: "💃",
+    color: "from-violet-400 to-purple-500",
+    funMessage: "Put on our song and sway like I'm holding you. I'm dancing with you in my heart right now! 💕"
+  },
+  {
+    id: "write",
+    title: "Write to Me",
+    description: "Pour your heart out on paper",
+    emoji: "✍️",
+    color: "from-slate-400 to-gray-500",
+    funMessage: "Write whatever you're feeling - happy, sad, excited. I want to read every thought that crosses your beautiful mind! 📝"
+  },
+  {
+    id: "stars",
+    title: "Look at the Stars",
+    description: "We're under the same sky",
+    emoji: "⭐",
+    color: "from-indigo-400 to-blue-600",
+    funMessage: "Whenever you look up at night, know that I'm looking at the same moon and stars, thinking of you 🌙"
+  },
+  {
+    id: "walk",
+    title: "Take a Walk",
+    description: "Fresh air and thoughts of us",
+    emoji: "🚶‍♀️",
+    color: "from-green-400 to-teal-500",
+    funMessage: "Walking helps clear the mind. Imagine I'm walking beside you, holding your hand 🌿"
+  },
+  {
+    id: "spa",
+    title: "Self-Care Time",
+    description: "Pamper yourself like I would",
+    emoji: "🧖‍♀️",
+    color: "from-pink-300 to-rose-400",
+    funMessage: "Take that face mask, that bath, that relaxation time. You deserve all the pampering in the world, princess! 👑"
+  },
+  {
+    id: "tea",
+    title: "Make Your Favorite Drink",
+    description: "Warm and cozy like my love",
+    emoji: "☕",
+    color: "from-amber-500 to-orange-400",
+    funMessage: "A warm cup of chai or coffee while thinking of me? That's the perfect cozy moment. Cheers, love! 🫖"
+  },
+  {
+    id: "cry",
+    title: "Let It Out",
+    description: "It's okay to cry, I understand",
+    emoji: "😢",
+    color: "from-blue-400 to-indigo-500",
+    funMessage: "Missing someone you love is hard. Cry if you need to - your tears are precious because they show how much you care 💙"
+  },
+  {
+    id: "screenshot",
+    title: "Read Our Old Chats",
+    description: "Relive our conversations",
+    emoji: "💬",
+    color: "from-emerald-400 to-green-500",
+    funMessage: "Our chat history is a love story! Reading old messages is like time traveling to happy moments 📱"
+  },
+  {
+    id: "affirmation",
+    title: "Say 'I Am Loved'",
+    description: "Because you truly are",
+    emoji: "💗",
+    color: "from-rose-400 to-red-500",
+    funMessage: "Look in the mirror and say 'I am deeply loved by someone who adores me.' Because it's 100% true! 💕"
+  },
+  {
+    id: "gift",
+    title: "Look at Our Gifts",
+    description: "Physical memories of our love",
+    emoji: "🎁",
+    color: "from-purple-400 to-pink-500",
+    funMessage: "Every gift I've given you carries my love. Hold them close and feel my warmth! 🎀"
+  },
+  {
+    id: "sleep",
+    title: "Sleep Early",
+    description: "Dream of us together",
+    emoji: "😴",
+    color: "from-blue-300 to-indigo-400",
+    funMessage: "Sweet dreams, my love! In your dreams, we can be together without any distance between us 🌙💕"
+  },
 ];
-
 const ActivityModal = ({
   activity,
   onClose
