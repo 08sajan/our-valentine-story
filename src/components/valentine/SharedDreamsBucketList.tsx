@@ -21,6 +21,10 @@ const initialBucketList: BucketItem[] = [
   { id: '6', title: 'Tokyo Love Story', description: 'Get lost in cherry blossoms and neon lights together', category: 'adventure', icon: <Plane className="w-5 h-5" />, completed: false },
   { id: '7', title: 'Maldives Overwater Villa', description: 'Wake up to turquoise waters and breakfast in bed', category: 'adventure', icon: <MapPin className="w-5 h-5" />, completed: false },
   { id: '8', title: 'Safari Adventure', description: 'Watch lions at sunrise, fall asleep under African stars', category: 'adventure', icon: <Star className="w-5 h-5" />, completed: false },
+  { id: '31', title: 'Hot Air Balloon Ride', description: 'Float above the clouds holding your hand at sunrise', category: 'adventure', icon: <Star className="w-5 h-5" />, completed: false },
+  { id: '32', title: 'Scuba Diving Together', description: 'Explore underwater worlds and find colorful fish', category: 'adventure', icon: <MapPin className="w-5 h-5" />, completed: false },
+  { id: '33', title: 'Switzerland Alps', description: 'Ski down mountains and warm up with hot chocolate', category: 'adventure', icon: <Plane className="w-5 h-5" />, completed: false },
+  { id: '34', title: 'Bali Temple Visit', description: 'Meditate together at ancient temples at sunrise', category: 'adventure', icon: <Star className="w-5 h-5" />, completed: false },
   
   // Simple Pleasures
   { id: '9', title: 'Breakfast in Bed', description: 'I make you pancakes shaped like hearts', category: 'simple', icon: <Coffee className="w-5 h-5" />, completed: false },
@@ -31,6 +35,10 @@ const initialBucketList: BucketItem[] = [
   { id: '14', title: 'Dance in the Rain', description: 'Get completely soaked while slow dancing', category: 'simple', icon: <Music className="w-5 h-5" />, completed: false },
   { id: '15', title: 'Build a Blanket Fort', description: 'Movie marathon inside our cozy fortress', category: 'simple', icon: <Home className="w-5 h-5" />, completed: false },
   { id: '16', title: 'Spa Day at Home', description: 'Face masks, candles, and pampering each other', category: 'simple', icon: <Heart className="w-5 h-5" />, completed: false },
+  { id: '35', title: 'Learn to Cook Momos', description: 'Make dumplings together, messy but fun', category: 'simple', icon: <Utensils className="w-5 h-5" />, completed: false },
+  { id: '36', title: 'Sunset Watching Ritual', description: 'Never miss a sunset together, wherever we are', category: 'simple', icon: <Star className="w-5 h-5" />, completed: false },
+  { id: '37', title: 'Plant a Tree Together', description: 'Watch it grow as our love grows', category: 'simple', icon: <Home className="w-5 h-5" />, completed: false },
+  { id: '38', title: 'Karaoke Night', description: 'Sing our hearts out even if we sound terrible', category: 'simple', icon: <Music className="w-5 h-5" />, completed: false },
   
   // Milestones
   { id: '17', title: 'Our First Home', description: 'Build our quiet sanctuary filled with love', category: 'milestone', icon: <Home className="w-5 h-5" />, completed: false },
@@ -41,6 +49,10 @@ const initialBucketList: BucketItem[] = [
   { id: '22', title: 'Grow Old Together', description: 'Hold hands on the porch swing at 80, still madly in love', category: 'milestone', icon: <Heart className="w-5 h-5" />, completed: false },
   { id: '23', title: 'Renew Our Vows', description: 'Promise forever to each other again and again', category: 'milestone', icon: <Star className="w-5 h-5" />, completed: false },
   { id: '24', title: 'Buy Matching Rings', description: 'Symbols of our unbreakable bond', category: 'milestone', icon: <Heart className="w-5 h-5" />, completed: false },
+  { id: '39', title: 'Build a Dream House', description: 'Design every room together from scratch', category: 'milestone', icon: <Home className="w-5 h-5" />, completed: false },
+  { id: '40', title: 'Start a Business Together', description: 'Build something amazing as partners', category: 'milestone', icon: <Star className="w-5 h-5" />, completed: false },
+  { id: '41', title: 'Have Three Kids', description: 'Fill our home with love, laughter and little footsteps', category: 'milestone', icon: <Heart className="w-5 h-5" />, completed: false },
+  { id: '42', title: 'Celebrate 50 Years', description: 'Golden anniversary with all our grandchildren', category: 'milestone', icon: <Star className="w-5 h-5" />, completed: false },
   
   // Romance
   { id: '25', title: 'Surprise Love Letters', description: 'Hide notes for you to find randomly', category: 'romance', icon: <Heart className="w-5 h-5" />, completed: false },
@@ -49,6 +61,10 @@ const initialBucketList: BucketItem[] = [
   { id: '28', title: 'Watch Every Sunset', description: 'Make it a tradition to never miss one together', category: 'romance', icon: <Star className="w-5 h-5" />, completed: false },
   { id: '29', title: 'Write Our Love Story', description: 'Document every chapter from the beginning', category: 'romance', icon: <Heart className="w-5 h-5" />, completed: false },
   { id: '30', title: 'Slow Dance at Home', description: 'No music needed, just our heartbeats', category: 'romance', icon: <Music className="w-5 h-5" />, completed: false },
+  { id: '43', title: 'Candlelit Bath Together', description: 'Rose petals, bubbles, and pure romance', category: 'romance', icon: <Heart className="w-5 h-5" />, completed: false },
+  { id: '44', title: 'Anniversary Scrapbook', description: 'Add memories every year forever', category: 'romance', icon: <Camera className="w-5 h-5" />, completed: false },
+  { id: '45', title: 'Private Beach Dinner', description: 'Just us, the waves, and a candlelit table', category: 'romance', icon: <Utensils className="w-5 h-5" />, completed: false },
+  { id: '46', title: 'Match Tattoos', description: 'Permanent symbols of our forever love', category: 'romance', icon: <Heart className="w-5 h-5" />, completed: false },
 ];
 
 const categoryStyles = {

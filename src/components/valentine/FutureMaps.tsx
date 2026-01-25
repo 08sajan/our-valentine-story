@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MapPin, Heart, X, Calendar, Sparkles } from 'lucide-react';
+import { MapPin, Heart, X, Calendar, Sparkles, Plus, Trash2 } from 'lucide-react';
 import { createPortal } from 'react-dom';
 
 interface FuturePin {
@@ -12,9 +12,10 @@ interface FuturePin {
   y: number;
   emoji: string;
   gradient: string;
+  isCustom?: boolean;
 }
 
-const futurePins: FuturePin[] = [
+const defaultPins: FuturePin[] = [
   {
     id: '1',
     title: 'Our First Meeting',
@@ -117,7 +118,17 @@ const futurePins: FuturePin[] = [
   }
 ];
 
-const PinModal = ({ pin, onClose }: { pin: FuturePin; onClose: () => void }) => {
+const emojiOptions = ['🏠', '🏖️', '🗼', '🏰', '🏔️', '🌸', '💒', '🎢', '🎭', '🌺', '☕', '🍕', '🎪', '🚗', '✈️', '🚂'];
+const gradientOptions = [
+  'from-pink-400 to-rose-500',
+  'from-blue-400 to-cyan-500',
+  'from-purple-400 to-violet-500',
+  'from-amber-400 to-orange-500',
+  'from-green-400 to-emerald-500',
+  'from-red-400 to-rose-500',
+];
+
+const PinModal = ({ pin, onClose, onDelete }: { pin: FuturePin; onClose: () => void; onDelete?: () => void }) => {
   return createPortal(
     <motion.div
       initial={{ opacity: 0 }}
@@ -149,6 +160,15 @@ const PinModal = ({ pin, onClose }: { pin: FuturePin; onClose: () => void }) => 
             >
               <X className="w-4 h-4 text-white" />
             </button>
+
+            {pin.isCustom && onDelete && (
+              <button
+                onClick={onDelete}
+                className="absolute top-4 left-4 w-8 h-8 rounded-full bg-red-500/50 flex items-center justify-center"
+              >
+                <Trash2 className="w-4 h-4 text-white" />
+              </button>
+            )}
 
             <motion.div
               animate={{ y: [0, -5, 0] }}
@@ -191,8 +211,143 @@ const PinModal = ({ pin, onClose }: { pin: FuturePin; onClose: () => void }) => 
   );
 };
 
+const AddPinModal = ({ onClose, onAdd }: { onClose: () => void; onAdd: (pin: Omit<FuturePin, 'id' | 'x' | 'y'>) => void }) => {
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [timeline, setTimeline] = useState('');
+  const [emoji, setEmoji] = useState('🏠');
+  const [gradient, setGradient] = useState(gradientOptions[0]);
+
+  const handleSubmit = () => {
+    if (title && description) {
+      onAdd({
+        title,
+        description,
+        timeline: timeline || 'Someday...',
+        emoji,
+        gradient,
+        isCustom: true,
+      });
+      onClose();
+    }
+  };
+
+  return createPortal(
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-[9999] flex items-center justify-center p-4"
+      style={{ backgroundColor: 'rgba(0,0,0,0.9)' }}
+      onClick={onClose}
+    >
+      <motion.div
+        initial={{ scale: 0.8, y: 50 }}
+        animate={{ scale: 1, y: 0 }}
+        exit={{ scale: 0.8, y: 50 }}
+        className="relative max-w-sm w-full bg-gradient-to-br from-purple-900/95 to-pink-900/95 rounded-3xl p-6 border border-white/20"
+        onClick={e => e.stopPropagation()}
+      >
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 flex items-center justify-center"
+        >
+          <X className="w-4 h-4 text-white" />
+        </button>
+
+        <h3 className="text-xl font-bold text-white mb-4 text-center">Add Our Dream 💕</h3>
+
+        <div className="space-y-4">
+          <input
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="Dream title..."
+            className="w-full px-4 py-2 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/40"
+          />
+
+          <textarea
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            placeholder="Describe this dream..."
+            rows={3}
+            className="w-full px-4 py-2 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/40 resize-none"
+          />
+
+          <input
+            type="text"
+            value={timeline}
+            onChange={(e) => setTimeline(e.target.value)}
+            placeholder="When? (e.g., 'Summer 2026')"
+            className="w-full px-4 py-2 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/40"
+          />
+
+          <div>
+            <p className="text-white/60 text-xs mb-2">Pick an emoji:</p>
+            <div className="flex flex-wrap gap-2">
+              {emojiOptions.map((e) => (
+                <button
+                  key={e}
+                  onClick={() => setEmoji(e)}
+                  className={`text-2xl p-2 rounded-lg transition-all ${emoji === e ? 'bg-white/30 scale-110' : 'bg-white/10'}`}
+                >
+                  {e}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <p className="text-white/60 text-xs mb-2">Pick a color:</p>
+            <div className="flex gap-2">
+              {gradientOptions.map((g) => (
+                <button
+                  key={g}
+                  onClick={() => setGradient(g)}
+                  className={`w-8 h-8 rounded-full bg-gradient-to-r ${g} transition-all ${gradient === g ? 'ring-2 ring-white scale-110' : ''}`}
+                />
+              ))}
+            </div>
+          </div>
+
+          <motion.button
+            onClick={handleSubmit}
+            className="w-full py-3 bg-gradient-to-r from-pink-500 to-rose-500 rounded-full text-white font-bold"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            Add to Our Map 💕
+          </motion.button>
+        </div>
+      </motion.div>
+    </motion.div>,
+    document.body
+  );
+};
+
 export const FutureMaps = () => {
+  const [pins, setPins] = useState<FuturePin[]>(() => {
+    const saved = localStorage.getItem('future-map-pins');
+    return saved ? JSON.parse(saved) : defaultPins;
+  });
   const [selectedPin, setSelectedPin] = useState<FuturePin | null>(null);
+  const [showAddModal, setShowAddModal] = useState(false);
+
+  useEffect(() => {
+    localStorage.setItem('future-map-pins', JSON.stringify(pins));
+  }, [pins]);
+
+  const addPin = (newPin: Omit<FuturePin, 'id' | 'x' | 'y'>) => {
+    const id = Date.now().toString();
+    const x = 10 + Math.random() * 80;
+    const y = 15 + Math.random() * 65;
+    setPins(prev => [...prev, { ...newPin, id, x, y }]);
+  };
+
+  const deletePin = (id: string) => {
+    setPins(prev => prev.filter(p => p.id !== id));
+    setSelectedPin(null);
+  };
 
   return (
     <div className="py-8 px-4">
@@ -209,6 +364,17 @@ export const FutureMaps = () => {
         </p>
       </div>
 
+      {/* Add Button */}
+      <motion.button
+        onClick={() => setShowAddModal(true)}
+        className="w-full mb-4 py-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl text-white font-medium flex items-center justify-center gap-2"
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
+      >
+        <Plus className="w-5 h-5" />
+        Add Our Dream Location
+      </motion.button>
+
       {/* Map Container */}
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
@@ -222,7 +388,6 @@ export const FutureMaps = () => {
       >
         {/* Decorative map elements */}
         <div className="absolute inset-0">
-          {/* Grid lines */}
           {[...Array(10)].map((_, i) => (
             <div
               key={`h-${i}`}
@@ -238,7 +403,6 @@ export const FutureMaps = () => {
             />
           ))}
 
-          {/* Decorative shapes */}
           <motion.div
             className="absolute w-32 h-32 rounded-full bg-blue-500/10"
             style={{ top: '20%', left: '60%' }}
@@ -261,8 +425,8 @@ export const FutureMaps = () => {
 
         {/* Connection lines between pins */}
         <svg className="absolute inset-0 w-full h-full pointer-events-none">
-          {futurePins.slice(0, -1).map((pin, i) => {
-            const nextPin = futurePins[i + 1];
+          {pins.slice(0, -1).map((pin, i) => {
+            const nextPin = pins[i + 1];
             return (
               <motion.line
                 key={`line-${i}`}
@@ -282,7 +446,7 @@ export const FutureMaps = () => {
         </svg>
 
         {/* Pins */}
-        {futurePins.map((pin, index) => (
+        {pins.map((pin, index) => (
           <motion.button
             key={pin.id}
             initial={{ scale: 0, opacity: 0 }}
@@ -294,23 +458,20 @@ export const FutureMaps = () => {
             whileHover={{ scale: 1.2 }}
             whileTap={{ scale: 0.9 }}
           >
-            {/* Pin shadow */}
             <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-4 h-2 bg-black/30 rounded-full blur-sm" />
             
-            {/* Pin */}
             <motion.div
               animate={{ y: [0, -3, 0] }}
               transition={{ duration: 2, repeat: Infinity, delay: index * 0.2 }}
-              className={`relative bg-gradient-to-b ${pin.gradient} rounded-full p-1`}
+              className={`relative bg-gradient-to-b ${pin.gradient} rounded-full p-1 ${pin.isCustom ? 'ring-2 ring-white/50' : ''}`}
               style={{ boxShadow: '0 4px 15px rgba(0,0,0,0.3)' }}
             >
               <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center">
                 <span className="text-lg">{pin.emoji}</span>
               </div>
               
-              {/* Pin point */}
               <div 
-                className={`absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-0 h-0`}
+                className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-0 h-0"
                 style={{
                   borderLeft: '8px solid transparent',
                   borderRight: '8px solid transparent',
@@ -319,7 +480,6 @@ export const FutureMaps = () => {
               />
             </motion.div>
 
-            {/* Label */}
             <div className="absolute top-full mt-3 left-1/2 transform -translate-x-1/2 whitespace-nowrap">
               <span className="text-white/80 text-xs bg-black/40 px-2 py-1 rounded">
                 {pin.title}
@@ -343,6 +503,16 @@ export const FutureMaps = () => {
           <PinModal
             pin={selectedPin}
             onClose={() => setSelectedPin(null)}
+            onDelete={selectedPin.isCustom ? () => deletePin(selectedPin.id) : undefined}
+          />
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {showAddModal && (
+          <AddPinModal
+            onClose={() => setShowAddModal(false)}
+            onAdd={addPin}
           />
         )}
       </AnimatePresence>

@@ -92,6 +92,70 @@ const initialCoupons: Coupon[] = [
     emoji: '📵',
     gradient: 'from-cyan-400 to-blue-500',
     redeemed: false
+  },
+  {
+    id: '11',
+    title: 'Shopping Spree',
+    description: 'Valid for a guilt-free shopping trip where I carry all bags and say yes to everything',
+    emoji: '🛍️',
+    gradient: 'from-pink-400 to-purple-500',
+    redeemed: false
+  },
+  {
+    id: '12',
+    title: 'Dance Party',
+    description: 'Valid for a spontaneous dance party in the living room at any time',
+    emoji: '💃',
+    gradient: 'from-amber-400 to-orange-500',
+    redeemed: false
+  },
+  {
+    id: '13',
+    title: 'Dessert First',
+    description: 'Valid for eating dessert before dinner without any judgment',
+    emoji: '🍰',
+    gradient: 'from-rose-400 to-red-500',
+    redeemed: false
+  },
+  {
+    id: '14',
+    title: 'Lazy Sunday',
+    description: 'Valid for staying in bed all day watching shows with endless snacks',
+    emoji: '🛋️',
+    gradient: 'from-blue-400 to-indigo-500',
+    redeemed: false
+  },
+  {
+    id: '15',
+    title: 'Love Letter',
+    description: 'Valid for an on-the-spot handwritten love letter from me to you',
+    emoji: '💌',
+    gradient: 'from-red-400 to-rose-500',
+    redeemed: false
+  },
+  {
+    id: '16',
+    title: 'Midnight Snack Run',
+    description: 'Valid for me getting you any snack you want, no matter what time it is',
+    emoji: '🌙',
+    gradient: 'from-violet-400 to-purple-500',
+    redeemed: false
+  },
+  {
+    id: '17',
+    title: 'Head Massage',
+    description: 'Valid for a 30-minute head and scalp massage whenever you need it',
+    emoji: '✨',
+    gradient: 'from-teal-400 to-cyan-500',
+    redeemed: false
+  },
+  {
+    id: '18',
+    title: 'Pick the Restaurant',
+    description: 'Valid for choosing any restaurant, even if I\'ve been there 100 times',
+    emoji: '🍽️',
+    gradient: 'from-orange-400 to-amber-500',
+    redeemed: false
   }
 ];
 
