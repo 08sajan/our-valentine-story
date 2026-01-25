@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Heart, Sparkles, Plane, Star, X } from "lucide-react";
+import { Heart, X } from "lucide-react";
 import ReactDOM from "react-dom";
 
 interface TreatItem {
@@ -22,15 +22,6 @@ const treats: TreatItem[] = [
     color: 'from-yellow-400 to-amber-500',
     message: 'Mmm! This pineapple is as sweet as your smile! 🍍💕',
     benefits: ['Rich in Vitamin C', 'Boosts immunity', 'Great for skin', 'Natural sweetness']
-  },
-  {
-    id: 'madhu',
-    name: 'Madhu (Honey)',
-    emoji: '🍯',
-    description: 'Golden nectar of love',
-    color: 'from-amber-400 to-yellow-600',
-    message: 'You are the honey that sweetens my life, Puntuu! 🍯💛',
-    benefits: ['Natural energy', 'Soothes throat', 'Antioxidant rich', 'Pure sweetness']
   },
   {
     id: 'coke',
@@ -296,41 +287,6 @@ export const VirtualTreats = () => {
         ))}
       </div>
 
-      {/* Airhostess Service */}
-      <motion.div
-        className="bg-gradient-to-br from-blue-500/20 to-indigo-500/20 rounded-2xl p-4 border border-blue-400/30"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.3 }}
-      >
-        <div className="flex items-center gap-3 mb-3">
-          <motion.span
-            className="text-3xl"
-            animate={{ y: [0, -5, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-          >
-            ✈️👩‍✈️
-          </motion.span>
-          <div>
-            <p className="text-white font-medium">First Class Service</p>
-            <p className="text-white/60 text-xs">I'll serve you like an airhostess! 💕</p>
-          </div>
-        </div>
-        <div className="bg-white/10 rounded-xl p-3">
-          <p className="text-white/80 text-sm italic">
-            "Welcome aboard Love Airlines! ✈️ Today's special treats are ready for you. 
-            Please sit back, relax, and let me take care of everything. Your comfort is my priority!" 
-            - Your Personal Flight Attendant 💋
-          </p>
-        </div>
-        <div className="mt-3 flex flex-wrap gap-2">
-          {['🥤 Drinks', '🍰 Desserts', '🍫 Snacks', '🍓 Fruits'].map((item, i) => (
-            <span key={i} className="bg-blue-500/30 px-3 py-1 rounded-full text-white text-xs">
-              {item}
-            </span>
-          ))}
-        </div>
-      </motion.div>
 
       {/* Romantic message */}
       <motion.div

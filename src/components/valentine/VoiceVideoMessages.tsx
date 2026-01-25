@@ -17,15 +17,13 @@ interface StoredMessage {
 const STORAGE_KEY = 'voice-video-messages';
 const SECRET_PASSWORD = 'Anjalisajan';
 
-// Password Modal
+// Password Modal - Only for Delete action
 const PasswordModal = ({
   onSuccess,
-  onCancel,
-  action
+  onCancel
 }: {
   onSuccess: () => void;
   onCancel: () => void;
-  action: 'record' | 'delete';
 }) => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState(false);
@@ -59,14 +57,14 @@ const PasswordModal = ({
           animate={{ rotate: error ? [0, -10, 10, -10, 0] : 0 }}
           transition={{ duration: 0.3 }}
         >
-          {error ? '🔒' : '💕'}
+          {error ? '🔒' : '🗑️'}
         </motion.div>
         
         <h3 className="text-xl font-serif text-pink-300 mb-2">
-          {action === 'record' ? 'Record New Message' : 'Delete Message'}
+          Delete Message
         </h3>
         <p className="text-white/60 text-sm mb-4">
-          Enter the secret password to continue
+          Enter the secret password to delete
         </p>
 
         <input
@@ -102,11 +100,11 @@ const PasswordModal = ({
           </motion.button>
           <motion.button
             onClick={handleSubmit}
-            className="flex-1 px-4 py-3 bg-gradient-to-r from-pink-500 to-rose-500 rounded-xl text-white font-medium"
+            className="flex-1 px-4 py-3 bg-gradient-to-r from-red-500 to-rose-500 rounded-xl text-white font-medium"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
           >
-            Confirm 💕
+            Delete
           </motion.button>
         </div>
       </motion.div>
@@ -447,7 +445,7 @@ export const VoiceVideoMessages = () => {
   const [messages, setMessages] = useState<StoredMessage[]>([]);
   const [recordingType, setRecordingType] = useState<'audio' | 'video' | null>(null);
   const [viewingMessage, setViewingMessage] = useState<StoredMessage | null>(null);
-  const [passwordAction, setPasswordAction] = useState<{ type: 'record' | 'delete'; payload?: 'audio' | 'video' | string } | null>(null);
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [pendingDeleteId, setPendingDeleteId] = useState<string | null>(null);
 
   // Load messages from IndexedDB on mount
@@ -472,22 +470,20 @@ export const VoiceVideoMessages = () => {
     loadMessages();
   }, []);
 
-  const requestRecord = (type: 'audio' | 'video') => {
-    setPasswordAction({ type: 'record', payload: type });
+  const startRecording = (type: 'audio' | 'video') => {
+    setRecordingType(type);
   };
 
   const requestDelete = (id: string) => {
     setPendingDeleteId(id);
-    setPasswordAction({ type: 'delete', payload: id });
+    setShowPasswordModal(true);
   };
 
   const handlePasswordSuccess = () => {
-    if (passwordAction?.type === 'record' && passwordAction.payload) {
-      setRecordingType(passwordAction.payload as 'audio' | 'video');
-    } else if (passwordAction?.type === 'delete' && pendingDeleteId) {
+    if (pendingDeleteId) {
       handleDelete(pendingDeleteId);
     }
-    setPasswordAction(null);
+    setShowPasswordModal(false);
     setPendingDeleteId(null);
   };
 
@@ -550,7 +546,7 @@ export const VoiceVideoMessages = () => {
       {/* Record Buttons */}
       <div className="flex justify-center gap-4">
         <motion.button
-          onClick={() => requestRecord('audio')}
+          onClick={() => startRecording('audio')}
           className="px-6 py-4 bg-gradient-to-r from-violet-500 to-purple-500 rounded-2xl text-white font-medium flex flex-col items-center gap-2 shadow-lg shadow-violet-500/30"
           whileHover={{ scale: 1.05, y: -2 }}
           whileTap={{ scale: 0.95 }}
@@ -559,7 +555,7 @@ export const VoiceVideoMessages = () => {
           <span className="text-sm">Record Voice</span>
         </motion.button>
         <motion.button
-          onClick={() => requestRecord('video')}
+          onClick={() => startRecording('video')}
           className="px-6 py-4 bg-gradient-to-r from-pink-500 to-rose-500 rounded-2xl text-white font-medium flex flex-col items-center gap-2 shadow-lg shadow-pink-500/30"
           whileHover={{ scale: 1.05, y: -2 }}
           whileTap={{ scale: 0.95 }}
@@ -671,14 +667,13 @@ export const VoiceVideoMessages = () => {
         )}
       </AnimatePresence>
 
-      {/* Password Modal */}
+      {/* Password Modal - Only for Delete */}
       <AnimatePresence>
-        {passwordAction && (
+        {showPasswordModal && (
           <PasswordModal
-            action={passwordAction.type}
             onSuccess={handlePasswordSuccess}
             onCancel={() => {
-              setPasswordAction(null);
+              setShowPasswordModal(false);
               setPendingDeleteId(null);
             }}
           />

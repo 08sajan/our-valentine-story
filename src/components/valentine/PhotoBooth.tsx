@@ -286,6 +286,74 @@ const CameraModal = ({
   );
 };
 
+const SECRET_PASSWORD = 'Anjalisajan';
+
+// Password Modal for Photo Deletion
+const DeletePasswordModal = ({
+  onSuccess,
+  onCancel
+}: {
+  onSuccess: () => void;
+  onCancel: () => void;
+}) => {
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState(false);
+
+  const handleSubmit = () => {
+    if (password === SECRET_PASSWORD) {
+      onSuccess();
+    } else {
+      setError(true);
+      setTimeout(() => setError(false), 500);
+    }
+  };
+
+  return ReactDOM.createPortal(
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 bg-black/90 backdrop-blur-xl z-[9999999] flex items-center justify-center p-4"
+      onClick={onCancel}
+    >
+      <motion.div
+        initial={{ scale: 0.9 }}
+        animate={{ scale: error ? [1, 1.02, 0.98, 1] : 1 }}
+        onClick={(e) => e.stopPropagation()}
+        className="bg-gradient-to-b from-rose-900/80 to-pink-900/80 rounded-2xl p-6 w-full max-w-sm border border-pink-400/30"
+      >
+        <div className="text-center mb-4">
+          <Trash2 className="w-12 h-12 text-red-400 mx-auto mb-2" />
+          <h3 className="text-xl font-bold text-rose-100">Delete Photo 🗑️</h3>
+          <p className="text-rose-300/70 text-sm">Enter password to delete</p>
+        </div>
+        
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
+          placeholder="Enter password..."
+          className={`w-full bg-rose-500/20 border rounded-xl px-4 py-3 text-white placeholder-rose-300/50 focus:outline-none focus:ring-2 focus:ring-rose-400 mb-4 ${
+            error ? 'border-red-500' : 'border-rose-400/30'
+          }`}
+          autoFocus
+        />
+        
+        <div className="flex gap-3">
+          <button onClick={onCancel} className="flex-1 bg-white/10 text-white py-3 rounded-xl font-medium">
+            Cancel
+          </button>
+          <button onClick={handleSubmit} className="flex-1 bg-gradient-to-r from-red-500 to-rose-500 text-white py-3 rounded-xl font-semibold">
+            Delete
+          </button>
+        </div>
+      </motion.div>
+    </motion.div>,
+    document.body
+  );
+};
+
 // Photo View Modal
 const PhotoViewModal = ({
   photo,
@@ -296,6 +364,8 @@ const PhotoViewModal = ({
   onClose: () => void;
   onDelete: () => void;
 }) => {
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
   const downloadPhoto = () => {
     const link = document.createElement('a');
     link.download = `puntuu-memory-${Date.now()}.jpg`;
@@ -303,138 +373,159 @@ const PhotoViewModal = ({
     link.click();
   };
 
+  const handleDeleteRequest = () => {
+    setShowDeleteModal(true);
+  };
+
+  const handleDeleteConfirm = () => {
+    setShowDeleteModal(false);
+    onDelete();
+  };
+
   return ReactDOM.createPortal(
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      style={{
-        position: 'fixed',
-        inset: 0,
-        zIndex: 999999,
-        display: 'flex',
-        flexDirection: 'column',
-        background: 'rgba(0,0,0,0.95)',
-        backdropFilter: 'blur(20px)',
-      }}
-      onClick={onClose}
-    >
-      {/* Floating hearts */}
-      {[...Array(15)].map((_, i) => (
-        <motion.span
-          key={i}
-          style={{
-            position: 'absolute',
-            fontSize: '1.5rem',
-            left: `${Math.random() * 100}%`,
-            bottom: '-10%',
-            pointerEvents: 'none',
-          }}
-          animate={{
-            y: [0, -800],
-            opacity: [0, 1, 0],
-          }}
-          transition={{
-            duration: 5 + Math.random() * 3,
-            repeat: Infinity,
-            delay: Math.random() * 3,
-          }}
-        >
-          {['💕', '✨', '💗', '🌟', '💖'][i % 5]}
-        </motion.span>
-      ))}
+    <>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        style={{
+          position: 'fixed',
+          inset: 0,
+          zIndex: 999999,
+          display: 'flex',
+          flexDirection: 'column',
+          background: 'rgba(0,0,0,0.95)',
+          backdropFilter: 'blur(20px)',
+        }}
+        onClick={onClose}
+      >
+        {/* Floating hearts */}
+        {[...Array(15)].map((_, i) => (
+          <motion.span
+            key={i}
+            style={{
+              position: 'absolute',
+              fontSize: '1.5rem',
+              left: `${Math.random() * 100}%`,
+              bottom: '-10%',
+              pointerEvents: 'none',
+            }}
+            animate={{
+              y: [0, -800],
+              opacity: [0, 1, 0],
+            }}
+            transition={{
+              duration: 5 + Math.random() * 3,
+              repeat: Infinity,
+              delay: Math.random() * 3,
+            }}
+          >
+            {['💕', '✨', '💗', '🌟', '💖'][i % 5]}
+          </motion.span>
+        ))}
 
-      {/* Header */}
-      <div style={{
-        flexShrink: 0,
-        background: 'rgba(0,0,0,0.5)',
-        padding: '16px',
-        paddingTop: 'max(16px, env(safe-area-inset-top))',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-      }}>
-        <motion.button
-          onClick={onClose}
-          style={{
-            padding: '10px',
-            background: 'rgba(255,255,255,0.1)',
-            borderRadius: '50%',
-            color: 'white',
-            border: 'none',
-            cursor: 'pointer',
-          }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <X size={20} />
-        </motion.button>
-        
-        <span style={{ color: 'white', fontFamily: 'serif' }}>
-          Our Memory 💕
-        </span>
-        
-        <motion.button
-          onClick={(e) => { e.stopPropagation(); onDelete(); }}
-          style={{
-            padding: '10px',
-            background: 'rgba(239,68,68,0.2)',
-            borderRadius: '50%',
-            color: '#ef4444',
-            border: 'none',
-            cursor: 'pointer',
-          }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <Trash2 size={20} />
-        </motion.button>
-      </div>
+        {/* Header */}
+        <div style={{
+          flexShrink: 0,
+          background: 'rgba(0,0,0,0.5)',
+          padding: '16px',
+          paddingTop: 'max(16px, env(safe-area-inset-top))',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}>
+          <motion.button
+            onClick={onClose}
+            style={{
+              padding: '10px',
+              background: 'rgba(255,255,255,0.1)',
+              borderRadius: '50%',
+              color: 'white',
+              border: 'none',
+              cursor: 'pointer',
+            }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <X size={20} />
+          </motion.button>
+          
+          <span style={{ color: 'white', fontFamily: 'serif' }}>
+            Our Memory 💕
+          </span>
+          
+          <motion.button
+            onClick={(e) => { e.stopPropagation(); handleDeleteRequest(); }}
+            style={{
+              padding: '10px',
+              background: 'rgba(239,68,68,0.2)',
+              borderRadius: '50%',
+              color: '#ef4444',
+              border: 'none',
+              cursor: 'pointer',
+            }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Trash2 size={20} />
+          </motion.button>
+        </div>
 
-      {/* Photo */}
-      <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }} onClick={(e) => e.stopPropagation()}>
-        <motion.img
-          src={photo.dataUrl}
-          alt="Memory"
-          initial={{ scale: 0.8 }}
-          animate={{ scale: 1 }}
-          style={{
-            maxWidth: '100%',
-            maxHeight: '100%',
-            borderRadius: '24px',
-            boxShadow: '0 25px 80px rgba(236,72,153,0.3)',
-          }}
-        />
-      </div>
+        {/* Photo */}
+        <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }} onClick={(e) => e.stopPropagation()}>
+          <motion.img
+            src={photo.dataUrl}
+            alt="Memory"
+            initial={{ scale: 0.8 }}
+            animate={{ scale: 1 }}
+            style={{
+              maxWidth: '100%',
+              maxHeight: '100%',
+              borderRadius: '24px',
+              boxShadow: '0 25px 80px rgba(236,72,153,0.3)',
+            }}
+          />
+        </div>
 
-      {/* Actions */}
-      <div style={{
-        flexShrink: 0,
-        background: 'rgba(0,0,0,0.5)',
-        padding: '16px',
-        paddingBottom: 'max(16px, env(safe-area-inset-bottom))',
-        display: 'flex',
-        justifyContent: 'center',
-        gap: '16px',
-      }}>
-        <motion.button
-          onClick={(e) => { e.stopPropagation(); downloadPhoto(); }}
-          style={{
-            padding: '12px 24px',
-            background: 'linear-gradient(135deg, #ec4899, #f43f5e)',
-            borderRadius: '9999px',
-            color: 'white',
-            border: 'none',
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '8px',
-          }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <Download className="w-5 h-5" />
-          Download
-        </motion.button>
-      </div>
-    </motion.div>,
+        {/* Actions */}
+        <div style={{
+          flexShrink: 0,
+          background: 'rgba(0,0,0,0.5)',
+          padding: '16px',
+          paddingBottom: 'max(16px, env(safe-area-inset-bottom))',
+          display: 'flex',
+          justifyContent: 'center',
+          gap: '16px',
+        }}>
+          <motion.button
+            onClick={(e) => { e.stopPropagation(); downloadPhoto(); }}
+            style={{
+              padding: '12px 24px',
+              background: 'linear-gradient(135deg, #ec4899, #f43f5e)',
+              borderRadius: '9999px',
+              color: 'white',
+              border: 'none',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '8px',
+            }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Download className="w-5 h-5" />
+            Download
+          </motion.button>
+        </div>
+      </motion.div>
+
+      {/* Delete Password Modal */}
+      <AnimatePresence>
+        {showDeleteModal && (
+          <DeletePasswordModal
+            onSuccess={handleDeleteConfirm}
+            onCancel={() => setShowDeleteModal(false)}
+          />
+        )}
+      </AnimatePresence>
+    </>,
     document.body
   );
 };

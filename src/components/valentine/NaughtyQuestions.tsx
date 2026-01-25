@@ -1,9 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Heart, Flame, Sparkles, RefreshCw, Lock, X, Eye, EyeOff } from "lucide-react";
-import ReactDOM from "react-dom";
-
-const SECRET_PASSWORD = 'Anjalisajan';
+import { Heart, Flame, Sparkles, RefreshCw } from "lucide-react";
 
 interface Question {
   question: string;
@@ -83,90 +80,10 @@ const intensityInfo = {
   hot: { emoji: '🌶️', name: 'Hot', color: 'from-red-500 to-rose-600' },
 };
 
-const PasswordModal = ({ onSuccess, onCancel }: { onSuccess: () => void; onCancel: () => void }) => {
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-
-  const handleSubmit = () => {
-    if (password === SECRET_PASSWORD) {
-      onSuccess();
-    } else {
-      setError(true);
-      setTimeout(() => setError(false), 500);
-    }
-  };
-
-  return ReactDOM.createPortal(
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="fixed inset-0 bg-black/90 backdrop-blur-xl z-[9999] flex items-center justify-center p-4"
-      onClick={onCancel}
-    >
-      <motion.div
-        initial={{ scale: 0.9 }}
-        animate={{ scale: error ? [1, 1.02, 0.98, 1] : 1 }}
-        onClick={(e) => e.stopPropagation()}
-        className="bg-gradient-to-b from-rose-900/80 to-pink-900/80 rounded-2xl p-6 w-full max-w-sm border border-pink-400/30"
-      >
-        <div className="text-center mb-4">
-          <Lock className="w-12 h-12 text-rose-400 mx-auto mb-2" />
-          <h3 className="text-xl font-bold text-rose-100">Private Section 🔒</h3>
-          <p className="text-rose-300/70 text-sm">Enter password to unlock</p>
-        </div>
-        
-        <div className="relative">
-          <input
-            type={showPassword ? 'text' : 'password'}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
-            placeholder="Enter password..."
-            className={`w-full bg-rose-500/20 border rounded-xl px-4 py-3 pr-10 text-white placeholder-rose-300/50 focus:outline-none focus:ring-2 focus:ring-rose-400 mb-4 ${
-              error ? 'border-red-500' : 'border-rose-400/30'
-            }`}
-            autoFocus
-          />
-          <button
-            onClick={() => setShowPassword(!showPassword)}
-            className="absolute right-3 top-3 text-rose-300/70"
-          >
-            {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-          </button>
-        </div>
-        
-        <div className="flex gap-3">
-          <button
-            onClick={onCancel}
-            className="flex-1 bg-white/10 text-white py-3 rounded-xl font-medium"
-          >
-            Cancel
-          </button>
-          <button
-            onClick={handleSubmit}
-            className="flex-1 bg-gradient-to-r from-rose-500 to-pink-500 text-white py-3 rounded-xl font-semibold"
-          >
-            Unlock 💕
-          </button>
-        </div>
-      </motion.div>
-    </motion.div>,
-    document.body
-  );
-};
-
 export const NaughtyQuestions = () => {
-  const [isUnlocked, setIsUnlocked] = useState(false);
-  const [showPasswordModal, setShowPasswordModal] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState<Question | null>(null);
   const [selectedIntensity, setSelectedIntensity] = useState<string | null>(null);
   const [answeredCount, setAnsweredCount] = useState(0);
-
-  const handleUnlock = () => {
-    setShowPasswordModal(true);
-  };
 
   const getRandomQuestion = () => {
     const filtered = selectedIntensity
@@ -179,53 +96,6 @@ export const NaughtyQuestions = () => {
       navigator.vibrate([50, 30, 50]);
     }
   };
-
-  if (!isUnlocked) {
-    return (
-      <div className="space-y-6">
-        <motion.div
-          className="text-center py-12"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-        >
-          <motion.div
-            className="text-6xl mb-4"
-            animate={{ scale: [1, 1.1, 1] }}
-            transition={{ duration: 2, repeat: Infinity }}
-          >
-            🔒
-          </motion.div>
-          <h3 className="text-xl font-serif text-rose-300 mb-2">
-            Private Questions 💕
-          </h3>
-          <p className="text-white/60 text-sm mb-6">
-            This section is password protected for our eyes only
-          </p>
-          <motion.button
-            onClick={handleUnlock}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="px-8 py-4 rounded-2xl bg-gradient-to-r from-rose-500 to-pink-500 text-white font-medium"
-          >
-            <Lock className="w-5 h-5 inline mr-2" />
-            Unlock Section
-          </motion.button>
-        </motion.div>
-
-        <AnimatePresence>
-          {showPasswordModal && (
-            <PasswordModal
-              onSuccess={() => {
-                setIsUnlocked(true);
-                setShowPasswordModal(false);
-              }}
-              onCancel={() => setShowPasswordModal(false)}
-            />
-          )}
-        </AnimatePresence>
-      </div>
-    );
-  }
 
   return (
     <div className="space-y-6">

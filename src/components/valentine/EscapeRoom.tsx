@@ -1,6 +1,6 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Key, Lock, Clock, Sparkles, Heart, Trophy, RefreshCw, X, CheckCircle2 } from "lucide-react";
+import { Key, Clock, Trophy, X, CheckCircle2 } from "lucide-react";
 import ReactDOM from "react-dom";
 
 interface Room {
@@ -137,6 +137,208 @@ const rooms: Room[] = [
         question: 'What will we be called after marriage?',
         hint: 'A family unit 👨‍👩‍👧',
         answer: 'family',
+        type: 'text'
+      },
+    ]
+  },
+  {
+    id: 'heart-maze',
+    name: 'Heart Maze Adventure',
+    emoji: '💝',
+    description: 'Find your way through the maze of love',
+    difficulty: 'Easy',
+    color: 'from-rose-400 to-pink-600',
+    completionMessage: 'You navigated straight to my heart! You always know the way! 💝',
+    puzzles: [
+      {
+        id: '1',
+        question: 'What shape represents love?',
+        hint: '❤️',
+        answer: 'heart',
+        type: 'text'
+      },
+      {
+        id: '2',
+        question: 'How many days are in the month of love (February)?',
+        hint: 'Usually 28, sometimes 29',
+        answer: '28',
+        type: 'number'
+      },
+      {
+        id: '3',
+        question: 'What flying baby is associated with love?',
+        hint: 'Has wings and a bow 🏹',
+        answer: 'cupid',
+        type: 'text'
+      },
+    ]
+  },
+  {
+    id: 'secret-garden',
+    name: 'Secret Garden Quest',
+    emoji: '🌸',
+    description: 'Discover secrets in our magical garden',
+    difficulty: 'Medium',
+    color: 'from-green-400 to-emerald-500',
+    completionMessage: 'You bloomed our secret garden with love! Every flower here is for you! 🌸',
+    puzzles: [
+      {
+        id: '1',
+        question: 'What flower symbolizes purity and new beginnings?',
+        hint: 'White, elegant, often in weddings 🌷',
+        answer: 'lily',
+        type: 'text'
+      },
+      {
+        id: '2',
+        question: 'How many petals does a traditional rose have?',
+        hint: 'Between 4 and 6',
+        answer: '5',
+        type: 'number'
+      },
+      {
+        id: '3',
+        question: 'What season is associated with love blooming?',
+        hint: 'When flowers bloom 🌷',
+        answer: 'spring',
+        type: 'text'
+      },
+      {
+        id: '4',
+        question: 'What do we pick from the garden for our love?',
+        hint: 'Colorful and fragrant 💐',
+        answer: 'flowers',
+        type: 'text'
+      },
+    ]
+  },
+  {
+    id: 'starlight-tower',
+    name: 'Starlight Tower',
+    emoji: '🌟',
+    description: 'Climb the tower of wishes and dreams',
+    difficulty: 'Hard',
+    color: 'from-indigo-400 to-purple-600',
+    completionMessage: 'You reached the top! Now make a wish under the stars with me! 🌟✨',
+    puzzles: [
+      {
+        id: '1',
+        question: 'What do lovers wish upon at night?',
+        hint: 'Twinkle twinkle ⭐',
+        answer: 'star',
+        type: 'text'
+      },
+      {
+        id: '2',
+        question: 'How many colors are in a rainbow?',
+        hint: 'ROYGBIV',
+        answer: '7',
+        type: 'number'
+      },
+      {
+        id: '3',
+        question: 'What time of day is most romantic for stargazing?',
+        hint: 'When the sun goes down 🌙',
+        answer: 'night',
+        type: 'text'
+      },
+      {
+        id: '4',
+        question: 'What do we call the path of stars across the sky?',
+        hint: 'A milky way of stars 🌌',
+        answer: 'milky way',
+        type: 'text'
+      },
+      {
+        id: '5',
+        question: 'What bright object lights up our romantic nights?',
+        hint: 'Changes shape throughout the month 🌙',
+        answer: 'moon',
+        type: 'text'
+      },
+    ]
+  },
+  {
+    id: 'treasure-island',
+    name: 'Treasure Island Romance',
+    emoji: '🏝️',
+    description: 'Find the hidden treasure of love',
+    difficulty: 'Medium',
+    color: 'from-cyan-400 to-blue-500',
+    completionMessage: 'X marks the spot! The treasure was our love all along! 🏝️💎',
+    puzzles: [
+      {
+        id: '1',
+        question: 'What surrounds an island?',
+        hint: 'Blue and wavy 🌊',
+        answer: 'water',
+        type: 'text'
+      },
+      {
+        id: '2',
+        question: 'What do you find in a treasure chest?',
+        hint: 'Shiny and valuable 💎',
+        answer: 'gold',
+        type: 'text'
+      },
+      {
+        id: '3',
+        question: 'How many wishes does a genie typically grant?',
+        hint: 'A magic number',
+        answer: '3',
+        type: 'number'
+      },
+      {
+        id: '4',
+        question: 'What do pirates follow to find treasure?',
+        hint: 'Shows X marks the spot 🗺️',
+        answer: 'map',
+        type: 'text'
+      },
+    ]
+  },
+  {
+    id: 'love-potion',
+    name: 'Love Potion Laboratory',
+    emoji: '🧪',
+    description: 'Brew the perfect love potion',
+    difficulty: 'Hard',
+    color: 'from-fuchsia-400 to-pink-600',
+    completionMessage: 'The love potion is complete! But we didn\'t need it - we already have real love! 🧪💕',
+    puzzles: [
+      {
+        id: '1',
+        question: 'What emotion does a love potion create?',
+        hint: 'The strongest emotion ❤️',
+        answer: 'love',
+        type: 'text'
+      },
+      {
+        id: '2',
+        question: 'What color is traditionally associated with magic?',
+        hint: 'Mystical and royal 💜',
+        answer: 'purple',
+        type: 'text'
+      },
+      {
+        id: '3',
+        question: 'How many ingredients for a perfect love spell? (Hint: lucky number)',
+        hint: 'Lucky number!',
+        answer: '7',
+        type: 'number'
+      },
+      {
+        id: '4',
+        question: 'What magical creature grants wishes?',
+        hint: 'Comes out of a lamp ✨',
+        answer: 'genie',
+        type: 'text'
+      },
+      {
+        id: '5',
+        question: 'What do you feel when you see someone you love?',
+        hint: 'Winged insects in your tummy 🦋',
+        answer: 'butterflies',
         type: 'text'
       },
     ]
