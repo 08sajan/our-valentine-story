@@ -51,6 +51,13 @@ import { FoodNutritionGuide } from "@/components/valentine/FoodNutritionGuide";
 import { ComplimentsSection } from "@/components/valentine/ComplimentsSection";
 import { JokesSection } from "@/components/valentine/JokesSection";
 import { TruthOrDare } from "@/components/valentine/TruthOrDare";
+import { DailyAffirmations } from "@/components/valentine/DailyAffirmations";
+import { MoodTracker } from "@/components/valentine/MoodTracker";
+import { SelfCareSection } from "@/components/valentine/SelfCareSection";
+import { NaughtyQuestions } from "@/components/valentine/NaughtyQuestions";
+import { VirtualTreats } from "@/components/valentine/VirtualTreats";
+import { PrivatePinterest } from "@/components/valentine/PrivatePinterest";
+import { EscapeRoom } from "@/components/valentine/EscapeRoom";
 import { 
   ShakeHeartsExplosion, 
   KonamiSecret, 
@@ -841,7 +848,7 @@ const KissDayContent = () => {
 
 const ValentineDayContent = () => {
   const [triggerConfetti, setTriggerConfetti] = useState(false);
-  const [activeSection, setActiveSection] = useState<'gallery' | 'letters' | 'letter' | 'game' | 'quiz' | 'wishes' | 'journey' | 'soulmate' | 'missyou' | 'photobooth' | 'openwhen' | 'hearts' | 'comfort' | 'music' | 'dreams' | 'growth' | 'future' | 'decide' | 'coupons' | 'private' | 'recordings' | 'birthday' | 'bouquets' | 'fights' | 'languages' | 'proposal' | 'period' | 'karaoke' | 'health' | 'food' | 'compliments' | 'jokes' | 'truthordare'>('gallery');
+  const [activeSection, setActiveSection] = useState<'gallery' | 'letters' | 'letter' | 'game' | 'quiz' | 'wishes' | 'journey' | 'soulmate' | 'missyou' | 'photobooth' | 'openwhen' | 'hearts' | 'comfort' | 'music' | 'dreams' | 'growth' | 'future' | 'decide' | 'coupons' | 'private' | 'recordings' | 'birthday' | 'bouquets' | 'fights' | 'languages' | 'proposal' | 'period' | 'karaoke' | 'health' | 'food' | 'compliments' | 'jokes' | 'truthordare' | 'affirmations' | 'mood' | 'selfcare' | 'naughty' | 'treats' | 'pinterest' | 'escape'>('gallery');
   const [journeyPassword, setJourneyPassword] = useState('');
   const [journeyUnlocked, setJourneyUnlocked] = useState(false);
   
@@ -1019,6 +1026,31 @@ const ValentineDayContent = () => {
         </div>
         <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 px-1">
           {[
+            { key: 'affirmations', label: 'Affirm', emoji: '✨' },
+            { key: 'mood', label: 'Mood', emoji: '💭' },
+            { key: 'selfcare', label: 'Self-Care', emoji: '🧖‍♀️' },
+            { key: 'treats', label: 'Treats', emoji: '🍰' },
+            { key: 'escape', label: 'Escape', emoji: '🔐' },
+          ].map((tab) => (
+            <motion.button
+              key={tab.key}
+              onClick={() => setActiveSection(tab.key as typeof activeSection)}
+              className={`px-2 sm:px-3 py-1.5 sm:py-2 rounded-full font-medium text-[9px] sm:text-xs whitespace-nowrap transition-all ${
+                activeSection === tab.key 
+                  ? "bg-white/30 text-white shadow-lg" 
+                  : "bg-white/10 text-white/70"
+              }`}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {tab.emoji} {tab.label}
+            </motion.button>
+          ))}
+        </div>
+        <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 px-1">
+          {[
+            { key: 'pinterest', label: 'Our Board', emoji: '📌' },
+            { key: 'naughty', label: 'Naughty Q', emoji: '🔥' },
             { key: 'karaoke', label: 'Karaoke', emoji: '🎤' },
             { key: 'proposal', label: 'Be My Valentine?', emoji: '💕' },
           ].map((tab) => (
@@ -1574,6 +1606,97 @@ I want to know the ways you ache, the ways you hope, the tiny corners of yoursel
           >
             <GlassCard className="p-4">
               <TruthOrDare />
+            </GlassCard>
+          </motion.div>
+        )}
+
+        {activeSection === 'affirmations' && (
+          <motion.div
+            key="affirmations"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+          >
+            <GlassCard className="p-4">
+              <DailyAffirmations />
+            </GlassCard>
+          </motion.div>
+        )}
+
+        {activeSection === 'mood' && (
+          <motion.div
+            key="mood"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+          >
+            <GlassCard className="p-4">
+              <MoodTracker />
+            </GlassCard>
+          </motion.div>
+        )}
+
+        {activeSection === 'selfcare' && (
+          <motion.div
+            key="selfcare"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+          >
+            <GlassCard className="p-4">
+              <SelfCareSection />
+            </GlassCard>
+          </motion.div>
+        )}
+
+        {activeSection === 'naughty' && (
+          <motion.div
+            key="naughty"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+          >
+            <GlassCard className="p-4">
+              <NaughtyQuestions />
+            </GlassCard>
+          </motion.div>
+        )}
+
+        {activeSection === 'treats' && (
+          <motion.div
+            key="treats"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+          >
+            <GlassCard className="p-4">
+              <VirtualTreats />
+            </GlassCard>
+          </motion.div>
+        )}
+
+        {activeSection === 'pinterest' && (
+          <motion.div
+            key="pinterest"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+          >
+            <GlassCard className="p-4">
+              <PrivatePinterest />
+            </GlassCard>
+          </motion.div>
+        )}
+
+        {activeSection === 'escape' && (
+          <motion.div
+            key="escape"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+          >
+            <GlassCard className="p-4">
+              <EscapeRoom />
             </GlassCard>
           </motion.div>
         )}
