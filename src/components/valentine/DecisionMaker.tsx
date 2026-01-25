@@ -17,30 +17,45 @@ const activities: Activity[] = [
   { id: '3', title: 'Ice Cream Run', description: 'Late night drive for your favorite flavor', emoji: '🍦', category: 'food' },
   { id: '4', title: 'Cook Together', description: 'Make that recipe we\'ve been wanting to try', emoji: '👨‍🍳', category: 'food' },
   { id: '5', title: 'Dessert First', description: 'Skip dinner, go straight to cake', emoji: '🎂', category: 'food' },
+  { id: '6', title: 'Breakfast for Dinner', description: 'Pancakes and waffles at 8pm? Yes please!', emoji: '🥞', category: 'food' },
+  { id: '7', title: 'Street Food Adventure', description: 'Find the best momos and chaat in town', emoji: '🥟', category: 'food' },
+  { id: '8', title: 'Bake Something Sweet', description: 'Cookies, brownies, or cake - get messy together', emoji: '🍪', category: 'food' },
   
   // Movies
-  { id: '6', title: 'Horror Movie Night', description: 'Get scared so you can hold onto me tighter', emoji: '👻', category: 'movie' },
-  { id: '7', title: 'Rom-Com Marathon', description: 'Laugh and cry at cheesy love stories together', emoji: '💝', category: 'movie' },
-  { id: '8', title: 'Rewatch Our Favorite', description: 'That movie we can quote by heart', emoji: '🎬', category: 'movie' },
-  { id: '9', title: 'Disney Night', description: 'Sing along to every song, no judgment', emoji: '🏰', category: 'movie' },
+  { id: '9', title: 'Horror Movie Night', description: 'Get scared so you can hold onto me tighter', emoji: '👻', category: 'movie' },
+  { id: '10', title: 'Rom-Com Marathon', description: 'Laugh and cry at cheesy love stories together', emoji: '💝', category: 'movie' },
+  { id: '11', title: 'Rewatch Our Favorite', description: 'That movie we can quote by heart', emoji: '🎬', category: 'movie' },
+  { id: '12', title: 'Disney Night', description: 'Sing along to every song, no judgment', emoji: '🏰', category: 'movie' },
+  { id: '13', title: 'Action Movie Marathon', description: 'Explosions and popcorn - perfect combo', emoji: '💥', category: 'movie' },
+  { id: '14', title: 'Bollywood Classics', description: 'Dance, drama, and romance all in one', emoji: '🎭', category: 'movie' },
   
   // Adventures
-  { id: '10', title: 'Midnight Drive', description: 'Windows down, music up, going nowhere specific', emoji: '🚗', category: 'adventure' },
-  { id: '11', title: 'Stargazing', description: 'Find a quiet spot and count the stars together', emoji: '⭐', category: 'adventure' },
-  { id: '12', title: 'Explore Somewhere New', description: 'Get lost in a part of town we\'ve never been', emoji: '🗺️', category: 'adventure' },
-  { id: '13', title: 'Sunrise Watch', description: 'Wake up early and witness magic together', emoji: '🌅', category: 'adventure' },
+  { id: '15', title: 'Midnight Drive', description: 'Windows down, music up, going nowhere specific', emoji: '🚗', category: 'adventure' },
+  { id: '16', title: 'Stargazing', description: 'Find a quiet spot and count the stars together', emoji: '⭐', category: 'adventure' },
+  { id: '17', title: 'Explore Somewhere New', description: 'Get lost in a part of town we\'ve never been', emoji: '🗺️', category: 'adventure' },
+  { id: '18', title: 'Sunrise Watch', description: 'Wake up early and witness magic together', emoji: '🌅', category: 'adventure' },
+  { id: '19', title: 'Hiking Date', description: 'Nature walk with stunning views', emoji: '🥾', category: 'adventure' },
+  { id: '20', title: 'Picnic in the Park', description: 'Pack snacks and find a cozy spot', emoji: '🧺', category: 'adventure' },
+  { id: '21', title: 'Rain Walk', description: 'Dance in the rain like no one\'s watching', emoji: '🌧️', category: 'adventure' },
   
   // Cozy
-  { id: '14', title: 'Blanket Fort', description: 'Build a cozy fort and hide from the world', emoji: '🏕️', category: 'cozy' },
-  { id: '15', title: 'Reading Together', description: 'Sit in comfortable silence, just being near each other', emoji: '📚', category: 'cozy' },
-  { id: '16', title: 'Nap Together', description: 'Sometimes the best activity is doing nothing', emoji: '😴', category: 'cozy' },
-  { id: '17', title: 'Hot Chocolate & Talk', description: 'Deep conversations over warm drinks', emoji: '☕', category: 'cozy' },
+  { id: '22', title: 'Blanket Fort', description: 'Build a cozy fort and hide from the world', emoji: '🏕️', category: 'cozy' },
+  { id: '23', title: 'Reading Together', description: 'Sit in comfortable silence, just being near each other', emoji: '📚', category: 'cozy' },
+  { id: '24', title: 'Nap Together', description: 'Sometimes the best activity is doing nothing', emoji: '😴', category: 'cozy' },
+  { id: '25', title: 'Hot Chocolate & Talk', description: 'Deep conversations over warm drinks', emoji: '☕', category: 'cozy' },
+  { id: '26', title: 'Puzzle Night', description: 'Work on a puzzle together piece by piece', emoji: '🧩', category: 'cozy' },
+  { id: '27', title: 'Board Games', description: 'Friendly competition and lots of laughs', emoji: '🎲', category: 'cozy' },
+  { id: '28', title: 'Spa Night at Home', description: 'Face masks, candles, and relaxation', emoji: '🧖‍♀️', category: 'cozy' },
   
   // Romantic
-  { id: '18', title: 'Dance in the Kitchen', description: 'No music needed, just hold each other and sway', emoji: '💃', category: 'romantic' },
-  { id: '19', title: 'Love Letters Night', description: 'Write each other a letter and read them aloud', emoji: '💌', category: 'romantic' },
-  { id: '20', title: 'Photo Session', description: 'Take silly and sweet pictures of us together', emoji: '📸', category: 'romantic' },
-  { id: '21', title: 'Memory Lane', description: 'Look at old photos and relive our moments', emoji: '🎞️', category: 'romantic' },
+  { id: '29', title: 'Dance in the Kitchen', description: 'No music needed, just hold each other and sway', emoji: '💃', category: 'romantic' },
+  { id: '30', title: 'Love Letters Night', description: 'Write each other a letter and read them aloud', emoji: '💌', category: 'romantic' },
+  { id: '31', title: 'Photo Session', description: 'Take silly and sweet pictures of us together', emoji: '📸', category: 'romantic' },
+  { id: '32', title: 'Memory Lane', description: 'Look at old photos and relive our moments', emoji: '🎞️', category: 'romantic' },
+  { id: '33', title: 'Candlelit Dinner', description: 'Home-cooked meal with candles and music', emoji: '🕯️', category: 'romantic' },
+  { id: '34', title: 'Sunset Watch', description: 'Find a perfect spot to watch the sunset', emoji: '🌇', category: 'romantic' },
+  { id: '35', title: 'Recreate First Date', description: 'Relive where it all began', emoji: '💕', category: 'romantic' },
+  { id: '36', title: 'Wish Upon a Star', description: 'Make wishes together under the night sky', emoji: '🌟', category: 'romantic' },
 ];
 
 const categoryColors = {

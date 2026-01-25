@@ -1,86 +1,121 @@
-import { useState } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Camera, Heart, Sparkles, X, Download, Share2 } from "lucide-react";
+import { Camera, Heart, Sparkles, X, Download, Trash2, Image, RotateCcw, FlipHorizontal } from "lucide-react";
 import ReactDOM from "react-dom";
 
-// Romantic frames with couple photos
-const frames = [
-  {
-    id: 'classic-love',
-    name: 'Classic Love',
-    image: 'https://images.unsplash.com/photo-1529634597503-139d3726fed5?w=800',
-    border: 'border-rose-400',
-    gradient: 'from-rose-500 to-pink-500',
-    overlay: 'rgba(236, 72, 153, 0.1)',
-    message: 'Forever & Always 💕',
-  },
-  {
-    id: 'golden-sunset',
-    name: 'Golden Sunset',
-    image: 'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=800',
-    border: 'border-amber-400',
-    gradient: 'from-amber-500 to-orange-500',
-    overlay: 'rgba(251, 191, 36, 0.1)',
-    message: 'Our Perfect Moment ✨',
-  },
-  {
-    id: 'romantic-silhouette',
-    name: 'Romantic Silhouette',
-    image: 'https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=800',
-    border: 'border-purple-400',
-    gradient: 'from-purple-500 to-pink-500',
-    overlay: 'rgba(168, 85, 247, 0.1)',
-    message: 'Love in the Air 💜',
-  },
-  {
-    id: 'beach-love',
-    name: 'Beach Romance',
-    image: 'https://images.unsplash.com/photo-1545389336-cf090694435e?w=800',
-    border: 'border-cyan-400',
-    gradient: 'from-cyan-500 to-blue-500',
-    overlay: 'rgba(34, 211, 238, 0.1)',
-    message: 'Ocean of Love 🌊',
-  },
-  {
-    id: 'forehead-kiss',
-    name: 'Sweet Kiss',
-    image: 'https://images.unsplash.com/photo-1494774157365-9e04c6720e47?w=800',
-    border: 'border-red-400',
-    gradient: 'from-red-500 to-rose-500',
-    overlay: 'rgba(239, 68, 68, 0.1)',
-    message: 'Sealed with a Kiss 💋',
-  },
-  {
-    id: 'holding-hands',
-    name: 'Hand in Hand',
-    image: 'https://images.unsplash.com/photo-1474552226712-ac0f0961a954?w=800',
-    border: 'border-pink-400',
-    gradient: 'from-pink-500 to-rose-500',
-    overlay: 'rgba(236, 72, 153, 0.1)',
-    message: 'Together Forever 🤝',
-  },
-];
+interface SavedPhoto {
+  id: string;
+  dataUrl: string;
+  timestamp: number;
+  filter: string;
+  frame: string;
+}
 
 // Photo filters
 const filters = [
   { id: 'none', name: 'Original', style: '' },
-  { id: 'warm', name: 'Warm', style: 'sepia(20%) saturate(120%) brightness(105%)' },
-  { id: 'romantic', name: 'Romantic', style: 'saturate(130%) brightness(105%) contrast(95%)' },
-  { id: 'dreamy', name: 'Dreamy', style: 'brightness(110%) contrast(90%) saturate(85%)' },
-  { id: 'vintage', name: 'Vintage', style: 'sepia(30%) contrast(110%) brightness(95%)' },
-  { id: 'bw', name: 'Classic B&W', style: 'grayscale(100%) contrast(110%)' },
+  { id: 'warm', name: 'Warm Love', style: 'sepia(20%) saturate(130%) brightness(105%)' },
+  { id: 'romantic', name: 'Romantic', style: 'saturate(140%) brightness(108%) contrast(95%) hue-rotate(-5deg)' },
+  { id: 'dreamy', name: 'Dreamy', style: 'brightness(112%) contrast(88%) saturate(80%) blur(0.5px)' },
+  { id: 'vintage', name: 'Vintage', style: 'sepia(35%) contrast(115%) brightness(95%)' },
+  { id: 'bw', name: 'Classic B&W', style: 'grayscale(100%) contrast(115%)' },
+  { id: 'pink', name: 'Pink Glow', style: 'saturate(120%) hue-rotate(-10deg) brightness(105%)' },
+  { id: 'golden', name: 'Golden Hour', style: 'sepia(15%) saturate(140%) brightness(108%) contrast(95%)' },
 ];
 
-// Full screen photo modal
-const PhotoModal = ({
-  frame,
-  filter,
-  onClose
+// Romantic frames
+const frames = [
+  { id: 'hearts', name: '💕 Hearts', border: '8px solid #ff69b4', shadow: '0 0 30px rgba(255,105,180,0.5)' },
+  { id: 'gold', name: '✨ Golden', border: '8px solid #ffd700', shadow: '0 0 30px rgba(255,215,0,0.5)' },
+  { id: 'rose', name: '🌹 Rose', border: '8px solid #c41e3a', shadow: '0 0 30px rgba(196,30,58,0.5)' },
+  { id: 'lavender', name: '💜 Lavender', border: '8px solid #dda0dd', shadow: '0 0 30px rgba(221,160,221,0.5)' },
+  { id: 'simple', name: '🤍 Simple', border: '4px solid white', shadow: '0 0 20px rgba(255,255,255,0.3)' },
+];
+
+const STORAGE_KEY = 'puntuu-photos';
+
+// Camera Modal Component
+const CameraModal = ({
+  onCapture,
+  onClose,
+  selectedFilter,
+  selectedFrame
 }: {
-  frame: typeof frames[0];
-  filter: typeof filters[0];
+  onCapture: (dataUrl: string) => void;
   onClose: () => void;
+  selectedFilter: typeof filters[0];
+  selectedFrame: typeof frames[0];
 }) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [stream, setStream] = useState<MediaStream | null>(null);
+  const [isMirrored, setIsMirrored] = useState(true);
+  const [countdown, setCountdown] = useState<number | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    startCamera();
+    return () => {
+      if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+      }
+    };
+  }, []);
+
+  const startCamera = async () => {
+    try {
+      const mediaStream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 720 } },
+        audio: false
+      });
+      setStream(mediaStream);
+      if (videoRef.current) {
+        videoRef.current.srcObject = mediaStream;
+      }
+    } catch (err) {
+      setError('Camera access denied. Please allow camera access to take photos.');
+    }
+  };
+
+  const capturePhoto = useCallback(() => {
+    if (!videoRef.current || !canvasRef.current) return;
+
+    // Start countdown
+    setCountdown(3);
+    let count = 3;
+    const countdownInterval = setInterval(() => {
+      count--;
+      if (count > 0) {
+        setCountdown(count);
+      } else {
+        clearInterval(countdownInterval);
+        setCountdown(null);
+        
+        // Actual capture
+        const video = videoRef.current!;
+        const canvas = canvasRef.current!;
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        
+        const ctx = canvas.getContext('2d')!;
+        
+        if (isMirrored) {
+          ctx.translate(canvas.width, 0);
+          ctx.scale(-1, 1);
+        }
+        
+        ctx.drawImage(video, 0, 0);
+        
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
+        onCapture(dataUrl);
+        
+        if ('vibrate' in navigator) {
+          navigator.vibrate([100, 50, 100]);
+        }
+      }
+    }, 1000);
+  }, [isMirrored, onCapture]);
+
   return ReactDOM.createPortal(
     <motion.div
       initial={{ opacity: 0 }}
@@ -95,62 +130,23 @@ const PhotoModal = ({
         background: 'linear-gradient(135deg, #1a0505 0%, #2d1f3d 50%, #1a0a1a 100%)',
       }}
     >
-      {/* Floating hearts */}
-      {[...Array(20)].map((_, i) => (
-        <motion.span
-          key={i}
-          style={{
-            position: 'absolute',
-            fontSize: '1.5rem',
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-            pointerEvents: 'none',
-          }}
-          animate={{
-            y: [0, -30, 0],
-            opacity: [0.2, 0.6, 0.2],
-            scale: [1, 1.2, 1],
-          }}
-          transition={{
-            duration: 3 + Math.random() * 2,
-            repeat: Infinity,
-            delay: Math.random() * 2,
-          }}
-        >
-          {['💕', '✨', '💗', '🌟', '💖'][i % 5]}
-        </motion.span>
-      ))}
-
       {/* Header */}
-      <div
-        style={{
-          flexShrink: 0,
-          background: 'rgba(0,0,0,0.6)',
-          backdropFilter: 'blur(20px)',
-          padding: '16px',
-          paddingTop: 'max(16px, env(safe-area-inset-top))',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}
-      >
-        <div />
-        <motion.div
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          className="flex items-center gap-2"
-        >
-          <Camera className="w-5 h-5 text-rose-400" />
-          <span style={{ color: 'white', fontFamily: 'serif', fontSize: '1.1rem' }}>
-            Our Photo Booth 📸
-          </span>
-        </motion.div>
+      <div style={{
+        flexShrink: 0,
+        background: 'rgba(0,0,0,0.7)',
+        backdropFilter: 'blur(20px)',
+        padding: '16px',
+        paddingTop: 'max(16px, env(safe-area-inset-top))',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+      }}>
         <motion.button
           onClick={onClose}
           style={{
             padding: '10px',
             background: 'rgba(255,255,255,0.1)',
-            borderRadius: '9999px',
+            borderRadius: '50%',
             color: 'white',
             border: 'none',
             cursor: 'pointer',
@@ -159,135 +155,284 @@ const PhotoModal = ({
         >
           <X size={20} />
         </motion.button>
+        
+        <div className="flex items-center gap-2">
+          <Camera className="w-5 h-5 text-rose-400" />
+          <span style={{ color: 'white', fontFamily: 'serif' }}>Take a Photo 📸</span>
+        </div>
+        
+        <motion.button
+          onClick={() => setIsMirrored(!isMirrored)}
+          style={{
+            padding: '10px',
+            background: isMirrored ? 'rgba(236,72,153,0.3)' : 'rgba(255,255,255,0.1)',
+            borderRadius: '50%',
+            color: 'white',
+            border: 'none',
+            cursor: 'pointer',
+          }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <FlipHorizontal size={20} />
+        </motion.button>
       </div>
 
-      {/* Main Photo */}
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '20px', overflow: 'auto' }}>
-        <motion.div
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ type: 'spring', damping: 20 }}
-          style={{
-            position: 'relative',
-            borderRadius: '24px',
-            overflow: 'hidden',
-            maxWidth: '400px',
-            width: '100%',
-            boxShadow: '0 25px 80px rgba(0,0,0,0.5)',
-          }}
-        >
-          {/* Frame border */}
+      {/* Camera View */}
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
+        {error ? (
+          <div className="text-center text-white p-6">
+            <p className="text-rose-400 mb-4">{error}</p>
+            <motion.button
+              onClick={startCamera}
+              className="px-6 py-3 bg-gradient-to-r from-rose-500 to-pink-500 rounded-full text-white"
+              whileTap={{ scale: 0.95 }}
+            >
+              <RotateCcw className="w-5 h-5 inline mr-2" />
+              Try Again
+            </motion.button>
+          </div>
+        ) : (
           <motion.div
             style={{
-              position: 'absolute',
-              inset: 0,
+              position: 'relative',
               borderRadius: '24px',
-              border: '8px solid',
-              borderImage: `linear-gradient(135deg, ${frame.gradient.includes('rose') ? '#f43f5e' : frame.gradient.includes('amber') ? '#f59e0b' : '#a855f7'}, ${frame.gradient.includes('pink') ? '#ec4899' : frame.gradient.includes('orange') ? '#f97316' : '#ec4899'}) 1`,
-              zIndex: 10,
-              pointerEvents: 'none',
-            }}
-            animate={{
-              boxShadow: [
-                '0 0 20px rgba(236, 72, 153, 0.3)',
-                '0 0 40px rgba(236, 72, 153, 0.5)',
-                '0 0 20px rgba(236, 72, 153, 0.3)',
-              ]
-            }}
-            transition={{ duration: 2, repeat: Infinity }}
-          />
-
-          {/* Photo */}
-          <img
-            src={frame.image}
-            alt={frame.name}
-            style={{
+              overflow: 'hidden',
+              maxWidth: '400px',
               width: '100%',
-              aspectRatio: '3/4',
-              objectFit: 'cover',
-              filter: filter.style,
+              border: selectedFrame.border,
+              boxShadow: selectedFrame.shadow,
             }}
-          />
-
-          {/* Overlay */}
-          <div
-            style={{
-              position: 'absolute',
-              inset: 0,
-              background: `linear-gradient(to top, ${frame.overlay} 0%, transparent 50%)`,
-            }}
-          />
-
-          {/* Message */}
-          <motion.div
-            style={{
-              position: 'absolute',
-              bottom: '20px',
-              left: 0,
-              right: 0,
-              textAlign: 'center',
-            }}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
+            initial={{ scale: 0.9 }}
+            animate={{ scale: 1 }}
           >
-            <p style={{
-              color: 'white',
-              fontFamily: 'serif',
-              fontSize: '1.25rem',
-              textShadow: '0 2px 10px rgba(0,0,0,0.8)',
-            }}>
-              {frame.message}
-            </p>
+            <video
+              ref={videoRef}
+              autoPlay
+              playsInline
+              muted
+              style={{
+                width: '100%',
+                aspectRatio: '3/4',
+                objectFit: 'cover',
+                transform: isMirrored ? 'scaleX(-1)' : 'none',
+                filter: selectedFilter.style,
+              }}
+            />
+            
+            {/* Countdown overlay */}
+            <AnimatePresence>
+              {countdown !== null && (
+                <motion.div
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  exit={{ scale: 2, opacity: 0 }}
+                  style={{
+                    position: 'absolute',
+                    inset: 0,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    background: 'rgba(0,0,0,0.5)',
+                  }}
+                >
+                  <span style={{ fontSize: '8rem', color: 'white', fontWeight: 'bold' }}>
+                    {countdown}
+                  </span>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </motion.div>
-        </motion.div>
+        )}
 
-        {/* Romantic caption */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
+        <canvas ref={canvasRef} style={{ display: 'none' }} />
+
+        {/* Capture Button */}
+        {!error && (
+          <motion.button
+            onClick={capturePhoto}
+            disabled={countdown !== null}
+            style={{
+              marginTop: '30px',
+              width: '80px',
+              height: '80px',
+              borderRadius: '50%',
+              background: 'linear-gradient(135deg, #ec4899, #f43f5e)',
+              border: '4px solid white',
+              cursor: 'pointer',
+              boxShadow: '0 10px 40px rgba(236,72,153,0.5)',
+            }}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            animate={{ boxShadow: ['0 10px 40px rgba(236,72,153,0.5)', '0 10px 60px rgba(236,72,153,0.7)', '0 10px 40px rgba(236,72,153,0.5)'] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            <Camera className="w-8 h-8 text-white mx-auto" />
+          </motion.button>
+        )}
+      </div>
+
+      {/* Filter selector at bottom */}
+      <div style={{
+        flexShrink: 0,
+        background: 'rgba(0,0,0,0.7)',
+        backdropFilter: 'blur(20px)',
+        padding: '16px',
+        paddingBottom: 'max(16px, env(safe-area-inset-bottom))',
+      }}>
+        <p className="text-white/60 text-xs text-center mb-2">Selected: {selectedFilter.name} • {selectedFrame.name}</p>
+      </div>
+    </motion.div>,
+    document.body
+  );
+};
+
+// Photo View Modal
+const PhotoViewModal = ({
+  photo,
+  onClose,
+  onDelete
+}: {
+  photo: SavedPhoto;
+  onClose: () => void;
+  onDelete: () => void;
+}) => {
+  const downloadPhoto = () => {
+    const link = document.createElement('a');
+    link.download = `puntuu-memory-${Date.now()}.jpg`;
+    link.href = photo.dataUrl;
+    link.click();
+  };
+
+  return ReactDOM.createPortal(
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      style={{
+        position: 'fixed',
+        inset: 0,
+        zIndex: 999999,
+        display: 'flex',
+        flexDirection: 'column',
+        background: 'rgba(0,0,0,0.95)',
+        backdropFilter: 'blur(20px)',
+      }}
+      onClick={onClose}
+    >
+      {/* Floating hearts */}
+      {[...Array(15)].map((_, i) => (
+        <motion.span
+          key={i}
           style={{
-            marginTop: '24px',
-            textAlign: 'center',
-            padding: '16px 24px',
-            background: 'rgba(255,255,255,0.1)',
-            borderRadius: '16px',
-            maxWidth: '400px',
+            position: 'absolute',
+            fontSize: '1.5rem',
+            left: `${Math.random() * 100}%`,
+            bottom: '-10%',
+            pointerEvents: 'none',
+          }}
+          animate={{
+            y: [0, -800],
+            opacity: [0, 1, 0],
+          }}
+          transition={{
+            duration: 5 + Math.random() * 3,
+            repeat: Infinity,
+            delay: Math.random() * 3,
           }}
         >
-          <p style={{ color: 'white', fontFamily: 'serif', lineHeight: 1.6 }}>
-            "Every photo of us tells a story, and I want our story to last forever, Puntuu" 💕
-          </p>
-        </motion.div>
+          {['💕', '✨', '💗', '🌟', '💖'][i % 5]}
+        </motion.span>
+      ))}
 
-        {/* Action buttons */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6 }}
-          style={{ display: 'flex', gap: '16px', marginTop: '20px' }}
+      {/* Header */}
+      <div style={{
+        flexShrink: 0,
+        background: 'rgba(0,0,0,0.5)',
+        padding: '16px',
+        paddingTop: 'max(16px, env(safe-area-inset-top))',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+      }}>
+        <motion.button
+          onClick={onClose}
+          style={{
+            padding: '10px',
+            background: 'rgba(255,255,255,0.1)',
+            borderRadius: '50%',
+            color: 'white',
+            border: 'none',
+            cursor: 'pointer',
+          }}
+          whileTap={{ scale: 0.95 }}
         >
-          <motion.button
-            style={{
-              padding: '12px 24px',
-              background: 'linear-gradient(135deg, #ec4899, #f43f5e)',
-              borderRadius: '9999px',
-              color: 'white',
-              border: 'none',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-              fontWeight: 500,
-            }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <Heart className="w-5 h-5" fill="white" />
-            Save Memory
-          </motion.button>
-        </motion.div>
+          <X size={20} />
+        </motion.button>
+        
+        <span style={{ color: 'white', fontFamily: 'serif' }}>
+          Our Memory 💕
+        </span>
+        
+        <motion.button
+          onClick={(e) => { e.stopPropagation(); onDelete(); }}
+          style={{
+            padding: '10px',
+            background: 'rgba(239,68,68,0.2)',
+            borderRadius: '50%',
+            color: '#ef4444',
+            border: 'none',
+            cursor: 'pointer',
+          }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <Trash2 size={20} />
+        </motion.button>
+      </div>
+
+      {/* Photo */}
+      <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }} onClick={(e) => e.stopPropagation()}>
+        <motion.img
+          src={photo.dataUrl}
+          alt="Memory"
+          initial={{ scale: 0.8 }}
+          animate={{ scale: 1 }}
+          style={{
+            maxWidth: '100%',
+            maxHeight: '100%',
+            borderRadius: '24px',
+            boxShadow: '0 25px 80px rgba(236,72,153,0.3)',
+          }}
+        />
+      </div>
+
+      {/* Actions */}
+      <div style={{
+        flexShrink: 0,
+        background: 'rgba(0,0,0,0.5)',
+        padding: '16px',
+        paddingBottom: 'max(16px, env(safe-area-inset-bottom))',
+        display: 'flex',
+        justifyContent: 'center',
+        gap: '16px',
+      }}>
+        <motion.button
+          onClick={(e) => { e.stopPropagation(); downloadPhoto(); }}
+          style={{
+            padding: '12px 24px',
+            background: 'linear-gradient(135deg, #ec4899, #f43f5e)',
+            borderRadius: '9999px',
+            color: 'white',
+            border: 'none',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+          }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <Download className="w-5 h-5" />
+          Download
+        </motion.button>
       </div>
     </motion.div>,
     document.body
@@ -295,16 +440,45 @@ const PhotoModal = ({
 };
 
 export const PhotoBooth = () => {
-  const [selectedFrame, setSelectedFrame] = useState<number | null>(null);
   const [selectedFilter, setSelectedFilter] = useState(0);
-  const [viewingPhoto, setViewingPhoto] = useState<typeof frames[0] | null>(null);
+  const [selectedFrame, setSelectedFrame] = useState(0);
+  const [showCamera, setShowCamera] = useState(false);
+  const [savedPhotos, setSavedPhotos] = useState<SavedPhoto[]>([]);
+  const [viewingPhoto, setViewingPhoto] = useState<SavedPhoto | null>(null);
 
-  const handleFrameClick = (index: number) => {
-    setSelectedFrame(index);
-    setViewingPhoto(frames[index]);
-    if ('vibrate' in navigator) {
-      navigator.vibrate([50, 30, 50]);
+  // Load saved photos from localStorage
+  useEffect(() => {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored) {
+      try {
+        setSavedPhotos(JSON.parse(stored));
+      } catch (e) {
+        console.error('Failed to load photos');
+      }
     }
+  }, []);
+
+  // Save photos to localStorage
+  const savePhotos = (photos: SavedPhoto[]) => {
+    setSavedPhotos(photos);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(photos));
+  };
+
+  const handleCapture = (dataUrl: string) => {
+    const newPhoto: SavedPhoto = {
+      id: Date.now().toString(),
+      dataUrl,
+      timestamp: Date.now(),
+      filter: filters[selectedFilter].name,
+      frame: frames[selectedFrame].name,
+    };
+    savePhotos([newPhoto, ...savedPhotos]);
+    setShowCamera(false);
+  };
+
+  const handleDelete = (id: string) => {
+    savePhotos(savedPhotos.filter(p => p.id !== id));
+    setViewingPhoto(null);
   };
 
   return (
@@ -326,74 +500,110 @@ export const PhotoBooth = () => {
           Our Photo Booth
         </h3>
         <p className="text-white/60 text-xs">
-          Tap any romantic moment to see it bigger 💕
+          Take real photos and save our memories forever 💕
         </p>
       </motion.div>
 
+      {/* Take Photo Button */}
+      <motion.button
+        onClick={() => setShowCamera(true)}
+        className="w-full py-4 rounded-2xl bg-gradient-to-r from-rose-500 to-pink-500 text-white font-medium flex items-center justify-center gap-3"
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
+        style={{ boxShadow: '0 10px 40px rgba(236,72,153,0.4)' }}
+      >
+        <Camera className="w-6 h-6" />
+        Take a Photo Together
+        <Sparkles className="w-5 h-5" />
+      </motion.button>
+
       {/* Filter Selection */}
-      <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
-        {filters.map((filter, index) => (
-          <motion.button
-            key={filter.id}
-            onClick={() => setSelectedFilter(index)}
-            className={`flex-shrink-0 px-3 py-1.5 rounded-full text-xs font-medium transition-all ${
-              selectedFilter === index
-                ? 'bg-gradient-to-r from-rose-500 to-pink-500 text-white'
-                : 'bg-white/10 text-white/70'
-            }`}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            {filter.name}
-          </motion.button>
-        ))}
+      <div>
+        <p className="text-white/60 text-xs mb-2">Choose a filter:</p>
+        <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+          {filters.map((filter, index) => (
+            <motion.button
+              key={filter.id}
+              onClick={() => setSelectedFilter(index)}
+              className={`flex-shrink-0 px-4 py-2 rounded-full text-xs font-medium transition-all ${
+                selectedFilter === index
+                  ? 'bg-gradient-to-r from-rose-500 to-pink-500 text-white'
+                  : 'bg-white/10 text-white/70'
+              }`}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {filter.name}
+            </motion.button>
+          ))}
+        </div>
       </div>
 
-      {/* Photo Grid */}
-      <div className="grid grid-cols-2 gap-3">
-        {frames.map((frame, index) => (
-          <motion.button
-            key={frame.id}
-            onClick={() => handleFrameClick(index)}
-            className={`relative rounded-2xl overflow-hidden border-2 ${
-              selectedFrame === index ? frame.border + ' ring-2 ring-white/50' : 'border-white/20'
-            }`}
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: index * 0.1 }}
-            whileHover={{ scale: 1.03, y: -3 }}
-            whileTap={{ scale: 0.97 }}
-          >
-            <div className="aspect-[3/4] overflow-hidden">
-              <img
-                src={frame.image}
-                alt={frame.name}
-                className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
-                style={{ filter: filters[selectedFilter].style }}
-                loading="lazy"
-              />
-            </div>
-            
-            {/* Gradient overlay */}
-            <div className={`absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent`} />
-            
-            {/* Frame info */}
-            <div className="absolute bottom-0 left-0 right-0 p-3 text-center">
-              <p className="text-white font-medium text-sm">{frame.name}</p>
-              <p className="text-white/70 text-xs">{frame.message}</p>
-            </div>
+      {/* Frame Selection */}
+      <div>
+        <p className="text-white/60 text-xs mb-2">Choose a frame:</p>
+        <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+          {frames.map((frame, index) => (
+            <motion.button
+              key={frame.id}
+              onClick={() => setSelectedFrame(index)}
+              className={`flex-shrink-0 px-4 py-2 rounded-full text-xs font-medium transition-all ${
+                selectedFrame === index
+                  ? 'bg-gradient-to-r from-rose-500 to-pink-500 text-white'
+                  : 'bg-white/10 text-white/70'
+              }`}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {frame.name}
+            </motion.button>
+          ))}
+        </div>
+      </div>
 
-            {/* Selection glow */}
-            {selectedFrame === index && (
-              <motion.div
-                className="absolute inset-0 pointer-events-none"
-                style={{ boxShadow: 'inset 0 0 30px rgba(236, 72, 153, 0.3)' }}
-                animate={{ opacity: [0.5, 1, 0.5] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              />
-            )}
-          </motion.button>
-        ))}
+      {/* Saved Photos Gallery */}
+      <div>
+        <div className="flex items-center justify-between mb-3">
+          <p className="text-white/80 text-sm font-medium flex items-center gap-2">
+            <Heart className="w-4 h-4 text-rose-400" />
+            Our Memories ({savedPhotos.length})
+          </p>
+        </div>
+
+        {savedPhotos.length === 0 ? (
+          <motion.div
+            className="text-center py-12 bg-white/5 rounded-2xl border border-white/10"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+          >
+            <Image className="w-12 h-12 text-white/30 mx-auto mb-3" />
+            <p className="text-white/50 text-sm">No photos yet!</p>
+            <p className="text-white/30 text-xs">Take your first photo together 💕</p>
+          </motion.div>
+        ) : (
+          <div className="grid grid-cols-3 gap-2">
+            {savedPhotos.map((photo, index) => (
+              <motion.button
+                key={photo.id}
+                onClick={() => setViewingPhoto(photo)}
+                className="relative aspect-square rounded-xl overflow-hidden"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: index * 0.05 }}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <img
+                  src={photo.dataUrl}
+                  alt="Memory"
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                <Heart className="absolute bottom-2 right-2 w-4 h-4 text-rose-400 fill-rose-400" />
+              </motion.button>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Romantic message */}
@@ -404,18 +614,30 @@ export const PhotoBooth = () => {
         transition={{ delay: 0.5 }}
       >
         <p className="text-white/80 font-serif text-sm italic">
-          "One day, we'll have a real photo booth full of our moments. 
-          Until then, these dreams keep me going, Puntuu!" 📸💕
+          "Every photo of us is a treasure. I can't wait to fill this with 
+          all our beautiful moments together, Puntuu!" 📸💕
         </p>
       </motion.div>
 
-      {/* Fullscreen Modal */}
+      {/* Camera Modal */}
+      <AnimatePresence>
+        {showCamera && (
+          <CameraModal
+            onCapture={handleCapture}
+            onClose={() => setShowCamera(false)}
+            selectedFilter={filters[selectedFilter]}
+            selectedFrame={frames[selectedFrame]}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Photo View Modal */}
       <AnimatePresence>
         {viewingPhoto && (
-          <PhotoModal
-            frame={viewingPhoto}
-            filter={filters[selectedFilter]}
+          <PhotoViewModal
+            photo={viewingPhoto}
             onClose={() => setViewingPhoto(null)}
+            onDelete={() => handleDelete(viewingPhoto.id)}
           />
         )}
       </AnimatePresence>
