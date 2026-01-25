@@ -58,6 +58,8 @@ import { NaughtyQuestions } from "@/components/valentine/NaughtyQuestions";
 import { VirtualTreats } from "@/components/valentine/VirtualTreats";
 import { PrivatePinterest } from "@/components/valentine/PrivatePinterest";
 import { EscapeRoom } from "@/components/valentine/EscapeRoom";
+import { AirHostessRoleplay } from "@/components/valentine/AirHostessRoleplay";
+import { MemoryMatchGame } from "@/components/valentine/MemoryMatchGame";
 import { 
   ShakeHeartsExplosion, 
   KonamiSecret, 
@@ -848,7 +850,7 @@ const KissDayContent = () => {
 
 const ValentineDayContent = () => {
   const [triggerConfetti, setTriggerConfetti] = useState(false);
-  const [activeSection, setActiveSection] = useState<'gallery' | 'letters' | 'letter' | 'game' | 'quiz' | 'wishes' | 'journey' | 'soulmate' | 'missyou' | 'photobooth' | 'openwhen' | 'hearts' | 'comfort' | 'music' | 'dreams' | 'growth' | 'future' | 'decide' | 'coupons' | 'private' | 'recordings' | 'birthday' | 'bouquets' | 'fights' | 'languages' | 'proposal' | 'period' | 'karaoke' | 'health' | 'food' | 'compliments' | 'jokes' | 'truthordare' | 'affirmations' | 'mood' | 'selfcare' | 'naughty' | 'treats' | 'pinterest' | 'escape'>('gallery');
+  const [activeSection, setActiveSection] = useState<'gallery' | 'letters' | 'letter' | 'game' | 'quiz' | 'wishes' | 'journey' | 'soulmate' | 'missyou' | 'photobooth' | 'openwhen' | 'hearts' | 'comfort' | 'music' | 'dreams' | 'growth' | 'future' | 'decide' | 'coupons' | 'private' | 'recordings' | 'birthday' | 'bouquets' | 'fights' | 'languages' | 'proposal' | 'period' | 'karaoke' | 'health' | 'food' | 'compliments' | 'jokes' | 'truthordare' | 'affirmations' | 'mood' | 'selfcare' | 'naughty' | 'treats' | 'pinterest' | 'escape' | 'airhostess' | 'matchgame'>('gallery');
   const [journeyPassword, setJourneyPassword] = useState('');
   const [journeyUnlocked, setJourneyUnlocked] = useState(false);
   
@@ -1031,6 +1033,8 @@ const ValentineDayContent = () => {
             { key: 'selfcare', label: 'Self-Care', emoji: '🧖‍♀️' },
             { key: 'treats', label: 'Treats', emoji: '🍰' },
             { key: 'escape', label: 'Escape', emoji: '🔐' },
+            { key: 'airhostess', label: 'Airhostess', emoji: '✈️' },
+            { key: 'matchgame', label: 'Match Game', emoji: '🃏' },
           ].map((tab) => (
             <motion.button
               key={tab.key}
@@ -1697,6 +1701,32 @@ I want to know the ways you ache, the ways you hope, the tiny corners of yoursel
           >
             <GlassCard className="p-4">
               <EscapeRoom />
+            </GlassCard>
+          </motion.div>
+        )}
+
+        {activeSection === 'airhostess' && (
+          <motion.div
+            key="airhostess"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+          >
+            <GlassCard className="p-4">
+              <AirHostessRoleplay />
+            </GlassCard>
+          </motion.div>
+        )}
+
+        {activeSection === 'matchgame' && (
+          <motion.div
+            key="matchgame"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+          >
+            <GlassCard className="p-4">
+              <MemoryMatchGame />
             </GlassCard>
           </motion.div>
         )}

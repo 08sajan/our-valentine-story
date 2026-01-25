@@ -64,6 +64,12 @@ const scenarios: Fantasy[] = [
   { id: '10', title: 'Truth or Dare', description: 'The dares get naughtier and naughtier until clothes are optional...', emoji: '🎯', intensity: 'hot', details: '"I dare you to..." Each dare pushing boundaries. Each truth revealing desires...' },
   { id: '11', title: 'Dominant & Submissive', description: 'Tonight we have roles to play. Safe word ready. Total trust, total surrender.', emoji: '⛓️', intensity: 'wild', details: 'Complete power exchange. Commands given. Commands obeyed. Safe, consensual, incredibly hot...' },
   { id: '12', title: 'Birthday Surprise', description: 'It\'s your special day. I\'m your gift. Unwrap me however you want...', emoji: '🎁', intensity: 'hot', details: 'Wearing nothing but a ribbon. "Happy birthday. Do whatever you want to me tonight..."' },
+  { id: '13', title: 'Nurse & Patient', description: 'You\'re here to take my temperature... but things are about to get very hot.', emoji: '👩‍⚕️', intensity: 'hot', details: 'Wearing that cute nurse outfit. "Let me check your vitals..." Your hands explore everywhere...' },
+  { id: '14', title: 'Teacher & Student', description: 'After-hours tutoring session... the lesson is about to get very personal.', emoji: '📚', intensity: 'hot', details: '"Stay after class." The door locks. Your grades depend on how well you... perform...' },
+  { id: '15', title: 'Fitness Instructor', description: 'Private gym session... time to work on your flexibility and stamina.', emoji: '🏋️‍♀️', intensity: 'medium', details: 'In tight workout clothes. "Let me help you stretch..." Hands guiding your body into new positions...' },
+  { id: '16', title: 'Room Service', description: 'I ordered something special from room service... and it\'s you.', emoji: '🛎️', intensity: 'hot', details: 'A knock on the door. You walk in with a smile. "Your special order has arrived..."' },
+  { id: '17', title: 'Photography Session', description: 'Boudoir photoshoot gets increasingly revealing... the camera isn\'t the only thing capturing heat.', emoji: '📷', intensity: 'wild', details: '"Now pose for me..." Each photo more daring. Soon the camera is forgotten...' },
+  { id: '18', title: 'Dancer for a Night', description: 'Private dance, just for me. Those moves, those eyes, that body...', emoji: '💃', intensity: 'wild', details: 'Music playing. You move closer, dancing just for me. Every sway hypnotizing...' },
 ];
 
 const intensityColors = {
