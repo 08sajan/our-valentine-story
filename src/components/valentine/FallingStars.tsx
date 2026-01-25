@@ -17,18 +17,33 @@ const promisesList = [
   "I promise to choose the hard days with you over easy days with anyone else 💪",
   "I promise to love you exactly as you are - the soft parts and complicated thoughts 💖",
   "I promise to be the one who knows when your mind is too loud 🧠",
+  "I promise to grow old with you and still look at you the same way I do now 👴👵",
+  "I promise to make you laugh when you want to cry 😂",
+  "I promise to hold you tight during thunderstorms and scary movie nights 🌩️",
+  "I promise to learn your love language and speak it every single day 💬",
+  "I promise to be patient with you on your hardest days 🌈",
+  "I promise to cook for you even if my cooking isn't the best 👨‍🍳",
+  "I promise to dance with you in the kitchen at midnight 💃🕺",
+  "I promise to always take your side, even when you're being silly 🤭",
+  "I promise to write you letters even when we're old and gray ✉️",
+  "I promise to celebrate your smallest wins like they're the biggest achievements 🎉",
+  "I promise to never go to bed angry with you 🌙",
+  "I promise to make every anniversary feel like our first date 💐",
+  "I promise to support your dreams like they're my own 🌟",
+  "I promise to be your biggest fan and your safest place 🏆",
+  "I promise to hold your hand through hospitals and hard times 🏥",
 ];
 
 export const FallingStars = () => {
   const [revealedPromises, setRevealedPromises] = useState<Set<number>>(new Set());
   const [activePromise, setActivePromise] = useState<{ index: number; text: string } | null>(null);
 
-  const stars = [...Array(15)].map((_, i) => ({
+  const stars = [...Array(30)].map((_, i) => ({
     id: i,
-    x: 5 + (i % 5) * 18 + Math.random() * 5,
-    y: 15 + Math.floor(i / 5) * 25 + Math.random() * 5,
-    size: 1 + Math.random() * 0.5,
-    delay: i * 0.1,
+    x: 5 + (i % 6) * 15 + Math.random() * 5,
+    y: 10 + Math.floor(i / 6) * 16 + Math.random() * 5,
+    size: 0.8 + Math.random() * 0.4,
+    delay: i * 0.05,
   }));
 
   const handleStarClick = (index: number) => {

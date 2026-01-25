@@ -46,6 +46,11 @@ import { ILoveYouLanguages } from "@/components/valentine/ILoveYouLanguages";
 import { ValentineProposal } from "@/components/valentine/ValentineProposal";
 import { PeriodTracker } from "@/components/valentine/PeriodTracker";
 import { KaraokeSection } from "@/components/valentine/KaraokeSection";
+import { HealthSection } from "@/components/valentine/HealthSection";
+import { FoodNutritionGuide } from "@/components/valentine/FoodNutritionGuide";
+import { ComplimentsSection } from "@/components/valentine/ComplimentsSection";
+import { JokesSection } from "@/components/valentine/JokesSection";
+import { TruthOrDare } from "@/components/valentine/TruthOrDare";
 import { 
   ShakeHeartsExplosion, 
   KonamiSecret, 
@@ -836,7 +841,9 @@ const KissDayContent = () => {
 
 const ValentineDayContent = () => {
   const [triggerConfetti, setTriggerConfetti] = useState(false);
-  const [activeSection, setActiveSection] = useState<'gallery' | 'letters' | 'letter' | 'game' | 'quiz' | 'wishes' | 'journey' | 'soulmate' | 'missyou' | 'photobooth' | 'openwhen' | 'hearts' | 'comfort' | 'music' | 'dreams' | 'growth' | 'future' | 'decide' | 'coupons' | 'private' | 'recordings' | 'birthday' | 'bouquets' | 'fights' | 'languages' | 'proposal' | 'period' | 'karaoke'>('gallery');
+  const [activeSection, setActiveSection] = useState<'gallery' | 'letters' | 'letter' | 'game' | 'quiz' | 'wishes' | 'journey' | 'soulmate' | 'missyou' | 'photobooth' | 'openwhen' | 'hearts' | 'comfort' | 'music' | 'dreams' | 'growth' | 'future' | 'decide' | 'coupons' | 'private' | 'recordings' | 'birthday' | 'bouquets' | 'fights' | 'languages' | 'proposal' | 'period' | 'karaoke' | 'health' | 'food' | 'compliments' | 'jokes' | 'truthordare'>('gallery');
+  const [journeyPassword, setJourneyPassword] = useState('');
+  const [journeyUnlocked, setJourneyUnlocked] = useState(false);
   
   useEffect(() => {
     setTriggerConfetti(true);
@@ -989,6 +996,29 @@ const ValentineDayContent = () => {
         </div>
         <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 px-1">
           {[
+            { key: 'health', label: 'Health', emoji: '🩺' },
+            { key: 'food', label: 'Food Guide', emoji: '🥗' },
+            { key: 'compliments', label: 'Compliments', emoji: '💕' },
+            { key: 'jokes', label: 'Jokes', emoji: '😂' },
+            { key: 'truthordare', label: 'Truth/Dare', emoji: '🎯' },
+          ].map((tab) => (
+            <motion.button
+              key={tab.key}
+              onClick={() => setActiveSection(tab.key as typeof activeSection)}
+              className={`px-2 sm:px-3 py-1.5 sm:py-2 rounded-full font-medium text-[9px] sm:text-xs whitespace-nowrap transition-all ${
+                activeSection === tab.key 
+                  ? "bg-white/30 text-white shadow-lg" 
+                  : "bg-white/10 text-white/70"
+              }`}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {tab.emoji} {tab.label}
+            </motion.button>
+          ))}
+        </div>
+        <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 px-1">
+          {[
             { key: 'karaoke', label: 'Karaoke', emoji: '🎤' },
             { key: 'proposal', label: 'Be My Valentine?', emoji: '💕' },
           ].map((tab) => (
@@ -1097,7 +1127,42 @@ const ValentineDayContent = () => {
             exit={{ opacity: 0, x: 20 }}
           >
             <GlassCard className="p-4 sm:p-6">
-              <RelationshipCountdown />
+              {!journeyUnlocked ? (
+                <div className="text-center space-y-4">
+                  <motion.div
+                    className="text-4xl"
+                    animate={{ scale: [1, 1.1, 1] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  >
+                    🔐
+                  </motion.div>
+                  <h3 className="text-lg font-serif text-rose-300">Our Journey is Protected</h3>
+                  <p className="text-white/60 text-sm">Enter password to unlock</p>
+                  <input
+                    type="password"
+                    value={journeyPassword}
+                    onChange={(e) => setJourneyPassword(e.target.value)}
+                    placeholder="Enter password..."
+                    className="w-full max-w-xs mx-auto px-4 py-2 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/40 text-center"
+                  />
+                  <motion.button
+                    onClick={() => {
+                      if (journeyPassword === 'Anjalisajan') {
+                        setJourneyUnlocked(true);
+                      } else {
+                        alert('Wrong password! 💕');
+                      }
+                    }}
+                    className="px-6 py-2 bg-gradient-to-r from-rose-500 to-pink-500 rounded-full text-white font-medium"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    Unlock 💕
+                  </motion.button>
+                </div>
+              ) : (
+                <RelationshipCountdown />
+              )}
             </GlassCard>
           </motion.div>
         )}
@@ -1444,6 +1509,71 @@ I want to know the ways you ache, the ways you hope, the tiny corners of yoursel
           >
             <GlassCard className="p-4">
               <KaraokeSection />
+            </GlassCard>
+          </motion.div>
+        )}
+
+        {activeSection === 'health' && (
+          <motion.div
+            key="health"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+          >
+            <GlassCard className="p-4">
+              <HealthSection />
+            </GlassCard>
+          </motion.div>
+        )}
+
+        {activeSection === 'food' && (
+          <motion.div
+            key="food"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+          >
+            <GlassCard className="p-4">
+              <FoodNutritionGuide />
+            </GlassCard>
+          </motion.div>
+        )}
+
+        {activeSection === 'compliments' && (
+          <motion.div
+            key="compliments"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+          >
+            <GlassCard className="p-4">
+              <ComplimentsSection />
+            </GlassCard>
+          </motion.div>
+        )}
+
+        {activeSection === 'jokes' && (
+          <motion.div
+            key="jokes"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+          >
+            <GlassCard className="p-4">
+              <JokesSection />
+            </GlassCard>
+          </motion.div>
+        )}
+
+        {activeSection === 'truthordare' && (
+          <motion.div
+            key="truthordare"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+          >
+            <GlassCard className="p-4">
+              <TruthOrDare />
             </GlassCard>
           </motion.div>
         )}
