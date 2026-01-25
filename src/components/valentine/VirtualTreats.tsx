@@ -77,6 +77,42 @@ const treats: TreatItem[] = [
     message: 'You\'re the mango to my lassi, the sweet to my treat! 🥭💛',
     benefits: ['Vitamin A & C', 'Digestive aid', 'Summer favorite', 'Natural sweetness']
   },
+  {
+    id: 'pizza',
+    name: 'Hot Pizza',
+    emoji: '🍕',
+    description: 'Our favorite comfort food',
+    color: 'from-orange-400 to-red-500',
+    message: 'Pizza nights with you are the best! 🍕❤️',
+    benefits: ['Comfort food', 'Sharing moment', 'Movie night', 'Pure happiness']
+  },
+  {
+    id: 'coffee',
+    name: 'Hot Coffee',
+    emoji: '☕',
+    description: 'Warm and cozy',
+    color: 'from-amber-600 to-amber-800',
+    message: 'You\'re the cream to my coffee! ☕💕',
+    benefits: ['Energy boost', 'Cozy moments', 'Morning ritual', 'Warm comfort']
+  },
+  {
+    id: 'donut',
+    name: 'Sweet Donut',
+    emoji: '🍩',
+    description: 'Sweet and fun treat',
+    color: 'from-pink-400 to-rose-500',
+    message: 'You\'re sweeter than any donut! 🍩💕',
+    benefits: ['Fun treat', 'Sweet moments', 'Sprinkle of joy', 'Donut worry be happy']
+  },
+  {
+    id: 'popcorn',
+    name: 'Movie Popcorn',
+    emoji: '🍿',
+    description: 'Perfect for movie nights',
+    color: 'from-yellow-300 to-amber-400',
+    message: 'Movie nights with you are the best! 🍿✨',
+    benefits: ['Movie time', 'Sharing snack', 'Cozy nights', 'Fun together']
+  },
 ];
 
 const TreatModal = ({ treat, onClose }: { treat: TreatItem; onClose: () => void }) => {

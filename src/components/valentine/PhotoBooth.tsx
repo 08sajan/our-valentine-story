@@ -53,29 +53,42 @@ const CameraModal = ({
   const [countdown, setCountdown] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
 
+  // Only start camera when modal opens, stop when closed
   useEffect(() => {
-    startCamera();
+    let mounted = true;
+    
+    const initCamera = async () => {
+      try {
+        const mediaStream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 720 } },
+          audio: false
+        });
+        if (mounted) {
+          setStream(mediaStream);
+          if (videoRef.current) {
+            videoRef.current.srcObject = mediaStream;
+          }
+        } else {
+          // If component unmounted before camera started, stop tracks
+          mediaStream.getTracks().forEach(track => track.stop());
+        }
+      } catch (_err) {
+        if (mounted) {
+          setError('Camera access denied. Please allow camera access to take photos.');
+        }
+      }
+    };
+    
+    initCamera();
+    
+    // Cleanup: stop all camera tracks when modal closes
     return () => {
+      mounted = false;
       if (stream) {
         stream.getTracks().forEach(track => track.stop());
       }
     };
   }, []);
-
-  const startCamera = async () => {
-    try {
-      const mediaStream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 720 } },
-        audio: false
-      });
-      setStream(mediaStream);
-      if (videoRef.current) {
-        videoRef.current.srcObject = mediaStream;
-      }
-    } catch (err) {
-      setError('Camera access denied. Please allow camera access to take photos.');
-    }
-  };
 
   const capturePhoto = useCallback(() => {
     if (!videoRef.current || !canvasRef.current) return;
@@ -183,12 +196,12 @@ const CameraModal = ({
           <div className="text-center text-white p-6">
             <p className="text-rose-400 mb-4">{error}</p>
             <motion.button
-              onClick={startCamera}
+              onClick={onClose}
               className="px-6 py-3 bg-gradient-to-r from-rose-500 to-pink-500 rounded-full text-white"
               whileTap={{ scale: 0.95 }}
             >
               <RotateCcw className="w-5 h-5 inline mr-2" />
-              Try Again
+              Close & Try Again
             </motion.button>
           </div>
         ) : (
