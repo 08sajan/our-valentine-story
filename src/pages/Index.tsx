@@ -60,6 +60,7 @@ import { PrivatePinterest } from "@/components/valentine/PrivatePinterest";
 import { EscapeRoom } from "@/components/valentine/EscapeRoom";
 import { AirHostessRoleplay } from "@/components/valentine/AirHostessRoleplay";
 import { MemoryMatchGame } from "@/components/valentine/MemoryMatchGame";
+import { WouldYouRather } from "@/components/valentine/WouldYouRather";
 import { 
   ShakeHeartsExplosion, 
   KonamiSecret, 
