@@ -70,9 +70,46 @@ const items: Record<Category, Item[]> = {
     { id: 'silver-glitter', name: 'Silver Glitter Bomb', image: 'https://images.unsplash.com/photo-1550639524-a6f58345a2ca?w=600', color: '#e2e8f0', description: 'Disco ball vibes - shine bright like a diamond!', brand: 'Sparkle Queen' },
     { id: 'holographic-dream', name: 'Holographic Fantasy', image: 'https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=600', color: '#a78bfa', description: 'Futuristic holographic dress - unique and stunning', brand: 'Future Fashion' },
     
-    // Traditional & Elegant
-    { id: 'pink-lehenga', name: 'Pink Bridal Lehenga', image: 'https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=600', color: '#ec4899', description: 'Traditional embroidered lehenga - bride-to-be vibes!', brand: 'Bridal Couture' },
+    // Traditional Sarees
+    { id: 'red-banarasi', name: 'Red Banarasi Saree', image: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=600', color: '#dc2626', description: 'Royal red Banarasi silk with gold zari - traditional elegance', brand: 'Saree Palace' },
+    { id: 'pink-kanjivaram', name: 'Pink Kanjivaram', image: 'https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=600', color: '#ec4899', description: 'Stunning pink Kanjivaram with temple border - South Indian beauty', brand: 'Silk Heritage' },
+    { id: 'green-patola', name: 'Green Patola Saree', image: 'https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=600', color: '#10b981', description: 'Vibrant green double ikat Patola - Gujarati masterpiece', brand: 'Patola House' },
+    { id: 'blue-chanderi', name: 'Blue Chanderi Saree', image: 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=600', color: '#3b82f6', description: 'Ethereal blue Chanderi with gold motifs - pure grace', brand: 'Chanderi Weaves' },
+    { id: 'purple-bandhani', name: 'Purple Bandhani', image: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600', color: '#8b5cf6', description: 'Gorgeous purple tie-dye bandhani - Rajasthani charm', brand: 'Bandhej Art' },
+    { id: 'white-kerala-kasavu', name: 'Kerala Kasavu', image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600', color: '#fef3c7', description: 'Classic off-white Kerala saree with gold border - divine elegance', brand: 'Kerala Silks' },
+    { id: 'maroon-paithani', name: 'Maroon Paithani', image: 'https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=600', color: '#7f1d1d', description: 'Rich maroon Paithani with peacock motifs - Maharashtrian royalty', brand: 'Paithani Looms' },
+    
+    // Party Wear
+    { id: 'silver-sequin-gown', name: 'Silver Sequin Gown', image: 'https://images.unsplash.com/photo-1550639524-a6f58345a2ca?w=600', color: '#e2e8f0', description: 'Full silver sequin floor-length - party queen vibes', brand: 'Party Glam' },
+    { id: 'electric-blue-mini', name: 'Electric Blue Party', image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600', color: '#3b82f6', description: 'Electric blue mini with cutouts - dance floor ready', brand: 'Club Night' },
+    { id: 'neon-pink-bodycon', name: 'Neon Pink Bodycon', image: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600', color: '#f472b6', description: 'Neon pink that glows under lights - party starter', brand: 'Neon Nights' },
+    { id: 'disco-ball-dress', name: 'Disco Ball Dress', image: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=600', color: '#c0c0c0', description: 'Mirror ball inspired dress - center of attention', brand: 'Disco Diva' },
+    { id: 'red-feather-hem', name: 'Red Feather Hem', image: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600', color: '#ef4444', description: 'Sexy red with feather trim - showstopper dress', brand: 'Feather Touch' },
+    { id: 'black-leather-mini', name: 'Black Leather Mini', image: 'https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=600', color: '#1f2937', description: 'Edgy black faux leather - rock star vibes', brand: 'Edge Fashion' },
+    { id: 'rainbow-sequin', name: 'Rainbow Sequin Dress', image: 'https://images.unsplash.com/photo-1551803091-e20673f15770?w=600', color: '#f472b6', description: 'Multicolor sequins catching every light - festival ready', brand: 'Festival Fab' },
+    
+    // Honeymoon Collection
+    { id: 'white-lace-lingerie-dress', name: 'White Lace Bridal', image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600', color: '#ffffff', description: 'Delicate white lace with satin - honeymoon nights', brand: 'Bridal Intimate' },
+    { id: 'silk-champagne-slip', name: 'Champagne Silk Night', image: 'https://images.unsplash.com/photo-1568252542512-9fe8fe9c87bb?w=600', color: '#fef3c7', description: 'Luxurious silk slip dress - romantic evenings', brand: 'Honeymoon Suite' },
+    { id: 'red-satin-robe-dress', name: 'Red Satin Romance', image: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600', color: '#dc2626', description: 'Sultry red satin with lace trim - passion nights', brand: 'Romance Collection' },
+    { id: 'blush-tulle-baby', name: 'Blush Tulle Babydoll', image: 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=600', color: '#fda4af', description: 'Sweet blush tulle babydoll - adorably sexy', brand: 'Sweet Dreams' },
+    { id: 'black-sheer-elegance', name: 'Black Sheer Elegance', image: 'https://images.unsplash.com/photo-1562137369-1a1a0bc66744?w=600', color: '#000000', description: 'Elegant black sheer with strategic details - mysteriously alluring', brand: 'Midnight Seduction' },
+    { id: 'ivory-satin-long', name: 'Ivory Satin Long Gown', image: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=600', color: '#fffbeb', description: 'Floor-length ivory satin - bridal suite elegance', brand: 'Forever Bride' },
+    { id: 'rose-lace-teddy', name: 'Rose Lace Set', image: 'https://images.unsplash.com/photo-1551803091-e20673f15770?w=600', color: '#fb7185', description: 'Romantic rose lace two-piece - honeymoon essential', brand: 'Intimate Rose' },
+    { id: 'navy-silk-chemise', name: 'Navy Silk Chemise', image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600', color: '#1e3a8a', description: 'Sophisticated navy silk chemise - evening elegance', brand: 'Silk Nights' },
+    
+    // Traditional Lehengas
+    { id: 'pink-bridal-lehenga', name: 'Pink Bridal Lehenga', image: 'https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=600', color: '#ec4899', description: 'Traditional embroidered pink lehenga - bride-to-be vibes!', brand: 'Bridal Couture' },
+    { id: 'red-bridal-lehenga', name: 'Red Bridal Lehenga', image: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600', color: '#dc2626', description: 'Classic red bridal lehenga with gold embroidery - traditional perfection', brand: 'Wedding Trousseau' },
+    { id: 'blue-engagement-lehenga', name: 'Blue Engagement Lehenga', image: 'https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=600', color: '#3b82f6', description: 'Royal blue lehenga with silver work - engagement ready', brand: 'Celebration Wear' },
+    { id: 'peach-sangeet-lehenga', name: 'Peach Sangeet Lehenga', image: 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=600', color: '#fdba74', description: 'Soft peach with mirror work - sangeet night star', brand: 'Sangeet Collection' },
+    { id: 'green-mehndi-lehenga', name: 'Green Mehndi Lehenga', image: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600', color: '#22c55e', description: 'Fresh green with floral embroidery - mehndi ceremony perfect', brand: 'Mehndi Magic' },
+    
+    // Fusion Wear
     { id: 'red-saree-gown', name: 'Red Saree Gown Fusion', image: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600', color: '#dc2626', description: 'Modern saree-gown fusion - best of both worlds', brand: 'Fusion Collection' },
+    { id: 'indo-western-jumpsuit', name: 'Indo-Western Jumpsuit', image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600', color: '#fbbf24', description: 'Palazzo jumpsuit with ethnic jacket - modern desi', brand: 'East Meets West' },
+    { id: 'dhoti-saree', name: 'Dhoti Style Saree', image: 'https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=600', color: '#f472b6', description: 'Pre-draped dhoti saree - comfort meets tradition', brand: 'Modern Ethnic' },
+    { id: 'cape-lehenga', name: 'Cape Style Lehenga', image: 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=600', color: '#8b5cf6', description: 'Lehenga with flowing cape - dramatic entrance', brand: 'Cape Couture' },
   ],
   earrings: [
     { id: 'diamond-drops', name: 'Diamond Teardrop', image: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600', color: '#e0f2fe', description: 'Elegant VS1 clarity diamond teardrops', brand: 'Luxury Gems' },
