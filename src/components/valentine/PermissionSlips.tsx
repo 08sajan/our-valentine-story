@@ -13,150 +13,37 @@ interface Coupon {
 }
 
 const initialCoupons: Coupon[] = [
-  {
-    id: '1',
-    title: 'Chores-Free Night',
-    description: 'Valid for one night of me doing ALL the chores while you relax like the queen you are',
-    emoji: '🧹',
-    gradient: 'from-blue-400 to-cyan-500',
-    redeemed: false
-  },
-  {
-    id: '2',
-    title: 'Unlimited Rant Session',
-    description: 'Valid for a 30-minute rant where I just listen, agree with everything, and take your side no matter what',
-    emoji: '🗣️',
-    gradient: 'from-purple-400 to-indigo-500',
-    redeemed: false
-  },
-  {
-    id: '3',
-    title: 'Favorite Takeout',
-    description: 'Valid for ordering your favorite food, no questions asked about what or how much',
-    emoji: '🍱',
-    gradient: 'from-orange-400 to-red-500',
-    redeemed: false
-  },
-  {
-    id: '4',
-    title: 'Nap Permission',
-    description: 'Valid for guilt-free napping while I handle everything. You deserve the rest.',
-    emoji: '😴',
-    gradient: 'from-indigo-400 to-purple-500',
-    redeemed: false
-  },
-  {
-    id: '5',
-    title: 'Movie Marathon Control',
-    description: 'Valid for full control of what we watch. I promise not to complain, even if it\'s super cheesy',
-    emoji: '🎬',
-    gradient: 'from-pink-400 to-rose-500',
-    redeemed: false
-  },
-  {
-    id: '6',
-    title: 'Breakfast in Bed',
-    description: 'Valid for one morning where you wake up to your favorite breakfast already made',
-    emoji: '🥞',
-    gradient: 'from-amber-400 to-yellow-500',
-    redeemed: false
-  },
-  {
-    id: '7',
-    title: 'Extra Cuddles',
-    description: 'Valid for unlimited cuddles on demand, no time limit, as long as you want',
-    emoji: '🤗',
-    gradient: 'from-rose-400 to-pink-500',
-    redeemed: false
-  },
-  {
-    id: '8',
-    title: 'Winning Any Argument',
-    description: 'Valid for automatically winning one argument. I\'ll admit I\'m wrong even if I\'m not (we know I probably am)',
-    emoji: '🏆',
-    gradient: 'from-emerald-400 to-teal-500',
-    redeemed: false
-  },
-  {
-    id: '9',
-    title: 'Spa Night',
-    description: 'Valid for a full pampering session - foot rub, back massage, face mask - the works',
-    emoji: '💆',
-    gradient: 'from-violet-400 to-fuchsia-500',
-    redeemed: false
-  },
-  {
-    id: '10',
-    title: 'No Phone Zone',
-    description: 'Valid for my complete, undivided attention. Phone away, just us, for as long as you want',
-    emoji: '📵',
-    gradient: 'from-cyan-400 to-blue-500',
-    redeemed: false
-  },
-  {
-    id: '11',
-    title: 'Shopping Spree',
-    description: 'Valid for a guilt-free shopping trip where I carry all bags and say yes to everything',
-    emoji: '🛍️',
-    gradient: 'from-pink-400 to-purple-500',
-    redeemed: false
-  },
-  {
-    id: '12',
-    title: 'Dance Party',
-    description: 'Valid for a spontaneous dance party in the living room at any time',
-    emoji: '💃',
-    gradient: 'from-amber-400 to-orange-500',
-    redeemed: false
-  },
-  {
-    id: '13',
-    title: 'Dessert First',
-    description: 'Valid for eating dessert before dinner without any judgment',
-    emoji: '🍰',
-    gradient: 'from-rose-400 to-red-500',
-    redeemed: false
-  },
-  {
-    id: '14',
-    title: 'Lazy Sunday',
-    description: 'Valid for staying in bed all day watching shows with endless snacks',
-    emoji: '🛋️',
-    gradient: 'from-blue-400 to-indigo-500',
-    redeemed: false
-  },
-  {
-    id: '15',
-    title: 'Love Letter',
-    description: 'Valid for an on-the-spot handwritten love letter from me to you',
-    emoji: '💌',
-    gradient: 'from-red-400 to-rose-500',
-    redeemed: false
-  },
-  {
-    id: '16',
-    title: 'Midnight Snack Run',
-    description: 'Valid for me getting you any snack you want, no matter what time it is',
-    emoji: '🌙',
-    gradient: 'from-violet-400 to-purple-500',
-    redeemed: false
-  },
-  {
-    id: '17',
-    title: 'Head Massage',
-    description: 'Valid for a 30-minute head and scalp massage whenever you need it',
-    emoji: '✨',
-    gradient: 'from-teal-400 to-cyan-500',
-    redeemed: false
-  },
-  {
-    id: '18',
-    title: 'Pick the Restaurant',
-    description: 'Valid for choosing any restaurant, even if I\'ve been there 100 times',
-    emoji: '🍽️',
-    gradient: 'from-orange-400 to-amber-500',
-    redeemed: false
-  }
+  { id: '1', title: 'Chores-Free Night', description: 'Valid for one night of me doing ALL the chores while you relax', emoji: '🧹', gradient: 'from-blue-400 to-cyan-500', redeemed: false },
+  { id: '2', title: 'Unlimited Rant Session', description: 'Valid for a 30-minute rant where I just listen and agree', emoji: '🗣️', gradient: 'from-purple-400 to-indigo-500', redeemed: false },
+  { id: '3', title: 'Favorite Takeout', description: 'Valid for ordering your favorite food, no questions asked', emoji: '🍱', gradient: 'from-orange-400 to-red-500', redeemed: false },
+  { id: '4', title: 'Nap Permission', description: 'Valid for guilt-free napping while I handle everything', emoji: '😴', gradient: 'from-indigo-400 to-purple-500', redeemed: false },
+  { id: '5', title: 'Movie Marathon Control', description: 'Valid for full control of what we watch, no complaints', emoji: '🎬', gradient: 'from-pink-400 to-rose-500', redeemed: false },
+  { id: '6', title: 'Breakfast in Bed', description: 'Valid for waking up to your favorite breakfast already made', emoji: '🥞', gradient: 'from-amber-400 to-yellow-500', redeemed: false },
+  { id: '7', title: 'Extra Cuddles', description: 'Valid for unlimited cuddles on demand, no time limit', emoji: '🤗', gradient: 'from-rose-400 to-pink-500', redeemed: false },
+  { id: '8', title: 'Winning Any Argument', description: 'Valid for automatically winning one argument', emoji: '🏆', gradient: 'from-emerald-400 to-teal-500', redeemed: false },
+  { id: '9', title: 'Spa Night', description: 'Valid for full pampering - foot rub, massage, face mask', emoji: '💆', gradient: 'from-violet-400 to-fuchsia-500', redeemed: false },
+  { id: '10', title: 'No Phone Zone', description: 'Valid for my complete, undivided attention', emoji: '📵', gradient: 'from-cyan-400 to-blue-500', redeemed: false },
+  { id: '11', title: 'Shopping Spree', description: 'Valid for guilt-free shopping where I carry all bags', emoji: '🛍️', gradient: 'from-pink-400 to-purple-500', redeemed: false },
+  { id: '12', title: 'Dance Party', description: 'Valid for a spontaneous dance party anytime', emoji: '💃', gradient: 'from-amber-400 to-orange-500', redeemed: false },
+  { id: '13', title: 'Dessert First', description: 'Valid for eating dessert before dinner', emoji: '🍰', gradient: 'from-rose-400 to-red-500', redeemed: false },
+  { id: '14', title: 'Lazy Sunday', description: 'Valid for staying in bed all day with snacks', emoji: '🛋️', gradient: 'from-blue-400 to-indigo-500', redeemed: false },
+  { id: '15', title: 'Love Letter', description: 'Valid for an on-the-spot handwritten love letter', emoji: '💌', gradient: 'from-red-400 to-rose-500', redeemed: false },
+  { id: '16', title: 'Midnight Snack Run', description: 'Valid for getting any snack you want, any time', emoji: '🌙', gradient: 'from-violet-400 to-purple-500', redeemed: false },
+  { id: '17', title: 'Head Massage', description: 'Valid for a 30-minute head and scalp massage', emoji: '✨', gradient: 'from-teal-400 to-cyan-500', redeemed: false },
+  { id: '18', title: 'Pick the Restaurant', description: 'Valid for choosing any restaurant', emoji: '🍽️', gradient: 'from-orange-400 to-amber-500', redeemed: false },
+  // NEW COUPONS
+  { id: '19', title: 'Ice Cream Date', description: 'Valid for an immediate ice cream run together', emoji: '🍦', gradient: 'from-pink-300 to-rose-400', redeemed: false },
+  { id: '20', title: 'Foot Massage', description: 'Valid for a relaxing 20-minute foot massage', emoji: '🦶', gradient: 'from-green-400 to-emerald-500', redeemed: false },
+  { id: '21', title: 'Photo Session', description: 'Valid for taking unlimited cute pics together', emoji: '📸', gradient: 'from-purple-400 to-pink-500', redeemed: false },
+  { id: '22', title: 'Cooking Together', description: 'Valid for cooking your favorite meal together', emoji: '👩‍🍳', gradient: 'from-amber-400 to-orange-500', redeemed: false },
+  { id: '23', title: 'Stargazing Night', description: 'Valid for a romantic stargazing date', emoji: '⭐', gradient: 'from-indigo-400 to-blue-600', redeemed: false },
+  { id: '24', title: 'Morning Kisses', description: 'Valid for extra morning kisses before waking up', emoji: '💋', gradient: 'from-rose-400 to-red-500', redeemed: false },
+  { id: '25', title: 'Surprise Gift', description: 'Valid for receiving a surprise gift from me', emoji: '🎁', gradient: 'from-pink-400 to-fuchsia-500', redeemed: false },
+  { id: '26', title: 'Long Drive', description: 'Valid for a scenic long drive with music', emoji: '🚗', gradient: 'from-cyan-400 to-teal-500', redeemed: false },
+  { id: '27', title: 'Poetry Reading', description: 'Valid for me reading you romantic poetry', emoji: '📜', gradient: 'from-amber-400 to-yellow-500', redeemed: false },
+  { id: '28', title: 'Picnic Date', description: 'Valid for a romantic picnic in the park', emoji: '🧺', gradient: 'from-green-400 to-lime-500', redeemed: false },
+  { id: '29', title: 'Full Day Together', description: 'Valid for an entire day of just us', emoji: '💕', gradient: 'from-rose-400 to-pink-500', redeemed: false },
+  { id: '30', title: 'Serenade', description: 'Valid for me singing your favorite song to you', emoji: '🎤', gradient: 'from-violet-400 to-purple-500', redeemed: false },
 ];
 
 const CouponModal = ({ coupon, onClose, onRedeem }: { coupon: Coupon; onClose: () => void; onRedeem: () => void }) => {
