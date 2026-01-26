@@ -61,6 +61,8 @@ import { EscapeRoom } from "@/components/valentine/EscapeRoom";
 import { AirHostessRoleplay } from "@/components/valentine/AirHostessRoleplay";
 import { MemoryMatchGame } from "@/components/valentine/MemoryMatchGame";
 import { WouldYouRather } from "@/components/valentine/WouldYouRather";
+import { FortuneSection } from "@/components/valentine/FortuneSection";
+import { NepaliPoemsGallery } from "@/components/valentine/NepaliPoemsGallery";
 import { 
   ShakeHeartsExplosion, 
   KonamiSecret, 
@@ -851,7 +853,7 @@ const KissDayContent = () => {
 
 const ValentineDayContent = () => {
   const [triggerConfetti, setTriggerConfetti] = useState(false);
-  const [activeSection, setActiveSection] = useState<'gallery' | 'letters' | 'letter' | 'game' | 'quiz' | 'wishes' | 'journey' | 'soulmate' | 'missyou' | 'photobooth' | 'openwhen' | 'hearts' | 'comfort' | 'music' | 'dreams' | 'growth' | 'future' | 'decide' | 'coupons' | 'private' | 'recordings' | 'birthday' | 'bouquets' | 'fights' | 'languages' | 'proposal' | 'period' | 'karaoke' | 'health' | 'food' | 'compliments' | 'jokes' | 'truthordare' | 'affirmations' | 'mood' | 'selfcare' | 'naughty' | 'treats' | 'pinterest' | 'escape' | 'airhostess' | 'matchgame' | 'wouldyourather'>('gallery');
+  const [activeSection, setActiveSection] = useState<'gallery' | 'letters' | 'letter' | 'game' | 'quiz' | 'wishes' | 'journey' | 'soulmate' | 'missyou' | 'photobooth' | 'openwhen' | 'hearts' | 'comfort' | 'music' | 'dreams' | 'growth' | 'future' | 'decide' | 'coupons' | 'private' | 'recordings' | 'birthday' | 'bouquets' | 'fights' | 'languages' | 'proposal' | 'period' | 'karaoke' | 'health' | 'food' | 'compliments' | 'jokes' | 'truthordare' | 'affirmations' | 'mood' | 'selfcare' | 'naughty' | 'treats' | 'pinterest' | 'escape' | 'airhostess' | 'matchgame' | 'wouldyourather' | 'fortune' | 'poems'>('gallery');
   
   useEffect(() => {
     setTriggerConfetti(true);
@@ -1052,6 +1054,8 @@ const ValentineDayContent = () => {
         </div>
         <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 px-1">
           {[
+            { key: 'fortune', label: 'Fortune', emoji: '🔮' },
+            { key: 'poems', label: 'Poems', emoji: '📜' },
             { key: 'pinterest', label: 'Our Board', emoji: '📌' },
             { key: 'naughty', label: 'Naughty Q', emoji: '🔥' },
             { key: 'karaoke', label: 'Karaoke', emoji: '🎤' },
@@ -1704,6 +1708,32 @@ I want to know the ways you ache, the ways you hope, the tiny corners of yoursel
             exit={{ opacity: 0, x: 20 }}
           >
             <WouldYouRather />
+          </motion.div>
+        )}
+
+        {activeSection === 'fortune' && (
+          <motion.div
+            key="fortune"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+          >
+            <GlassCard className="p-4 sm:p-6">
+              <FortuneSection />
+            </GlassCard>
+          </motion.div>
+        )}
+
+        {activeSection === 'poems' && (
+          <motion.div
+            key="poems"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 20 }}
+          >
+            <GlassCard className="p-4 sm:p-6">
+              <NepaliPoemsGallery />
+            </GlassCard>
           </motion.div>
         )}
       </AnimatePresence>
