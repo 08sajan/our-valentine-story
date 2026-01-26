@@ -87,6 +87,22 @@ I will love you like this. I will never try to reshape you to make you easier to
 I will treat you as if you are fragile in the best way not weak, just precious. I'll protect your heart without ever trying to cage it. I want you to feel like you matter, like you aren't replaceable, like you are home. I want my presence to be your calm, to make you smile without trying, and to listen to your endless talking without ever making you feel like you're too much.
 
 I promise never hurt you. I only want to make you feel safe enough to shine. I love you so much 😙❤️`
+  },
+  {
+    id: 11,
+    sealColor: "from-pink-500 to-amber-500",
+    title: "My Sweetest Love 😙❤️",
+    emoji: "💕",
+    content: `My Sweetest love😙❤️
+
+Every moment with you feels like a beautiful dream that I never want to wake up from. I want you to know that you are the most precious person in my life. Every day with you is a gift, and i am grateful for every second we share together. You make me want to be the best version of myself. Almost 7 years of knowing you and first time seeing you in my class never thought i will be this close with you we talked again stopped talking but whenever we talked there was never awkward moment it's like we always knew each other somehow I miss you a little more every day Every quiet moment carries your name .Distance has only taught my heart how deeply it belongs to you .Some days were heavy some nights lonely but you never stopped being home. I want to give you everything but today i will give you a promise that after all our ups and downs I'll always choose you. I will never give up on you no matter how hard life gets . I know growing up you always had to figure things out alone but i am by your side now. You are so important to me and your issues are my issues. No more figuring things out alone. You can always lean on me. We Will figure this out together. I love you so much😙❤️`
+  },
+  {
+    id: 12,
+    sealColor: "from-rose-600 to-purple-600",
+    title: "My Fragile Heart 💖",
+    emoji: "🥺",
+    content: `You have a heart too good for this awful world but that's okay because I promise to forever protect your little fragile heart. I just wish you could see how beautiful and deserving your soul is. My precious puntuuu, watching you smile has never once failed to make me smile because you are my joy. my happiness and my peace. As a little boy. I always wondered who I was going to marry and start my own family with one day. Even with my wildest imagination, I never thought someone like you existed. If there was such thing as perfection then that would most definitely be you my sweet baby. I am so proud of you and I know you will shine so brightly as we live the rest of our lives together. I want to show you what you mean to me by simply being there for you, making sure you are taken care of and safe, making sure you are not just loved but heard and made a priority. My intentions are simple, make you feel like the most beautiful person in the world. The whole world could be in front of me, yet my eyes would only search for you . You deserve to be loved how you are because who are without your sudden mood swings, your over dramatic reactions, your stupid obsessions, your habit of always laughing at wrong time, your random excitement, your unexplained sadness. You deserve everything without changing anything about yourself.I know you love me tara i will always love you more and more as day passes by i will love you more and more . I am born to love you. Lots of love 😘❤️`
   }
 ];
 
