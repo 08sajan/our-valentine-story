@@ -31,7 +31,6 @@ const initialCoupons: Coupon[] = [
   { id: '16', title: 'Midnight Snack Run', description: 'Valid for getting any snack you want, any time', emoji: '🌙', gradient: 'from-violet-400 to-purple-500', redeemed: false },
   { id: '17', title: 'Head Massage', description: 'Valid for a 30-minute head and scalp massage', emoji: '✨', gradient: 'from-teal-400 to-cyan-500', redeemed: false },
   { id: '18', title: 'Pick the Restaurant', description: 'Valid for choosing any restaurant', emoji: '🍽️', gradient: 'from-orange-400 to-amber-500', redeemed: false },
-  // NEW COUPONS
   { id: '19', title: 'Ice Cream Date', description: 'Valid for an immediate ice cream run together', emoji: '🍦', gradient: 'from-pink-300 to-rose-400', redeemed: false },
   { id: '20', title: 'Foot Massage', description: 'Valid for a relaxing 20-minute foot massage', emoji: '🦶', gradient: 'from-green-400 to-emerald-500', redeemed: false },
   { id: '21', title: 'Photo Session', description: 'Valid for taking unlimited cute pics together', emoji: '📸', gradient: 'from-purple-400 to-pink-500', redeemed: false },
@@ -44,6 +43,27 @@ const initialCoupons: Coupon[] = [
   { id: '28', title: 'Picnic Date', description: 'Valid for a romantic picnic in the park', emoji: '🧺', gradient: 'from-green-400 to-lime-500', redeemed: false },
   { id: '29', title: 'Full Day Together', description: 'Valid for an entire day of just us', emoji: '💕', gradient: 'from-rose-400 to-pink-500', redeemed: false },
   { id: '30', title: 'Serenade', description: 'Valid for me singing your favorite song to you', emoji: '🎤', gradient: 'from-violet-400 to-purple-500', redeemed: false },
+  // NEW COUPONS
+  { id: '31', title: 'Back Massage', description: 'Valid for a 30-minute relaxing back massage', emoji: '💪', gradient: 'from-blue-400 to-indigo-500', redeemed: false },
+  { id: '32', title: 'Bubble Bath', description: 'Valid for me preparing a romantic bubble bath', emoji: '🛁', gradient: 'from-pink-400 to-rose-500', redeemed: false },
+  { id: '33', title: 'Binge Watch', description: 'Valid for watching your favorite series all day', emoji: '📺', gradient: 'from-purple-400 to-violet-500', redeemed: false },
+  { id: '34', title: 'Forehead Kisses', description: 'Valid for unlimited forehead kisses on demand', emoji: '😘', gradient: 'from-rose-400 to-pink-500', redeemed: false },
+  { id: '35', title: 'Breakfast Date', description: 'Valid for a cute breakfast date at your favorite cafe', emoji: '☕', gradient: 'from-amber-400 to-orange-500', redeemed: false },
+  { id: '36', title: 'Hand Holding', description: 'Valid for holding hands everywhere we go', emoji: '🤝', gradient: 'from-emerald-400 to-teal-500', redeemed: false },
+  { id: '37', title: 'Pillow Fort', description: 'Valid for building a cozy pillow fort together', emoji: '🏰', gradient: 'from-indigo-400 to-purple-500', redeemed: false },
+  { id: '38', title: 'Sunset Watch', description: 'Valid for watching the sunset together', emoji: '🌅', gradient: 'from-orange-400 to-red-500', redeemed: false },
+  { id: '39', title: 'Phone-Free Date', description: 'Valid for a complete phone-free romantic date', emoji: '💑', gradient: 'from-pink-400 to-rose-500', redeemed: false },
+  { id: '40', title: 'Love Playlist', description: 'Valid for me making you a personalized love playlist', emoji: '🎵', gradient: 'from-violet-400 to-fuchsia-500', redeemed: false },
+  { id: '41', title: 'Slow Dance', description: 'Valid for a romantic slow dance at home', emoji: '💫', gradient: 'from-rose-400 to-pink-500', redeemed: false },
+  { id: '42', title: 'Temple Visit', description: 'Valid for a peaceful temple visit together', emoji: '🛕', gradient: 'from-amber-400 to-yellow-500', redeemed: false },
+  { id: '43', title: 'Rain Dance', description: 'Valid for dancing in the rain together', emoji: '🌧️', gradient: 'from-blue-400 to-cyan-500', redeemed: false },
+  { id: '44', title: 'Hot Chocolate', description: 'Valid for me making you hot chocolate on demand', emoji: '🍫', gradient: 'from-amber-500 to-orange-600', redeemed: false },
+  { id: '45', title: 'Bedtime Story', description: 'Valid for me reading you a bedtime story', emoji: '📖', gradient: 'from-purple-400 to-indigo-500', redeemed: false },
+  { id: '46', title: 'Flower Delivery', description: 'Valid for a surprise flower delivery', emoji: '💐', gradient: 'from-pink-400 to-rose-500', redeemed: false },
+  { id: '47', title: 'Candlelit Dinner', description: 'Valid for a romantic candlelit dinner at home', emoji: '🕯️', gradient: 'from-amber-400 to-red-500', redeemed: false },
+  { id: '48', title: 'Nose Kisses', description: 'Valid for unlimited cute nose kisses', emoji: '🐽', gradient: 'from-pink-300 to-rose-400', redeemed: false },
+  { id: '49', title: 'Cheek Squishes', description: 'Valid for unlimited cheek squishing privileges', emoji: '🥰', gradient: 'from-rose-400 to-pink-500', redeemed: false },
+  { id: '50', title: 'Forever Yours', description: 'Valid for my eternal love and devotion', emoji: '♾️', gradient: 'from-rose-500 to-red-600', redeemed: false },
 ];
 
 const CouponModal = ({ coupon, onClose, onRedeem }: { coupon: Coupon; onClose: () => void; onRedeem: () => void }) => {

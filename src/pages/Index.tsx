@@ -852,8 +852,6 @@ const KissDayContent = () => {
 const ValentineDayContent = () => {
   const [triggerConfetti, setTriggerConfetti] = useState(false);
   const [activeSection, setActiveSection] = useState<'gallery' | 'letters' | 'letter' | 'game' | 'quiz' | 'wishes' | 'journey' | 'soulmate' | 'missyou' | 'photobooth' | 'openwhen' | 'hearts' | 'comfort' | 'music' | 'dreams' | 'growth' | 'future' | 'decide' | 'coupons' | 'private' | 'recordings' | 'birthday' | 'bouquets' | 'fights' | 'languages' | 'proposal' | 'period' | 'karaoke' | 'health' | 'food' | 'compliments' | 'jokes' | 'truthordare' | 'affirmations' | 'mood' | 'selfcare' | 'naughty' | 'treats' | 'pinterest' | 'escape' | 'airhostess' | 'matchgame' | 'wouldyourather'>('gallery');
-  const [journeyPassword, setJourneyPassword] = useState('');
-  const [journeyUnlocked, setJourneyUnlocked] = useState(false);
   
   useEffect(() => {
     setTriggerConfetti(true);
@@ -1165,42 +1163,7 @@ const ValentineDayContent = () => {
             exit={{ opacity: 0, x: 20 }}
           >
             <GlassCard className="p-4 sm:p-6">
-              {!journeyUnlocked ? (
-                <div className="text-center space-y-4">
-                  <motion.div
-                    className="text-4xl"
-                    animate={{ scale: [1, 1.1, 1] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                  >
-                    🔐
-                  </motion.div>
-                  <h3 className="text-lg font-serif text-rose-300">Our Journey is Protected</h3>
-                  <p className="text-white/60 text-sm">Enter password to unlock</p>
-                  <input
-                    type="password"
-                    value={journeyPassword}
-                    onChange={(e) => setJourneyPassword(e.target.value)}
-                    placeholder="Enter password..."
-                    className="w-full max-w-xs mx-auto px-4 py-2 rounded-xl bg-white/10 border border-white/20 text-white placeholder-white/40 text-center"
-                  />
-                  <motion.button
-                    onClick={() => {
-                      if (journeyPassword === 'Anjalisajan') {
-                        setJourneyUnlocked(true);
-                      } else {
-                        alert('Wrong password! 💕');
-                      }
-                    }}
-                    className="px-6 py-2 bg-gradient-to-r from-rose-500 to-pink-500 rounded-full text-white font-medium"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    Unlock 💕
-                  </motion.button>
-                </div>
-              ) : (
-                <RelationshipCountdown />
-              )}
+              <RelationshipCountdown />
             </GlassCard>
           </motion.div>
         )}

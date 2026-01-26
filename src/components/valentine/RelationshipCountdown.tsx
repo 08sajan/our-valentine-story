@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { Heart, Phone, Gem, Sparkles } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Heart, Phone, Gem, Sparkles, Plus, X, Calendar, Edit2, Trash2 } from "lucide-react";
 
 interface TimeElapsed {
   years: number;
@@ -9,6 +9,14 @@ interface TimeElapsed {
   hours: number;
   minutes: number;
   seconds: number;
+}
+
+interface CustomMilestone {
+  id: string;
+  title: string;
+  subtitle: string;
+  date: string;
+  emoji: string;
 }
 
 const calculateTimeElapsed = (startDate: Date): TimeElapsed => {
@@ -58,9 +66,11 @@ interface MilestoneCounterProps {
   icon: React.ReactNode;
   gradientFrom: string;
   gradientTo: string;
+  onDelete?: () => void;
+  isCustom?: boolean;
 }
 
-const MilestoneCounter = ({ startDate, title, subtitle, emoji, icon, gradientFrom, gradientTo }: MilestoneCounterProps) => {
+const MilestoneCounter = ({ startDate, title, subtitle, emoji, icon, gradientFrom, gradientTo, onDelete, isCustom }: MilestoneCounterProps) => {
   const [time, setTime] = useState<TimeElapsed>(calculateTimeElapsed(startDate));
 
   useEffect(() => {
@@ -83,6 +93,18 @@ const MilestoneCounter = ({ startDate, title, subtitle, emoji, icon, gradientFro
         animate={{ x: ['-100%', '100%'] }}
         transition={{ duration: 3, repeat: Infinity, repeatDelay: 2 }}
       />
+      
+      {/* Delete button for custom milestones */}
+      {isCustom && onDelete && (
+        <motion.button
+          onClick={onDelete}
+          className="absolute top-2 right-2 w-6 h-6 rounded-full bg-red-500/20 flex items-center justify-center z-20"
+          whileHover={{ scale: 1.1, backgroundColor: 'rgba(239, 68, 68, 0.4)' }}
+          whileTap={{ scale: 0.9 }}
+        >
+          <Trash2 className="w-3 h-3 text-red-400" />
+        </motion.button>
+      )}
       
       <div className="relative z-10">
         <div className="flex items-center justify-center gap-2 mb-3">
@@ -118,12 +140,65 @@ const MilestoneCounter = ({ startDate, title, subtitle, emoji, icon, gradientFro
   );
 };
 
+const emojiOptions = ['💕', '💍', '✨', '🌹', '💖', '🥂', '🏠', '✈️', '🎂', '👶', '🐕', '🎓', '💼', '🎉', '🌴'];
+const gradientOptions = [
+  { from: 'from-rose-500/20', to: 'to-pink-500/20' },
+  { from: 'from-purple-500/20', to: 'to-indigo-500/20' },
+  { from: 'from-amber-500/20', to: 'to-orange-500/20' },
+  { from: 'from-emerald-500/20', to: 'to-teal-500/20' },
+  { from: 'from-blue-500/20', to: 'to-cyan-500/20' },
+  { from: 'from-fuchsia-500/20', to: 'to-pink-500/20' },
+];
+
 export const RelationshipCountdown = () => {
   // Nov 3, 2025 - Started talking on phone calls
-  const phoneCallsDate = new Date(2025, 10, 3); // Month is 0-indexed, so 10 = November
+  const phoneCallsDate = new Date(2025, 10, 3);
   
   // Dec 3, 2025 - Got married
-  const marriageDate = new Date(2025, 11, 3); // Month is 0-indexed, so 11 = December
+  const marriageDate = new Date(2025, 11, 3);
+
+  const [customMilestones, setCustomMilestones] = useState<CustomMilestone[]>(() => {
+    const saved = localStorage.getItem('custom-journey-milestones');
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [newMilestone, setNewMilestone] = useState({
+    title: '',
+    date: '',
+    emoji: '💕',
+  });
+
+  useEffect(() => {
+    localStorage.setItem('custom-journey-milestones', JSON.stringify(customMilestones));
+  }, [customMilestones]);
+
+  const handleAddMilestone = () => {
+    if (!newMilestone.title || !newMilestone.date) return;
+    
+    const dateObj = new Date(newMilestone.date);
+    const formattedDate = dateObj.toLocaleDateString('en-US', { 
+      month: 'long', 
+      day: 'numeric', 
+      year: 'numeric' 
+    });
+
+    const milestone: CustomMilestone = {
+      id: Date.now().toString(),
+      title: newMilestone.title,
+      subtitle: formattedDate,
+      date: newMilestone.date,
+      emoji: newMilestone.emoji,
+    };
+
+    setCustomMilestones(prev => [...prev, milestone]);
+    setNewMilestone({ title: '', date: '', emoji: '💕' });
+    setShowAddForm(false);
+  };
+
+  const handleDeleteMilestone = (id: string) => {
+    setCustomMilestones(prev => prev.filter(m => m.id !== id));
+  };
 
   return (
     <div className="w-full max-w-full overflow-hidden space-y-4">
@@ -159,6 +234,109 @@ export const RelationshipCountdown = () => {
         gradientFrom="from-rose-500/20"
         gradientTo="to-pink-500/20"
       />
+
+      {/* Custom Milestones */}
+      <AnimatePresence>
+        {customMilestones.map((milestone, index) => {
+          const gradient = gradientOptions[index % gradientOptions.length];
+          return (
+            <MilestoneCounter
+              key={milestone.id}
+              startDate={new Date(milestone.date)}
+              title={milestone.title}
+              subtitle={milestone.subtitle}
+              emoji={milestone.emoji}
+              icon={<Sparkles className="w-4 h-4 text-purple-400" />}
+              gradientFrom={gradient.from}
+              gradientTo={gradient.to}
+              isCustom
+              onDelete={() => handleDeleteMilestone(milestone.id)}
+            />
+          );
+        })}
+      </AnimatePresence>
+
+      {/* Add New Milestone Button */}
+      {!showAddForm && (
+        <motion.button
+          onClick={() => setShowAddForm(true)}
+          className="w-full py-3 rounded-xl bg-white/5 border border-dashed border-white/20 text-white/60 flex items-center justify-center gap-2 hover:bg-white/10 hover:border-white/30 transition-all"
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+        >
+          <Plus className="w-4 h-4" />
+          <span className="text-sm">Add New Milestone</span>
+        </motion.button>
+      )}
+
+      {/* Add Milestone Form */}
+      <AnimatePresence>
+        {showAddForm && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            className="bg-white/5 rounded-xl p-4 border border-white/10 space-y-3"
+          >
+            <div className="flex items-center justify-between mb-2">
+              <h4 className="text-white/80 text-sm font-medium flex items-center gap-2">
+                <Calendar className="w-4 h-4" />
+                Add New Milestone
+              </h4>
+              <button
+                onClick={() => setShowAddForm(false)}
+                className="w-6 h-6 rounded-full bg-white/10 flex items-center justify-center"
+              >
+                <X className="w-3 h-3 text-white/60" />
+              </button>
+            </div>
+
+            <input
+              type="text"
+              placeholder="Milestone title (e.g., Our First Kiss)"
+              value={newMilestone.title}
+              onChange={(e) => setNewMilestone(prev => ({ ...prev, title: e.target.value }))}
+              className="w-full px-3 py-2 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/40 text-sm"
+            />
+
+            <input
+              type="date"
+              value={newMilestone.date}
+              onChange={(e) => setNewMilestone(prev => ({ ...prev, date: e.target.value }))}
+              className="w-full px-3 py-2 rounded-lg bg-white/10 border border-white/20 text-white text-sm"
+            />
+
+            <div>
+              <p className="text-white/60 text-xs mb-2">Choose an emoji:</p>
+              <div className="flex flex-wrap gap-2">
+                {emojiOptions.map((emoji) => (
+                  <button
+                    key={emoji}
+                    onClick={() => setNewMilestone(prev => ({ ...prev, emoji }))}
+                    className={`w-8 h-8 rounded-lg flex items-center justify-center text-lg transition-all ${
+                      newMilestone.emoji === emoji 
+                        ? 'bg-rose-500/30 border-2 border-rose-400 scale-110' 
+                        : 'bg-white/5 border border-white/10 hover:bg-white/10'
+                    }`}
+                  >
+                    {emoji}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <motion.button
+              onClick={handleAddMilestone}
+              disabled={!newMilestone.title || !newMilestone.date}
+              className="w-full py-2 rounded-lg bg-gradient-to-r from-rose-500 to-pink-500 text-white font-medium text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              Add Milestone 💕
+            </motion.button>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Romantic message */}
       <motion.div
