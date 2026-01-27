@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, Star } from "lucide-react";
+import { Sparkles, Star, RefreshCw } from "lucide-react";
 import { ScratchCard } from "./ScratchCard";
 
 interface Fortune {
@@ -46,44 +46,84 @@ const fortunes: Fortune[] = [
   { id: 25, category: "naughty", emoji: "💕", content: "Let's make love so passionately that the neighbors know my name.", bgGradient: "from-rose-700 to-red-700" },
 ];
 
-const FortuneCard = ({ fortune }: { fortune: Fortune }) => (
+const FortuneCard = ({ fortune, onReveal }: { fortune: Fortune; onReveal: () => void }) => (
   <motion.div
-    initial={{ opacity: 0, scale: 0.8 }}
-    animate={{ opacity: 1, scale: 1 }}
-    className={`bg-gradient-to-br ${fortune.bgGradient} rounded-xl p-5 text-center min-h-[160px] flex flex-col items-center justify-center`}
+    initial={{ opacity: 0, scale: 0.8, rotateY: 180 }}
+    animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+    transition={{ type: "spring", damping: 15 }}
+    className={`bg-gradient-to-br ${fortune.bgGradient} rounded-3xl p-8 text-center min-h-[280px] flex flex-col items-center justify-center relative overflow-hidden`}
   >
+    {/* Sparkle effects */}
+    {[...Array(8)].map((_, i) => (
+      <motion.div
+        key={i}
+        className="absolute w-2 h-2 bg-white/30 rounded-full"
+        style={{
+          left: `${15 + (i * 10)}%`,
+          top: `${10 + ((i % 3) * 30)}%`,
+        }}
+        animate={{
+          scale: [0, 1, 0],
+          opacity: [0, 1, 0],
+        }}
+        transition={{
+          duration: 2,
+          repeat: Infinity,
+          delay: i * 0.3,
+        }}
+      />
+    ))}
+    
     <motion.span 
-      className="text-4xl mb-3"
-      animate={{ rotate: [0, 10, -10, 0] }}
+      className="text-6xl mb-4"
+      animate={{ 
+        rotate: [0, 10, -10, 0],
+        scale: [1, 1.1, 1],
+      }}
       transition={{ duration: 2, repeat: Infinity }}
     >
       {fortune.emoji}
     </motion.span>
-    <p className="text-white font-serif text-lg leading-relaxed">
+    
+    <p className="text-white font-serif text-xl leading-relaxed max-w-xs">
       {fortune.content}
     </p>
+    
     <motion.div 
-      className="mt-3 flex gap-1"
+      className="mt-6 flex gap-2"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ delay: 0.3 }}
+      transition={{ delay: 0.5 }}
     >
       {[...Array(5)].map((_, i) => (
         <motion.span
           key={i}
-          animate={{ scale: [1, 1.3, 1] }}
-          transition={{ delay: i * 0.1, duration: 0.5, repeat: Infinity, repeatDelay: 2 }}
+          animate={{ scale: [1, 1.4, 1], y: [0, -8, 0] }}
+          transition={{ delay: i * 0.1, duration: 1, repeat: Infinity, repeatDelay: 1 }}
+          className="text-lg"
         >
           ✨
         </motion.span>
       ))}
     </motion.div>
+
+    <motion.button
+      onClick={onReveal}
+      className="mt-6 px-6 py-3 bg-white/20 backdrop-blur-md rounded-full text-white font-medium flex items-center gap-2"
+      whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.3)" }}
+      whileTap={{ scale: 0.95 }}
+    >
+      <RefreshCw className="w-4 h-4" />
+      New Fortune
+    </motion.button>
   </motion.div>
 );
 
 export const FortuneSection = () => {
-  const [revealedFortunes, setRevealedFortunes] = useState<number[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<"all" | "romantic" | "spicy" | "sweet" | "naughty">("all");
+  const [currentFortune, setCurrentFortune] = useState<Fortune | null>(null);
+  const [isRevealed, setIsRevealed] = useState(false);
+  const [fortuneKey, setFortuneKey] = useState(0);
   
   const categories = [
     { id: "all", label: "All", emoji: "✨", color: "from-pink-500 to-purple-500" },
@@ -93,14 +133,29 @@ export const FortuneSection = () => {
     { id: "naughty", label: "Naughty", emoji: "😈", color: "from-purple-600 to-rose-600" },
   ];
   
-  const filteredFortunes = selectedCategory === "all" 
-    ? fortunes 
-    : fortunes.filter(f => f.category === selectedCategory);
+  const getRandomFortune = useCallback(() => {
+    const filtered = selectedCategory === "all" 
+      ? fortunes 
+      : fortunes.filter(f => f.category === selectedCategory);
+    const randomIndex = Math.floor(Math.random() * filtered.length);
+    return filtered[randomIndex];
+  }, [selectedCategory]);
 
-  const handleReveal = (id: number) => {
-    if (!revealedFortunes.includes(id)) {
-      setRevealedFortunes(prev => [...prev, id]);
+  const handleReveal = () => {
+    const newFortune = getRandomFortune();
+    setCurrentFortune(newFortune);
+    setIsRevealed(true);
+    setFortuneKey(prev => prev + 1);
+    
+    if ('vibrate' in navigator) {
+      navigator.vibrate([50, 30, 100]);
     }
+  };
+
+  const handleNewFortune = () => {
+    setIsRevealed(false);
+    setCurrentFortune(null);
+    setFortuneKey(prev => prev + 1);
   };
 
   return (
@@ -133,7 +188,11 @@ export const FortuneSection = () => {
         {categories.map((cat) => (
           <motion.button
             key={cat.id}
-            onClick={() => setSelectedCategory(cat.id as any)}
+            onClick={() => {
+              setSelectedCategory(cat.id as any);
+              setIsRevealed(false);
+              setCurrentFortune(null);
+            }}
             className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
               selectedCategory === cat.id
                 ? `bg-gradient-to-r ${cat.color} text-white shadow-lg`
@@ -148,54 +207,59 @@ export const FortuneSection = () => {
         ))}
       </div>
 
-      {/* Fortune Cards Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <AnimatePresence mode="popLayout">
-          {filteredFortunes.map((fortune) => (
+      {/* Fortune Card Area */}
+      <div className="max-w-md mx-auto">
+        <AnimatePresence mode="wait">
+          {isRevealed && currentFortune ? (
             <motion.div
-              key={fortune.id}
-              layout
-              initial={{ opacity: 0, scale: 0.8 }}
+              key={`fortune-${fortuneKey}`}
+              initial={{ opacity: 0, rotateY: 180 }}
+              animate={{ opacity: 1, rotateY: 0 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              transition={{ type: "spring", damping: 20 }}
+            >
+              <FortuneCard fortune={currentFortune} onReveal={handleNewFortune} />
+            </motion.div>
+          ) : (
+            <motion.div
+              key={`scratch-${fortuneKey}`}
+              initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
             >
-              {revealedFortunes.includes(fortune.id) ? (
-                <FortuneCard fortune={fortune} />
-              ) : (
-                <ScratchCard
-                  coverText="Scratch to reveal"
-                  coverEmoji={fortune.category === "naughty" ? "🔞" : fortune.category === "spicy" ? "🔥" : "✨"}
-                  onReveal={() => handleReveal(fortune.id)}
-                >
-                  <FortuneCard fortune={fortune} />
-                </ScratchCard>
-              )}
+              <ScratchCard
+                coverText="Scratch to reveal your fortune"
+                coverEmoji={selectedCategory === "naughty" ? "🔞" : selectedCategory === "spicy" ? "🔥" : "✨"}
+                onReveal={handleReveal}
+              >
+                <div className="bg-gradient-to-br from-purple-600 to-pink-600 rounded-xl p-8 text-center min-h-[200px] flex flex-col items-center justify-center">
+                  <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                    className="text-5xl mb-4"
+                  >
+                    🔮
+                  </motion.div>
+                  <p className="text-white font-serif text-lg">
+                    Your fortune awaits...
+                  </p>
+                </div>
+              </ScratchCard>
             </motion.div>
-          ))}
+          )}
         </AnimatePresence>
       </div>
 
-      {/* Stats */}
+      {/* Hint */}
       <motion.div 
-        className="text-center pt-4"
+        className="text-center"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
+        transition={{ delay: 0.5 }}
       >
-        <p className="text-rose-300/60 text-sm">
-          Revealed: {revealedFortunes.length} / {fortunes.length} fortunes
+        <p className="text-rose-300/50 text-xs">
+          {isRevealed ? "Tap 'New Fortune' to get another one!" : "Scratch the card above to reveal your fortune 💫"}
         </p>
-        <div className="flex justify-center gap-1 mt-2">
-          {fortunes.map((_, i) => (
-            <motion.div
-              key={i}
-              className={`w-2 h-2 rounded-full ${
-                revealedFortunes.includes(i + 1) ? "bg-pink-500" : "bg-white/20"
-              }`}
-              animate={revealedFortunes.includes(i + 1) ? { scale: [1, 1.3, 1] } : {}}
-              transition={{ duration: 0.3 }}
-            />
-          ))}
-        </div>
       </motion.div>
     </div>
   );
