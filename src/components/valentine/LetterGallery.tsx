@@ -1,7 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight, X, Heart } from "lucide-react";
+import { ChevronLeft, ChevronRight, X, Heart, Mic, Square, Play, Pause, Trash2, Volume2 } from "lucide-react";
 import ReactDOM from "react-dom";
+import { 
+  getAudioFromDB, 
+  saveAudioToDB, 
+  deleteAudioFromDB,
+  RecordedMedia 
+} from "@/hooks/media";
 
 interface Letter {
   id: number;
@@ -106,6 +112,259 @@ Every moment with you feels like a beautiful dream that I never want to wake up 
   }
 ];
 
+// Voice Message Component
+const VoiceMessageSection = ({ letterId }: { letterId: number }) => {
+  const [recordings, setRecordings] = useState<RecordedMedia[]>([]);
+  const [isRecording, setIsRecording] = useState(false);
+  const [recordingTime, setRecordingTime] = useState(0);
+  const [playingId, setPlayingId] = useState<string | null>(null);
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const chunksRef = useRef<Blob[]>([]);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    loadRecordings();
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+    };
+  }, [letterId]);
+
+  const loadRecordings = async () => {
+    try {
+      const audio = await getAudioFromDB(`letter_${letterId}`);
+      setRecordings(audio);
+    } catch (error) {
+      console.error('Error loading recordings:', error);
+    }
+  };
+
+  const startRecording = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const mimeType = MediaRecorder.isTypeSupported('audio/webm') ? 'audio/webm' : 'audio/mp4';
+      const mediaRecorder = new MediaRecorder(stream, { mimeType });
+      mediaRecorderRef.current = mediaRecorder;
+      chunksRef.current = [];
+
+      mediaRecorder.ondataavailable = (e) => {
+        if (e.data.size > 0) chunksRef.current.push(e.data);
+      };
+
+      mediaRecorder.onstop = async () => {
+        stream.getTracks().forEach(t => t.stop());
+        const blob = new Blob(chunksRef.current, { type: mimeType });
+        const url = URL.createObjectURL(blob);
+        const newRecording: RecordedMedia = {
+          id: `letter_${letterId}_voice_${Date.now()}`,
+          type: 'audio',
+          blob,
+          url,
+          timestamp: Date.now(),
+          duration: recordingTime,
+        };
+        
+        await saveAudioToDB(`letter_${letterId}`, newRecording);
+        setRecordings(prev => [...prev, newRecording]);
+        setRecordingTime(0);
+      };
+
+      mediaRecorder.start(100);
+      setIsRecording(true);
+      
+      timerRef.current = setInterval(() => {
+        setRecordingTime(prev => prev + 1);
+      }, 1000);
+    } catch (error) {
+      console.error('Error starting recording:', error);
+    }
+  };
+
+  const stopRecording = () => {
+    if (mediaRecorderRef.current) {
+      mediaRecorderRef.current.stop();
+      setIsRecording(false);
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+        timerRef.current = null;
+      }
+    }
+  };
+
+  const playRecording = (recording: RecordedMedia) => {
+    if (playingId === recording.id) {
+      audioRef.current?.pause();
+      setPlayingId(null);
+      return;
+    }
+
+    if (audioRef.current) {
+      audioRef.current.pause();
+    }
+
+    audioRef.current = new Audio(recording.url);
+    audioRef.current.onended = () => setPlayingId(null);
+    audioRef.current.play();
+    setPlayingId(recording.id);
+  };
+
+  const deleteRecording = async (id: string) => {
+    const password = prompt('Enter password to delete:');
+    if (password !== 'Anjalisajan') {
+      alert('Incorrect password!');
+      return;
+    }
+    await deleteAudioFromDB(id);
+    setRecordings(prev => prev.filter(r => r.id !== id));
+  };
+
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
+
+  return (
+    <div 
+      style={{
+        marginTop: '20px',
+        padding: '16px',
+        background: 'rgba(244, 63, 94, 0.1)',
+        borderRadius: '16px',
+        border: '1px solid rgba(244, 63, 94, 0.2)',
+      }}
+    >
+      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
+        <Volume2 size={18} color="#f43f5e" />
+        <span style={{ color: '#f43f5e', fontSize: '14px', fontWeight: 500 }}>
+          Voice Messages
+        </span>
+      </div>
+
+      {/* Recordings List */}
+      {recordings.length > 0 && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '12px' }}>
+          {recordings.map((recording) => (
+            <motion.div
+              key={recording.id}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                padding: '10px 12px',
+                background: 'rgba(255,255,255,0.1)',
+                borderRadius: '12px',
+              }}
+            >
+              <button
+                onClick={() => playRecording(recording)}
+                style={{
+                  width: '36px',
+                  height: '36px',
+                  borderRadius: '50%',
+                  background: playingId === recording.id ? '#f43f5e' : 'rgba(244, 63, 94, 0.2)',
+                  border: 'none',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                {playingId === recording.id ? (
+                  <Pause size={16} color="white" />
+                ) : (
+                  <Play size={16} color="#f43f5e" />
+                )}
+              </button>
+              
+              <div style={{ flex: 1 }}>
+                <div style={{ 
+                  height: '4px', 
+                  background: 'rgba(244, 63, 94, 0.3)', 
+                  borderRadius: '2px',
+                  overflow: 'hidden',
+                }}>
+                  <motion.div
+                    style={{ 
+                      height: '100%', 
+                      background: '#f43f5e',
+                      borderRadius: '2px',
+                    }}
+                    animate={playingId === recording.id ? { width: ['0%', '100%'] } : { width: '0%' }}
+                    transition={{ duration: recording.duration || 5, ease: 'linear' }}
+                  />
+                </div>
+                <span style={{ color: 'rgba(255,255,255,0.5)', fontSize: '11px' }}>
+                  {formatTime(recording.duration || 0)}
+                </span>
+              </div>
+              
+              <button
+                onClick={() => deleteRecording(recording.id)}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  padding: '4px',
+                }}
+              >
+                <Trash2 size={14} color="rgba(255,255,255,0.4)" />
+              </button>
+            </motion.div>
+          ))}
+        </div>
+      )}
+
+      {/* Record Button */}
+      <motion.button
+        onClick={isRecording ? stopRecording : startRecording}
+        style={{
+          width: '100%',
+          padding: '12px',
+          borderRadius: '12px',
+          border: 'none',
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '8px',
+          background: isRecording 
+            ? 'linear-gradient(135deg, #ef4444, #dc2626)' 
+            : 'linear-gradient(135deg, #f43f5e, #ec4899)',
+          color: 'white',
+          fontWeight: 500,
+          fontSize: '14px',
+        }}
+        whileHover={{ scale: 1.02 }}
+        whileTap={{ scale: 0.98 }}
+      >
+        {isRecording ? (
+          <>
+            <motion.div
+              animate={{ scale: [1, 1.2, 1] }}
+              transition={{ duration: 0.5, repeat: Infinity }}
+            >
+              <Square size={16} fill="white" />
+            </motion.div>
+            Stop Recording ({formatTime(recordingTime)})
+          </>
+        ) : (
+          <>
+            <Mic size={16} />
+            Add Voice Message
+          </>
+        )}
+      </motion.button>
+    </div>
+  );
+};
+
 // Fullscreen Letter Modal - Rendered via Portal
 const FullscreenLetterModal = ({
   letter,
@@ -122,7 +381,6 @@ const FullscreenLetterModal = ({
   onPrev: () => void;
   onSelectLetter: (index: number) => void;
 }) => {
-  // Lock scroll
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     document.body.style.position = 'fixed';
@@ -155,7 +413,6 @@ const FullscreenLetterModal = ({
         flexDirection: 'column',
       }}
     >
-      {/* Full Background - Gradient */}
       <div 
         style={{
           position: 'absolute',
@@ -350,6 +607,9 @@ const FullscreenLetterModal = ({
                   </span>
                   <Heart size={18} fill="#f43f5e" color="#f43f5e" />
                 </motion.div>
+
+                {/* Voice Messages Section */}
+                <VoiceMessageSection letterId={letter.id} />
               </div>
             </div>
           </motion.div>
@@ -370,7 +630,7 @@ const FullscreenLetterModal = ({
       >
         <div style={{ padding: '16px' }}>
           {/* Letter dots */}
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', marginBottom: '16px' }}>
+          <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', marginBottom: '16px', flexWrap: 'wrap' }}>
             {letters.map((_, i) => (
               <button
                 key={i}
@@ -446,7 +706,6 @@ const FullscreenLetterModal = ({
     </motion.div>
   );
 
-  // Render to body using portal
   return ReactDOM.createPortal(modalContent, document.body);
 };
 
@@ -576,6 +835,9 @@ export const LetterGallery = () => {
         </motion.p>
         <p className="text-white/50 text-xs mt-1">
           Tap the envelopes to read my love letters
+        </p>
+        <p className="text-pink-400/60 text-xs mt-1">
+          🎤 Now with voice messages!
         </p>
       </div>
 
