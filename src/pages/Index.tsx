@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Heart, Lock, Sparkles, ChevronRight, ChevronLeft } from "lucide-react";
+import { Heart, Lock, Sparkles, ChevronRight, ChevronLeft, Gift } from "lucide-react";
 import ReactDOM from "react-dom";
+import { Link } from "react-router-dom";
 // Premium Components
 import { HeartCursor } from "@/components/valentine/HeartCursor";
 import { ParallaxStars } from "@/components/valentine/ParallaxStars";
@@ -1946,11 +1947,24 @@ const Index = () => {
           <span className="font-serif text-pink-300 text-lg">For Puntuu 💕</span>
         </div>
         
-        {previewMode && (
-          <span className="text-xs bg-purple-500/80 text-white px-3 py-1 rounded-full backdrop-blur-sm">
-            Preview Mode ✨
-          </span>
-        )}
+        <div className="flex items-center gap-2">
+          {previewMode && (
+            <span className="text-xs bg-purple-500/80 text-white px-3 py-1 rounded-full backdrop-blur-sm">
+              Preview Mode ✨
+            </span>
+          )}
+          
+          <Link to="/extra" onClick={(e) => e.stopPropagation()}>
+            <motion.div
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-purple-500/80 to-pink-500/80 rounded-full text-white text-sm font-medium backdrop-blur-sm"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Gift className="w-4 h-4" />
+              <span>Extras</span>
+            </motion.div>
+          </Link>
+        </div>
       </header>
       
       {/* Day Navigation - Responsive scroll */}
