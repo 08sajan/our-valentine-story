@@ -9,12 +9,10 @@ import { ParallaxStars } from "@/components/valentine/ParallaxStars";
 import { Fireflies } from "@/components/valentine/Fireflies";
 import { ConfettiCannon } from "@/components/valentine/ConfettiCannon";
 import { ScratchCard } from "@/components/valentine/ScratchCard";
-import { SelfTypingLoveLetter } from "@/components/valentine/TypewriterText";
 import { PhotoGallery } from "@/components/valentine/PhotoGallery";
 import { CandleCeremony } from "@/components/valentine/CandleCeremony";
 import { CountdownTimer } from "@/components/valentine/CountdownTimer";
 import { BackgroundMusic } from "@/components/valentine/BackgroundMusic";
-import { RoseCounter } from "@/components/valentine/RoseCounter";
 import { RoseBouquet } from "@/components/valentine/RoseBouquet";
 import { TeddyGallery } from "@/components/valentine/TeddyGallery";
 import { FallingStars } from "@/components/valentine/FallingStars";
@@ -22,48 +20,16 @@ import { LetterGallery } from "@/components/valentine/LetterGallery";
 import { CinematicHug } from "@/components/valentine/CinematicHug";
 import { CinematicKiss } from "@/components/valentine/CinematicKiss";
 import { NepaliPoemLanding } from "@/components/valentine/NepaliPoemLanding";
-import { DressUpGame } from "@/components/valentine/DressUpGame";
 import { LoveQuiz } from "@/components/valentine/LoveQuiz";
 import { WishingWell } from "@/components/valentine/WishingWell";
 import { RelationshipCountdown } from "@/components/valentine/RelationshipCountdown";
-import { WhenIMissYou } from "@/components/valentine/WhenIMissYou";
-import { PhotoBooth } from "@/components/valentine/PhotoBooth";
 // New Romantic Sections
 import { OpenWhenLetters } from "@/components/valentine/OpenWhenLetters";
-import { SharedDreamsBucketList } from "@/components/valentine/SharedDreamsBucketList";
-import { CuratedSoundscapes } from "@/components/valentine/CuratedSoundscapes";
-import { DigitalJarOfHearts } from "@/components/valentine/DigitalJarOfHearts";
-import { EmergencyComfortButton } from "@/components/valentine/EmergencyComfortButton";
-import { GrowthArchive } from "@/components/valentine/GrowthArchive";
-import { FutureMaps } from "@/components/valentine/FutureMaps";
-import { DecisionMaker } from "@/components/valentine/DecisionMaker";
-import { PermissionSlips } from "@/components/valentine/PermissionSlips";
 import { IntimateSection } from "@/components/valentine/IntimateSection";
 import { VoiceVideoMessages } from "@/components/valentine/VoiceVideoMessages";
-import { BirthdayCelebration } from "@/components/valentine/BirthdayCelebration";
-import { FlowerBouquetGallery } from "@/components/valentine/FlowerBouquetGallery";
 import { WhenWeFight } from "@/components/valentine/WhenWeFight";
-import { ILoveYouLanguages } from "@/components/valentine/ILoveYouLanguages";
 import { ValentineProposal } from "@/components/valentine/ValentineProposal";
-import { PeriodTracker } from "@/components/valentine/PeriodTracker";
-import { KaraokeSection } from "@/components/valentine/KaraokeSection";
-import { HealthSection } from "@/components/valentine/HealthSection";
-import { FoodNutritionGuide } from "@/components/valentine/FoodNutritionGuide";
-import { ComplimentsSection } from "@/components/valentine/ComplimentsSection";
-import { JokesSection } from "@/components/valentine/JokesSection";
-import { TruthOrDare } from "@/components/valentine/TruthOrDare";
-import { DailyAffirmations } from "@/components/valentine/DailyAffirmations";
-import { MoodTracker } from "@/components/valentine/MoodTracker";
-import { SelfCareSection } from "@/components/valentine/SelfCareSection";
-import { NaughtyQuestions } from "@/components/valentine/NaughtyQuestions";
-import { VirtualTreats } from "@/components/valentine/VirtualTreats";
-import { PrivatePinterest } from "@/components/valentine/PrivatePinterest";
-import { EscapeRoom } from "@/components/valentine/EscapeRoom";
-import { AirHostessRoleplay } from "@/components/valentine/AirHostessRoleplay";
-import { MemoryMatchGame } from "@/components/valentine/MemoryMatchGame";
-import { WouldYouRather } from "@/components/valentine/WouldYouRather";
 import { FortuneSection } from "@/components/valentine/FortuneSection";
-import { NepaliPoemsGallery } from "@/components/valentine/NepaliPoemsGallery";
 import { 
   ShakeHeartsExplosion, 
   KonamiSecret, 
@@ -854,7 +820,7 @@ const KissDayContent = () => {
 
 const ValentineDayContent = () => {
   const [triggerConfetti, setTriggerConfetti] = useState(false);
-  const [activeSection, setActiveSection] = useState<'gallery' | 'letters' | 'letter' | 'game' | 'quiz' | 'wishes' | 'journey' | 'soulmate' | 'missyou' | 'photobooth' | 'openwhen' | 'hearts' | 'comfort' | 'music' | 'dreams' | 'growth' | 'future' | 'decide' | 'coupons' | 'private' | 'recordings' | 'birthday' | 'bouquets' | 'fights' | 'languages' | 'proposal' | 'period' | 'karaoke' | 'health' | 'food' | 'compliments' | 'jokes' | 'truthordare' | 'affirmations' | 'mood' | 'selfcare' | 'naughty' | 'treats' | 'pinterest' | 'escape' | 'airhostess' | 'matchgame' | 'wouldyourather' | 'fortune' | 'poems'>('gallery');
+  const [activeSection, setActiveSection] = useState<'gallery' | 'letters' | 'letter' | 'quiz' | 'wishes' | 'journey' | 'soulmate' | 'openwhen' | 'private' | 'recordings' | 'fights' | 'proposal' | 'fortune'>('gallery');
   
   useEffect(() => {
     setTriggerConfetti(true);
@@ -887,83 +853,37 @@ const ValentineDayContent = () => {
         </p>
       </GlassCard>
 
-      {/* Navigation Tabs - Four rows for all sections */}
+      {/* Navigation Tabs - Simplified */}
       <div className="space-y-2">
         <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 px-1">
           {[
             { key: 'gallery', label: 'Memories', emoji: '📸' },
             { key: 'letters', label: 'Letters', emoji: '💌' },
             { key: 'openwhen', label: 'Open When', emoji: '📬' },
-            { key: 'quiz', label: 'Quiz', emoji: '💕' },
-            { key: 'hearts', label: 'Hearts', emoji: '💖' },
-          ].map((tab) => (
-            <motion.button
-              key={tab.key}
-              onClick={() => setActiveSection(tab.key as typeof activeSection)}
-              className={`px-2 sm:px-3 py-1.5 sm:py-2 rounded-full font-medium text-[9px] sm:text-xs whitespace-nowrap transition-all ${
-                activeSection === tab.key 
-                  ? "bg-white/30 text-white shadow-lg" 
-                  : "bg-white/10 text-white/70"
-              }`}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {tab.emoji} {tab.label}
-            </motion.button>
-          ))}
-        </div>
-        <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 px-1">
-          {[
-            { key: 'comfort', label: 'Comfort', emoji: '🆘' },
-            { key: 'music', label: 'Music', emoji: '🎵' },
-            { key: 'dreams', label: 'Dreams', emoji: '🌟' },
-            { key: 'growth', label: 'Growth', emoji: '🌱' },
-            { key: 'future', label: 'Future', emoji: '📍' },
-          ].map((tab) => (
-            <motion.button
-              key={tab.key}
-              onClick={() => setActiveSection(tab.key as typeof activeSection)}
-              className={`px-2 sm:px-3 py-1.5 sm:py-2 rounded-full font-medium text-[9px] sm:text-xs whitespace-nowrap transition-all ${
-                activeSection === tab.key 
-                  ? "bg-white/30 text-white shadow-lg" 
-                  : "bg-white/10 text-white/70"
-              }`}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {tab.emoji} {tab.label}
-            </motion.button>
-          ))}
-        </div>
-        <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 px-1">
-          {[
-            { key: 'decide', label: 'Decide', emoji: '🎲' },
-            { key: 'coupons', label: 'Coupons', emoji: '🎫' },
-            { key: 'game', label: 'Dress Up', emoji: '👗' },
-            { key: 'missyou', label: 'Miss You', emoji: '🥺' },
-            { key: 'photobooth', label: 'Photos', emoji: '📷' },
-          ].map((tab) => (
-            <motion.button
-              key={tab.key}
-              onClick={() => setActiveSection(tab.key as typeof activeSection)}
-              className={`px-2 sm:px-3 py-1.5 sm:py-2 rounded-full font-medium text-[9px] sm:text-xs whitespace-nowrap transition-all ${
-                activeSection === tab.key 
-                  ? "bg-white/30 text-white shadow-lg" 
-                  : "bg-white/10 text-white/70"
-              }`}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {tab.emoji} {tab.label}
-            </motion.button>
-          ))}
-        </div>
-        <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 px-1">
-          {[
-            { key: 'wishes', label: 'Wishes', emoji: '✨' },
-            { key: 'journey', label: 'Journey', emoji: '⏱️' },
             { key: 'soulmate', label: 'Soulmate', emoji: '💫' },
             { key: 'letter', label: 'Final Letter', emoji: '❤️' },
+          ].map((tab) => (
+            <motion.button
+              key={tab.key}
+              onClick={() => setActiveSection(tab.key as typeof activeSection)}
+              className={`px-2 sm:px-3 py-1.5 sm:py-2 rounded-full font-medium text-[9px] sm:text-xs whitespace-nowrap transition-all ${
+                activeSection === tab.key 
+                  ? "bg-white/30 text-white shadow-lg" 
+                  : "bg-white/10 text-white/70"
+              }`}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              {tab.emoji} {tab.label}
+            </motion.button>
+          ))}
+        </div>
+        <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 px-1">
+          {[
+            { key: 'quiz', label: 'Quiz', emoji: '💕' },
+            { key: 'wishes', label: 'Wishes', emoji: '✨' },
+            { key: 'journey', label: 'Journey', emoji: '⏱️' },
+            { key: 'fights', label: 'When We Fight', emoji: '🌧️' },
             { key: 'private', label: 'Private', emoji: '🔥' },
           ].map((tab) => (
             <motion.button
@@ -984,84 +904,8 @@ const ValentineDayContent = () => {
         <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 px-1">
           {[
             { key: 'recordings', label: 'Voice/Video', emoji: '🎤' },
-            { key: 'birthday', label: 'Birthday', emoji: '🎂' },
-            { key: 'bouquets', label: 'Bouquets', emoji: '💐' },
-            { key: 'period', label: 'Period Care', emoji: '🌸' },
-            { key: 'fights', label: 'When We Fight', emoji: '🌧️' },
-            { key: 'languages', label: 'I Love You', emoji: '🌍' },
-          ].map((tab) => (
-            <motion.button
-              key={tab.key}
-              onClick={() => setActiveSection(tab.key as typeof activeSection)}
-              className={`px-2 sm:px-3 py-1.5 sm:py-2 rounded-full font-medium text-[9px] sm:text-xs whitespace-nowrap transition-all ${
-                activeSection === tab.key 
-                  ? "bg-white/30 text-white shadow-lg" 
-                  : "bg-white/10 text-white/70"
-              }`}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {tab.emoji} {tab.label}
-            </motion.button>
-          ))}
-        </div>
-        <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 px-1">
-          {[
-            { key: 'health', label: 'Health', emoji: '🩺' },
-            { key: 'food', label: 'Food Guide', emoji: '🥗' },
-            { key: 'compliments', label: 'Compliments', emoji: '💕' },
-            { key: 'jokes', label: 'Jokes', emoji: '😂' },
-            { key: 'truthordare', label: 'Truth/Dare', emoji: '🎯' },
-          ].map((tab) => (
-            <motion.button
-              key={tab.key}
-              onClick={() => setActiveSection(tab.key as typeof activeSection)}
-              className={`px-2 sm:px-3 py-1.5 sm:py-2 rounded-full font-medium text-[9px] sm:text-xs whitespace-nowrap transition-all ${
-                activeSection === tab.key 
-                  ? "bg-white/30 text-white shadow-lg" 
-                  : "bg-white/10 text-white/70"
-              }`}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {tab.emoji} {tab.label}
-            </motion.button>
-          ))}
-        </div>
-        <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 px-1">
-          {[
-            { key: 'affirmations', label: 'Affirm', emoji: '✨' },
-            { key: 'mood', label: 'Mood', emoji: '💭' },
-            { key: 'selfcare', label: 'Self-Care', emoji: '🧖‍♀️' },
-            { key: 'treats', label: 'Treats', emoji: '🍰' },
-            { key: 'escape', label: 'Escape', emoji: '🔐' },
-            { key: 'airhostess', label: 'Airhostess', emoji: '✈️' },
-            { key: 'matchgame', label: 'Match Game', emoji: '🃏' },
-          ].map((tab) => (
-            <motion.button
-              key={tab.key}
-              onClick={() => setActiveSection(tab.key as typeof activeSection)}
-              className={`px-2 sm:px-3 py-1.5 sm:py-2 rounded-full font-medium text-[9px] sm:text-xs whitespace-nowrap transition-all ${
-                activeSection === tab.key 
-                  ? "bg-white/30 text-white shadow-lg" 
-                  : "bg-white/10 text-white/70"
-              }`}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {tab.emoji} {tab.label}
-            </motion.button>
-          ))}
-        </div>
-        <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 px-1">
-          {[
             { key: 'fortune', label: 'Fortune', emoji: '🔮' },
-            { key: 'poems', label: 'Poems', emoji: '📜' },
-            { key: 'pinterest', label: 'Our Board', emoji: '📌' },
-            { key: 'naughty', label: 'Naughty Q', emoji: '🔥' },
-            { key: 'karaoke', label: 'Karaoke', emoji: '🎤' },
-            { key: 'wouldyourather', label: 'Would Rather', emoji: '🤔' },
-            { key: 'proposal', label: 'Be My Valentine?', emoji: '💕' },
+            { key: 'proposal', label: 'Be My Valentine?', emoji: '💖' },
           ].map((tab) => (
             <motion.button
               key={tab.key}
@@ -1107,7 +951,7 @@ const ValentineDayContent = () => {
           >
             <GlassCard className="p-6">
               <h3 className="text-xl font-serif text-pink-300 mb-4 text-center">
-                10 Letters for You 💌
+                12 Letters for You 💌
               </h3>
               <LetterGallery />
             </GlassCard>
@@ -1245,46 +1089,6 @@ I want to know the ways you ache, the ways you hope, the tiny corners of yoursel
           </motion.div>
         )}
 
-        {activeSection === 'game' && (
-          <motion.div
-            key="game"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 20 }}
-          >
-            <GlassCard className="p-6">
-              <DressUpGame />
-            </GlassCard>
-          </motion.div>
-        )}
-
-        {activeSection === 'missyou' && (
-          <motion.div
-            key="missyou"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 20 }}
-          >
-            <GlassCard className="p-6">
-              <WhenIMissYou />
-            </GlassCard>
-          </motion.div>
-        )}
-
-        {activeSection === 'photobooth' && (
-          <motion.div
-            key="photobooth"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 20 }}
-          >
-            <GlassCard className="p-6">
-              <PhotoBooth />
-            </GlassCard>
-          </motion.div>
-        )}
-
-        {/* New Romantic Sections */}
         {activeSection === 'openwhen' && (
           <motion.div
             key="openwhen"
@@ -1294,110 +1098,6 @@ I want to know the ways you ache, the ways you hope, the tiny corners of yoursel
           >
             <GlassCard className="p-4">
               <OpenWhenLetters />
-            </GlassCard>
-          </motion.div>
-        )}
-
-        {activeSection === 'hearts' && (
-          <motion.div
-            key="hearts"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 20 }}
-          >
-            <GlassCard className="p-4">
-              <DigitalJarOfHearts />
-            </GlassCard>
-          </motion.div>
-        )}
-
-        {activeSection === 'comfort' && (
-          <motion.div
-            key="comfort"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 20 }}
-          >
-            <GlassCard className="p-4">
-              <EmergencyComfortButton />
-            </GlassCard>
-          </motion.div>
-        )}
-
-        {activeSection === 'music' && (
-          <motion.div
-            key="music"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 20 }}
-          >
-            <GlassCard className="p-4">
-              <CuratedSoundscapes />
-            </GlassCard>
-          </motion.div>
-        )}
-
-        {activeSection === 'dreams' && (
-          <motion.div
-            key="dreams"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 20 }}
-          >
-            <GlassCard className="p-4">
-              <SharedDreamsBucketList />
-            </GlassCard>
-          </motion.div>
-        )}
-
-        {activeSection === 'growth' && (
-          <motion.div
-            key="growth"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 20 }}
-          >
-            <GlassCard className="p-4">
-              <GrowthArchive />
-            </GlassCard>
-          </motion.div>
-        )}
-
-        {activeSection === 'future' && (
-          <motion.div
-            key="future"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 20 }}
-          >
-            <GlassCard className="p-4">
-              <FutureMaps />
-            </GlassCard>
-          </motion.div>
-        )}
-
-        {activeSection === 'decide' && (
-          <motion.div
-            key="decide"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 20 }}
-          >
-            <GlassCard className="p-4">
-              <DecisionMaker />
-            </GlassCard>
-          </motion.div>
-        )}
-
-        {activeSection === 'coupons' && (
-          <motion.div
-            key="coupons"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 20 }}
-          >
-            <GlassCard className="p-4">
-              <PermissionSlips />
             </GlassCard>
           </motion.div>
         )}
@@ -1428,32 +1128,6 @@ I want to know the ways you ache, the ways you hope, the tiny corners of yoursel
           </motion.div>
         )}
 
-        {activeSection === 'birthday' && (
-          <motion.div
-            key="birthday"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 20 }}
-          >
-            <GlassCard className="p-4">
-              <BirthdayCelebration />
-            </GlassCard>
-          </motion.div>
-        )}
-
-        {activeSection === 'bouquets' && (
-          <motion.div
-            key="bouquets"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 20 }}
-          >
-            <GlassCard className="p-4">
-              <FlowerBouquetGallery />
-            </GlassCard>
-          </motion.div>
-        )}
-
         {activeSection === 'fights' && (
           <motion.div
             key="fights"
@@ -1463,19 +1137,6 @@ I want to know the ways you ache, the ways you hope, the tiny corners of yoursel
           >
             <GlassCard className="p-4">
               <WhenWeFight />
-            </GlassCard>
-          </motion.div>
-        )}
-
-        {activeSection === 'languages' && (
-          <motion.div
-            key="languages"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 20 }}
-          >
-            <GlassCard className="p-4">
-              <ILoveYouLanguages />
             </GlassCard>
           </motion.div>
         )}
@@ -1493,225 +1154,6 @@ I want to know the ways you ache, the ways you hope, the tiny corners of yoursel
           </motion.div>
         )}
 
-        {activeSection === 'period' && (
-          <motion.div
-            key="period"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 20 }}
-          >
-            <GlassCard className="p-4">
-              <PeriodTracker />
-            </GlassCard>
-          </motion.div>
-        )}
-
-        {activeSection === 'karaoke' && (
-          <motion.div
-            key="karaoke"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 20 }}
-          >
-            <GlassCard className="p-4">
-              <KaraokeSection />
-            </GlassCard>
-          </motion.div>
-        )}
-
-        {activeSection === 'health' && (
-          <motion.div
-            key="health"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 20 }}
-          >
-            <GlassCard className="p-4">
-              <HealthSection />
-            </GlassCard>
-          </motion.div>
-        )}
-
-        {activeSection === 'food' && (
-          <motion.div
-            key="food"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 20 }}
-          >
-            <GlassCard className="p-4">
-              <FoodNutritionGuide />
-            </GlassCard>
-          </motion.div>
-        )}
-
-        {activeSection === 'compliments' && (
-          <motion.div
-            key="compliments"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 20 }}
-          >
-            <GlassCard className="p-4">
-              <ComplimentsSection />
-            </GlassCard>
-          </motion.div>
-        )}
-
-        {activeSection === 'jokes' && (
-          <motion.div
-            key="jokes"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 20 }}
-          >
-            <GlassCard className="p-4">
-              <JokesSection />
-            </GlassCard>
-          </motion.div>
-        )}
-
-        {activeSection === 'truthordare' && (
-          <motion.div
-            key="truthordare"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 20 }}
-          >
-            <GlassCard className="p-4">
-              <TruthOrDare />
-            </GlassCard>
-          </motion.div>
-        )}
-
-        {activeSection === 'affirmations' && (
-          <motion.div
-            key="affirmations"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 20 }}
-          >
-            <GlassCard className="p-4">
-              <DailyAffirmations />
-            </GlassCard>
-          </motion.div>
-        )}
-
-        {activeSection === 'mood' && (
-          <motion.div
-            key="mood"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 20 }}
-          >
-            <GlassCard className="p-4">
-              <MoodTracker />
-            </GlassCard>
-          </motion.div>
-        )}
-
-        {activeSection === 'selfcare' && (
-          <motion.div
-            key="selfcare"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 20 }}
-          >
-            <GlassCard className="p-4">
-              <SelfCareSection />
-            </GlassCard>
-          </motion.div>
-        )}
-
-        {activeSection === 'naughty' && (
-          <motion.div
-            key="naughty"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 20 }}
-          >
-            <GlassCard className="p-4">
-              <NaughtyQuestions />
-            </GlassCard>
-          </motion.div>
-        )}
-
-        {activeSection === 'treats' && (
-          <motion.div
-            key="treats"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 20 }}
-          >
-            <GlassCard className="p-4">
-              <VirtualTreats />
-            </GlassCard>
-          </motion.div>
-        )}
-
-        {activeSection === 'pinterest' && (
-          <motion.div
-            key="pinterest"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 20 }}
-          >
-            <GlassCard className="p-4">
-              <PrivatePinterest />
-            </GlassCard>
-          </motion.div>
-        )}
-
-        {activeSection === 'escape' && (
-          <motion.div
-            key="escape"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 20 }}
-          >
-            <GlassCard className="p-4">
-              <EscapeRoom />
-            </GlassCard>
-          </motion.div>
-        )}
-
-        {activeSection === 'airhostess' && (
-          <motion.div
-            key="airhostess"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 20 }}
-          >
-            <GlassCard className="p-4">
-              <AirHostessRoleplay />
-            </GlassCard>
-          </motion.div>
-        )}
-
-        {activeSection === 'matchgame' && (
-          <motion.div
-            key="matchgame"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 20 }}
-          >
-            <GlassCard className="p-4">
-              <MemoryMatchGame />
-            </GlassCard>
-          </motion.div>
-        )}
-
-        {activeSection === 'wouldyourather' && (
-          <motion.div
-            key="wouldyourather"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 20 }}
-          >
-            <WouldYouRather />
-          </motion.div>
-        )}
-
         {activeSection === 'fortune' && (
           <motion.div
             key="fortune"
@@ -1721,19 +1163,6 @@ I want to know the ways you ache, the ways you hope, the tiny corners of yoursel
           >
             <GlassCard className="p-4 sm:p-6">
               <FortuneSection />
-            </GlassCard>
-          </motion.div>
-        )}
-
-        {activeSection === 'poems' && (
-          <motion.div
-            key="poems"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 20 }}
-          >
-            <GlassCard className="p-4 sm:p-6">
-              <NepaliPoemsGallery />
             </GlassCard>
           </motion.div>
         )}
