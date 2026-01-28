@@ -37,10 +37,6 @@ import { AirHostessRoleplay } from "@/components/valentine/AirHostessRoleplay";
 import { MemoryMatchGame } from "@/components/valentine/MemoryMatchGame";
 import { WouldYouRather } from "@/components/valentine/WouldYouRather";
 import { NepaliPoemsGallery } from "@/components/valentine/NepaliPoemsGallery";
-import { DoctorRoleplay } from "@/components/valentine/DoctorRoleplay";
-import { BossSecretaryRoleplay } from "@/components/valentine/BossSecretaryRoleplay";
-import { NursePatientRoleplay } from "@/components/valentine/NursePatientRoleplay";
-import { TeacherStudentRoleplay } from "@/components/valentine/TeacherStudentRoleplay";
 import { HeartCursor } from "@/components/valentine/HeartCursor";
 import { ParallaxStars } from "@/components/valentine/ParallaxStars";
 
@@ -48,7 +44,7 @@ type SectionKey = 'quiz' | 'game' | 'missyou' | 'photobooth' | 'dreams' | 'music
   'comfort' | 'growth' | 'future' | 'decide' | 'coupons' | 'birthday' | 'bouquets' | 'languages' |
   'period' | 'karaoke' | 'health' | 'food' | 'compliments' | 'jokes' | 'truthordare' | 
   'affirmations' | 'mood' | 'selfcare' | 'treats' | 'pinterest' | 'escape' | 'matchgame' |
-  'wouldyourather' | 'poems' | 'naughty' | 'airhostess' | 'doctor' | 'boss' | 'nurse' | 'teacher';
+  'wouldyourather' | 'poems' | 'naughty' | 'airhostess';
 
 // Glassmorphism Container
 const GlassCard = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
@@ -67,10 +63,6 @@ const GlassCard = ({ children, className = "" }: { children: React.ReactNode; cl
 const sections = [
   // Roleplays
   { key: 'airhostess', label: 'Airhostess', emoji: '✈️', category: 'roleplay' },
-  { key: 'doctor', label: 'Doctor', emoji: '🩺', category: 'roleplay' },
-  { key: 'boss', label: 'Boss & Secretary', emoji: '💼', category: 'roleplay' },
-  { key: 'nurse', label: 'Nurse', emoji: '🏥', category: 'roleplay' },
-  { key: 'teacher', label: 'Teacher', emoji: '📚', category: 'roleplay' },
   
   // Games & Fun
   { key: 'quiz', label: 'Love Quiz', emoji: '❓', category: 'games' },
@@ -170,10 +162,6 @@ const Extra = () => {
       case 'poems': return <NepaliPoemsGallery />;
       case 'naughty': return <NaughtyQuestions />;
       case 'airhostess': return <AirHostessRoleplay />;
-      case 'doctor': return <DoctorRoleplay />;
-      case 'boss': return <BossSecretaryRoleplay />;
-      case 'nurse': return <NursePatientRoleplay />;
-      case 'teacher': return <TeacherStudentRoleplay />;
       default: return null;
     }
   };
