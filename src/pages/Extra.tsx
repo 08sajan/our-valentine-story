@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, Heart, Sparkles } from "lucide-react";
+import { ChevronLeft, Heart, Shuffle } from "lucide-react";
 import { Link } from "react-router-dom";
-
+import { SpinWheel } from "@/components/valentine/SpinWheel";
 // Import all Extra sections
 import { LoveQuiz } from "@/components/valentine/LoveQuiz";
 import { DressUpGame } from "@/components/valentine/DressUpGame";
@@ -122,10 +122,15 @@ const categories = [
 const Extra = () => {
   const [activeSection, setActiveSection] = useState<SectionKey | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [showSpinWheel, setShowSpinWheel] = useState(false);
 
   const filteredSections = selectedCategory 
     ? sections.filter(s => s.category === selectedCategory)
     : sections;
+
+  const handleSpinSelection = (key: string) => {
+    setActiveSection(key as SectionKey);
+  };
 
   const renderSection = () => {
     switch (activeSection) {
@@ -226,7 +231,30 @@ const Extra = () => {
               <p className="text-white/60 text-sm mt-2">
                 More fun things for my Puntuu! 💕
               </p>
+              
+              {/* Spin Wheel Button */}
+              <motion.button
+                onClick={() => setShowSpinWheel(true)}
+                className="mt-4 px-6 py-3 rounded-full bg-gradient-to-r from-yellow-500 to-orange-500 text-white font-bold flex items-center gap-2 mx-auto shadow-lg shadow-orange-500/30"
+                whileHover={{ scale: 1.05, boxShadow: '0 10px 30px rgba(249, 115, 22, 0.4)' }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Shuffle className="w-5 h-5" />
+                <span>Spin & Pick!</span>
+                <span className="text-lg">🎰</span>
+              </motion.button>
             </motion.div>
+
+            {/* Spin Wheel Modal */}
+            <AnimatePresence>
+              {showSpinWheel && (
+                <SpinWheel
+                  sections={[...sections]}
+                  onSelectSection={handleSpinSelection}
+                  onClose={() => setShowSpinWheel(false)}
+                />
+              )}
+            </AnimatePresence>
 
             {/* Category Filters */}
             <div className="flex flex-wrap justify-center gap-2 mb-6">

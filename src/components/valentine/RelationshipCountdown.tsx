@@ -154,8 +154,8 @@ export const RelationshipCountdown = () => {
   // Nov 3, 2025 - Started talking on phone calls
   const phoneCallsDate = new Date(2025, 10, 3);
   
-  // Dec 3, 2025 - Got married
-  const marriageDate = new Date(2025, 11, 3);
+  // Dec 2, 2025 - Got married
+  const marriageDate = new Date(2025, 11, 2);
 
   const [customMilestones, setCustomMilestones] = useState<CustomMilestone[]>(() => {
     const saved = localStorage.getItem('custom-journey-milestones');
@@ -228,7 +228,7 @@ export const RelationshipCountdown = () => {
       <MilestoneCounter
         startDate={marriageDate}
         title="Since We Got Married"
-        subtitle="December 3, 2025"
+        subtitle="December 2, 2025"
         emoji="💍"
         icon={<Gem className="w-4 h-4 text-rose-400" />}
         gradientFrom="from-rose-500/20"

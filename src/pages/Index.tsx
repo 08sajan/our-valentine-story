@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Heart, Lock, Sparkles, ChevronRight, ChevronLeft, Gift } from "lucide-react";
 import ReactDOM from "react-dom";
 import { Link } from "react-router-dom";
+import { PasswordGate } from "@/components/valentine/PasswordGate";
 // Premium Components
 import { HeartCursor } from "@/components/valentine/HeartCursor";
 import { ParallaxStars } from "@/components/valentine/ParallaxStars";
@@ -1254,8 +1255,8 @@ const DayNavCard = ({
   </motion.button>
 );
 
-// Main Component
-const Index = () => {
+// Main Content Component
+const IndexContent = () => {
   const [currentDay, setCurrentDay] = useState(0);
   const [previewMode, setPreviewMode] = useState(false);
   const [tapCount, setTapCount] = useState(0);
@@ -1509,6 +1510,18 @@ const Index = () => {
       </footer>
     </div>
   );
+};
+
+const Index = () => {
+  const [isUnlocked, setIsUnlocked] = useState(() => {
+    return localStorage.getItem('valentine-unlocked') === 'true';
+  });
+
+  if (!isUnlocked) {
+    return <PasswordGate onUnlock={() => setIsUnlocked(true)} />;
+  }
+
+  return <IndexContent />;
 };
 
 export default Index;
