@@ -109,57 +109,100 @@ export const DecisionMaker = () => {
 
   return (
     <div className="py-8 px-4">
-      <div className="text-center mb-6">
+      <motion.div 
+        className="text-center mb-6"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+      >
         <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-2xl font-bold text-white mb-2"
+          className="text-2xl font-bold text-white mb-2 flex items-center justify-center gap-2"
+          animate={{ y: [0, -3, 0] }}
+          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
         >
-          🎲 What Should We Do?
+          <motion.span
+            animate={{ rotate: [0, 20, -20, 0] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            🎲
+          </motion.span>
+          <span className="bg-gradient-to-r from-pink-300 via-purple-300 to-rose-300 bg-clip-text text-transparent">
+            What Should We Do?
+          </span>
         </motion.h2>
-        <p className="text-white/70 text-sm">
+        <motion.p 
+          className="text-white/70 text-sm"
+          animate={{ opacity: [0.7, 1, 0.7] }}
+          transition={{ duration: 2, repeat: Infinity }}
+        >
           Let me decide for us! 💕
-        </p>
-      </div>
+        </motion.p>
+      </motion.div>
 
       {/* Spin Button */}
       <div className="flex justify-center mb-8">
         <motion.button
           onClick={spinWheel}
           disabled={isSpinning}
-          whileHover={{ scale: 1.05 }}
+          whileHover={{ scale: 1.08 }}
           whileTap={{ scale: 0.95 }}
           className="relative"
         >
-          {/* Outer glow */}
-          <motion.div
-            className="absolute inset-0 rounded-full bg-pink-400"
-            animate={{ 
-              scale: [1, 1.3, 1],
-              opacity: [0.5, 0, 0.5]
+          {/* Outer glow rings */}
+          {[...Array(3)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute inset-0 rounded-full bg-pink-400/30"
+              animate={{ 
+                scale: [1, 1.3 + i * 0.2, 1],
+                opacity: [0.4, 0, 0.4]
+              }}
+              transition={{ 
+                duration: 2 + i * 0.5, 
+                repeat: Infinity,
+                delay: i * 0.3
+              }}
+              style={{ filter: 'blur(15px)' }}
+            />
+          ))}
+
+          <motion.div 
+            className="relative w-36 h-36 rounded-full flex items-center justify-center"
+            style={{
+              background: 'linear-gradient(145deg, #ff6b9d, #ff4081, #e91e63)',
+              boxShadow: '0 15px 40px rgba(255,100,150,0.5), inset 0 0 20px rgba(255,255,255,0.2)'
+            }}
+            animate={{
+              boxShadow: [
+                '0 15px 40px rgba(255,100,150,0.5), inset 0 0 20px rgba(255,255,255,0.2)',
+                '0 20px 50px rgba(255,100,150,0.7), inset 0 0 30px rgba(255,255,255,0.3)',
+                '0 15px 40px rgba(255,100,150,0.5), inset 0 0 20px rgba(255,255,255,0.2)'
+              ]
             }}
             transition={{ duration: 2, repeat: Infinity }}
-            style={{ filter: 'blur(15px)' }}
-          />
-
-          <div 
-            className="relative w-32 h-32 rounded-full flex items-center justify-center"
-            style={{
-              background: 'linear-gradient(145deg, #ff6b9d, #ff4081)',
-              boxShadow: '0 15px 40px rgba(255,100,150,0.4)'
-            }}
           >
+            {/* Shimmer effect */}
             <motion.div
-              animate={isSpinning ? { rotate: 360 } : {}}
-              transition={{ duration: 0.5, repeat: isSpinning ? Infinity : 0, ease: "linear" }}
+              className="absolute inset-0 rounded-full bg-gradient-to-r from-transparent via-white/30 to-transparent"
+              animate={{ rotate: 360 }}
+              transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+            />
+            
+            <motion.div
+              animate={isSpinning ? { rotate: 360 } : { rotate: [0, 5, -5, 0] }}
+              transition={{ 
+                duration: isSpinning ? 0.5 : 3, 
+                repeat: Infinity, 
+                ease: isSpinning ? "linear" : "easeInOut"
+              }}
             >
               {isSpinning ? (
-                <RefreshCw className="w-12 h-12 text-white" />
+                <RefreshCw className="w-14 h-14 text-white drop-shadow-lg" />
               ) : (
-                <Shuffle className="w-12 h-12 text-white" />
+                <Shuffle className="w-14 h-14 text-white drop-shadow-lg" />
               )}
             </motion.div>
-          </div>
+          </motion.div>
         </motion.button>
       </div>
 
@@ -168,50 +211,86 @@ export const DecisionMaker = () => {
         {selectedActivity && (
           <motion.div
             key={selectedActivity.id}
-            initial={{ opacity: 0, scale: 0.8, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.8, y: -20 }}
-            className={`p-6 rounded-3xl bg-gradient-to-br ${categoryColors[selectedActivity.category]} mb-6`}
+            initial={{ opacity: 0, scale: 0.7, y: 30, rotateX: -20 }}
+            animate={{ opacity: 1, scale: 1, y: 0, rotateX: 0 }}
+            exit={{ opacity: 0, scale: 0.7, y: -30, rotateX: 20 }}
+            transition={{ type: "spring", stiffness: 300, damping: 25 }}
+            className={`p-6 rounded-3xl bg-gradient-to-br ${categoryColors[selectedActivity.category]} mb-6 relative overflow-hidden`}
             style={{ boxShadow: '0 20px 50px rgba(0,0,0,0.3)' }}
           >
+            {/* Animated shimmer */}
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
+              animate={{ x: ['-100%', '200%'] }}
+              transition={{ duration: 2, repeat: Infinity, repeatDelay: 1 }}
+            />
+            
             {!isSpinning && (
               <motion.div
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
-                transition={{ delay: 0.2, type: "spring" }}
-                className="text-center"
+                transition={{ delay: 0.2, type: "spring", stiffness: 400 }}
+                className="text-center relative z-10"
               >
                 <motion.div
-                  animate={{ y: [0, -10, 0], rotate: [0, 5, -5, 0] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                  className="text-5xl mb-3"
+                  animate={{ 
+                    y: [0, -15, 0], 
+                    rotate: [0, 10, -10, 0],
+                    scale: [1, 1.1, 1]
+                  }}
+                  transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+                  className="text-6xl mb-4 drop-shadow-lg"
                 >
                   {selectedActivity.emoji}
                 </motion.div>
-                <h3 className="text-xl font-bold text-white mb-2">
+                <motion.h3 
+                  className="text-2xl font-bold text-white mb-2"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                >
                   {selectedActivity.title}
-                </h3>
-                <p className="text-white/90 text-sm">
+                </motion.h3>
+                <motion.p 
+                  className="text-white/90 text-sm"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                >
                   {selectedActivity.description}
-                </p>
+                </motion.p>
                 
                 <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.5 }}
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.6, type: "spring" }}
                   className="mt-4 flex items-center justify-center gap-2 text-white/80"
                 >
-                  <Sparkles className="w-4 h-4" />
-                  <span className="text-xs">It's decided!</span>
-                  <Sparkles className="w-4 h-4" />
+                  <motion.span
+                    animate={{ rotate: [0, 15, -15, 0], scale: [1, 1.2, 1] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  >
+                    <Sparkles className="w-4 h-4" />
+                  </motion.span>
+                  <span className="text-sm font-medium">It's decided!</span>
+                  <motion.span
+                    animate={{ rotate: [0, -15, 15, 0], scale: [1, 1.2, 1] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  >
+                    <Sparkles className="w-4 h-4" />
+                  </motion.span>
                 </motion.div>
               </motion.div>
             )}
             
             {isSpinning && (
-              <div className="text-center py-4">
-                <span className="text-5xl">{selectedActivity.emoji}</span>
-              </div>
+              <motion.div 
+                className="text-center py-4"
+                animate={{ scale: [1, 1.1, 1] }}
+                transition={{ duration: 0.2, repeat: Infinity }}
+              >
+                <span className="text-6xl">{selectedActivity.emoji}</span>
+              </motion.div>
             )}
           </motion.div>
         )}

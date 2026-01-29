@@ -113,59 +113,97 @@ export const SharedDreamsBucketList = () => {
       <AnimatePresence>
         {showConfetti && (
           <div className="fixed inset-0 pointer-events-none z-50">
-            {[...Array(30)].map((_, i) => (
+            {[...Array(40)].map((_, i) => (
               <motion.div
                 key={i}
                 className="absolute text-2xl"
                 initial={{ 
                   x: window.innerWidth / 2, 
                   y: window.innerHeight / 2,
-                  scale: 0
+                  scale: 0,
+                  opacity: 1
                 }}
                 animate={{ 
                   x: Math.random() * window.innerWidth,
                   y: Math.random() * window.innerHeight,
-                  scale: 1,
-                  rotate: Math.random() * 360
+                  scale: [0, 1.5, 1],
+                  opacity: [1, 1, 0],
+                  rotate: Math.random() * 720
                 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 1, ease: "easeOut" }}
+                transition={{ duration: 1.5, ease: "easeOut", delay: i * 0.02 }}
               >
-                {['✨', '💕', '🌟', '💖', '⭐'][Math.floor(Math.random() * 5)]}
+                {['✨', '💕', '🌟', '💖', '⭐', '🎉', '💫'][Math.floor(Math.random() * 7)]}
               </motion.div>
             ))}
           </div>
         )}
       </AnimatePresence>
 
-      <div className="text-center mb-6">
+      <motion.div 
+        className="text-center mb-6"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+      >
         <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-2xl font-bold text-white mb-2"
+          className="text-2xl font-bold text-white mb-2 flex items-center justify-center gap-2"
+          animate={{ y: [0, -3, 0] }}
+          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
         >
-          🌟 Our Shared Dreams
+          <motion.span
+            animate={{ rotate: [0, 15, -15, 0], scale: [1, 1.2, 1] }}
+            transition={{ duration: 3, repeat: Infinity }}
+          >
+            🌟
+          </motion.span>
+          <span className="bg-gradient-to-r from-pink-300 via-purple-300 to-rose-300 bg-clip-text text-transparent">
+            Our Shared Dreams
+          </span>
+          <motion.span
+            animate={{ rotate: [0, -15, 15, 0], scale: [1, 1.2, 1] }}
+            transition={{ duration: 3, repeat: Infinity }}
+          >
+            🌟
+          </motion.span>
         </motion.h2>
-        <p className="text-white/70 text-sm mb-4">
-          Everything I want to experience with you
-        </p>
+        <motion.p 
+          className="text-white/70 text-sm mb-4"
+          animate={{ opacity: [0.7, 1, 0.7] }}
+          transition={{ duration: 2, repeat: Infinity }}
+        >
+          Everything I want to experience with you 💕
+        </motion.p>
 
         {/* Progress Bar */}
         <div className="max-w-xs mx-auto mb-4">
           <div className="flex justify-between text-xs text-white/60 mb-1">
             <span>Dreams Completed</span>
-            <span>{completedCount}/{bucketList.length}</span>
+            <motion.span
+              key={completedCount}
+              initial={{ scale: 1.5 }}
+              animate={{ scale: 1 }}
+              className="text-pink-300 font-medium"
+            >
+              {completedCount}/{bucketList.length}
+            </motion.span>
           </div>
-          <div className="h-3 bg-white/20 rounded-full overflow-hidden">
+          <div className="h-3 bg-white/20 rounded-full overflow-hidden backdrop-blur-sm">
             <motion.div
-              className="h-full bg-gradient-to-r from-pink-400 to-rose-500 rounded-full"
+              className="h-full bg-gradient-to-r from-pink-400 via-rose-500 to-purple-500 rounded-full relative"
               initial={{ width: 0 }}
               animate={{ width: `${progress}%` }}
               transition={{ duration: 1, ease: "easeOut" }}
-            />
+            >
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent"
+                animate={{ x: ['-100%', '200%'] }}
+                transition={{ duration: 2, repeat: Infinity, repeatDelay: 1 }}
+              />
+            </motion.div>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Category Filters */}
       <div className="flex gap-2 overflow-x-auto pb-4 mb-4 scrollbar-hide">
