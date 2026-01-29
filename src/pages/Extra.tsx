@@ -182,6 +182,20 @@ const Extra = () => {
         overflowY: 'auto',
       }}
     >
+      {/* Animated gradient overlay */}
+      <motion.div
+        className="fixed inset-0 pointer-events-none z-0"
+        animate={{
+          background: [
+            'radial-gradient(circle at 20% 20%, rgba(236,72,153,0.1) 0%, transparent 50%)',
+            'radial-gradient(circle at 80% 80%, rgba(147,51,234,0.1) 0%, transparent 50%)',
+            'radial-gradient(circle at 50% 50%, rgba(244,63,94,0.1) 0%, transparent 50%)',
+            'radial-gradient(circle at 20% 20%, rgba(236,72,153,0.1) 0%, transparent 50%)',
+          ]
+        }}
+        transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+      />
+      
       <HeartCursor />
       <ParallaxStars />
 
@@ -189,8 +203,8 @@ const Extra = () => {
       <header className="relative z-20 p-4 flex items-center justify-between">
         <Link to="/">
           <motion.button
-            className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full text-white backdrop-blur-md"
-            whileHover={{ scale: 1.05 }}
+            className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full text-white backdrop-blur-md border border-white/10"
+            whileHover={{ scale: 1.05, backgroundColor: 'rgba(255,255,255,0.15)' }}
             whileTap={{ scale: 0.95 }}
           >
             <ChevronLeft className="w-5 h-5" />
@@ -198,15 +212,21 @@ const Extra = () => {
           </motion.button>
         </Link>
         
-        <div className="flex items-center gap-2">
+        <motion.div 
+          className="flex items-center gap-2"
+          animate={{ y: [0, -3, 0] }}
+          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+        >
           <motion.div
-            animate={{ scale: [1, 1.2, 1] }}
-            transition={{ duration: 1, repeat: Infinity }}
+            animate={{ scale: [1, 1.3, 1], rotate: [0, 10, -10, 0] }}
+            transition={{ duration: 2, repeat: Infinity }}
           >
             <Heart className="w-6 h-6 text-pink-400 fill-pink-400" />
           </motion.div>
-          <span className="font-serif text-pink-300 text-lg">Extras 💫</span>
-        </div>
+          <span className="font-serif text-pink-300 text-lg bg-gradient-to-r from-pink-300 to-purple-300 bg-clip-text text-transparent">
+            Extras 💫
+          </span>
+        </motion.div>
       </header>
 
       <main className="relative z-10 px-4 py-4 pb-24">
@@ -228,20 +248,44 @@ const Extra = () => {
               <h1 className="text-3xl font-serif bg-gradient-to-r from-pink-300 via-purple-300 to-rose-300 bg-clip-text text-transparent">
                 Extra Goodies
               </h1>
-              <p className="text-white/60 text-sm mt-2">
+              <motion.p 
+                className="text-white/60 text-sm mt-2"
+                animate={{ opacity: [0.6, 1, 0.6] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              >
                 More fun things for my Puntuu! 💕
-              </p>
+              </motion.p>
               
               {/* Spin Wheel Button */}
               <motion.button
                 onClick={() => setShowSpinWheel(true)}
-                className="mt-4 px-6 py-3 rounded-full bg-gradient-to-r from-yellow-500 to-orange-500 text-white font-bold flex items-center gap-2 mx-auto shadow-lg shadow-orange-500/30"
-                whileHover={{ scale: 1.05, boxShadow: '0 10px 30px rgba(249, 115, 22, 0.4)' }}
+                className="mt-5 px-8 py-4 rounded-full bg-gradient-to-r from-yellow-500 via-orange-500 to-amber-500 text-white font-bold flex items-center gap-3 mx-auto relative overflow-hidden"
+                style={{
+                  boxShadow: '0 10px 40px rgba(249, 115, 22, 0.4)'
+                }}
+                whileHover={{ scale: 1.05, boxShadow: '0 15px 50px rgba(249, 115, 22, 0.5)' }}
                 whileTap={{ scale: 0.95 }}
               >
-                <Shuffle className="w-5 h-5" />
-                <span>Spin & Pick!</span>
-                <span className="text-lg">🎰</span>
+                {/* Shimmer effect */}
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+                  animate={{ x: ['-200%', '200%'] }}
+                  transition={{ duration: 2, repeat: Infinity, repeatDelay: 1 }}
+                />
+                <motion.span
+                  animate={{ rotate: [0, 15, -15, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                >
+                  <Shuffle className="w-5 h-5" />
+                </motion.span>
+                <span className="relative z-10">Spin & Pick!</span>
+                <motion.span 
+                  className="text-xl"
+                  animate={{ scale: [1, 1.2, 1], rotate: [0, 10, -10, 0] }}
+                  transition={{ duration: 1, repeat: Infinity }}
+                >
+                  🎰
+                </motion.span>
               </motion.button>
             </motion.div>
 
@@ -288,23 +332,39 @@ const Extra = () => {
             </div>
 
             {/* Sections Grid */}
-            <div className="grid grid-cols-3 sm:grid-cols-4 gap-3 max-w-2xl mx-auto">
+            <motion.div 
+              className="grid grid-cols-3 sm:grid-cols-4 gap-3 max-w-2xl mx-auto"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ staggerChildren: 0.05 }}
+            >
               {filteredSections.map((section, index) => (
                 <motion.button
                   key={section.key}
                   onClick={() => setActiveSection(section.key as SectionKey)}
-                  className="flex flex-col items-center justify-center p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/10 hover:bg-white/20 transition-all"
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: index * 0.03 }}
-                  whileHover={{ scale: 1.05, y: -5 }}
+                  className="flex flex-col items-center justify-center p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/10 hover:bg-white/20 transition-all relative overflow-hidden group"
+                  initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  transition={{ delay: index * 0.03, type: "spring", stiffness: 200 }}
+                  whileHover={{ scale: 1.08, y: -8, boxShadow: '0 15px 30px rgba(0,0,0,0.3)' }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <span className="text-3xl mb-2">{section.emoji}</span>
-                  <span className="text-white/80 text-xs text-center font-medium">{section.label}</span>
+                  {/* Hover glow effect */}
+                  <motion.div
+                    className="absolute inset-0 bg-gradient-to-br from-pink-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  />
+                  
+                  <motion.span 
+                    className="text-3xl mb-2 relative z-10"
+                    animate={{ y: [0, -3, 0] }}
+                    transition={{ duration: 2 + index * 0.1, repeat: Infinity, ease: "easeInOut" }}
+                  >
+                    {section.emoji}
+                  </motion.span>
+                  <span className="text-white/80 text-xs text-center font-medium relative z-10">{section.label}</span>
                 </motion.button>
               ))}
-            </div>
+            </motion.div>
           </>
         ) : (
           <>
@@ -325,9 +385,10 @@ const Extra = () => {
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeSection}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
+                initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -30, scale: 0.95 }}
+                transition={{ type: "spring", stiffness: 200, damping: 20 }}
               >
                 <GlassCard className="p-4">
                   {renderSection()}
