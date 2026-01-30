@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Heart, Flame, Sparkles, RotateCcw, ChevronRight, X } from 'lucide-react';
+import { Heart, Flame, Sparkles, RotateCcw, ChevronRight, X, Stars } from 'lucide-react';
 import { createPortal } from 'react-dom';
 
 interface Question {

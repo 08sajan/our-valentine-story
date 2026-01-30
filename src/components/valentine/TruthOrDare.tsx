@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Heart, Flame, RefreshCw, Sparkles, Check, X } from 'lucide-react';
 
@@ -123,18 +123,62 @@ export const TruthOrDare = () => {
   const intensityStyle = intensityInfo[intensity];
 
   return (
-    <div className="py-6 px-4">
-      <div className="text-center mb-6">
+    <div className="py-6 px-4 relative">
+      {/* Floating sparkles background */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {[...Array(15)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute text-lg"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              opacity: [0, 1, 0],
+              scale: [0, 1.5, 0],
+              rotate: [0, 180, 360],
+            }}
+            transition={{
+              duration: 3 + Math.random() * 2,
+              repeat: Infinity,
+              delay: Math.random() * 3,
+            }}
+          >
+            {['✨', '💕', '🔥', '💫'][i % 4]}
+          </motion.div>
+        ))}
+      </div>
+
+      <div className="text-center mb-6 relative z-10">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-2xl font-bold text-white mb-2"
+          className="text-2xl font-bold text-white mb-2 flex items-center justify-center gap-2"
         >
-          🎯 Truth or Dare
+          <motion.span
+            animate={{ rotate: [0, 10, -10, 0], scale: [1, 1.2, 1] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            🎯
+          </motion.span>
+          <span className="bg-gradient-to-r from-pink-300 via-rose-300 to-red-300 bg-clip-text text-transparent">
+            Truth or Dare
+          </span>
+          <motion.span
+            animate={{ scale: [1, 1.3, 1] }}
+            transition={{ duration: 1.5, repeat: Infinity }}
+          >
+            💕
+          </motion.span>
         </motion.h2>
-        <p className="text-white/70 text-sm">
+        <motion.p 
+          className="text-white/70 text-sm"
+          animate={{ opacity: [0.7, 1, 0.7] }}
+          transition={{ duration: 2, repeat: Infinity }}
+        >
           A romantic game just for us 💕
-        </p>
+        </motion.p>
       </div>
 
       {/* Intensity Selector */}

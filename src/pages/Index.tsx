@@ -15,6 +15,7 @@ import { PhotoGallery } from "@/components/valentine/PhotoGallery";
 import { CandleCeremony } from "@/components/valentine/CandleCeremony";
 import { CountdownTimer } from "@/components/valentine/CountdownTimer";
 import { RoseBouquet } from "@/components/valentine/RoseBouquet";
+import { KenBurnsSlideshow } from "@/components/valentine/KenBurnsSlideshow";
 import { TeddyGallery } from "@/components/valentine/TeddyGallery";
 import { FallingStars } from "@/components/valentine/FallingStars";
 import { LetterGallery } from "@/components/valentine/LetterGallery";
@@ -934,11 +935,25 @@ const ValentineDayContent = () => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 20 }}
           >
-            <GlassCard className="p-6">
-              <h3 className="text-xl font-serif text-pink-300 mb-4 text-center">
-                Our Beautiful Memories 📸
+            <GlassCard className="p-4 sm:p-6">
+              <h3 className="text-xl font-serif text-pink-300 mb-4 text-center flex items-center justify-center gap-2">
+                <motion.span
+                  animate={{ scale: [1, 1.2, 1], rotate: [0, 10, -10, 0] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                >
+                  📸
+                </motion.span>
+                <span className="bg-gradient-to-r from-pink-300 to-rose-300 bg-clip-text text-transparent">
+                  Our Beautiful Memories
+                </span>
+                <motion.span
+                  animate={{ scale: [1, 1.2, 1], rotate: [0, -10, 10, 0] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                >
+                  💕
+                </motion.span>
               </h3>
-              <PhotoGallery photos={memoriesData} />
+              <KenBurnsSlideshow />
             </GlassCard>
           </motion.div>
         )}

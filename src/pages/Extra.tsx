@@ -230,6 +230,33 @@ const Extra = () => {
       </header>
 
       <main className="relative z-10 px-4 py-4 pb-24">
+        {/* Rising hearts effect */}
+        <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+          {[...Array(15)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute text-2xl"
+              style={{
+                left: `${Math.random() * 100}%`,
+                bottom: '-5%',
+              }}
+              animate={{
+                y: [0, -window.innerHeight - 100],
+                x: [0, (Math.random() - 0.5) * 100],
+                opacity: [0, 0.6, 0],
+                rotate: [0, 360],
+              }}
+              transition={{
+                duration: 10 + Math.random() * 5,
+                repeat: Infinity,
+                delay: Math.random() * 8,
+              }}
+            >
+              {['💕', '💖', '💗', '✨', '🌹'][i % 5]}
+            </motion.div>
+          ))}
+        </div>
+
         {!activeSection ? (
           <>
             {/* Title */}
@@ -240,13 +267,25 @@ const Extra = () => {
             >
               <motion.span
                 className="text-5xl block mb-2"
-                animate={{ rotate: [0, 10, -10, 0] }}
+                animate={{ rotate: [0, 10, -10, 0], scale: [1, 1.1, 1] }}
                 transition={{ duration: 3, repeat: Infinity }}
               >
                 🎁
               </motion.span>
-              <h1 className="text-3xl font-serif bg-gradient-to-r from-pink-300 via-purple-300 to-rose-300 bg-clip-text text-transparent">
+              <h1 className="text-3xl font-serif bg-gradient-to-r from-pink-300 via-purple-300 to-rose-300 bg-clip-text text-transparent flex items-center justify-center gap-2">
+                <motion.span
+                  animate={{ scale: [1, 1.2, 1] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                >
+                  ✨
+                </motion.span>
                 Extra Goodies
+                <motion.span
+                  animate={{ scale: [1, 1.2, 1] }}
+                  transition={{ duration: 1.5, repeat: Infinity, delay: 0.3 }}
+                >
+                  ✨
+                </motion.span>
               </h1>
               <motion.p 
                 className="text-white/60 text-sm mt-2"
