@@ -131,26 +131,61 @@ export const MemoryMatchGame = () => {
   const gridCols = difficulty === 'easy' ? 'grid-cols-3' : difficulty === 'medium' ? 'grid-cols-4' : 'grid-cols-4';
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 relative">
+      {/* Floating hearts background */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {[...Array(10)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute text-xl"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              y: [0, -30, 0],
+              opacity: [0.2, 0.5, 0.2],
+              scale: [0.8, 1.2, 0.8],
+            }}
+            transition={{
+              duration: 4 + Math.random() * 2,
+              repeat: Infinity,
+              delay: Math.random() * 3,
+            }}
+          >
+            {loveEmojis[i % loveEmojis.length]}
+          </motion.div>
+        ))}
+      </div>
+
       {/* Header */}
       <motion.div
-        className="text-center"
+        className="text-center relative z-10"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
       >
         <motion.div
-          className="text-5xl mb-3"
+          className="text-5xl mb-3 inline-flex gap-2"
           animate={{ scale: [1, 1.1, 1] }}
           transition={{ duration: 2, repeat: Infinity }}
         >
-          🃏💕
+          <motion.span animate={{ rotate: [0, 10, -10, 0] }} transition={{ duration: 3, repeat: Infinity }}>🃏</motion.span>
+          <motion.span animate={{ scale: [1, 1.2, 1] }} transition={{ duration: 1.5, repeat: Infinity }}>💕</motion.span>
         </motion.div>
-        <h3 className="text-xl font-serif text-rose-300 mb-2">
-          Love Memory Match
+        <h3 className="text-xl font-serif mb-2 flex items-center justify-center gap-2">
+          <Sparkles className="w-5 h-5 text-yellow-400" />
+          <span className="bg-gradient-to-r from-rose-300 to-pink-300 bg-clip-text text-transparent">
+            Love Memory Match
+          </span>
+          <Sparkles className="w-5 h-5 text-yellow-400" />
         </h3>
-        <p className="text-white/60 text-sm">
+        <motion.p 
+          className="text-white/60 text-sm"
+          animate={{ opacity: [0.6, 1, 0.6] }}
+          transition={{ duration: 2, repeat: Infinity }}
+        >
           Find matching pairs of love! 💖
-        </p>
+        </motion.p>
       </motion.div>
 
       {/* Difficulty Selector */}

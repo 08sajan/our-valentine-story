@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Heart, X } from "lucide-react";
+import { Heart, X, Sparkles } from "lucide-react";
 import ReactDOM from "react-dom";
 
 interface TreatItem {
@@ -258,26 +258,60 @@ export const VirtualTreats = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 relative">
+      {/* Floating treats background */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {[...Array(12)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute text-2xl"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              y: [0, -20, 0],
+              rotate: [0, 10, -10, 0],
+              opacity: [0.3, 0.6, 0.3],
+            }}
+            transition={{
+              duration: 4 + Math.random() * 2,
+              repeat: Infinity,
+              delay: Math.random() * 3,
+            }}
+          >
+            {['🍰', '🍫', '🍓', '☕', '🍕', '🍨'][i % 6]}
+          </motion.div>
+        ))}
+      </div>
+
       {/* Header */}
       <motion.div
-        className="text-center"
+        className="text-center relative z-10"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
       >
         <motion.div
           className="text-5xl mb-3"
-          animate={{ scale: [1, 1.1, 1], rotate: [0, 5, -5, 0] }}
+          animate={{ scale: [1, 1.15, 1], rotate: [0, 8, -8, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
         >
           🍰
         </motion.div>
-        <h3 className="text-xl font-serif text-rose-300 mb-2">
-          Virtual Treats Café
+        <h3 className="text-xl font-serif mb-2 flex items-center justify-center gap-2">
+          <Sparkles className="w-5 h-5 text-yellow-400" />
+          <span className="bg-gradient-to-r from-rose-300 to-pink-300 bg-clip-text text-transparent">
+            Virtual Treats Café
+          </span>
+          <Sparkles className="w-5 h-5 text-yellow-400" />
         </h3>
-        <p className="text-white/60 text-sm">
+        <motion.p 
+          className="text-white/60 text-sm"
+          animate={{ opacity: [0.6, 1, 0.6] }}
+          transition={{ duration: 2, repeat: Infinity }}
+        >
           Enjoy some sweet treats, Puntuu! 💕
-        </p>
+        </motion.p>
       </motion.div>
 
       {/* Progress */}
