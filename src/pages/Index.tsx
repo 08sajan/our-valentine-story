@@ -4,6 +4,7 @@ import { Heart, Lock, Sparkles, ChevronRight, ChevronLeft, Gift } from "lucide-r
 import ReactDOM from "react-dom";
 import { Link } from "react-router-dom";
 import { PasswordGate } from "@/components/valentine/PasswordGate";
+import { DailyLoveQuote } from "@/components/valentine/DailyLoveQuote";
 // Premium Components
 import { HeartCursor } from "@/components/valentine/HeartCursor";
 import { ParallaxStars } from "@/components/valentine/ParallaxStars";
@@ -13,7 +14,6 @@ import { ScratchCard } from "@/components/valentine/ScratchCard";
 import { PhotoGallery } from "@/components/valentine/PhotoGallery";
 import { CandleCeremony } from "@/components/valentine/CandleCeremony";
 import { CountdownTimer } from "@/components/valentine/CountdownTimer";
-import { BackgroundMusic } from "@/components/valentine/BackgroundMusic";
 import { RoseBouquet } from "@/components/valentine/RoseBouquet";
 import { TeddyGallery } from "@/components/valentine/TeddyGallery";
 import { FallingStars } from "@/components/valentine/FallingStars";
@@ -1359,8 +1359,8 @@ const IndexContent = () => {
       <KonamiSecret />
       <MidnightSurprise />
       
-      {/* Background Music */}
-      <BackgroundMusic autoPlay={true} />
+      {/* Daily Love Quote */}
+      <DailyLoveQuote />
       
       {/* Header */}
       <header 

@@ -22,6 +22,7 @@ export const WishingWell = () => {
   const [customWish, setCustomWish] = useState("");
   const [showStar, setShowStar] = useState(false);
   const [lastWish, setLastWish] = useState("");
+  const [showCelebration, setShowCelebration] = useState(false);
 
   // Load wishes from localStorage on mount
   useEffect(() => {
@@ -51,13 +52,15 @@ export const WishingWell = () => {
     setWishes(prev => [...prev, wish]);
     setLastWish(wish);
     setShowStar(true);
+    setShowCelebration(true);
     
     // Haptic feedback
     if ('vibrate' in navigator) {
-      navigator.vibrate([30, 20, 30]);
+      navigator.vibrate([30, 20, 30, 20, 50]);
     }
 
-    setTimeout(() => setShowStar(false), 2000);
+    setTimeout(() => setShowStar(false), 2500);
+    setTimeout(() => setShowCelebration(false), 3000);
   };
 
   const addCustomWish = () => {
@@ -102,32 +105,87 @@ export const WishingWell = () => {
 
       {/* Wishing Well Animation */}
       <motion.div 
-        className="relative h-28 flex items-center justify-center"
+        className="relative h-32 flex items-center justify-center"
         animate={{ y: [0, -5, 0] }}
         transition={{ duration: 3, repeat: Infinity }}
       >
-        <div className="text-6xl">🌟</div>
+        <motion.div 
+          className="text-7xl"
+          animate={{ 
+            scale: [1, 1.1, 1],
+            rotate: [0, 5, -5, 0],
+          }}
+          transition={{ duration: 4, repeat: Infinity }}
+        >
+          🌟
+        </motion.div>
         
         {/* Shooting star animation when wish is made */}
         <AnimatePresence>
           {showStar && (
-            <motion.div
-              className="absolute"
-              initial={{ opacity: 0, scale: 0, y: 0 }}
-              animate={{ 
-                opacity: [0, 1, 1, 0], 
-                scale: [0.5, 1.5, 1, 0.5],
-                y: [-20, -80],
-                x: [0, 40]
-              }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 1.5 }}
-            >
-              <Sparkles className="w-8 h-8 text-yellow-300" />
-            </motion.div>
+            <>
+              <motion.div
+                className="absolute"
+                initial={{ opacity: 0, scale: 0, y: 0 }}
+                animate={{ 
+                  opacity: [0, 1, 1, 0], 
+                  scale: [0.5, 2, 1.5, 0.5],
+                  y: [-20, -100],
+                  x: [0, 60]
+                }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 2 }}
+              >
+                <Sparkles className="w-10 h-10 text-yellow-300" />
+              </motion.div>
+              
+              {/* Star trail */}
+              {[...Array(8)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="absolute text-xl"
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ 
+                    opacity: [0, 1, 0],
+                    scale: [0.5, 1.2, 0],
+                    y: [-10 - i * 12, -80 - i * 15],
+                    x: [i * 8, 50 + i * 10],
+                  }}
+                  transition={{ duration: 1.5, delay: i * 0.1 }}
+                >
+                  ⭐
+                </motion.div>
+              ))}
+            </>
           )}
         </AnimatePresence>
       </motion.div>
+
+      {/* Celebration overlay */}
+      <AnimatePresence>
+        {showCelebration && (
+          <div className="fixed inset-0 pointer-events-none z-50">
+            {[...Array(30)].map((_, i) => (
+              <motion.div
+                key={i}
+                className="absolute text-2xl"
+                style={{ left: `${Math.random() * 100}%`, bottom: '40%' }}
+                initial={{ y: 0, opacity: 0, scale: 0 }}
+                animate={{ 
+                  y: -300 - Math.random() * 200,
+                  opacity: [0, 1, 1, 0],
+                  scale: [0.5, 1.5, 1],
+                  x: (Math.random() - 0.5) * 100,
+                  rotate: Math.random() * 360,
+                }}
+                transition={{ duration: 2, delay: i * 0.04 }}
+              >
+                {['⭐', '✨', '🌟', '💫', '🌠'][i % 5]}
+              </motion.div>
+            ))}
+          </div>
+        )}
+      </AnimatePresence>
 
       {/* Last wish display */}
       <AnimatePresence>
