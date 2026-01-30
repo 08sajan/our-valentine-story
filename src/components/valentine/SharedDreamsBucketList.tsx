@@ -92,7 +92,11 @@ export const SharedDreamsBucketList = () => {
       if (item.id === id) {
         if (!item.completed) {
           setShowConfetti(true);
-          setTimeout(() => setShowConfetti(false), 2000);
+          // Haptic feedback
+          if ('vibrate' in navigator) {
+            navigator.vibrate([50, 30, 50, 30, 100]);
+          }
+          setTimeout(() => setShowConfetti(false), 2500);
         }
         return { ...item, completed: !item.completed };
       }
@@ -109,13 +113,14 @@ export const SharedDreamsBucketList = () => {
 
   return (
     <div className="py-8 px-4">
-      {/* Confetti */}
+      {/* Enhanced Confetti Celebration */}
       <AnimatePresence>
         {showConfetti && (
           <div className="fixed inset-0 pointer-events-none z-50">
-            {[...Array(40)].map((_, i) => (
+            {/* Burst from center */}
+            {[...Array(50)].map((_, i) => (
               <motion.div
-                key={i}
+                key={`burst-${i}`}
                 className="absolute text-2xl"
                 initial={{ 
                   x: window.innerWidth / 2, 
@@ -124,18 +129,45 @@ export const SharedDreamsBucketList = () => {
                   opacity: 1
                 }}
                 animate={{ 
-                  x: Math.random() * window.innerWidth,
-                  y: Math.random() * window.innerHeight,
-                  scale: [0, 1.5, 1],
+                  x: window.innerWidth / 2 + (Math.cos(i * (360 / 50) * Math.PI / 180)) * (150 + Math.random() * 200),
+                  y: window.innerHeight / 2 + (Math.sin(i * (360 / 50) * Math.PI / 180)) * (150 + Math.random() * 200),
+                  scale: [0, 1.8, 1],
                   opacity: [1, 1, 0],
                   rotate: Math.random() * 720
                 }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 1.5, ease: "easeOut", delay: i * 0.02 }}
+                transition={{ duration: 1.8, ease: "easeOut", delay: i * 0.015 }}
               >
-                {['✨', '💕', '🌟', '💖', '⭐', '🎉', '💫'][Math.floor(Math.random() * 7)]}
+                {['✨', '💕', '🌟', '💖', '⭐', '🎉', '💫', '🌹', '💝', '🎊'][i % 10]}
               </motion.div>
             ))}
+            
+            {/* Rising hearts */}
+            {[...Array(20)].map((_, i) => (
+              <motion.div
+                key={`rise-${i}`}
+                className="absolute text-3xl"
+                style={{ left: `${10 + Math.random() * 80}%`, bottom: 0 }}
+                initial={{ y: 0, opacity: 0, scale: 0.5 }}
+                animate={{ 
+                  y: -window.innerHeight,
+                  opacity: [0, 1, 1, 0],
+                  scale: [0.5, 1.2, 1],
+                  x: Math.sin(i) * 50,
+                }}
+                transition={{ duration: 2.5, delay: 0.3 + i * 0.08, ease: "easeOut" }}
+              >
+                {['💕', '💖', '💗', '❤️', '💓'][i % 5]}
+              </motion.div>
+            ))}
+
+            {/* Glowing pulse */}
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-r from-pink-500/20 via-rose-500/20 to-purple-500/20"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: [0, 0.5, 0] }}
+              transition={{ duration: 1 }}
+            />
           </div>
         )}
       </AnimatePresence>
