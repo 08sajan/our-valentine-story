@@ -118,6 +118,18 @@ const healthTopics: HealthTopic[] = [
     foods: { good: ['Water', 'Magnesium-rich foods', 'Ginger', 'Leafy greens'], avoid: ['Aged cheese', 'Wine', 'Processed meats', 'MSG'] }
   },
   {
+    id: 'migraine',
+    title: 'Migraine Attacks',
+    emoji: '⚡',
+    category: 'common',
+    symptoms: ['Severe throbbing pain (usually one side)', 'Aura (visual disturbances)', 'Extreme light sensitivity', 'Nausea and vomiting', 'Dizziness', 'Tingling in face or hands'],
+    causes: ['Hormonal changes', 'Stress', 'Certain foods (cheese, wine, chocolate)', 'Weather changes', 'Sleep disruption', 'Strong smells'],
+    prevention: ['Identify and avoid triggers', 'Regular sleep schedule', 'Stay hydrated', 'Regular meals', 'Stress management', 'Limit caffeine'],
+    homeRemedies: ['Dark, quiet room', 'Cold compress on head/neck', 'Peppermint or lavender oil', 'Ginger tea', 'Magnesium supplements', 'Acupressure on temples'],
+    whenToSeeDoctor: ['Migraines more than 4 times a month', 'Lasting more than 72 hours', 'Numbness or weakness', 'Difficulty speaking', 'Vision loss'],
+    foods: { good: ['Salmon', 'Leafy greens', 'Almonds', 'Quinoa', 'Ginger'], avoid: ['Aged cheese', 'Red wine', 'Chocolate', 'Processed meats', 'Artificial sweeteners'] }
+  },
+  {
     id: 'cold-flu',
     title: 'Cold & Flu',
     emoji: '🤧',
@@ -128,6 +140,78 @@ const healthTopics: HealthTopic[] = [
     homeRemedies: ['Honey and lemon tea', 'Chicken soup', 'Steam inhalation', 'Salt water gargle', 'Rest and fluids', 'Turmeric milk'],
     whenToSeeDoctor: ['High fever (>103°F)', 'Difficulty breathing', 'Symptoms lasting >10 days', 'Chest pain'],
     foods: { good: ['Chicken soup', 'Citrus fruits', 'Garlic', 'Ginger', 'Honey'], avoid: ['Dairy (increases mucus)', 'Alcohol', 'Sugary foods'] }
+  },
+  {
+    id: 'typhoid',
+    title: 'Typhoid Fever',
+    emoji: '🌡️',
+    category: 'common',
+    symptoms: ['Prolonged high fever (103-104°F)', 'Weakness and fatigue', 'Stomach pain', 'Headache', 'Loss of appetite', 'Rose-colored spots on chest', 'Constipation or diarrhea'],
+    causes: ['Salmonella typhi bacteria', 'Contaminated water or food', 'Poor sanitation', 'Contact with infected person'],
+    prevention: ['Drink only boiled or bottled water', 'Avoid raw foods and street food', 'Wash hands frequently', 'Typhoid vaccine if traveling', 'Eat only thoroughly cooked food'],
+    homeRemedies: ['Complete bed rest', 'Plenty of fluids (ORS, coconut water)', 'Easily digestible food (khichdi, dal)', 'Cold compress for fever', 'Apple cider vinegar water', 'Basil tea'],
+    whenToSeeDoctor: ['Immediately - typhoid requires antibiotics', 'High fever lasting more than 3 days', 'Severe stomach pain', 'Bloody stool', 'Confusion or delirium'],
+    foods: { good: ['Boiled rice', 'Moong dal', 'Bananas', 'Coconut water', 'Boiled vegetables', 'Yogurt'], avoid: ['Spicy food', 'Raw vegetables', 'High-fiber foods', 'Oily foods', 'Caffeine'] }
+  },
+  {
+    id: 'tonsillitis',
+    title: 'Tonsillitis',
+    emoji: '🗣️',
+    category: 'common',
+    symptoms: ['Severe sore throat', 'Red, swollen tonsils', 'White or yellow patches on tonsils', 'Painful swallowing', 'Fever', 'Swollen lymph nodes in neck', 'Bad breath'],
+    causes: ['Viral infection (most common)', 'Bacterial infection (strep throat)', 'Exposure to germs', 'Weakened immune system'],
+    prevention: ['Wash hands regularly', 'Avoid sharing utensils', 'Stay away from sick people', 'Boost immunity with good nutrition', 'Good oral hygiene'],
+    homeRemedies: ['Salt water gargle (every 2-3 hours)', 'Warm honey and lemon water', 'Turmeric milk', 'Ice chips or cold foods', 'Throat lozenges', 'Steam inhalation', 'Clove and honey'],
+    whenToSeeDoctor: ['Fever above 103°F', 'Difficulty breathing or swallowing', 'Severe pain on one side', 'Tonsillitis recurring frequently', 'Pus on tonsils'],
+    foods: { good: ['Warm soups', 'Honey', 'Ice cream (soothes throat)', 'Mashed potatoes', 'Smoothies', 'Warm tea'], avoid: ['Spicy foods', 'Acidic foods', 'Crunchy foods', 'Hot beverages'] }
+  },
+  {
+    id: 'sinus',
+    title: 'Sinus Infection (Sinusitis)',
+    emoji: '👃',
+    category: 'common',
+    symptoms: ['Facial pain and pressure', 'Nasal congestion', 'Thick yellow/green nasal discharge', 'Headache', 'Post-nasal drip', 'Reduced sense of smell', 'Cough (especially at night)', 'Ear pressure'],
+    causes: ['Common cold', 'Allergies', 'Nasal polyps', 'Deviated septum', 'Weak immune system', 'Air pollution'],
+    prevention: ['Use a humidifier', 'Avoid allergens', 'Keep sinuses moist (saline spray)', 'Stay hydrated', 'Avoid smoking', 'Treat allergies promptly'],
+    homeRemedies: ['Steam inhalation with eucalyptus', 'Saline nasal irrigation (neti pot)', 'Warm compress on face', 'Drink hot fluids', 'Elevate head while sleeping', 'Ginger-turmeric tea', 'Apple cider vinegar steam'],
+    whenToSeeDoctor: ['Symptoms lasting more than 10 days', 'High fever', 'Severe headache', 'Vision changes', 'Swelling around eyes', 'Symptoms worsening after improvement'],
+    foods: { good: ['Garlic', 'Ginger', 'Pineapple', 'Horseradish', 'Warm broths', 'Citrus fruits'], avoid: ['Dairy products', 'Cold drinks', 'Fried foods', 'Sugar'] }
+  },
+  {
+    id: 'cold-feet-hands',
+    title: 'Cold Feet & Hands',
+    emoji: '🥶',
+    category: 'common',
+    symptoms: ['Constantly cold extremities', 'Numbness or tingling', 'Color changes (pale, blue, or red)', 'Slow healing of cuts on hands/feet', 'Stiffness in fingers'],
+    causes: ['Poor circulation', 'Anemia', 'Thyroid problems', 'Raynaud\'s disease', 'Diabetes', 'Stress and anxiety', 'Smoking'],
+    prevention: ['Regular exercise', 'Quit smoking', 'Wear warm socks and gloves', 'Manage stress', 'Stay hydrated', 'Avoid tight shoes'],
+    homeRemedies: ['Warm water soak', 'Massage with warm oil', 'Cayenne pepper in socks (stimulates circulation)', 'Ginger tea', 'Exercise and movement', 'Epsom salt foot bath', 'Iron-rich foods if anemic'],
+    whenToSeeDoctor: ['Persistent coldness without improvement', 'Sores that won\'t heal', 'Skin color changes lasting long', 'Pain in extremities', 'Fatigue with cold hands/feet'],
+    foods: { good: ['Iron-rich foods (spinach, lentils)', 'Ginger', 'Garlic', 'Cayenne pepper', 'Nuts', 'Fish'], avoid: ['Caffeine', 'Alcohol', 'Processed foods'] }
+  },
+  {
+    id: 'back-pain',
+    title: 'Back Pain',
+    emoji: '🔙',
+    category: 'common',
+    symptoms: ['Dull aching pain', 'Muscle stiffness', 'Sharp shooting pain', 'Pain radiating to legs', 'Limited flexibility', 'Difficulty standing straight'],
+    causes: ['Poor posture', 'Muscle strain', 'Herniated disc', 'Arthritis', 'Sitting for long periods', 'Heavy lifting', 'Menstrual cramps', 'Pregnancy'],
+    prevention: ['Maintain good posture', 'Ergonomic workspace', 'Regular exercise and stretching', 'Lift with legs not back', 'Maintain healthy weight', 'Sleep on supportive mattress'],
+    homeRemedies: ['Hot/cold therapy', 'Gentle stretching (cat-cow, child\'s pose)', 'Epsom salt bath', 'Turmeric milk', 'Massage with warm mustard oil', 'Core strengthening exercises', 'Yoga'],
+    whenToSeeDoctor: ['Pain after injury', 'Numbness or tingling in legs', 'Bladder or bowel problems', 'Fever with back pain', 'Pain that doesn\'t improve in 2 weeks', 'Weight loss with back pain'],
+    foods: { good: ['Anti-inflammatory foods (turmeric, ginger)', 'Omega-3 rich fish', 'Leafy greens', 'Nuts', 'Berries'], avoid: ['Processed foods', 'Sugar', 'Red meat', 'Alcohol'] }
+  },
+  {
+    id: 'neck-pain',
+    title: 'Neck Pain & Stiffness',
+    emoji: '🦒',
+    category: 'common',
+    symptoms: ['Stiff neck', 'Sharp pain', 'Difficulty turning head', 'Headache originating from neck', 'Muscle spasms', 'Shoulder pain'],
+    causes: ['Poor posture (text neck)', 'Sleeping in wrong position', 'Stress and tension', 'Muscle strain', 'Cervical spondylosis', 'Prolonged screen use'],
+    prevention: ['Good posture at desk', 'Take breaks from screens', 'Proper pillow height', 'Regular neck exercises', 'Avoid cradling phone with shoulder', 'Manage stress'],
+    homeRemedies: ['Gentle neck stretches', 'Hot compress (15-20 mins)', 'Ice pack for acute pain', 'Neck rolls and tilts', 'Massage with warm oil', 'Epsom salt bath', 'Proper sleeping position'],
+    whenToSeeDoctor: ['Pain radiating to arms', 'Weakness in arms or hands', 'Severe pain after injury', 'Numbness or tingling', 'Difficulty gripping objects', 'Pain lasting more than a week'],
+    foods: { good: ['Calcium-rich foods', 'Vitamin D sources', 'Anti-inflammatory spices', 'Magnesium-rich foods', 'Hydrating foods'], avoid: ['Inflammatory foods', 'Excessive caffeine', 'Processed foods'] }
   },
   {
     id: 'digestive',
