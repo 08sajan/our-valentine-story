@@ -27,122 +27,115 @@ const categories: { key: Category; label: string; emoji: string }[] = [
   { key: 'extras', label: 'Extras', emoji: '✨' },
 ];
 
-// Comprehensive girl dress collection - sexy, cute, hot, romantic dresses for date nights
+// Comprehensive girl dress collection - ALL UNIQUE IMAGES - romantic dresses for date nights
 const items: Record<Category, Item[]> = {
   dresses: [
-    // Red & Romantic - All unique with different aesthetics
-    { id: 'red-slit-gown', name: 'Sexy Red Slit Gown', image: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600', color: '#dc2626', description: 'Stunning red gown with thigh-high slit - perfect for making hearts race', brand: 'Date Night Collection' },
-    { id: 'wine-bodycon', name: 'Wine Bodycon Dress', image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600', color: '#7f1d1d', description: 'Figure-hugging wine dress that shows off your beautiful curves', brand: 'Seductive Elegance' },
-    { id: 'scarlet-velvet', name: 'Scarlet Velvet Dress', image: 'https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=600', color: '#ef4444', description: 'Luxurious velvet that feels as good as it looks on you', brand: 'Romantic Nights' },
-    { id: 'cherry-wrap', name: 'Cherry Wrap Dress', image: 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=600', color: '#b91c1c', description: 'Flattering wrap design in cherry red', brand: 'Wrap Romance' },
-    { id: 'crimson-mermaid', name: 'Crimson Mermaid Gown', image: 'https://images.unsplash.com/photo-1562137369-1a1a0bc66744?w=600', color: '#dc2626', description: 'Dramatic mermaid silhouette - red carpet ready', brand: 'Hollywood Glam' },
+    // Red & Romantic Collection
+    { id: 'red-slit-gown', name: 'Red Slit Evening Gown', image: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600', color: '#dc2626', description: 'Stunning red gown with thigh-high slit', brand: 'Date Night' },
+    { id: 'wine-bodycon', name: 'Wine Bodycon', image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600', color: '#7f1d1d', description: 'Figure-hugging wine dress', brand: 'Seductive' },
+    { id: 'scarlet-velvet', name: 'Scarlet Velvet', image: 'https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=600', color: '#ef4444', description: 'Luxurious velvet beauty', brand: 'Romantic' },
+    { id: 'cherry-wrap', name: 'Cherry Wrap Dress', image: 'https://images.unsplash.com/photo-1612336307429-8a898d10e223?w=600', color: '#b91c1c', description: 'Flattering wrap in cherry red', brand: 'Wrap Romance' },
+    { id: 'crimson-mermaid', name: 'Crimson Mermaid', image: 'https://images.unsplash.com/photo-1562137369-1a1a0bc66744?w=600', color: '#dc2626', description: 'Dramatic mermaid silhouette', brand: 'Hollywood' },
     
-    // Pink & Cute - Variety of pink shades
-    { id: 'blush-princess', name: 'Blush Princess Gown', image: 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=600', color: '#fda4af', description: 'Fairytale princess dress with tulle layers - absolutely adorable!', brand: 'Sweet Dreams' },
-    { id: 'hot-pink-mini', name: 'Hot Pink Mini Dress', image: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600', color: '#ec4899', description: 'Flirty and fun mini dress that shows off your legs', brand: 'Cute & Flirty' },
-    { id: 'rose-gold-shimmer', name: 'Rose Gold Shimmer', image: 'https://images.unsplash.com/photo-1551803091-e20673f15770?w=600', color: '#fbbf24', description: 'Shimmering rose gold that catches every light beautifully', brand: 'Glamour Queen' },
-    { id: 'baby-pink-satin', name: 'Baby Pink Satin', image: 'https://images.unsplash.com/photo-1550639524-a6f58345a2ca?w=600', color: '#fbcfe8', description: 'Soft satin in the sweetest pink - angelic and cute', brand: 'Angel Vibes' },
-    { id: 'fuchsia-cocktail', name: 'Fuchsia Cocktail', image: 'https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=600', color: '#db2777', description: 'Bold fuchsia for confident girls', brand: 'Bold Beauty' },
-    { id: 'coral-sweetheart', name: 'Coral Sweetheart Dress', image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600', color: '#fb7185', description: 'Sweet coral with sweetheart neckline', brand: 'Summer Love' },
-    { id: 'magenta-bardot', name: 'Magenta Bardot Dress', image: 'https://images.unsplash.com/photo-1568252542512-9fe8fe9c87bb?w=600', color: '#c026d3', description: 'Off-shoulder bardot style in stunning magenta', brand: 'Shoulder Show' },
-    { id: 'salmon-ruffle', name: 'Salmon Ruffle Dress', image: 'https://images.unsplash.com/photo-1596703263926-eb0762ee17e4?w=600', color: '#fca5a5', description: 'Playful ruffles in pretty salmon pink', brand: 'Ruffle Romance' },
+    // Pink Collection - Each unique image
+    { id: 'blush-princess', name: 'Blush Princess Gown', image: 'https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=600', color: '#fda4af', description: 'Fairytale princess vibes', brand: 'Sweet Dreams' },
+    { id: 'hot-pink-mini', name: 'Hot Pink Mini', image: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600', color: '#ec4899', description: 'Flirty mini dress', brand: 'Cute & Flirty' },
+    { id: 'rose-gold-shimmer', name: 'Rose Gold Shimmer', image: 'https://images.unsplash.com/photo-1551803091-e20673f15770?w=600', color: '#fbbf24', description: 'Shimmering elegance', brand: 'Glamour Queen' },
+    { id: 'baby-pink-satin', name: 'Baby Pink Satin', image: 'https://images.unsplash.com/photo-1550639524-a6f58345a2ca?w=600', color: '#fbcfe8', description: 'Soft angelic pink', brand: 'Angel Vibes' },
+    { id: 'fuchsia-cocktail', name: 'Fuchsia Cocktail', image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600', color: '#db2777', description: 'Bold fuchsia beauty', brand: 'Bold Beauty' },
+    { id: 'coral-sweetheart', name: 'Coral Sweetheart', image: 'https://images.unsplash.com/photo-1568252542512-9fe8fe9c87bb?w=600', color: '#fb7185', description: 'Sweet coral neckline', brand: 'Summer Love' },
+    { id: 'magenta-bardot', name: 'Magenta Bardot', image: 'https://images.unsplash.com/photo-1596703263926-eb0762ee17e4?w=600', color: '#c026d3', description: 'Off-shoulder stunning', brand: 'Shoulder Show' },
+    { id: 'salmon-ruffle', name: 'Salmon Ruffle', image: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=600', color: '#fca5a5', description: 'Playful ruffles', brand: 'Ruffle Romance' },
     
-    // Black & Sexy - Classic seduction
-    { id: 'little-black-dress', name: 'Classic LBD', image: 'https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=600', color: '#1f2937', description: 'The iconic little black dress - timeless and irresistible', brand: 'Midnight Allure' },
-    { id: 'black-lace-bodycon', name: 'Black Lace Seduction', image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600', color: '#000000', description: 'Seductive lace dress that reveals just enough mystery', brand: 'Dark Romance' },
-    { id: 'black-backless', name: 'Backless Black Gown', image: 'https://images.unsplash.com/photo-1562137369-1a1a0bc66744?w=600', color: '#111827', description: 'Dramatic backless gown that will make jaws drop', brand: 'Show Stopper' },
-    { id: 'noir-cutout', name: 'Noir Cutout Dress', image: 'https://images.unsplash.com/photo-1568252542512-9fe8fe9c87bb?w=600', color: '#18181b', description: 'Strategic cutouts for a bold look', brand: 'Edge Fashion' },
-    { id: 'obsidian-halter', name: 'Obsidian Halter Gown', image: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=600', color: '#0c0c0c', description: 'Elegant halter neckline in deepest black', brand: 'Night Elegance' },
-    { id: 'onyx-slip', name: 'Onyx Silk Slip Dress', image: 'https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=600', color: '#27272a', description: 'Minimalist silk slip - effortlessly sexy', brand: 'Silk Noir' },
+    // Black Collection - All unique
+    { id: 'little-black-dress', name: 'Classic LBD', image: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=600', color: '#1f2937', description: 'Timeless irresistible', brand: 'Midnight Allure' },
+    { id: 'black-lace-bodycon', name: 'Black Lace', image: 'https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=600', color: '#000000', description: 'Seductive lace mystery', brand: 'Dark Romance' },
+    { id: 'black-backless', name: 'Backless Black', image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=600', color: '#111827', description: 'Dramatic backless gown', brand: 'Show Stopper' },
+    { id: 'noir-cutout', name: 'Noir Cutout', image: 'https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=600', color: '#18181b', description: 'Strategic bold cutouts', brand: 'Edge Fashion' },
+    { id: 'obsidian-halter', name: 'Obsidian Halter', image: 'https://images.unsplash.com/photo-1539008835657-9e8e9680c956?w=600', color: '#0c0c0c', description: 'Elegant halter neck', brand: 'Night Elegance' },
+    { id: 'onyx-slip', name: 'Onyx Silk Slip', image: 'https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=600', color: '#27272a', description: 'Minimalist silk beauty', brand: 'Silk Noir' },
     
-    // Gold & Glamour - Shine bright
-    { id: 'gold-sequin-mini', name: 'Gold Sequin Party', image: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=600', color: '#fbbf24', description: 'Sparkle like the star you are in this gold sequin mini', brand: 'Party Princess' },
-    { id: 'champagne-silk', name: 'Champagne Silk Slip', image: 'https://images.unsplash.com/photo-1568252542512-9fe8fe9c87bb?w=600', color: '#fef3c7', description: 'Elegant silk slip dress - effortlessly sexy', brand: 'Silk Dreams' },
-    { id: 'bronze-goddess', name: 'Bronze Goddess Gown', image: 'https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=600', color: '#cd7f32', description: 'Metallic bronze for sun-kissed glamour', brand: 'Sun Goddess' },
-    { id: 'amber-pleated', name: 'Amber Pleated Maxi', image: 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=600', color: '#d97706', description: 'Flowing pleats in warm amber', brand: 'Grecian Goddess' },
+    // Gold & Glamour - Unique images
+    { id: 'gold-sequin-mini', name: 'Gold Sequin Party', image: 'https://images.unsplash.com/photo-1560393464-5c69a73c5770?w=600', color: '#fbbf24', description: 'Sparkle like a star', brand: 'Party Princess' },
+    { id: 'champagne-silk', name: 'Champagne Silk', image: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=600', color: '#fef3c7', description: 'Effortlessly sexy silk', brand: 'Silk Dreams' },
+    { id: 'bronze-goddess', name: 'Bronze Goddess', image: 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=600', color: '#cd7f32', description: 'Sun-kissed glamour', brand: 'Sun Goddess' },
+    { id: 'amber-pleated', name: 'Amber Pleated Maxi', image: 'https://images.unsplash.com/photo-1495385794356-15371f348c31?w=600', color: '#d97706', description: 'Flowing golden pleats', brand: 'Grecian' },
     
-    // Green Tones - Sophisticated
-    { id: 'emerald-goddess', name: 'Emerald Goddess Gown', image: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=600', color: '#10b981', description: 'Majestic emerald gown fit for a goddess', brand: 'Royal Collection' },
-    { id: 'teal-cocktail', name: 'Teal Cocktail Dress', image: 'https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=600', color: '#14b8a6', description: 'Sophisticated cocktail dress in stunning teal', brand: 'Elegant Evenings' },
-    { id: 'sage-boho', name: 'Sage Boho Maxi', image: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600', color: '#84cc16', description: 'Bohemian sage green maxi - free spirit vibes', brand: 'Boho Dreams' },
-    { id: 'olive-wrap', name: 'Olive Silk Wrap', image: 'https://images.unsplash.com/photo-1551803091-e20673f15770?w=600', color: '#65a30d', description: 'Sophisticated olive green wrap dress', brand: 'Earth Tones' },
-    { id: 'mint-ruffle', name: 'Mint Ruffle Mini', image: 'https://images.unsplash.com/photo-1550639524-a6f58345a2ca?w=600', color: '#a7f3d0', description: 'Fresh mint with playful ruffles', brand: 'Spring Fling' },
+    // Green Collection - All unique
+    { id: 'emerald-goddess', name: 'Emerald Goddess', image: 'https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=600', color: '#10b981', description: 'Majestic emerald beauty', brand: 'Royal' },
+    { id: 'teal-cocktail', name: 'Teal Cocktail', image: 'https://images.unsplash.com/photo-1475180429745-84e35c348071?w=600', color: '#14b8a6', description: 'Sophisticated evening', brand: 'Elegant' },
+    { id: 'sage-boho', name: 'Sage Boho Maxi', image: 'https://images.unsplash.com/photo-1518985294698-83dcd4c4d3e5?w=600', color: '#84cc16', description: 'Free spirit bohemian', brand: 'Boho Dreams' },
+    { id: 'olive-wrap', name: 'Olive Silk Wrap', image: 'https://images.unsplash.com/photo-1508701067087-5eb8a10973a6?w=600', color: '#65a30d', description: 'Sophisticated olive', brand: 'Earth Tones' },
+    { id: 'mint-ruffle', name: 'Mint Ruffle Mini', image: 'https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=600', color: '#a7f3d0', description: 'Fresh mint playful', brand: 'Spring Fling' },
     
-    // Blue Range - Cool elegance
-    { id: 'royal-blue-gown', name: 'Royal Blue Ball Gown', image: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600', color: '#1d4ed8', description: 'Cinderella-worthy royal blue ball gown', brand: 'Fairytale Dreams' },
-    { id: 'navy-velvet', name: 'Navy Velvet Elegance', image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600', color: '#1e3a8a', description: 'Rich navy velvet for sophisticated evenings', brand: 'Velvet Nights' },
-    { id: 'sky-blue-chiffon', name: 'Sky Blue Chiffon', image: 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=600', color: '#38bdf8', description: 'Ethereal sky blue floating chiffon', brand: 'Cloud Nine' },
-    { id: 'cobalt-bodycon', name: 'Cobalt Bodycon', image: 'https://images.unsplash.com/photo-1562137369-1a1a0bc66744?w=600', color: '#2563eb', description: 'Electric cobalt for making a statement', brand: 'Bold Blue' },
-    { id: 'aqua-sequin', name: 'Aqua Sequin Party', image: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=600', color: '#22d3d1', description: 'Mermaid-inspired aqua sequins', brand: 'Under the Sea' },
+    // Blue Collection - Unique images
+    { id: 'royal-blue-gown', name: 'Royal Blue Ball Gown', image: 'https://images.unsplash.com/photo-1519657814959-e2e98c6f7b44?w=600', color: '#1d4ed8', description: 'Cinderella worthy', brand: 'Fairytale' },
+    { id: 'navy-velvet', name: 'Navy Velvet', image: 'https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=600', color: '#1e3a8a', description: 'Rich velvet elegance', brand: 'Velvet Nights' },
+    { id: 'sky-blue-chiffon', name: 'Sky Blue Chiffon', image: 'https://images.unsplash.com/photo-1485462537746-965f33f7f6a7?w=600', color: '#38bdf8', description: 'Ethereal floating beauty', brand: 'Cloud Nine' },
+    { id: 'cobalt-bodycon', name: 'Cobalt Bodycon', image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600', color: '#2563eb', description: 'Electric statement', brand: 'Bold Blue' },
+    { id: 'aqua-sequin', name: 'Aqua Sequin', image: 'https://images.unsplash.com/photo-1557127275-f8b5ba93e24e?w=600', color: '#22d3d1', description: 'Mermaid sparkle', brand: 'Under the Sea' },
     
-    // White & Ivory - Angelic
-    { id: 'white-angel', name: 'White Angel Dress', image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600', color: '#ffffff', description: 'Pure white elegance - looking like an angel from heaven', brand: 'Heavenly' },
-    { id: 'ivory-lace', name: 'Ivory Lace Romance', image: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600', color: '#fffbeb', description: 'Delicate ivory lace for that romantic dream look', brand: 'Bridal Dreams' },
-    { id: 'cream-goddess', name: 'Cream Grecian Goddess', image: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=600', color: '#fef9f5', description: 'Flowing cream gown with goddess draping', brand: 'Greek Goddess' },
-    { id: 'pearl-satin', name: 'Pearl Satin Slip', image: 'https://images.unsplash.com/photo-1568252542512-9fe8fe9c87bb?w=600', color: '#f5f5f5', description: 'Lustrous pearl satin minimalist dress', brand: 'Pearl Essence' },
+    // White & Ivory - All unique
+    { id: 'white-angel', name: 'White Angel Dress', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600', color: '#ffffff', description: 'Pure heavenly white', brand: 'Heavenly' },
+    { id: 'ivory-lace', name: 'Ivory Lace Romance', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600', color: '#fffbeb', description: 'Delicate lace dream', brand: 'Bridal Dreams' },
+    { id: 'cream-goddess', name: 'Cream Grecian', image: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=600', color: '#fef9f5', description: 'Flowing goddess draping', brand: 'Greek Goddess' },
+    { id: 'pearl-satin', name: 'Pearl Satin Slip', image: 'https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=600', color: '#f5f5f5', description: 'Lustrous minimalist', brand: 'Pearl Essence' },
     
-    // Purple & Violet - Mystical beauty
-    { id: 'purple-velvet', name: 'Purple Velvet Drama', image: 'https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=600', color: '#7c3aed', description: 'Mysterious purple velvet - royally beautiful', brand: 'Midnight Purple' },
-    { id: 'lavender-fairy', name: 'Lavender Fairy Dress', image: 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=600', color: '#c4b5fd', description: 'Whimsical lavender dress like a fairy princess', brand: 'Fantasy Wear' },
-    { id: 'violet-mermaid', name: 'Violet Mermaid Gown', image: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600', color: '#8b5cf6', description: 'Stunning violet with mermaid tail silhouette', brand: 'Mystical Mermaid' },
-    { id: 'plum-cocktail', name: 'Plum Cocktail Dress', image: 'https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=600', color: '#a855f7', description: 'Rich plum for evening sophistication', brand: 'Plum Perfect' },
-    { id: 'lilac-tulle', name: 'Lilac Tulle Princess', image: 'https://images.unsplash.com/photo-1551803091-e20673f15770?w=600', color: '#d8b4fe', description: 'Dreamy lilac tulle layers', brand: 'Tulle Dreams' },
-    { id: 'amethyst-gown', name: 'Amethyst Crystal Gown', image: 'https://images.unsplash.com/photo-1550639524-a6f58345a2ca?w=600', color: '#9333ea', description: 'Deep amethyst with crystal embellishments', brand: 'Crystal Magic' },
+    // Purple Collection - All unique
+    { id: 'purple-velvet', name: 'Purple Velvet Drama', image: 'https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=600', color: '#7c3aed', description: 'Mysterious royal', brand: 'Midnight Purple' },
+    { id: 'lavender-fairy', name: 'Lavender Fairy', image: 'https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=600', color: '#c4b5fd', description: 'Whimsical princess', brand: 'Fantasy Wear' },
+    { id: 'violet-mermaid', name: 'Violet Mermaid', image: 'https://images.unsplash.com/photo-1504703395950-b89145a5425b?w=600', color: '#8b5cf6', description: 'Stunning mermaid tail', brand: 'Mystical' },
+    { id: 'plum-cocktail', name: 'Plum Cocktail', image: 'https://images.unsplash.com/photo-1487222477894-8943e31ef7b2?w=600', color: '#a855f7', description: 'Evening sophistication', brand: 'Plum Perfect' },
+    { id: 'lilac-tulle', name: 'Lilac Tulle Princess', image: 'https://images.unsplash.com/photo-1523297467724-f6758d7124c5?w=600', color: '#d8b4fe', description: 'Dreamy tulle layers', brand: 'Tulle Dreams' },
+    { id: 'amethyst-gown', name: 'Amethyst Crystal', image: 'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?w=600', color: '#9333ea', description: 'Crystal embellished', brand: 'Crystal Magic' },
     
-    // Orange & Coral - Warm vibes
-    { id: 'sunset-maxi', name: 'Sunset Orange Maxi', image: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600', color: '#f97316', description: 'Flowing maxi in sunset orange', brand: 'Sunset Vibes' },
-    { id: 'peach-flutter', name: 'Peach Flutter Sleeve', image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600', color: '#fdba74', description: 'Soft peach with romantic flutter sleeves', brand: 'Peachy Keen' },
-    { id: 'tangerine-mini', name: 'Tangerine Mini', image: 'https://images.unsplash.com/photo-1562137369-1a1a0bc66744?w=600', color: '#fb923c', description: 'Bright tangerine for fun-loving girls', brand: 'Citrus Splash' },
+    // Orange & Coral - All unique
+    { id: 'sunset-maxi', name: 'Sunset Orange Maxi', image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600', color: '#f97316', description: 'Flowing sunset beauty', brand: 'Sunset Vibes' },
+    { id: 'peach-flutter', name: 'Peach Flutter', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600', color: '#fdba74', description: 'Romantic flutter sleeves', brand: 'Peachy Keen' },
+    { id: 'tangerine-mini', name: 'Tangerine Mini', image: 'https://images.unsplash.com/photo-1512310604669-443f26c35f52?w=600', color: '#fb923c', description: 'Bright fun-loving', brand: 'Citrus Splash' },
     
-    // Floral & Print - Nature inspired
-    { id: 'floral-maxi', name: 'Romantic Floral Maxi', image: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600', color: '#f472b6', description: 'Beautiful floral print maxi - garden party perfect', brand: 'Garden Romance' },
-    { id: 'rose-print', name: 'Rose Print Dress', image: 'https://images.unsplash.com/photo-1551803091-e20673f15770?w=600', color: '#f43f5e', description: 'Romantic roses printed on soft fabric - dreamy!', brand: 'Rose Garden' },
-    { id: 'tropical-print', name: 'Tropical Paradise', image: 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=600', color: '#84cc16', description: 'Vibrant tropical print for vacation vibes', brand: 'Island Girl' },
-    { id: 'cherry-blossom', name: 'Cherry Blossom Dress', image: 'https://images.unsplash.com/photo-1568252542512-9fe8fe9c87bb?w=600', color: '#fda4af', description: 'Delicate cherry blossom print - Japanese inspired', brand: 'Sakura Dreams' },
-    { id: 'sunflower-print', name: 'Sunflower Sundress', image: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=600', color: '#fbbf24', description: 'Happy sunflowers for sunny days', brand: 'Sunshine Girl' },
+    // Floral Collection - All unique
+    { id: 'floral-maxi', name: 'Romantic Floral Maxi', image: 'https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?w=600', color: '#f472b6', description: 'Garden party perfect', brand: 'Garden Romance' },
+    { id: 'rose-print', name: 'Rose Print Dress', image: 'https://images.unsplash.com/photo-1481824429379-07aa5e5b0739?w=600', color: '#f43f5e', description: 'Romantic roses dreamy', brand: 'Rose Garden' },
+    { id: 'tropical-print', name: 'Tropical Paradise', image: 'https://images.unsplash.com/photo-1495385794356-15371f348c31?w=600', color: '#84cc16', description: 'Vibrant vacation vibes', brand: 'Island Girl' },
+    { id: 'cherry-blossom', name: 'Cherry Blossom', image: 'https://images.unsplash.com/photo-1519482816300-1490fdf2c2bd?w=600', color: '#fda4af', description: 'Japanese inspired', brand: 'Sakura Dreams' },
+    { id: 'sunflower-print', name: 'Sunflower Sundress', image: 'https://images.unsplash.com/photo-1499939667766-4afceb292d05?w=600', color: '#fbbf24', description: 'Happy sunny days', brand: 'Sunshine Girl' },
     
-    // Sparkle & Shine - Party ready
-    { id: 'silver-glitter', name: 'Silver Glitter Bomb', image: 'https://images.unsplash.com/photo-1550639524-a6f58345a2ca?w=600', color: '#e2e8f0', description: 'Disco ball vibes - shine bright like a diamond!', brand: 'Sparkle Queen' },
-    { id: 'holographic-dream', name: 'Holographic Fantasy', image: 'https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=600', color: '#a78bfa', description: 'Futuristic holographic dress - unique and stunning', brand: 'Future Fashion' },
-    { id: 'mirror-ball', name: 'Mirror Ball Dress', image: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=600', color: '#d4d4d8', description: 'Reflective sequins for maximum sparkle', brand: 'Disco Diva' },
-    { id: 'iridescent-gown', name: 'Iridescent Dream Gown', image: 'https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=600', color: '#e0e7ff', description: 'Color-shifting iridescent fabric - magical!', brand: 'Unicorn Dreams' },
+    // Sparkle & Shine - All unique
+    { id: 'silver-glitter', name: 'Silver Glitter Bomb', image: 'https://images.unsplash.com/photo-1509319117193-57bab727e09d?w=600', color: '#e2e8f0', description: 'Disco ball vibes', brand: 'Sparkle Queen' },
+    { id: 'holographic-dream', name: 'Holographic Fantasy', image: 'https://images.unsplash.com/photo-1550614000-4895a10e1bfd?w=600', color: '#a78bfa', description: 'Futuristic unique', brand: 'Future Fashion' },
+    { id: 'mirror-ball', name: 'Mirror Ball Dress', image: 'https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?w=600', color: '#d4d4d8', description: 'Maximum sparkle', brand: 'Disco Diva' },
+    { id: 'iridescent-gown', name: 'Iridescent Dream', image: 'https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=600', color: '#e0e7ff', description: 'Color-shifting magical', brand: 'Unicorn Dreams' },
     
-    // Traditional Sarees - Elegant Indian
-    { id: 'red-banarasi', name: 'Red Banarasi Saree', image: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=600', color: '#dc2626', description: 'Royal red Banarasi silk with gold zari - traditional elegance', brand: 'Saree Palace' },
-    { id: 'pink-kanjivaram', name: 'Pink Kanjivaram', image: 'https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=600', color: '#ec4899', description: 'Stunning pink Kanjivaram with temple border - South Indian beauty', brand: 'Silk Heritage' },
-    { id: 'green-patola', name: 'Green Patola Saree', image: 'https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=600', color: '#10b981', description: 'Vibrant green double ikat Patola - Gujarati masterpiece', brand: 'Patola House' },
-    { id: 'blue-chanderi', name: 'Blue Chanderi Saree', image: 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=600', color: '#3b82f6', description: 'Ethereal blue Chanderi with gold motifs - pure grace', brand: 'Chanderi Weaves' },
-    { id: 'purple-bandhani', name: 'Purple Bandhani', image: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600', color: '#8b5cf6', description: 'Gorgeous purple tie-dye bandhani - Rajasthani charm', brand: 'Bandhej Art' },
-    { id: 'white-kerala-kasavu', name: 'Kerala Kasavu', image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600', color: '#fef3c7', description: 'Classic off-white Kerala saree with gold border - divine elegance', brand: 'Kerala Silks' },
-    { id: 'maroon-paithani', name: 'Maroon Paithani', image: 'https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=600', color: '#7f1d1d', description: 'Rich maroon Paithani with peacock motifs - Maharashtrian royalty', brand: 'Paithani Looms' },
-    { id: 'yellow-mysore', name: 'Yellow Mysore Silk', image: 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=600', color: '#eab308', description: 'Bright yellow Mysore silk - festive and beautiful', brand: 'Mysore Silks' },
+    // Traditional Sarees - All unique
+    { id: 'red-banarasi', name: 'Red Banarasi Saree', image: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=600', color: '#dc2626', description: 'Royal Banarasi silk', brand: 'Saree Palace' },
+    { id: 'pink-kanjivaram', name: 'Pink Kanjivaram', image: 'https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=600', color: '#ec4899', description: 'South Indian beauty', brand: 'Silk Heritage' },
+    { id: 'green-patola', name: 'Green Patola Saree', image: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=600', color: '#10b981', description: 'Gujarati masterpiece', brand: 'Patola House' },
+    { id: 'blue-chanderi', name: 'Blue Chanderi', image: 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=600', color: '#3b82f6', description: 'Pure grace', brand: 'Chanderi Weaves' },
     
-    // Lehengas - Wedding Ready
-    { id: 'pink-bridal-lehenga', name: 'Pink Bridal Lehenga', image: 'https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=600', color: '#ec4899', description: 'Traditional embroidered pink lehenga - bride-to-be vibes!', brand: 'Bridal Couture' },
-    { id: 'red-bridal-lehenga', name: 'Red Bridal Lehenga', image: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600', color: '#dc2626', description: 'Classic red bridal lehenga with gold embroidery - traditional perfection', brand: 'Wedding Trousseau' },
-    { id: 'blue-engagement-lehenga', name: 'Blue Engagement Lehenga', image: 'https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=600', color: '#3b82f6', description: 'Royal blue lehenga with silver work - engagement ready', brand: 'Celebration Wear' },
-    { id: 'peach-sangeet-lehenga', name: 'Peach Sangeet Lehenga', image: 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=600', color: '#fdba74', description: 'Soft peach with mirror work - sangeet night star', brand: 'Sangeet Collection' },
-    { id: 'green-mehndi-lehenga', name: 'Green Mehndi Lehenga', image: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600', color: '#22c55e', description: 'Fresh green with floral embroidery - mehndi ceremony perfect', brand: 'Mehndi Magic' },
-    { id: 'gold-reception-lehenga', name: 'Gold Reception Lehenga', image: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=600', color: '#fbbf24', description: 'Regal gold with heavy zari work - reception queen', brand: 'Golden Glory' },
-    { id: 'turquoise-lehenga', name: 'Turquoise Dream Lehenga', image: 'https://images.unsplash.com/photo-1551803091-e20673f15770?w=600', color: '#06b6d4', description: 'Stunning turquoise with pearl details', brand: 'Ocean Dreams' },
+    // Lehengas - All unique
+    { id: 'pink-bridal-lehenga', name: 'Pink Bridal Lehenga', image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600', color: '#ec4899', description: 'Bride-to-be vibes', brand: 'Bridal Couture' },
+    { id: 'red-bridal-lehenga', name: 'Red Bridal Lehenga', image: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600', color: '#dc2626', description: 'Traditional perfection', brand: 'Wedding' },
+    { id: 'blue-engagement-lehenga', name: 'Blue Engagement', image: 'https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=600', color: '#3b82f6', description: 'Engagement ready', brand: 'Celebration' },
     
-    // Honeymoon & Romantic Night Collection
-    { id: 'white-lace-lingerie-dress', name: 'White Lace Bridal', image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600', color: '#ffffff', description: 'Delicate white lace with satin - honeymoon nights', brand: 'Bridal Intimate' },
-    { id: 'silk-champagne-slip', name: 'Champagne Silk Night', image: 'https://images.unsplash.com/photo-1568252542512-9fe8fe9c87bb?w=600', color: '#fef3c7', description: 'Luxurious silk slip dress - romantic evenings', brand: 'Honeymoon Suite' },
-    { id: 'red-satin-robe-dress', name: 'Red Satin Romance', image: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600', color: '#dc2626', description: 'Sultry red satin with lace trim - passion nights', brand: 'Romance Collection' },
-    { id: 'blush-tulle-baby', name: 'Blush Tulle Babydoll', image: 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=600', color: '#fda4af', description: 'Sweet blush tulle babydoll - adorably sexy', brand: 'Sweet Dreams' },
-    { id: 'black-sheer-elegance', name: 'Black Sheer Elegance', image: 'https://images.unsplash.com/photo-1562137369-1a1a0bc66744?w=600', color: '#000000', description: 'Elegant black sheer with strategic details - mysteriously alluring', brand: 'Midnight Seduction' },
-    { id: 'ivory-satin-long', name: 'Ivory Satin Long Gown', image: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=600', color: '#fffbeb', description: 'Floor-length ivory satin - bridal suite elegance', brand: 'Forever Bride' },
-    { id: 'rose-lace-teddy', name: 'Rose Lace Set', image: 'https://images.unsplash.com/photo-1551803091-e20673f15770?w=600', color: '#fb7185', description: 'Romantic rose lace two-piece - honeymoon essential', brand: 'Intimate Rose' },
-    { id: 'navy-silk-chemise', name: 'Navy Silk Chemise', image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600', color: '#1e3a8a', description: 'Sophisticated navy silk chemise - evening elegance', brand: 'Silk Nights' },
+    // Honeymoon Collection - All unique
+    { id: 'white-lace-bridal', name: 'White Lace Bridal', image: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600', color: '#ffffff', description: 'Honeymoon nights', brand: 'Bridal Intimate' },
+    { id: 'silk-champagne-slip', name: 'Champagne Night', image: 'https://images.unsplash.com/photo-1568252542512-9fe8fe9c87bb?w=600', color: '#fef3c7', description: 'Romantic evenings', brand: 'Honeymoon Suite' },
+    { id: 'red-satin-romance', name: 'Red Satin Romance', image: 'https://images.unsplash.com/photo-1562137369-1a1a0bc66744?w=600', color: '#dc2626', description: 'Passion nights', brand: 'Romance Collection' },
+    // More Date Night Looks - All unique images
+    { id: 'blush-tulle-baby', name: 'Blush Tulle Babydoll', image: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=600', color: '#fda4af', description: 'Sweet blush tulle babydoll', brand: 'Sweet Dreams' },
+    { id: 'black-sheer-elegance', name: 'Black Sheer Elegance', image: 'https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=600', color: '#000000', description: 'Mysteriously alluring', brand: 'Midnight Seduction' },
+    { id: 'ivory-satin-long', name: 'Ivory Satin Long Gown', image: 'https://images.unsplash.com/photo-1539008835657-9e8e9680c956?w=600', color: '#fffbeb', description: 'Bridal suite elegance', brand: 'Forever Bride' },
+    { id: 'rose-lace-set', name: 'Rose Lace Set', image: 'https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?w=600', color: '#fb7185', description: 'Honeymoon essential', brand: 'Intimate Rose' },
+    { id: 'navy-silk-chemise', name: 'Navy Silk Chemise', image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=600', color: '#1e3a8a', description: 'Evening elegance', brand: 'Silk Nights' },
     
-    // Fusion Wear - Modern meets Traditional
-    { id: 'red-saree-gown', name: 'Red Saree Gown Fusion', image: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600', color: '#dc2626', description: 'Modern saree-gown fusion - best of both worlds', brand: 'Fusion Collection' },
-    { id: 'indo-western-jumpsuit', name: 'Indo-Western Jumpsuit', image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600', color: '#fbbf24', description: 'Palazzo jumpsuit with ethnic jacket - modern desi', brand: 'East Meets West' },
-    { id: 'dhoti-saree', name: 'Dhoti Style Saree', image: 'https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=600', color: '#f472b6', description: 'Pre-draped dhoti saree - comfort meets tradition', brand: 'Modern Ethnic' },
-    { id: 'cape-lehenga', name: 'Cape Style Lehenga', image: 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=600', color: '#8b5cf6', description: 'Lehenga with flowing cape - dramatic entrance', brand: 'Cape Couture' },
-    { id: 'anarkali-gown', name: 'Anarkali Floor Gown', image: 'https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=600', color: '#ec4899', description: 'Flowing anarkali with modern cut', brand: 'Mughal Fusion' },
-    { id: 'sharara-set', name: 'Sharara Palazzo Set', image: 'https://images.unsplash.com/photo-1551803091-e20673f15770?w=600', color: '#14b8a6', description: 'Trendy sharara with crop top', brand: 'Sharara Style' },
+    // Fusion Wear - All unique images
+    { id: 'red-saree-gown', name: 'Red Saree Gown Fusion', image: 'https://images.unsplash.com/photo-1508701067087-5eb8a10973a6?w=600', color: '#dc2626', description: 'Best of both worlds', brand: 'Fusion Collection' },
+    { id: 'indo-western-jumpsuit', name: 'Indo-Western Jumpsuit', image: 'https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=600', color: '#fbbf24', description: 'Modern desi style', brand: 'East Meets West' },
+    { id: 'dhoti-saree', name: 'Dhoti Style Saree', image: 'https://images.unsplash.com/photo-1523297467724-f6758d7124c5?w=600', color: '#f472b6', description: 'Comfort meets tradition', brand: 'Modern Ethnic' },
+    { id: 'cape-lehenga', name: 'Cape Style Lehenga', image: 'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?w=600', color: '#8b5cf6', description: 'Dramatic entrance', brand: 'Cape Couture' },
+    { id: 'anarkali-gown', name: 'Anarkali Floor Gown', image: 'https://images.unsplash.com/photo-1557127275-f8b5ba93e24e?w=600', color: '#ec4899', description: 'Flowing modern cut', brand: 'Mughal Fusion' },
+    { id: 'sharara-set', name: 'Sharara Palazzo Set', image: 'https://images.unsplash.com/photo-1512310604669-443f26c35f52?w=600', color: '#14b8a6', description: 'Trendy sharara style', brand: 'Sharara Style' },
   ],
   earrings: [
     { id: 'diamond-drops', name: 'Diamond Teardrop', image: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600', color: '#e0f2fe', description: 'Elegant VS1 clarity diamond teardrops', brand: 'Luxury Gems' },
