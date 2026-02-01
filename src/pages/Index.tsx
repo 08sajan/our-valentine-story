@@ -6,9 +6,7 @@ import { Link } from "react-router-dom";
 import { PasswordGate } from "@/components/valentine/PasswordGate";
 import { DailyLoveQuote } from "@/components/valentine/DailyLoveQuote";
 // Premium Components
-import { HeartCursor } from "@/components/valentine/HeartCursor";
-import { ParallaxStars } from "@/components/valentine/ParallaxStars";
-import { Fireflies } from "@/components/valentine/Fireflies";
+import { RomanticAmbience } from "@/components/valentine/RomanticAmbience";
 import { ConfettiCannon } from "@/components/valentine/ConfettiCannon";
 import { ScratchCard } from "@/components/valentine/ScratchCard";
 import { PhotoGallery } from "@/components/valentine/PhotoGallery";
@@ -1363,11 +1361,12 @@ const IndexContent = () => {
         }}
       />
       
-      {/* Global Effects */}
-      <HeartCursor />
-      <ParallaxStars />
+      {/* Global Romantic Ambience */}
+      <RomanticAmbience 
+        variant={currentDay === 7 ? "intense" : currentDay === 4 ? "full" : "subtle"} 
+        showCursor={true} 
+      />
       {currentDay === 0 && <RosePetalsRain />}
-      {currentDay === 4 && <Fireflies />}
       
       {/* Easter Eggs */}
       <ShakeHeartsExplosion />

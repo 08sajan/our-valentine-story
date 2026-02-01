@@ -37,8 +37,7 @@ import { AirHostessRoleplay } from "@/components/valentine/AirHostessRoleplay";
 import { MemoryMatchGame } from "@/components/valentine/MemoryMatchGame";
 import { WouldYouRather } from "@/components/valentine/WouldYouRather";
 import { NepaliPoemsGallery } from "@/components/valentine/NepaliPoemsGallery";
-import { HeartCursor } from "@/components/valentine/HeartCursor";
-import { ParallaxStars } from "@/components/valentine/ParallaxStars";
+import { RomanticAmbience } from "@/components/valentine/RomanticAmbience";
 
 type SectionKey = 'quiz' | 'game' | 'missyou' | 'photobooth' | 'dreams' | 'music' | 'hearts' | 
   'comfort' | 'growth' | 'future' | 'decide' | 'coupons' | 'birthday' | 'bouquets' | 'languages' |
@@ -196,8 +195,7 @@ const Extra = () => {
         transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
       />
       
-      <HeartCursor />
-      <ParallaxStars />
+      <RomanticAmbience variant="full" showCursor={true} />
 
       {/* Header */}
       <header className="relative z-20 p-4 flex items-center justify-between">
