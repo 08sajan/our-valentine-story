@@ -63,8 +63,7 @@ const sections = [
   // Roleplays
   { key: 'airhostess', label: 'Airhostess', emoji: '✈️', category: 'roleplay' },
   
-  // Games & Fun
-  { key: 'quiz', label: 'Love Quiz', emoji: '❓', category: 'games' },
+  // Games & Fun (removed quiz)
   { key: 'game', label: 'Dress Up', emoji: '👗', category: 'games' },
   { key: 'matchgame', label: 'Match Game', emoji: '🃏', category: 'games' },
   { key: 'truthordare', label: 'Truth/Dare', emoji: '🎯', category: 'games' },

@@ -12,7 +12,17 @@ const presetWishes = [
   "Supporting each other's dreams 🌟",
   "Creating beautiful memories 📸",
   "Always choosing each other 💑",
-  "Building our forever together 💒"
+  "Building our forever together 💒",
+  "A cozy morning every day ☕",
+  "Dancing in the rain together 🌧️",
+  "Waking up next to each other 🌅",
+  "Sharing every sunset and sunrise 🌇",
+  "Cooking together on lazy Sundays 🍳",
+  "Adventures that never end 🗺️",
+  "Love letters that fill a box 💌",
+  "Midnight conversations forever 🌙",
+  "Being each other's safe place 🏠",
+  "Growing stronger through every storm 🌈",
 ];
 
 const STORAGE_KEY = "puntuu-wishes";

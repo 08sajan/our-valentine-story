@@ -20,8 +20,35 @@ const treats: TreatItem[] = [
     emoji: '🍍',
     description: 'Fresh tropical sweetness',
     color: 'from-yellow-400 to-amber-500',
-    message: 'Mmm! This pineapple is as sweet as your smile! 🍍💕',
+    message: 'Mmm! This pineapple is as sweet as your smile, love! 🍍💕',
     benefits: ['Rich in Vitamin C', 'Boosts immunity', 'Great for skin', 'Natural sweetness']
+  },
+  {
+    id: 'momo',
+    name: 'Hot Momos',
+    emoji: '🥟',
+    description: 'Steaming delicious dumplings',
+    color: 'from-orange-400 to-red-500',
+    message: 'Nothing beats sharing hot momos with you, sweetheart! 🥟❤️',
+    benefits: ['Comfort food', 'Perfect for sharing', 'Warm & cozy', 'Our favorite!']
+  },
+  {
+    id: 'panipuri',
+    name: 'Spicy Panipuri',
+    emoji: '💧',
+    description: 'Crispy, tangy, spicy goodness',
+    color: 'from-green-400 to-teal-500',
+    message: 'One puri for you, one for me - that\'s how we share love, babe! 💧💕',
+    benefits: ['Tangy & spicy', 'Street food vibes', 'Crunchy delight', 'Mood lifter']
+  },
+  {
+    id: 'spicywings',
+    name: 'Spicy Wings',
+    emoji: '🍗',
+    description: 'Hot and crispy chicken wings',
+    color: 'from-red-500 to-orange-600',
+    message: 'These wings are hot, but you\'re hotter, love! 🍗🔥',
+    benefits: ['Protein packed', 'Spicy kick', 'Perfect snack', 'Movie night must']
   },
   {
     id: 'coke',
@@ -29,7 +56,7 @@ const treats: TreatItem[] = [
     emoji: '🥤',
     description: 'Refreshing fizzy drink',
     color: 'from-red-500 to-red-700',
-    message: 'Fizzy and fun, just like our love! 🥤✨',
+    message: 'Fizzy and fun, just like our love, sweetheart! 🥤✨',
     benefits: ['Refreshing', 'Instant energy', 'Perfect treat', 'Celebration drink']
   },
   {
@@ -38,7 +65,7 @@ const treats: TreatItem[] = [
     emoji: '🍰',
     description: 'Rich and dreamy dessert',
     color: 'from-orange-300 to-amber-400',
-    message: 'Life is sweet with you, like this cheesecake! 🍰💕',
+    message: 'Life is sweet with you, like this cheesecake, babe! 🍰💕',
     benefits: ['Rich & creamy', 'Perfect dessert', 'Celebration treat', 'Sweet memories']
   },
   {
@@ -47,7 +74,7 @@ const treats: TreatItem[] = [
     emoji: '🍫',
     description: 'Romantic indulgence',
     color: 'from-amber-700 to-amber-900',
-    message: 'Sweet, rich, and irresistible - just like you! 🍫❤️',
+    message: 'Sweet, rich, and irresistible - just like you, love! 🍫❤️',
     benefits: ['Mood booster', 'Antioxidants', 'Heart healthy', 'Pure indulgence']
   },
   {
@@ -65,7 +92,7 @@ const treats: TreatItem[] = [
     emoji: '🍨',
     description: 'Cool and delightful',
     color: 'from-pink-300 to-rose-400',
-    message: 'You make every moment as sweet as ice cream! 🍨✨',
+    message: 'You make every moment as sweet as ice cream, sweetheart! 🍨✨',
     benefits: ['Cooling treat', 'Mood lifter', 'Sweet escape', 'Comfort food']
   },
   {
@@ -74,7 +101,7 @@ const treats: TreatItem[] = [
     emoji: '🥭',
     description: 'King of fruits',
     color: 'from-yellow-400 to-orange-500',
-    message: 'You\'re the mango to my lassi, the sweet to my treat! 🥭💛',
+    message: 'You\'re the mango to my lassi, the sweet to my treat, babe! 🥭💛',
     benefits: ['Vitamin A & C', 'Digestive aid', 'Summer favorite', 'Natural sweetness']
   },
   {
@@ -83,7 +110,7 @@ const treats: TreatItem[] = [
     emoji: '🍕',
     description: 'Our favorite comfort food',
     color: 'from-orange-400 to-red-500',
-    message: 'Pizza nights with you are the best! 🍕❤️',
+    message: 'Pizza nights with you are the best, love! 🍕❤️',
     benefits: ['Comfort food', 'Sharing moment', 'Movie night', 'Pure happiness']
   },
   {
@@ -92,7 +119,7 @@ const treats: TreatItem[] = [
     emoji: '☕',
     description: 'Warm and cozy',
     color: 'from-amber-600 to-amber-800',
-    message: 'You\'re the cream to my coffee! ☕💕',
+    message: 'You\'re the cream to my coffee, sweetheart! ☕💕',
     benefits: ['Energy boost', 'Cozy moments', 'Morning ritual', 'Warm comfort']
   },
   {
@@ -101,7 +128,7 @@ const treats: TreatItem[] = [
     emoji: '🍩',
     description: 'Sweet and fun treat',
     color: 'from-pink-400 to-rose-500',
-    message: 'You\'re sweeter than any donut! 🍩💕',
+    message: 'You\'re sweeter than any donut, babe! 🍩💕',
     benefits: ['Fun treat', 'Sweet moments', 'Sprinkle of joy', 'Donut worry be happy']
   },
   {
@@ -110,8 +137,26 @@ const treats: TreatItem[] = [
     emoji: '🍿',
     description: 'Perfect for movie nights',
     color: 'from-yellow-300 to-amber-400',
-    message: 'Movie nights with you are the best! 🍿✨',
+    message: 'Movie nights with you are the best, love! 🍿✨',
     benefits: ['Movie time', 'Sharing snack', 'Cozy nights', 'Fun together']
+  },
+  {
+    id: 'biryani',
+    name: 'Spicy Biryani',
+    emoji: '🍚',
+    description: 'Aromatic rice heaven',
+    color: 'from-amber-500 to-orange-600',
+    message: 'Sharing biryani with you is pure bliss, sweetheart! 🍚💕',
+    benefits: ['Aromatic', 'Filling meal', 'Special treat', 'Celebration food']
+  },
+  {
+    id: 'chai',
+    name: 'Masala Chai',
+    emoji: '🫖',
+    description: 'Warm and spicy tea',
+    color: 'from-amber-500 to-amber-700',
+    message: 'Chai time is our time, babe! 🫖❤️',
+    benefits: ['Warm comfort', 'Conversation starter', 'Energy boost', 'Cozy vibes']
   },
 ];
 
@@ -305,13 +350,13 @@ export const VirtualTreats = () => {
           </span>
           <Sparkles className="w-5 h-5 text-yellow-400" />
         </h3>
-        <motion.p 
-          className="text-white/60 text-sm"
-          animate={{ opacity: [0.6, 1, 0.6] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        >
-          Enjoy some sweet treats, Puntuu! 💕
-        </motion.p>
+          <motion.p 
+            className="text-white/60 text-sm"
+            animate={{ opacity: [0.6, 1, 0.6] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            Enjoy some sweet treats, love! 💕
+          </motion.p>
       </motion.div>
 
       {/* Progress */}
