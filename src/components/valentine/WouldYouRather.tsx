@@ -10,7 +10,7 @@ interface Question {
 }
 
 const questions: Question[] = [
-  // Sweet Questions
+  // Sweet Questions (20)
   { optionA: "Have breakfast in bed every morning", optionB: "Have dinner dates every night", category: 'sweet' },
   { optionA: "Slow dance in the rain", optionB: "Watch the sunrise together", category: 'sweet' },
   { optionA: "Receive 100 love letters", optionB: "Get 100 surprise hugs", category: 'sweet' },
@@ -26,8 +26,13 @@ const questions: Question[] = [
   { optionA: "Go stargazing together", optionB: "Watch movies under blankets", category: 'sweet' },
   { optionA: "Share an ice cream sundae", optionB: "Share a pizza in bed", category: 'sweet' },
   { optionA: "Dance in the living room", optionB: "Sing karaoke together", category: 'sweet' },
+  { optionA: "Build a pillow fort", optionB: "Have a pajama party for two", category: 'sweet' },
+  { optionA: "Get forehead kisses", optionB: "Get nose kisses", category: 'sweet' },
+  { optionA: "Have matching phone cases", optionB: "Have matching jewelry", category: 'sweet' },
+  { optionA: "Couple yoga sessions", optionB: "Couple cooking classes", category: 'sweet' },
+  { optionA: "Road trip adventure", optionB: "Staycation at a fancy hotel", category: 'sweet' },
   
-  // Spicy Questions  
+  // Spicy Questions (20)
   { optionA: "Be blindfolded by your partner", optionB: "Blindfold your partner", category: 'spicy' },
   { optionA: "Have a romantic bath together", optionB: "Have a massage night", category: 'spicy' },
   { optionA: "Play truth or dare all night", optionB: "Play never have I ever all night", category: 'spicy' },
@@ -43,8 +48,13 @@ const questions: Question[] = [
   { optionA: "Slow and sensual", optionB: "Fast and passionate", category: 'spicy' },
   { optionA: "Morning intimacy", optionB: "Late night intimacy", category: 'spicy' },
   { optionA: "Dress up for each other", optionB: "Undress each other slowly", category: 'spicy' },
+  { optionA: "Send flirty texts all day", optionB: "One long steamy phone call", category: 'spicy' },
+  { optionA: "Sensual dance together", optionB: "Strip tease for each other", category: 'spicy' },
+  { optionA: "Chocolate covered strawberries in bed", optionB: "Whipped cream fun", category: 'spicy' },
+  { optionA: "Be woken up with kisses", optionB: "Be woken up with wandering hands", category: 'spicy' },
+  { optionA: "Shower together", optionB: "Bubble bath together", category: 'spicy' },
   
-  // Hot Questions
+  // Hot Questions (25)
   { optionA: "Be in control", optionB: "Let them take control", category: 'hot' },
   { optionA: "Use handcuffs", optionB: "Use blindfolds", category: 'hot' },
   { optionA: "Try a new location", optionB: "Try a new position", category: 'hot' },
@@ -60,6 +70,16 @@ const questions: Question[] = [
   { optionA: "Dominant partner tonight", optionB: "Submissive partner tonight", category: 'hot' },
   { optionA: "Try something new every time", optionB: "Perfect the favorites", category: 'hot' },
   { optionA: "Fantasy fulfillment night", optionB: "Spontaneous passion", category: 'hot' },
+  { optionA: "Soft and gentle all night", optionB: "Rough and passionate all night", category: 'hot' },
+  { optionA: "Edge them for hours", optionB: "Give them instant pleasure", category: 'hot' },
+  { optionA: "Be bitten", optionB: "Do the biting", category: 'hot' },
+  { optionA: "Against the wall", optionB: "On the kitchen counter", category: 'hot' },
+  { optionA: "Talk dirty the whole time", optionB: "Let the sounds speak", category: 'hot' },
+  { optionA: "Roleplay as strangers at a bar", optionB: "Roleplay as a couple rekindling passion", category: 'hot' },
+  { optionA: "Use a blindfold and surprise touches", optionB: "Use restraints and be teased", category: 'hot' },
+  { optionA: "Initiate unexpectedly", optionB: "Be taken by surprise", category: 'hot' },
+  { optionA: "Multiple rounds in one night", optionB: "One intense marathon session", category: 'hot' },
+  { optionA: "Focus on their pleasure only", optionB: "Be the center of attention", category: 'hot' },
 ];
 
 const categoryConfig = {

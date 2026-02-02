@@ -9,7 +9,7 @@ interface Challenge {
 }
 
 const truths: Challenge[] = [
-  // Sweet
+  // Sweet (15)
   { id: 't1', text: "What's your favorite memory of us together?", intensity: 'sweet' },
   { id: 't2', text: "When did you first know you loved me?", intensity: 'sweet' },
   { id: 't3', text: "What's the cutest thing I do without realizing?", intensity: 'sweet' },
@@ -20,25 +20,47 @@ const truths: Challenge[] = [
   { id: 't8', text: "What's your dream date with me?", intensity: 'sweet' },
   { id: 't9', text: "What habit of mine do you secretly love?", intensity: 'sweet' },
   { id: 't10', text: "What do you want us to do together in the future?", intensity: 'sweet' },
-  // Spicy
-  { id: 't11', text: "What's your biggest secret fantasy about us?", intensity: 'spicy' },
-  { id: 't12', text: "What's the most attractive thing about me?", intensity: 'spicy' },
-  { id: 't13', text: "Have you ever dreamed about me? What happened?", intensity: 'spicy' },
-  { id: 't14', text: "What outfit do you wish I would wear?", intensity: 'spicy' },
-  { id: 't15', text: "What's the naughtiest thought you've had about me?", intensity: 'spicy' },
-  { id: 't16', text: "Where's a place you want to kiss me that you haven't yet?", intensity: 'spicy' },
-  { id: 't17', text: "What turns you on most about me?", intensity: 'spicy' },
-  { id: 't18', text: "What's something you've been too shy to tell me?", intensity: 'spicy' },
-  // Hot
-  { id: 't19', text: "Describe your wildest fantasy with me in detail...", intensity: 'hot' },
-  { id: 't20', text: "What's the hottest moment you've imagined with me?", intensity: 'hot' },
-  { id: 't21', text: "If we were alone right now, what would you want to do?", intensity: 'hot' },
-  { id: 't22', text: "What's a new thing you want to try with me?", intensity: 'hot' },
-  { id: 't23', text: "Tell me your most secret desire...", intensity: 'hot' },
+  { id: 't11', text: "What's the silliest thing you love about me?", intensity: 'sweet' },
+  { id: 't12', text: "If we had a song, what would it be?", intensity: 'sweet' },
+  { id: 't13', text: "What's one thing I do that makes you feel most loved?", intensity: 'sweet' },
+  { id: 't14', text: "What's your favorite pet name for me?", intensity: 'sweet' },
+  { id: 't15', text: "Where do you want our first trip together to be?", intensity: 'sweet' },
+  // Spicy (15)
+  { id: 't16', text: "What's your biggest secret fantasy about us?", intensity: 'spicy' },
+  { id: 't17', text: "What's the most attractive thing about me?", intensity: 'spicy' },
+  { id: 't18', text: "Have you ever dreamed about me? What happened?", intensity: 'spicy' },
+  { id: 't19', text: "What outfit do you wish I would wear?", intensity: 'spicy' },
+  { id: 't20', text: "What's the naughtiest thought you've had about me?", intensity: 'spicy' },
+  { id: 't21', text: "Where's a place you want to kiss me that you haven't yet?", intensity: 'spicy' },
+  { id: 't22', text: "What turns you on most about me?", intensity: 'spicy' },
+  { id: 't23', text: "What's something you've been too shy to tell me?", intensity: 'spicy' },
+  { id: 't24', text: "What body part of mine do you find most attractive?", intensity: 'spicy' },
+  { id: 't25', text: "What do you think about when you miss me at night?", intensity: 'spicy' },
+  { id: 't26', text: "If I was there right now, what would you do first?", intensity: 'spicy' },
+  { id: 't27', text: "What's your favorite way to be touched by me?", intensity: 'spicy' },
+  { id: 't28', text: "What's one thing that makes your heart race about me?", intensity: 'spicy' },
+  { id: 't29', text: "Describe your perfect romantic evening with me...", intensity: 'spicy' },
+  { id: 't30', text: "What do you secretly wish we could do more often?", intensity: 'spicy' },
+  // Hot (15)
+  { id: 't31', text: "Describe your wildest fantasy with me in detail...", intensity: 'hot' },
+  { id: 't32', text: "What's the hottest moment you've imagined with me?", intensity: 'hot' },
+  { id: 't33', text: "If we were alone right now, what would you want to do?", intensity: 'hot' },
+  { id: 't34', text: "What's a new thing you want to try with me in bed?", intensity: 'hot' },
+  { id: 't35', text: "Tell me your most secret desire...", intensity: 'hot' },
+  { id: 't36', text: "What position do you fantasize about most?", intensity: 'hot' },
+  { id: 't37', text: "Describe how you want me to kiss you right now...", intensity: 'hot' },
+  { id: 't38', text: "What would you do if I showed up at your door right now?", intensity: 'hot' },
+  { id: 't39', text: "What's the dirtiest text you've wanted to send me?", intensity: 'hot' },
+  { id: 't40', text: "Where's the most adventurous place you'd want us to get intimate?", intensity: 'hot' },
+  { id: 't41', text: "What sounds do you want to hear me make?", intensity: 'hot' },
+  { id: 't42', text: "Describe your ultimate night of passion with me...", intensity: 'hot' },
+  { id: 't43', text: "What's something naughty you want me to do to you?", intensity: 'hot' },
+  { id: 't44', text: "If I could do anything to you right now, what would it be?", intensity: 'hot' },
+  { id: 't45', text: "Tell me exactly what you're craving from me tonight...", intensity: 'hot' },
 ];
 
 const dares: Challenge[] = [
-  // Sweet
+  // Sweet (15)
   { id: 'd1', text: "Send me a voice note saying 'I love you' in your cutest voice", intensity: 'sweet' },
   { id: 'd2', text: "Write me a 3-line poem right now", intensity: 'sweet' },
   { id: 'd3', text: "Tell me 5 things you love about me without thinking", intensity: 'sweet' },
@@ -49,20 +71,43 @@ const dares: Challenge[] = [
   { id: 'd8', text: "Text me 'I miss you' in 3 different ways", intensity: 'sweet' },
   { id: 'd9', text: "Share your favorite photo of us and tell me why", intensity: 'sweet' },
   { id: 'd10', text: "Give me a virtual hug (describe it in detail!)", intensity: 'sweet' },
-  // Spicy
-  { id: 'd11', text: "Send me a flirty photo (keep it classy but hot!)", intensity: 'spicy' },
-  { id: 'd12', text: "Describe what you'd do if I was there right now", intensity: 'spicy' },
-  { id: 'd13', text: "Send me a voice note whispering something romantic", intensity: 'spicy' },
-  { id: 'd14', text: "Tell me what you're wearing... in detail", intensity: 'spicy' },
-  { id: 'd15', text: "Describe your perfect romantic night with me", intensity: 'spicy' },
-  { id: 'd16', text: "Write a flirty message that would make me blush", intensity: 'spicy' },
-  { id: 'd17', text: "Record yourself saying something that'll give me butterflies", intensity: 'spicy' },
-  // Hot
-  { id: 'd18', text: "Describe exactly how you want me to kiss you", intensity: 'hot' },
-  { id: 'd19', text: "Tell me in detail what happens when we finally meet", intensity: 'hot' },
-  { id: 'd20', text: "Write me the most passionate message you can", intensity: 'hot' },
-  { id: 'd21', text: "Describe your ultimate fantasy date from start to... finish", intensity: 'hot' },
-  { id: 'd22', text: "Send me a voice note that'll make me crazy for you", intensity: 'hot' },
+  { id: 'd11', text: "Send me a good morning voice note tomorrow", intensity: 'sweet' },
+  { id: 'd12', text: "Draw a heart and write our names in it, send a pic", intensity: 'sweet' },
+  { id: 'd13', text: "Tell me something you've never told anyone else", intensity: 'sweet' },
+  { id: 'd14', text: "List 3 reasons why you're grateful for us", intensity: 'sweet' },
+  { id: 'd15', text: "Send me a selfie making your silliest face", intensity: 'sweet' },
+  // Spicy (15)
+  { id: 'd16', text: "Send me a flirty photo (keep it classy but hot!)", intensity: 'spicy' },
+  { id: 'd17', text: "Describe what you'd do if I was there right now", intensity: 'spicy' },
+  { id: 'd18', text: "Send me a voice note whispering something romantic", intensity: 'spicy' },
+  { id: 'd19', text: "Tell me what you're wearing... in detail", intensity: 'spicy' },
+  { id: 'd20', text: "Describe your perfect romantic night with me", intensity: 'spicy' },
+  { id: 'd21', text: "Write a flirty message that would make me blush", intensity: 'spicy' },
+  { id: 'd22', text: "Record yourself saying something that'll give me butterflies", intensity: 'spicy' },
+  { id: 'd23', text: "Send me a photo that shows off your best feature", intensity: 'spicy' },
+  { id: 'd24', text: "Describe how you'd seduce me step by step", intensity: 'spicy' },
+  { id: 'd25', text: "Tell me your favorite way to be kissed", intensity: 'spicy' },
+  { id: 'd26', text: "Send a voice note telling me how much you want me", intensity: 'spicy' },
+  { id: 'd27', text: "Describe your ideal morning waking up next to me", intensity: 'spicy' },
+  { id: 'd28', text: "Tell me what you find irresistible about me", intensity: 'spicy' },
+  { id: 'd29', text: "Send a pic of you in your favorite outfit", intensity: 'spicy' },
+  { id: 'd30', text: "Whisper three things you want to do with me", intensity: 'spicy' },
+  // Hot (15)
+  { id: 'd31', text: "Describe exactly how you want me to kiss you", intensity: 'hot' },
+  { id: 'd32', text: "Tell me in detail what happens when we finally meet", intensity: 'hot' },
+  { id: 'd33', text: "Write me the most passionate message you can", intensity: 'hot' },
+  { id: 'd34', text: "Describe your ultimate fantasy date from start to... finish", intensity: 'hot' },
+  { id: 'd35', text: "Send me a voice note that'll make me crazy for you", intensity: 'hot' },
+  { id: 'd36', text: "Tell me exactly what you want me to do when I see you", intensity: 'hot' },
+  { id: 'd37', text: "Describe how you'd wake me up on a lazy Sunday morning", intensity: 'hot' },
+  { id: 'd38', text: "Send me a text that would make me lose my mind", intensity: 'hot' },
+  { id: 'd39', text: "Describe your perfect night together, don't hold back", intensity: 'hot' },
+  { id: 'd40', text: "Tell me what sounds you want to hear from me", intensity: 'hot' },
+  { id: 'd41', text: "Whisper your deepest desire in a voice note", intensity: 'hot' },
+  { id: 'd42', text: "Describe how you'd tease me until I can't take it", intensity: 'hot' },
+  { id: 'd43', text: "Tell me where you want my hands on you", intensity: 'hot' },
+  { id: 'd44', text: "Describe what you'd do to me if no one was watching", intensity: 'hot' },
+  { id: 'd45', text: "Send a voice note telling me your wildest fantasy", intensity: 'hot' },
 ];
 
 const intensityInfo = {
@@ -83,7 +128,6 @@ export const TruthOrDare = () => {
     const filtered = challenges.filter(c => c.intensity === intensity && !completed.includes(c.id));
     
     if (filtered.length === 0) {
-      // Reset completed for this intensity
       const allOfIntensity = challenges.filter(c => c.intensity === intensity);
       if (allOfIntensity.length > 0) {
         return allOfIntensity[Math.floor(Math.random() * allOfIntensity.length)];
@@ -177,7 +221,7 @@ export const TruthOrDare = () => {
           animate={{ opacity: [0.7, 1, 0.7] }}
           transition={{ duration: 2, repeat: Infinity }}
         >
-          A romantic game just for us 💕
+          A romantic game just for us, love! 💕
         </motion.p>
       </div>
 
@@ -210,7 +254,6 @@ export const TruthOrDare = () => {
             exit={{ opacity: 0, scale: 0.9 }}
             className="space-y-4"
           >
-            {/* Truth Button */}
             <motion.button
               onClick={() => handleChoice('truth')}
               whileHover={{ scale: 1.02 }}
@@ -226,7 +269,6 @@ export const TruthOrDare = () => {
               </div>
             </motion.button>
 
-            {/* Dare Button */}
             <motion.button
               onClick={() => handleChoice('dare')}
               whileHover={{ scale: 1.02 }}
@@ -242,7 +284,6 @@ export const TruthOrDare = () => {
               </div>
             </motion.button>
 
-            {/* Stats */}
             <div className="text-center pt-4">
               <p className="text-white/40 text-sm">
                 Completed: {completed.length} challenges
@@ -256,7 +297,6 @@ export const TruthOrDare = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
           >
-            {/* Challenge Card */}
             <motion.div
               className={`rounded-3xl p-6 bg-gradient-to-br ${
                 mode === 'truth' 
@@ -264,7 +304,6 @@ export const TruthOrDare = () => {
                   : `${intensityStyle.color.replace('from-', 'from-').replace('to-', 'to-')}/20 border-pink-500/30`
               } border mb-6`}
             >
-              {/* Header */}
               <div className="flex items-center justify-between mb-4">
                 <span className={`px-3 py-1 rounded-full text-sm font-medium bg-gradient-to-r ${
                   mode === 'truth' ? 'from-blue-500 to-purple-500' : intensityStyle.color
@@ -276,7 +315,6 @@ export const TruthOrDare = () => {
                 </span>
               </div>
 
-              {/* Challenge */}
               <motion.div
                 className="text-center py-8"
                 initial={{ opacity: 0 }}
@@ -294,7 +332,6 @@ export const TruthOrDare = () => {
                 </p>
               </motion.div>
 
-              {/* Actions */}
               <div className="flex gap-3">
                 <motion.button
                   onClick={handleSkip}
@@ -319,7 +356,6 @@ export const TruthOrDare = () => {
               </div>
             </motion.div>
 
-            {/* New Game */}
             <button
               onClick={handleNewGame}
               className="w-full py-3 text-white/50 text-sm hover:text-white/80 transition-colors"
@@ -330,7 +366,6 @@ export const TruthOrDare = () => {
         )}
       </AnimatePresence>
 
-      {/* Rules */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -345,7 +380,7 @@ export const TruthOrDare = () => {
           <li>• Choose your intensity level</li>
           <li>• Pick Truth or Dare</li>
           <li>• Complete the challenge honestly</li>
-          <li>• No lying! That's the rule 💕</li>
+          <li>• No lying! That's the rule, babe! 💕</li>
         </ul>
       </motion.div>
     </div>

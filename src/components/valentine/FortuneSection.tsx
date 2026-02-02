@@ -12,38 +12,58 @@ interface Fortune {
 }
 
 const fortunes: Fortune[] = [
-  // Romantic Fortunes
+  // Romantic Fortunes (10)
   { id: 1, category: "romantic", emoji: "💕", content: "Tonight, I'm going to kiss every inch of your beautiful face until you fall asleep in my arms.", bgGradient: "from-rose-500 to-pink-600" },
   { id: 2, category: "romantic", emoji: "🌹", content: "I want to spend the whole night just holding you, feeling your heartbeat against mine.", bgGradient: "from-red-500 to-rose-600" },
   { id: 3, category: "romantic", emoji: "💫", content: "Let me be the one who makes you forget every bad day with just one long, deep kiss.", bgGradient: "from-purple-500 to-pink-500" },
   { id: 4, category: "romantic", emoji: "🥰", content: "I want to wake up next to you, see your messy hair, and fall in love all over again.", bgGradient: "from-pink-500 to-rose-500" },
   { id: 5, category: "romantic", emoji: "💗", content: "Your body against mine is the safest place I've ever known.", bgGradient: "from-rose-400 to-pink-500" },
+  { id: 6, category: "romantic", emoji: "🌙", content: "I'll count every star in the sky, and still, my love for you will be infinite.", bgGradient: "from-indigo-500 to-purple-500" },
+  { id: 7, category: "romantic", emoji: "✨", content: "Every moment without you feels like missing a part of my soul.", bgGradient: "from-pink-400 to-rose-500" },
+  { id: 8, category: "romantic", emoji: "💝", content: "I want to slow dance with you in our living room at midnight, just us and the moonlight.", bgGradient: "from-rose-500 to-red-500" },
+  { id: 9, category: "romantic", emoji: "🦋", content: "You give me butterflies every single time, even now.", bgGradient: "from-purple-400 to-pink-500" },
+  { id: 10, category: "romantic", emoji: "💖", content: "I'm saving every kiss for you, storing them up until I can give them all at once.", bgGradient: "from-pink-500 to-purple-500" },
   
-  // Sweet Fortunes
-  { id: 6, category: "sweet", emoji: "🍫", content: "I want to feed you chocolate while you lay on my chest watching your favorite show.", bgGradient: "from-amber-500 to-orange-500" },
-  { id: 7, category: "sweet", emoji: "🧸", content: "Can we build a blanket fort tonight and just cuddle until we fall asleep?", bgGradient: "from-orange-400 to-amber-500" },
-  { id: 8, category: "sweet", emoji: "☕", content: "I'll make you hot chocolate and we'll share it under the stars on our future balcony.", bgGradient: "from-yellow-500 to-amber-500" },
-  { id: 9, category: "sweet", emoji: "🌸", content: "I want to braid your hair while you tell me about your day.", bgGradient: "from-pink-400 to-rose-400" },
-  { id: 10, category: "sweet", emoji: "💝", content: "Let's slow dance in the kitchen at midnight with no music, just our heartbeats.", bgGradient: "from-rose-400 to-pink-400" },
+  // Sweet Fortunes (10)
+  { id: 11, category: "sweet", emoji: "🍫", content: "I want to feed you chocolate while you lay on my chest watching your favorite show.", bgGradient: "from-amber-500 to-orange-500" },
+  { id: 12, category: "sweet", emoji: "🧸", content: "Can we build a blanket fort tonight and just cuddle until we fall asleep?", bgGradient: "from-orange-400 to-amber-500" },
+  { id: 13, category: "sweet", emoji: "☕", content: "I'll make you hot chocolate and we'll share it under the stars on our future balcony.", bgGradient: "from-yellow-500 to-amber-500" },
+  { id: 14, category: "sweet", emoji: "🌸", content: "I want to braid your hair while you tell me about your day.", bgGradient: "from-pink-400 to-rose-400" },
+  { id: 15, category: "sweet", emoji: "💝", content: "Let's slow dance in the kitchen at midnight with no music, just our heartbeats.", bgGradient: "from-rose-400 to-pink-400" },
+  { id: 16, category: "sweet", emoji: "🎀", content: "I want to give you forehead kisses until you giggle and push me away.", bgGradient: "from-pink-300 to-rose-400" },
+  { id: 17, category: "sweet", emoji: "🍰", content: "Let's bake something together and make a mess, then clean up while dancing.", bgGradient: "from-amber-400 to-orange-400" },
+  { id: 18, category: "sweet", emoji: "📖", content: "I want to read to you until you fall asleep in my arms.", bgGradient: "from-indigo-400 to-purple-400" },
+  { id: 19, category: "sweet", emoji: "🌻", content: "Let me be your sunshine on cloudy days, always.", bgGradient: "from-yellow-400 to-amber-400" },
+  { id: 20, category: "sweet", emoji: "🫶", content: "I want to hold your hand everywhere we go, so the world knows you're mine.", bgGradient: "from-rose-400 to-pink-500" },
   
-  // Spicy Fortunes
-  { id: 11, category: "spicy", emoji: "🔥", content: "I can't stop thinking about how your lips would taste right now.", bgGradient: "from-red-600 to-orange-500" },
-  { id: 12, category: "spicy", emoji: "💋", content: "Tonight, I want to kiss you until you forget your own name.", bgGradient: "from-rose-600 to-red-600" },
-  { id: 13, category: "spicy", emoji: "😈", content: "I want to whisper all the things I want to do to you while you're trying to sleep.", bgGradient: "from-purple-600 to-rose-600" },
-  { id: 14, category: "spicy", emoji: "🌶️", content: "Your neck looks like it needs some attention... from my lips.", bgGradient: "from-red-500 to-pink-600" },
-  { id: 15, category: "spicy", emoji: "💦", content: "I want to pin you against the wall and kiss you until we're both breathless.", bgGradient: "from-rose-600 to-purple-600" },
+  // Spicy Fortunes (10)
+  { id: 21, category: "spicy", emoji: "🔥", content: "I can't stop thinking about how your lips would taste right now.", bgGradient: "from-red-600 to-orange-500" },
+  { id: 22, category: "spicy", emoji: "💋", content: "Tonight, I want to kiss you until you forget your own name.", bgGradient: "from-rose-600 to-red-600" },
+  { id: 23, category: "spicy", emoji: "😈", content: "I want to whisper all the things I want to do to you while you're trying to sleep.", bgGradient: "from-purple-600 to-rose-600" },
+  { id: 24, category: "spicy", emoji: "🌶️", content: "Your neck looks like it needs some attention... from my lips.", bgGradient: "from-red-500 to-pink-600" },
+  { id: 25, category: "spicy", emoji: "💦", content: "I want to pin you against the wall and kiss you until we're both breathless.", bgGradient: "from-rose-600 to-purple-600" },
+  { id: 26, category: "spicy", emoji: "🌡️", content: "The temperature rises every time I think about your touch.", bgGradient: "from-orange-500 to-red-600" },
+  { id: 27, category: "spicy", emoji: "⚡", content: "Your touch sends electricity through my entire body.", bgGradient: "from-yellow-500 to-orange-600" },
+  { id: 28, category: "spicy", emoji: "💥", content: "I want to explore every inch of you with my fingertips.", bgGradient: "from-red-500 to-rose-600" },
+  { id: 29, category: "spicy", emoji: "🔮", content: "I see us getting very, very close tonight...", bgGradient: "from-purple-500 to-pink-600" },
+  { id: 30, category: "spicy", emoji: "🎭", content: "Let's play a game where every wrong answer costs an article of clothing.", bgGradient: "from-rose-500 to-red-600" },
   
-  // Naughty Fortunes
-  { id: 16, category: "naughty", emoji: "🔞", content: "I've been imagining you on your knees, looking up at me with those innocent eyes...", bgGradient: "from-purple-700 to-rose-700" },
-  { id: 17, category: "naughty", emoji: "😏", content: "Tonight, I want your mouth on me until I can't take it anymore.", bgGradient: "from-red-700 to-purple-700" },
-  { id: 18, category: "naughty", emoji: "🍑", content: "I'm going to worship every curve of your body with my tongue tonight.", bgGradient: "from-rose-700 to-pink-700" },
-  { id: 19, category: "naughty", emoji: "💋", content: "I want to taste you... slowly... until you're begging for more.", bgGradient: "from-purple-800 to-rose-700" },
-  { id: 20, category: "naughty", emoji: "🔥", content: "Let me show you exactly how I want to make love to you, starting with my lips on your thighs...", bgGradient: "from-red-800 to-purple-700" },
-  { id: 21, category: "naughty", emoji: "😈", content: "I've been thinking about that thing you do with your tongue... I need it tonight.", bgGradient: "from-rose-800 to-red-700" },
-  { id: 22, category: "naughty", emoji: "💦", content: "I want you to take me in your mouth while I tell you how good you make me feel.", bgGradient: "from-purple-700 to-pink-700" },
-  { id: 23, category: "naughty", emoji: "🌙", content: "Tonight, we're not sleeping until we've explored every fantasy we've ever whispered about.", bgGradient: "from-indigo-700 to-purple-700" },
-  { id: 24, category: "naughty", emoji: "🔞", content: "I want to feel your lips wrapped around me while I moan your name.", bgGradient: "from-red-700 to-rose-700" },
-  { id: 25, category: "naughty", emoji: "💕", content: "Let's make love so passionately that the neighbors know my name.", bgGradient: "from-rose-700 to-red-700" },
+  // Naughty Fortunes (15)
+  { id: 31, category: "naughty", emoji: "🔞", content: "I've been imagining you on your knees, looking up at me with those innocent eyes...", bgGradient: "from-purple-700 to-rose-700" },
+  { id: 32, category: "naughty", emoji: "😏", content: "Tonight, I want your mouth on me until I can't take it anymore.", bgGradient: "from-red-700 to-purple-700" },
+  { id: 33, category: "naughty", emoji: "🍑", content: "I'm going to worship every curve of your body with my tongue tonight.", bgGradient: "from-rose-700 to-pink-700" },
+  { id: 34, category: "naughty", emoji: "💋", content: "I want to taste you... slowly... until you're begging for more.", bgGradient: "from-purple-800 to-rose-700" },
+  { id: 35, category: "naughty", emoji: "🔥", content: "Let me show you exactly how I want to make love to you, starting with my lips on your thighs...", bgGradient: "from-red-800 to-purple-700" },
+  { id: 36, category: "naughty", emoji: "😈", content: "I've been thinking about that thing you do with your tongue... I need it tonight.", bgGradient: "from-rose-800 to-red-700" },
+  { id: 37, category: "naughty", emoji: "💦", content: "I want you to take me in your mouth while I tell you how good you make me feel.", bgGradient: "from-purple-700 to-pink-700" },
+  { id: 38, category: "naughty", emoji: "🌙", content: "Tonight, we're not sleeping until we've explored every fantasy we've ever whispered about.", bgGradient: "from-indigo-700 to-purple-700" },
+  { id: 39, category: "naughty", emoji: "🔞", content: "I want to feel your lips wrapped around me while I moan your name.", bgGradient: "from-red-700 to-rose-700" },
+  { id: 40, category: "naughty", emoji: "💕", content: "Let's make love so passionately that the neighbors know my name.", bgGradient: "from-rose-700 to-red-700" },
+  { id: 41, category: "naughty", emoji: "🥵", content: "I want you to take complete control of me tonight.", bgGradient: "from-orange-700 to-red-700" },
+  { id: 42, category: "naughty", emoji: "🔗", content: "Tie me up and do whatever you want... I trust you completely.", bgGradient: "from-purple-800 to-pink-700" },
+  { id: 43, category: "naughty", emoji: "👅", content: "I want to feel your tongue in places that make me scream.", bgGradient: "from-red-700 to-purple-800" },
+  { id: 44, category: "naughty", emoji: "🍯", content: "Let's cover each other in something sweet and lick it all off slowly.", bgGradient: "from-amber-600 to-orange-700" },
+  { id: 45, category: "naughty", emoji: "🌶️", content: "I want you to ride me until we're both exhausted and blissful.", bgGradient: "from-red-800 to-rose-700" },
 ];
 
 const FortuneCard = ({ fortune, onReveal }: { fortune: Fortune; onReveal: () => void }) => (
