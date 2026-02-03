@@ -16,10 +16,102 @@ interface PinItem {
 }
 
 const defaultPins: PinItem[] = [
+  // INTIMATE LINGERIE COLLECTION - Victoria Secret Style
+  {
+    id: 'lingerie-1',
+    title: 'Black Lace Bralette',
+    description: 'Delicate black lace bralette with scalloped edges - perfect for special nights 💋',
+    image: 'https://images.unsplash.com/photo-1617330527566-d6de4abecb50?w=600',
+    category: 'Lingerie',
+    futureDate: 'Honeymoon',
+    addedAt: Date.now()
+  },
+  {
+    id: 'lingerie-2',
+    title: 'Red Satin Set',
+    description: 'Sultry red satin lingerie set - irresistible passion ❤️',
+    image: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=600',
+    category: 'Lingerie',
+    futureDate: 'Valentine',
+    addedAt: Date.now()
+  },
+  {
+    id: 'lingerie-3',
+    title: 'Blush Pink Babydoll',
+    description: 'Sweet blush pink babydoll with lace trim - angelic and sexy 🎀',
+    image: 'https://images.unsplash.com/photo-1612530542704-8ae9d5718f3e?w=600',
+    category: 'Lingerie',
+    futureDate: 'First Night',
+    addedAt: Date.now()
+  },
+  {
+    id: 'lingerie-4',
+    title: 'White Bridal Chemise',
+    description: 'Pure white silk chemise with lace details - bridal perfection 💍',
+    image: 'https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?w=600',
+    category: 'Lingerie',
+    futureDate: 'Wedding Night',
+    addedAt: Date.now()
+  },
+  {
+    id: 'lingerie-5',
+    title: 'Black Silk Nightdress',
+    description: 'Elegant black silk nightdress with lace accents - timeless seduction 🖤',
+    image: 'https://images.unsplash.com/photo-1594938328870-9623159c8c99?w=600',
+    category: 'Night Dress',
+    futureDate: 'Every Night',
+    addedAt: Date.now()
+  },
+  {
+    id: 'lingerie-6',
+    title: 'Rose Lace Bodysuit',
+    description: 'Romantic rose-colored lace bodysuit - feminine and bold 🌹',
+    image: 'https://images.unsplash.com/photo-1578587018452-892bacefd3f2?w=600',
+    category: 'Lingerie',
+    futureDate: 'Anniversary',
+    addedAt: Date.now()
+  },
+  {
+    id: 'lingerie-7',
+    title: 'Navy Satin Slip',
+    description: 'Luxurious navy satin slip dress - sophisticated allure 💙',
+    image: 'https://images.unsplash.com/photo-1594938374182-a57061cd0fbe?w=600',
+    category: 'Night Dress',
+    futureDate: 'Date Night',
+    addedAt: Date.now()
+  },
+  {
+    id: 'lingerie-8',
+    title: 'Champagne Teddy',
+    description: 'Shimmering champagne teddy with delicate straps - celebratory vibes 🥂',
+    image: 'https://images.unsplash.com/photo-1616530940355-351fabd9524b?w=600',
+    category: 'Lingerie',
+    futureDate: 'Special Occasion',
+    addedAt: Date.now()
+  },
+  {
+    id: 'lingerie-9',
+    title: 'Burgundy Velvet Set',
+    description: 'Rich burgundy velvet lingerie set - luxuriously intimate 🍷',
+    image: 'https://images.unsplash.com/photo-1582533561751-ef6f6ab93a2e?w=600',
+    category: 'Lingerie',
+    futureDate: 'Winter Nights',
+    addedAt: Date.now()
+  },
+  {
+    id: 'lingerie-10',
+    title: 'Ivory Lace Robe',
+    description: 'Flowing ivory lace robe over matching set - bridal goddess 👰',
+    image: 'https://images.unsplash.com/photo-1599662875272-64de8f6dd0ec?w=600',
+    category: 'Night Dress',
+    futureDate: 'Honeymoon',
+    addedAt: Date.now()
+  },
+  // FUTURE DREAMS
   {
     id: '1',
     title: 'Our First Home',
-    description: 'A cozy apartment with plants and our favorite books',
+    description: 'A cozy apartment with plants and our favorite books 🏠',
     image: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=600',
     category: 'Home',
     futureDate: '2027',
@@ -28,7 +120,7 @@ const defaultPins: PinItem[] = [
   {
     id: '2',
     title: 'Paris Honeymoon',
-    description: 'Walking under the Eiffel Tower together',
+    description: 'Walking under the Eiffel Tower together 🗼',
     image: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600',
     category: 'Travel',
     futureDate: '2026',
@@ -37,7 +129,7 @@ const defaultPins: PinItem[] = [
   {
     id: '3',
     title: 'Beach Wedding',
-    description: 'Sunset ceremony with waves as our music',
+    description: 'Sunset ceremony with waves as our music 🌅',
     image: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=600',
     category: 'Wedding',
     futureDate: '2026',
@@ -46,7 +138,7 @@ const defaultPins: PinItem[] = [
   {
     id: '4',
     title: 'Our Baby Nursery',
-    description: 'Soft colors, plush toys, and endless love',
+    description: 'Soft colors, plush toys, and endless love 👶',
     image: 'https://images.unsplash.com/photo-1586105251261-72a756497a11?w=600',
     category: 'Family',
     futureDate: '2028',
@@ -55,7 +147,7 @@ const defaultPins: PinItem[] = [
   {
     id: '5',
     title: 'Christmas Together',
-    description: 'Decorating our tree with our first ornaments',
+    description: 'Decorating our tree with our first ornaments 🎄',
     image: 'https://images.unsplash.com/photo-1512389142860-9c449e58a814?w=600',
     category: 'Celebrations',
     futureDate: '2025',
@@ -64,7 +156,7 @@ const defaultPins: PinItem[] = [
   {
     id: '6',
     title: 'Cooking Together',
-    description: 'Sunday mornings making breakfast as a team',
+    description: 'Sunday mornings making breakfast as a team 👩‍🍳',
     image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600',
     category: 'Daily Life',
     futureDate: '2025',
@@ -72,7 +164,7 @@ const defaultPins: PinItem[] = [
   },
 ];
 
-const categories = ['Home', 'Travel', 'Wedding', 'Family', 'Celebrations', 'Daily Life', 'Adventure', 'Dreams'];
+const categories = ['Lingerie', 'Night Dress', 'Home', 'Travel', 'Wedding', 'Family', 'Celebrations', 'Daily Life', 'Adventure', 'Dreams'];
 const STORAGE_KEY = 'puntuu-pinterest-board';
 
 const PasswordModal = ({ onSuccess, onCancel }: { onSuccess: () => void; onCancel: () => void }) => {
