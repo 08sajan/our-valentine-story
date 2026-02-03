@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 export const CinematicHug = () => {
   const [isHugging, setIsHugging] = useState(false);
   const [hugCount, setHugCount] = useState(0);
+  const [hugIntensity, setHugIntensity] = useState<'gentle' | 'warm' | 'tight'>('warm');
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const sendHug = () => {
@@ -16,32 +17,75 @@ export const CinematicHug = () => {
       videoRef.current.play();
     }
     
-    // Vibrate pattern like a heartbeat
+    // Vibrate pattern like a heartbeat - stronger for tight hugs
     if ('vibrate' in navigator) {
-      navigator.vibrate([100, 100, 100, 100, 200]);
+      const patterns = {
+        gentle: [50, 100, 50],
+        warm: [100, 100, 100, 100, 200],
+        tight: [200, 50, 200, 50, 300, 50, 300]
+      };
+      navigator.vibrate(patterns[hugIntensity]);
     }
 
     setTimeout(() => setIsHugging(false), 6000);
   };
 
+  const hugMessages = {
+    gentle: "Soft and tender, like a butterfly's touch...",
+    warm: "In your arms, I'm home, sweetheart...",
+    tight: "Never letting go, holding you forever, babe..."
+  };
+
   return (
     <div className="relative text-center space-y-6">
       {/* Cinematic Hug Video Container */}
-      <div className="relative h-80 flex items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-b from-orange-900/30 to-rose-900/30">
+      <div className="relative h-80 flex items-center justify-center overflow-hidden rounded-3xl bg-gradient-to-b from-orange-900/30 to-rose-900/30">
         
         {/* Romantic background glow */}
         <motion.div
           className="absolute inset-0 bg-gradient-to-t from-pink-500/10 via-transparent to-orange-500/10"
-          animate={isHugging ? { opacity: [0.3, 0.7, 0.3] } : { opacity: 0.2 }}
-          transition={{ duration: 2, repeat: Infinity }}
+          animate={isHugging ? { opacity: [0.3, 0.8, 0.3] } : { opacity: 0.2 }}
+          transition={{ duration: 1.5, repeat: Infinity }}
         />
+
+        {/* 3D Pulsing Ring Effect */}
+        <AnimatePresence>
+          {isHugging && (
+            <>
+              {[...Array(4)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="absolute rounded-full border-2 border-pink-400/50"
+                  initial={{ width: 100, height: 100, opacity: 0.8 }}
+                  animate={{ 
+                    width: 400 + i * 50, 
+                    height: 400 + i * 50, 
+                    opacity: 0,
+                    rotateX: 45
+                  }}
+                  transition={{ 
+                    duration: 2, 
+                    delay: i * 0.3, 
+                    repeat: Infinity,
+                    ease: "easeOut"
+                  }}
+                  style={{ perspective: '1000px', transformStyle: 'preserve-3d' }}
+                />
+              ))}
+            </>
+          )}
+        </AnimatePresence>
 
         {/* Real Romantic Couple Hug Video */}
         <motion.div
-          className="relative z-10 w-full h-full overflow-hidden"
-          initial={{ scale: 1 }}
-          animate={isHugging ? { scale: 1.05 } : { scale: 1 }}
-          transition={{ duration: 0.8 }}
+          className="relative z-10 w-full h-full overflow-hidden rounded-2xl"
+          initial={{ scale: 1, rotateY: 0 }}
+          animate={isHugging ? { 
+            scale: 1.08, 
+            rotateY: [-2, 2, -2],
+          } : { scale: 1, rotateY: 0 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          style={{ transformStyle: 'preserve-3d' }}
         >
           {/* Video element */}
           <video
@@ -49,17 +93,14 @@ export const CinematicHug = () => {
             className="w-full h-full object-cover"
             style={{ 
               objectPosition: 'center 30%',
-              filter: isHugging ? 'brightness(1.1) saturate(1.2)' : 'brightness(1)'
+              filter: isHugging ? 'brightness(1.2) saturate(1.3)' : 'brightness(1)'
             }}
             loop
             muted
             playsInline
             poster="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=800"
           >
-            {/* Using romantic couple video */}
             <source src="https://player.vimeo.com/external/371834002.sd.mp4?s=8b72ece00e76c68de5f64f88e04e3a9e3e58fcbc&profile_id=164&oauth2_token_id=57447761" type="video/mp4" />
-            {/* Fallback image */}
-            Your browser does not support the video tag.
           </video>
           
           {/* Fallback image when video not playing */}
@@ -74,97 +115,140 @@ export const CinematicHug = () => {
           
           {/* Warm glow overlay when hugging */}
           <motion.div 
-            className="absolute inset-0 bg-gradient-radial from-pink-500/30 via-orange-400/20 to-transparent"
+            className="absolute inset-0 bg-gradient-radial from-pink-500/40 via-orange-400/30 to-transparent"
             initial={{ opacity: 0 }}
-            animate={{ opacity: isHugging ? 0.6 : 0 }}
-            transition={{ duration: 0.5 }}
+            animate={{ opacity: isHugging ? [0.4, 0.7, 0.4] : 0 }}
+            transition={{ duration: 2, repeat: Infinity }}
           />
           
           {/* Bottom gradient */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-transparent" />
         </motion.div>
 
-        {/* Hug Effect */}
+        {/* Hug Effect - Enhanced 3D */}
         <AnimatePresence>
           {isHugging && (
             <>
-              {/* Heart burst */}
-              {[...Array(20)].map((_, i) => (
+              {/* Heart burst with 3D depth */}
+              {[...Array(25)].map((_, i) => (
                 <motion.span
                   key={i}
                   className="absolute text-2xl z-20"
-                  initial={{ scale: 0, opacity: 1 }}
+                  style={{ transformStyle: 'preserve-3d' }}
+                  initial={{ scale: 0, opacity: 1, z: 0 }}
                   animate={{
-                    scale: [0, 1.5, 0],
+                    scale: [0, 1.8, 0],
                     opacity: [1, 1, 0],
-                    x: Math.cos(i * 18 * Math.PI / 180) * 130,
-                    y: Math.sin(i * 18 * Math.PI / 180) * 130,
+                    x: Math.cos(i * 14.4 * Math.PI / 180) * 150,
+                    y: Math.sin(i * 14.4 * Math.PI / 180) * 150,
+                    z: [0, 100, 0],
+                    rotateZ: [0, 180],
                   }}
                   exit={{ opacity: 0 }}
-                  transition={{ duration: 2, delay: i * 0.04 }}
+                  transition={{ duration: 2.5, delay: i * 0.04 }}
                 >
-                  {i % 4 === 0 ? "🫂" : i % 4 === 1 ? "💕" : i % 4 === 2 ? "✨" : "💗"}
+                  {['🫂', '💕', '✨', '💗', '🤗', '💖'][i % 6]}
                 </motion.span>
               ))}
 
-              {/* Warm glow */}
+              {/* Warm 3D glow */}
               <motion.div
-                className="absolute w-72 h-72 bg-gradient-radial from-pink-400/50 via-orange-300/30 to-transparent rounded-full blur-3xl z-0"
+                className="absolute w-72 h-72 bg-gradient-radial from-pink-400/60 via-orange-300/40 to-transparent rounded-full blur-3xl z-0"
                 initial={{ scale: 0, opacity: 0 }}
-                animate={{ scale: 2.5, opacity: 1 }}
+                animate={{ 
+                  scale: [0, 3, 2.5], 
+                  opacity: [0, 1, 0.8],
+                  rotateZ: [0, 45]
+                }}
                 exit={{ opacity: 0 }}
-                transition={{ duration: 1.5 }}
+                transition={{ duration: 2 }}
+                style={{ transformStyle: 'preserve-3d' }}
               />
 
-              {/* Embraced heart */}
+              {/* Embraced heart - 3D pop */}
               <motion.span
-                className="absolute text-7xl z-30"
-                initial={{ scale: 0, opacity: 0, y: 20 }}
-                animate={{ scale: [0, 1.5, 1], opacity: 1, y: 0 }}
+                className="absolute text-8xl z-30"
+                initial={{ scale: 0, opacity: 0, y: 50, rotateY: -90 }}
+                animate={{ 
+                  scale: [0, 1.6, 1.2], 
+                  opacity: 1, 
+                  y: 0,
+                  rotateY: [90, 0, -5, 5, 0]
+                }}
                 exit={{ scale: 0, opacity: 0 }}
-                transition={{ duration: 0.6, delay: 0.5 }}
+                transition={{ duration: 0.8, delay: 0.3 }}
+                style={{ transformStyle: 'preserve-3d' }}
               >
                 🫂
               </motion.span>
 
-              {/* "Together" text */}
+              {/* "Together" text with 3D effect */}
               <motion.p
-                className="absolute bottom-6 text-white font-serif text-lg z-30 drop-shadow-lg"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
+                className="absolute bottom-8 text-white font-serif text-xl z-30 drop-shadow-2xl"
+                initial={{ opacity: 0, y: 20, scale: 0.8 }}
+                animate={{ 
+                  opacity: 1, 
+                  y: 0, 
+                  scale: 1,
+                  textShadow: ['0 0 10px rgba(255,182,193,0.5)', '0 0 30px rgba(255,182,193,0.8)', '0 0 10px rgba(255,182,193,0.5)']
+                }}
                 exit={{ opacity: 0 }}
-                transition={{ delay: 1 }}
+                transition={{ delay: 0.8, duration: 2, repeat: Infinity }}
               >
-                In your arms, I'm home 💕
+                {hugMessages[hugIntensity]}
               </motion.p>
             </>
           )}
         </AnimatePresence>
       </div>
 
-      {/* Hug Button */}
+      {/* Hug Intensity Selector */}
+      <div className="flex justify-center gap-3">
+        {(['gentle', 'warm', 'tight'] as const).map((type) => (
+          <motion.button
+            key={type}
+            onClick={() => setHugIntensity(type)}
+            className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+              hugIntensity === type
+                ? 'bg-gradient-to-r from-orange-400 to-rose-500 text-white shadow-lg'
+                : 'bg-white/10 text-white/70'
+            }`}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            {type === 'gentle' && '🤗 Gentle'}
+            {type === 'warm' && '🫂 Warm'}
+            {type === 'tight' && '💕 Tight'}
+          </motion.button>
+        ))}
+      </div>
+
+      {/* Hug Button - 3D enhanced */}
       <motion.button
         onClick={sendHug}
         disabled={isHugging}
-        className={`px-8 py-4 rounded-full font-medium text-lg shadow-xl transition-all ${
+        className={`px-10 py-5 rounded-full font-medium text-lg shadow-2xl transition-all ${
           isHugging 
             ? "bg-pink-300 text-white cursor-not-allowed" 
-            : "bg-gradient-to-r from-orange-400 to-rose-500 text-white hover:shadow-2xl hover:shadow-rose-500/30"
+            : "bg-gradient-to-r from-orange-400 to-rose-500 text-white hover:shadow-2xl hover:shadow-rose-500/40"
         }`}
-        whileHover={!isHugging ? { scale: 1.05 } : {}}
-        whileTap={!isHugging ? { scale: 0.95 } : {}}
+        whileHover={!isHugging ? { scale: 1.08, rotateZ: [-1, 1, -1] } : {}}
+        whileTap={!isHugging ? { scale: 0.92 } : {}}
+        style={{ 
+          boxShadow: '0 15px 40px rgba(251, 146, 60, 0.4)',
+          transformStyle: 'preserve-3d'
+        }}
       >
-        {isHugging ? "🤗 Feeling the warmth..." : "Send a Tight Hug 🫂"}
+        {isHugging ? "🤗 Feeling the warmth..." : "Send a Tight Hug to Sweetheart 🫂"}
       </motion.button>
 
       {/* Hug Counter */}
       <motion.p
-        className="text-orange-400 font-medium"
-        animate={{ scale: hugCount > 0 ? [1, 1.1, 1] : 1 }}
+        className="text-orange-400 font-medium text-lg"
+        animate={{ scale: hugCount > 0 ? [1, 1.15, 1] : 1 }}
         key={hugCount}
       >
-        {hugCount > 0 && `You've sent ${hugCount} warm hugs to Puntuu! 💕`}
+        {hugCount > 0 && `You've sent ${hugCount} warm hugs to sweetheart! 💕`}
       </motion.p>
 
       {/* Message */}
@@ -176,7 +260,7 @@ export const CinematicHug = () => {
             exit={{ opacity: 0, y: -20 }}
             className="text-orange-300 font-serif italic text-lg"
           >
-            "In your hug, I find my peace..."
+            "In your hug, I find my peace, babe..."
           </motion.p>
         )}
       </AnimatePresence>

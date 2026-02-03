@@ -16,21 +16,21 @@ const teddies: TeddyItem[] = [
   { 
     emoji: "🧸💕", 
     name: "Pink Princess Teddy", 
-    message: "A fluffy pink princess just for my princess! Cuddle me whenever you miss him! 💕",
+    message: "A fluffy pink princess just for my princess! Cuddle me whenever you miss him, sweetheart! 💕",
     image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600",
     color: "#FFB6C1"
   },
   { 
     emoji: "🧸🎀", 
     name: "Ribbon Bow Cutie", 
-    message: "Wrapped in love with a pretty bow, just like my heart wrapped around you! 🎀",
+    message: "Wrapped in love with a pretty bow, just like my heart wrapped around you, babe! 🎀",
     image: "https://images.unsplash.com/photo-1585155770913-6090424a786d?w=600",
     color: "#FF69B4"
   },
   { 
     emoji: "🧸💗", 
     name: "Love Heart Bear", 
-    message: "Holding my heart forever - this teddy guards our love! 💗",
+    message: "Holding my heart forever - this teddy guards our love, Punturu! 💗",
     image: "https://images.unsplash.com/photo-1615031335940-d0c7e8f88e4f?w=600",
     color: "#FF1493"
   },
@@ -44,58 +44,86 @@ const teddies: TeddyItem[] = [
   { 
     emoji: "🧸✨", 
     name: "Sparkle Fluff", 
-    message: "You make my whole world sparkle, just like this magical teddy! ✨",
+    message: "You make my whole world sparkle, just like this magical teddy, sweetheart! ✨",
     image: "https://images.unsplash.com/photo-1566576912321-d58ddd7a6088?w=600",
     color: "#FFC0CB"
   },
   { 
     emoji: "🧸🦋", 
     name: "Butterfly Dream", 
-    message: "You give me butterflies every single day, Puntuu! 🦋",
+    message: "You give me butterflies every single day, babe! 🦋",
     image: "https://images.unsplash.com/photo-1559454403-b8fb88521f11?w=600",
     color: "#E6E6FA"
   },
   { 
     emoji: "🧸🍓", 
     name: "Strawberry Sweetie", 
-    message: "Sweet as strawberries, adorable as you! You're my favorite treat! 🍓",
+    message: "Sweet as strawberries, adorable as you! You're my favorite treat, my love! 🍓",
     image: "https://images.unsplash.com/photo-1582845512747-e42001c95638?w=600",
     color: "#FF6B6B"
   },
   { 
     emoji: "🧸👑", 
     name: "Royal Princess Bear", 
-    message: "A teddy fit for a queen - because that's exactly what you are! 👑",
+    message: "A teddy fit for a queen - because that's exactly what you are, sweetheart! 👑",
     image: "https://images.unsplash.com/photo-1599566150163-29194dcabd36?w=600",
     color: "#FFD700"
   },
   { 
     emoji: "🧸💜", 
     name: "Lavender Dreams", 
-    message: "Soft, calming, and always here for you - like my love! 💜",
+    message: "Soft, calming, and always here for you - like my love, Punturu! 💜",
     image: "https://images.unsplash.com/photo-1563396983906-b3795482a59a?w=600",
     color: "#DDA0DD"
   },
   { 
     emoji: "🧸🌙", 
     name: "Moonlight Cuddles", 
-    message: "For sweet dreams and cozy nights - I'm always with you! 🌙",
+    message: "For sweet dreams and cozy nights - I'm always with you, babe! 🌙",
     image: "https://images.unsplash.com/photo-1536816579748-4ecb3f03d72a?w=600",
     color: "#B8B8D1"
   },
   { 
     emoji: "🧸🌹", 
     name: "Rose Petal Bear", 
-    message: "Romantic and beautiful, just like every moment with you! 🌹",
+    message: "Romantic and beautiful, just like every moment with you, my love! 🌹",
     image: "https://images.unsplash.com/photo-1556012018-50c5c0da73bf?w=600",
     color: "#C41E3A"
   },
   { 
     emoji: "🧸🎂", 
     name: "Birthday Wish Bear", 
-    message: "Every day with you feels like a celebration! 🎂",
+    message: "Every day with you feels like a celebration, sweetheart! 🎂",
     image: "https://images.unsplash.com/photo-1517423738875-5ce310acd3da?w=600",
     color: "#FFE4E1"
+  },
+  { 
+    emoji: "🧸🍯", 
+    name: "Honey Bear", 
+    message: "Sweet as honey, that's my girl! You're my sweetest addiction! 🍯",
+    image: "https://images.unsplash.com/photo-1531425300797-d5dc8b021c84?w=600",
+    color: "#DAA520"
+  },
+  { 
+    emoji: "🧸❄️", 
+    name: "Winter Cuddles Bear", 
+    message: "Even on the coldest days, thoughts of you keep me warm, babe! ❄️",
+    image: "https://images.unsplash.com/photo-1513151233558-d860c5398176?w=600",
+    color: "#87CEEB"
+  },
+  { 
+    emoji: "🧸🌻", 
+    name: "Sunshine Bear", 
+    message: "You're my sunshine on cloudy days, Punturu! 🌻",
+    image: "https://images.unsplash.com/photo-1566958769312-82cef41d19ef?w=600",
+    color: "#FFD93D"
+  },
+  { 
+    emoji: "🧸🎵", 
+    name: "Musical Bear", 
+    message: "You're the melody to my heart's song, sweetheart! 🎵",
+    image: "https://images.unsplash.com/photo-1532009877282-3340270e0529?w=600",
+    color: "#FF85A2"
   },
 ];
 
