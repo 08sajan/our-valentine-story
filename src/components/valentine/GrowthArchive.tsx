@@ -107,7 +107,7 @@ export const GrowthArchive = () => {
         }}
       >
         <p className="text-white/90 text-center italic leading-relaxed">
-          "Before you, Puntuu, I was a different person. Not bad, but incomplete. 
+          "Before you, sweetheart, I was a different person. Not bad, but incomplete. 
           Like a puzzle missing its most important pieces. You came into my life 
           and painted colors I didn't know existed. Here's exactly how you've made me better..."
         </p>

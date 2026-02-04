@@ -38,7 +38,7 @@ const questions: Question[] = [
     question: "If God gave me a blank book, what would I fill it with?",
     options: ["My dreams", "Money wishes", "Your name", "Travel plans"],
     correctAnswer: 2,
-    loveNote: "Every page, every line - just you, Puntuu 📖"
+    loveNote: "Every page, every line - just you, sweetheart 📖"
   },
   {
     id: 5,

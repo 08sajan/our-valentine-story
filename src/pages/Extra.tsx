@@ -289,7 +289,7 @@ const Extra = () => {
                 animate={{ opacity: [0.6, 1, 0.6] }}
                 transition={{ duration: 2, repeat: Infinity }}
               >
-                More fun things for my Puntuu! 💕
+                More fun things for my sweetheart! 💕
               </motion.p>
               
               {/* Spin Wheel Button */}
@@ -441,7 +441,7 @@ const Extra = () => {
         style={{ paddingBottom: 'max(16px, env(safe-area-inset-bottom))' }}
       >
         <p className="text-pink-300/80 text-sm font-serif">
-          Made with 💕 for my Puntuu
+          Made with 💕 for my sweetheart
         </p>
       </footer>
     </div>

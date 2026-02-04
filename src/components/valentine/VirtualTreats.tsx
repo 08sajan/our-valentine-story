@@ -411,7 +411,7 @@ export const VirtualTreats = () => {
         transition={{ delay: 0.5 }}
       >
         <p className="text-white/80 font-serif text-sm italic">
-          "I'd love to feed you all these treats in person someday, Puntuu!" 💕
+          "I'd love to feed you all these treats in person someday, love!" 💕
         </p>
       </motion.div>
 

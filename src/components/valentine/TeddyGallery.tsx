@@ -30,7 +30,7 @@ const teddies: TeddyItem[] = [
   { 
     emoji: "🧸💗", 
     name: "Love Heart Bear", 
-    message: "Holding my heart forever - this teddy guards our love, Punturu! 💗",
+    message: "Holding my heart forever - this teddy guards our love, sweetheart! 💗",
     image: "https://images.unsplash.com/photo-1615031335940-d0c7e8f88e4f?w=600",
     color: "#FF1493"
   },
@@ -72,7 +72,7 @@ const teddies: TeddyItem[] = [
   { 
     emoji: "🧸💜", 
     name: "Lavender Dreams", 
-    message: "Soft, calming, and always here for you - like my love, Punturu! 💜",
+    message: "Soft, calming, and always here for you - like my love, babe! 💜",
     image: "https://images.unsplash.com/photo-1563396983906-b3795482a59a?w=600",
     color: "#DDA0DD"
   },
@@ -114,7 +114,7 @@ const teddies: TeddyItem[] = [
   { 
     emoji: "🧸🌻", 
     name: "Sunshine Bear", 
-    message: "You're my sunshine on cloudy days, Punturu! 🌻",
+    message: "You're my sunshine on cloudy days, love! 🌻",
     image: "https://images.unsplash.com/photo-1566958769312-82cef41d19ef?w=600",
     color: "#FFD93D"
   },

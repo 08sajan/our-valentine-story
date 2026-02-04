@@ -257,7 +257,7 @@ const ItemPreviewModal = ({
             transition={{ duration: 2, repeat: Infinity }}
           >
             <Heart className="w-4 h-4 text-rose-400" fill="#fb7185" />
-            <span style={{ color: 'white', fontSize: '12px' }}>For My Puntuu</span>
+            <span style={{ color: 'white', fontSize: '12px' }}>For My Love</span>
           </motion.div>
         </motion.div>
 
@@ -637,7 +637,7 @@ const DateNightModal = ({
             👸✨
           </motion.div>
           <p style={{ color: 'white', fontFamily: 'serif', fontSize: '1.1rem', lineHeight: 1.6 }}>
-            My beautiful Puntuu, you look absolutely stunning! 
+            My beautiful sweetheart, you look absolutely stunning! 
             I can't wait for our romantic dinner date. 
             You're the most gorgeous person in the world to me! 💕
           </p>

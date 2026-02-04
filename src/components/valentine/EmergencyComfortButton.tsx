@@ -6,14 +6,14 @@ import { createPortal } from 'react-dom';
 const comfortMessages = [
   {
     title: "Breathe, My Love",
-    message: "Hey Puntuu, it's okay. Whatever you're going through right now, I need you to take a deep breath with me. In... hold it... and out slowly. I'm right here with you, even if I'm not physically there. Close your eyes and imagine my arms wrapped around you. You're safe. You're loved. You're not alone - you never will be.",
+    message: "Hey sweetheart, it's okay. Whatever you're going through right now, I need you to take a deep breath with me. In... hold it... and out slowly. I'm right here with you, even if I'm not physically there. Close your eyes and imagine my arms wrapped around you. You're safe. You're loved. You're not alone - you never will be.",
     affirmation: "You are loved. You are enough. You are my everything. And nothing can change that.",
     emoji: "🌸",
     gradient: "from-pink-400 to-rose-400"
   },
   {
     title: "I Believe In You",
-    message: "Listen to me carefully, Puntuu - you are doing amazing. Even on the days when it doesn't feel like it, you're fighting battles that would break others. I've watched you overcome so much, and I'm so incredibly proud of the person you are. Whatever is weighing on you right now, I know you have the strength to get through it. And I'll be cheering for you every step of the way.",
+    message: "Listen to me carefully, babe - you are doing amazing. Even on the days when it doesn't feel like it, you're fighting battles that would break others. I've watched you overcome so much, and I'm so incredibly proud of the person you are. Whatever is weighing on you right now, I know you have the strength to get through it. And I'll be cheering for you every step of the way.",
     affirmation: "You are stronger than your doubts. You are braver than your fears. You can do this.",
     emoji: "💪",
     gradient: "from-amber-400 to-orange-400"
@@ -27,7 +27,7 @@ const comfortMessages = [
   },
   {
     title: "My Heart Is With You",
-    message: "Close your eyes right now, Puntuu. Feel my presence with you. Imagine my hands gently cupping your face, wiping away any tears. Feel my arms pulling you close, my heartbeat syncing with yours. I'm holding you tight, even across all this distance. You are so deeply, completely, unconditionally loved. Nothing you do or don't do can change how much I love you.",
+    message: "Close your eyes right now, love. Feel my presence with you. Imagine my hands gently cupping your face, wiping away any tears. Feel my arms pulling you close, my heartbeat syncing with yours. I'm holding you tight, even across all this distance. You are so deeply, completely, unconditionally loved. Nothing you do or don't do can change how much I love you.",
     affirmation: "You are worthy of love. You are worthy of happiness. You deserve all good things.",
     emoji: "💕",
     gradient: "from-rose-400 to-pink-500"
@@ -48,13 +48,13 @@ const comfortMessages = [
   },
   {
     title: "I'm Here For You",
-    message: "Whatever happened, whatever you're going through, I want you to know something important: You don't have to face it alone. You don't have to pretend you're fine. You don't have to be strong. With me, you can fall apart - and I will help you put the pieces back together. That's what love is. I've got you, Puntuu. Always.",
+    message: "Whatever happened, whatever you're going through, I want you to know something important: You don't have to face it alone. You don't have to pretend you're fine. You don't have to be strong. With me, you can fall apart - and I will help you put the pieces back together. That's what love is. I've got you, sweetheart. Always.",
     affirmation: "Lean on me. I'm strong enough to carry both of us when you need it.",
     emoji: "🫂",
     gradient: "from-purple-400 to-violet-400"
   },
   {
-    title: "My Sweet Puntuu",
+    title: "My Sweet Love",
     message: "I wish I could be there to hold you right now. To stroke your hair. To whisper in your ear that everything will be okay. Since I can't, I want you to do something for me: Put your hand on your heart. Feel it beating? That beat is proof of your strength. That rhythm is your reminder that you're alive, you're loved, and tomorrow is a new beginning.",
     affirmation: "Tomorrow will be better. And if it's not, I'll be here again. And again. Forever.",
     emoji: "💝",
@@ -185,7 +185,7 @@ const ComfortModal = ({ onClose }: { onClose: () => void }) => {
                 className={`inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r ${comfort.gradient} rounded-full text-white shadow-lg`}
               >
                 <Heart className="w-6 h-6 fill-current" />
-                <span className="font-bold text-lg">I Love You, Puntuu</span>
+                <span className="font-bold text-lg">I Love You, My Love</span>
                 <Heart className="w-6 h-6 fill-current" />
               </motion.div>
             </motion.div>
