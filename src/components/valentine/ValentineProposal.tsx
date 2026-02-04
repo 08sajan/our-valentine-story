@@ -188,7 +188,7 @@ const GrandCelebrationModal = ({ onClose }: { onClose: () => void }) => {
             className="bg-white/10 rounded-2xl p-6 mb-6 backdrop-blur-sm"
           >
             <p className="text-pink-300 font-serif text-lg italic">
-              "I promise to love you endlessly, protect your heart always, and make you smile every single day. You are my Valentine forever, my Puntuu!"
+              "I promise to love you endlessly, protect your heart always, and make you smile every single day. You are my Valentine forever, my love!"
             </p>
           </motion.div>
         )}
@@ -360,7 +360,7 @@ const HeartbreakModal = ({ onClose }: { onClose: () => void }) => {
           className="bg-white/5 rounded-2xl p-6 mb-6 border border-white/10"
         >
           <p className="text-rose-300 font-serif text-xl italic">
-            "I will ask you again next year, and the year after, and every year until you say yes. Because you are my forever, Puntuu."
+            "I will ask you again next year, and the year after, and every year until you say yes. Because you are my forever, sweetheart."
           </p>
         </motion.div>
 
@@ -475,7 +475,7 @@ export const ValentineProposal = () => {
         </motion.p>
 
         <p className="text-pink-300/80 text-sm mb-8 font-serif italic">
-          "My dearest Puntuu, I have loved you with every beat of my heart..."
+          "My dearest love, I have loved you with every beat of my heart..."
         </p>
 
         {!hasAnswered ? (

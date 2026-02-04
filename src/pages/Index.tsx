@@ -1516,7 +1516,7 @@ const IndexContent = () => {
         }}
       >
         <p className="text-pink-300/80 text-sm font-serif">
-          Made with 💕 for my Puntuu
+          Made with 💕 for my love
         </p>
         <p className="text-white/40 text-xs mt-1">
           Shake phone for hearts • Konami: ↑↑↓↓←→←→BA

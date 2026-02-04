@@ -539,7 +539,7 @@ export const VoiceVideoMessages = () => {
         </motion.div>
         <h3 className="text-xl font-serif text-pink-300">Voice & Video Messages</h3>
         <p className="text-white/60 text-sm">
-          Record unlimited messages for Puntuu - saved forever! 💝
+          Record unlimited messages for my love - saved forever! 💝
         </p>
       </div>
 
