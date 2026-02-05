@@ -2,6 +2,18 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Heart, Sparkles } from "lucide-react";
 import ReactDOM from "react-dom";
+ 
+ // Import uploaded teddy images
+ import teddy1 from "@/assets/teddies/teddy-1.jpg";
+ import teddy2 from "@/assets/teddies/teddy-2.jpg";
+ import teddy3 from "@/assets/teddies/teddy-3.jpg";
+ import teddy4 from "@/assets/teddies/teddy-4.jpg";
+ import teddy5 from "@/assets/teddies/teddy-5.jpg";
+ import teddy6 from "@/assets/teddies/teddy-6.jpg";
+ import teddy7 from "@/assets/teddies/teddy-7.jpg";
+ import teddy8 from "@/assets/teddies/teddy-8.jpg";
+ import teddy9 from "@/assets/teddies/teddy-9.webp";
+ import teddy10 from "@/assets/teddies/teddy-10.webp";
 
 interface TeddyItem {
   emoji: string;
@@ -13,10 +25,82 @@ interface TeddyItem {
 
 // Super cute, girly pink Pinterest-style teddies! 🎀💕
 const teddies: TeddyItem[] = [
+   // YOUR SPECIAL UPLOADED COLLECTION
+   { 
+     emoji: "🧸🌸", 
+     name: "Rose Basket Teddy", 
+     message: "Holding a basket of roses just for you, my sweetheart! You deserve all the flowers in the world! 🌸",
+     image: teddy1,
+     color: "#F5E6D3"
+   },
+   { 
+     emoji: "🧸🌹", 
+     name: "White Rose Bear", 
+     message: "Pure white like my love for you, holding a red rose from my heart, babe! 🌹",
+     image: teddy2,
+     color: "#FFFFFF"
+   },
+   { 
+     emoji: "🧸❤️", 
+     name: "I Love You Bear", 
+     message: "This teddy says what my heart screams every second - I LOVE YOU, sweetheart! ❤️",
+     image: teddy3,
+     color: "#DC2626"
+   },
+   { 
+     emoji: "🧸🧥", 
+     name: "Hoodie Cutie Bear", 
+     message: "Cozy in a hoodie just like you look adorable in my hoodies, love! 🧥",
+     image: teddy4,
+     color: "#8B6914"
+   },
+   { 
+     emoji: "🧸🧣", 
+     name: "Pink Scarf Teddy", 
+     message: "Wrapped in pink warmth to keep you cozy on cold nights, my love! 🧣",
+     image: teddy5,
+     color: "#FFB6C1"
+   },
+   { 
+     emoji: "🧸🎀", 
+     name: "Bow Tie Cutie", 
+     message: "All dressed up with a pretty bow because every day with you is special, babe! 🎀",
+     image: teddy6,
+     color: "#FFFDD0"
+   },
+   { 
+     emoji: "🧸💕", 
+     name: "Heart Ribbon Bear", 
+     message: "A heart on my chest because you live in my heart forever, sweetheart! 💕",
+     image: teddy7,
+     color: "#FAF0E6"
+   },
+   { 
+     emoji: "🧸👶", 
+     name: "Mama & Baby Bear", 
+     message: "Holding you close like I always want to, my precious love! Like a mama bear protects her baby! 👶",
+     image: teddy8,
+     color: "#FFF5EE"
+   },
+   { 
+     emoji: "🧸🌷", 
+     name: "Flower Bouquet Teddy", 
+     message: "Bringing you fresh flowers every day because you deserve to smile, my love! 🌷",
+     image: teddy9,
+     color: "#8B4513"
+   },
+   { 
+     emoji: "🧸💙", 
+     name: "Stitch Costume Bear", 
+     message: "Being silly and cute just to make you laugh, my adorable sweetheart! 💙",
+     image: teddy10,
+     color: "#4682B4"
+   },
+   // ADDITIONAL CUTE TEDDIES
   { 
     emoji: "🧸💕", 
     name: "Pink Princess Teddy", 
-    message: "A fluffy pink princess just for my princess! Cuddle me whenever you miss him, sweetheart! 💕",
+    message: "A fluffy pink princess just for my princess! Cuddle me whenever you miss me, sweetheart! 💕",
     image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600",
     color: "#FFB6C1"
   },
