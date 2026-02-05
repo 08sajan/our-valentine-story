@@ -2,6 +2,18 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Heart, Sparkles, Check, Crown, Gem, Star, ChevronLeft, ChevronRight, X, Eye } from "lucide-react";
 import ReactDOM from "react-dom";
+ 
+ // Import uploaded dress images
+ import dress1 from "@/assets/dresses/dress-1.jpg";
+ import dress2 from "@/assets/dresses/dress-2.webp";
+ import dress3 from "@/assets/dresses/dress-3.webp";
+ import dress4 from "@/assets/dresses/dress-4.jpg";
+ import dress5 from "@/assets/dresses/dress-5.webp";
+ import dress6 from "@/assets/dresses/dress-6.webp";
+ import dress7 from "@/assets/dresses/dress-7.jpg";
+ import dress8 from "@/assets/dresses/dress-8.jpg";
+ import dress9 from "@/assets/dresses/dress-9.jpg";
+ import dress10 from "@/assets/dresses/dress-10.webp";
 
 interface DressUpGameProps {
   onComplete?: () => void;
@@ -31,16 +43,16 @@ const categories: { key: Category; label: string; emoji: string }[] = [
 const items: Record<Category, Item[]> = {
   dresses: [
     // UPLOADED SPECIAL COLLECTION - Your Chosen Dresses
-    { id: 'floral-midi-lace', name: 'Floral Lace Midi', image: '/src/assets/dresses/dress-1.jpg', color: '#fffbeb', description: 'Romantic off-shoulder floral lace midi - absolutely stunning for special dates!', brand: 'Chosen For You' },
-    { id: 'teal-chain-mini', name: 'Teal Satin Mini', image: '/src/assets/dresses/dress-2.webp', color: '#14b8a6', description: 'Sexy cowl neck satin mini with chain straps - irresistible!', brand: 'Chosen For You' },
-    { id: 'white-ruffle-lace', name: 'White Lace Ruffle', image: '/src/assets/dresses/dress-3.webp', color: '#ffffff', description: 'Angelic white lace ruffle dress - pure elegance!', brand: 'Chosen For You' },
-    { id: 'black-mesh-sleeve', name: 'Black Mesh Sleeves', image: '/src/assets/dresses/dress-4.jpg', color: '#000000', description: 'Seductive black mini with sheer mesh sleeves - mysterious!', brand: 'Chosen For You' },
-    { id: 'red-bodycon-lace', name: 'Red Lace Up Bodycon', image: '/src/assets/dresses/dress-5.webp', color: '#dc2626', description: 'Bold red ruched bodycon with lace-up back - head turner!', brand: 'Chosen For You' },
-    { id: 'pink-floral-princess', name: 'Pink Floral Princess', image: '/src/assets/dresses/dress-6.webp', color: '#fda4af', description: 'Sweet pink floral princess dress with bow - fairy tale vibes!', brand: 'Chosen For You' },
-    { id: 'brown-ruched-mini', name: 'Brown Ruched Mini', image: '/src/assets/dresses/dress-7.jpg', color: '#78350f', description: 'Sophisticated brown ruched mini - effortlessly sexy!', brand: 'Chosen For You' },
-    { id: 'purple-slit-gown', name: 'Purple Slit Gown', image: '/src/assets/dresses/dress-8.jpg', color: '#8b5cf6', description: 'Dramatic purple satin gown with high slit - showstopper!', brand: 'Chosen For You' },
-    { id: 'cream-ruffle-romper', name: 'Cream Ruffle Romper', image: '/src/assets/dresses/dress-9.jpg', color: '#fef3c7', description: 'Adorable cream ruffle romper with rosette - summer perfect!', brand: 'Chosen For You' },
-    { id: 'burgundy-halter-gown', name: 'Burgundy Halter Gown', image: '/src/assets/dresses/dress-10.webp', color: '#7f1d1d', description: 'Elegant burgundy halter gown with dramatic slit - red carpet ready!', brand: 'Chosen For You' },
+    { id: 'floral-midi-lace', name: 'Floral Lace Midi', image: dress1, color: '#fffbeb', description: 'Romantic off-shoulder floral lace midi - absolutely stunning for special dates!', brand: 'Chosen For You' },
+    { id: 'teal-chain-mini', name: 'Teal Satin Mini', image: dress2, color: '#14b8a6', description: 'Sexy cowl neck satin mini with chain straps - irresistible!', brand: 'Chosen For You' },
+    { id: 'white-ruffle-lace', name: 'White Lace Ruffle', image: dress3, color: '#ffffff', description: 'Angelic white lace ruffle dress - pure elegance!', brand: 'Chosen For You' },
+    { id: 'black-mesh-sleeve', name: 'Black Mesh Sleeves', image: dress4, color: '#000000', description: 'Seductive black mini with sheer mesh sleeves - mysterious!', brand: 'Chosen For You' },
+    { id: 'red-bodycon-lace', name: 'Red Lace Up Bodycon', image: dress5, color: '#dc2626', description: 'Bold red ruched bodycon with lace-up back - head turner!', brand: 'Chosen For You' },
+    { id: 'pink-floral-princess', name: 'Pink Floral Princess', image: dress6, color: '#fda4af', description: 'Sweet pink floral princess dress with bow - fairy tale vibes!', brand: 'Chosen For You' },
+    { id: 'brown-ruched-mini', name: 'Brown Ruched Mini', image: dress7, color: '#78350f', description: 'Sophisticated brown ruched mini - effortlessly sexy!', brand: 'Chosen For You' },
+    { id: 'purple-slit-gown', name: 'Purple Slit Gown', image: dress8, color: '#8b5cf6', description: 'Dramatic purple satin gown with high slit - showstopper!', brand: 'Chosen For You' },
+    { id: 'cream-ruffle-romper', name: 'Cream Ruffle Romper', image: dress9, color: '#fef3c7', description: 'Adorable cream ruffle romper with rosette - summer perfect!', brand: 'Chosen For You' },
+    { id: 'burgundy-halter-gown', name: 'Burgundy Halter Gown', image: dress10, color: '#7f1d1d', description: 'Elegant burgundy halter gown with dramatic slit - red carpet ready!', brand: 'Chosen For You' },
     
     // Red & Romantic Collection
     { id: 'red-slit-gown', name: 'Red Slit Evening Gown', image: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600', color: '#dc2626', description: 'Stunning red gown with thigh-high slit', brand: 'Date Night' },
