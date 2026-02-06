@@ -1,13 +1,14 @@
 import { motion } from "framer-motion";
 
 export const ParallaxStars = () => {
-  const stars = Array.from({ length: 50 }, (_, i) => ({
+  // Reduced star count for better performance
+  const stars = Array.from({ length: 25 }, (_, i) => ({
     id: i,
     x: Math.random() * 100,
     y: Math.random() * 100,
-    size: Math.random() * 3 + 1,
-    delay: Math.random() * 5,
-    duration: 2 + Math.random() * 3,
+    size: Math.random() * 2 + 1,
+    delay: Math.random() * 3,
+    duration: 3 + Math.random() * 2,
   }));
 
   return (
@@ -21,37 +22,16 @@ export const ParallaxStars = () => {
             top: `${star.y}%`,
             width: star.size,
             height: star.size,
-            boxShadow: `0 0 ${star.size * 2}px ${star.size}px rgba(255, 255, 255, 0.5)`,
+            boxShadow: `0 0 ${star.size * 2}px ${star.size}px rgba(255, 255, 255, 0.3)`,
           }}
           animate={{
-            opacity: [0.3, 1, 0.3],
-            scale: [1, 1.5, 1],
+            opacity: [0.3, 0.8, 0.3],
           }}
           transition={{
             duration: star.duration,
             repeat: Infinity,
             delay: star.delay,
             ease: "easeInOut",
-          }}
-        />
-      ))}
-      
-      {/* Shooting stars */}
-      {[1, 2, 3].map(i => (
-        <motion.div
-          key={`shooting-${i}`}
-          className="absolute w-1 h-1 bg-white rounded-full"
-          style={{
-            boxShadow: "0 0 10px 2px white, -20px 0 15px 1px rgba(255,255,255,0.5)",
-          }}
-          initial={{ x: "110%", y: "-10%" }}
-          animate={{ x: "-10%", y: "110%" }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            delay: i * 8 + Math.random() * 4,
-            repeatDelay: 15,
-            ease: "linear",
           }}
         />
       ))}
