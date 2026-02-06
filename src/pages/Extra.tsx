@@ -3,13 +3,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, Heart, Shuffle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { SpinWheel } from "@/components/valentine/SpinWheel";
-// Import all Extra sections
+// Import sections (removed: MemoryMatchGame, CuratedSoundscapes, FoodNutritionGuide, MoodTracker, PrivatePinterest, JokesSection, KaraokeSection)
 import { LoveQuiz } from "@/components/valentine/LoveQuiz";
 import { DressUpGame } from "@/components/valentine/DressUpGame";
 import { WhenIMissYou } from "@/components/valentine/WhenIMissYou";
 import { PhotoBooth } from "@/components/valentine/PhotoBooth";
 import { SharedDreamsBucketList } from "@/components/valentine/SharedDreamsBucketList";
-import { CuratedSoundscapes } from "@/components/valentine/CuratedSoundscapes";
 import { DigitalJarOfHearts } from "@/components/valentine/DigitalJarOfHearts";
 import { EmergencyComfortButton } from "@/components/valentine/EmergencyComfortButton";
 import { GrowthArchive } from "@/components/valentine/GrowthArchive";
@@ -20,67 +19,52 @@ import { BirthdayCelebration } from "@/components/valentine/BirthdayCelebration"
 import { FlowerBouquetGallery } from "@/components/valentine/FlowerBouquetGallery";
 import { ILoveYouLanguages } from "@/components/valentine/ILoveYouLanguages";
 import { PeriodTracker } from "@/components/valentine/PeriodTracker";
-import { KaraokeSection } from "@/components/valentine/KaraokeSection";
 import { HealthSection } from "@/components/valentine/HealthSection";
-import { FoodNutritionGuide } from "@/components/valentine/FoodNutritionGuide";
 import { ComplimentsSection } from "@/components/valentine/ComplimentsSection";
-import { JokesSection } from "@/components/valentine/JokesSection";
 import { TruthOrDare } from "@/components/valentine/TruthOrDare";
 import { DailyAffirmations } from "@/components/valentine/DailyAffirmations";
-import { MoodTracker } from "@/components/valentine/MoodTracker";
 import { SelfCareSection } from "@/components/valentine/SelfCareSection";
 import { NaughtyQuestions } from "@/components/valentine/NaughtyQuestions";
 import { VirtualTreats } from "@/components/valentine/VirtualTreats";
-import { PrivatePinterest } from "@/components/valentine/PrivatePinterest";
 import { EscapeRoom } from "@/components/valentine/EscapeRoom";
 import { AirHostessRoleplay } from "@/components/valentine/AirHostessRoleplay";
-import { MemoryMatchGame } from "@/components/valentine/MemoryMatchGame";
 import { WouldYouRather } from "@/components/valentine/WouldYouRather";
 import { NepaliPoemsGallery } from "@/components/valentine/NepaliPoemsGallery";
-import { RomanticAmbience } from "@/components/valentine/RomanticAmbience";
 
-type SectionKey = 'quiz' | 'game' | 'missyou' | 'photobooth' | 'dreams' | 'music' | 'hearts' | 
+type SectionKey = 'quiz' | 'game' | 'missyou' | 'photobooth' | 'dreams' | 'hearts' | 
   'comfort' | 'growth' | 'future' | 'decide' | 'coupons' | 'birthday' | 'bouquets' | 'languages' |
-  'period' | 'karaoke' | 'health' | 'food' | 'compliments' | 'jokes' | 'truthordare' | 
-  'affirmations' | 'mood' | 'selfcare' | 'treats' | 'pinterest' | 'escape' | 'matchgame' |
+  'period' | 'health' | 'compliments' | 'truthordare' | 
+  'affirmations' | 'selfcare' | 'treats' | 'escape' |
   'wouldyourather' | 'poems' | 'naughty' | 'airhostess';
 
 // Glassmorphism Container
 const GlassCard = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
-  <motion.div
+  <div
     className={`relative backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl sm:rounded-3xl shadow-2xl ${className}`}
     style={{ overflow: 'hidden', maxWidth: '100%', width: '100%' }}
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.6 }}
   >
     <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-transparent pointer-events-none" />
     <div className="relative z-10 overflow-hidden">{children}</div>
-  </motion.div>
+  </div>
 );
 
 const sections = [
   // Roleplays
   { key: 'airhostess', label: 'Airhostess', emoji: '✈️', category: 'roleplay' },
   
-  // Games & Fun (removed quiz)
+  // Games & Fun
   { key: 'game', label: 'Dress Up', emoji: '👗', category: 'games' },
-  { key: 'matchgame', label: 'Match Game', emoji: '🃏', category: 'games' },
   { key: 'truthordare', label: 'Truth/Dare', emoji: '🎯', category: 'games' },
   { key: 'wouldyourather', label: 'Would Rather', emoji: '🤔', category: 'games' },
   { key: 'escape', label: 'Escape Room', emoji: '🔐', category: 'games' },
   
   // Wellness
   { key: 'health', label: 'Health', emoji: '🩺', category: 'wellness' },
-  { key: 'food', label: 'Food Guide', emoji: '🥗', category: 'wellness' },
   { key: 'period', label: 'Period Care', emoji: '🌸', category: 'wellness' },
   { key: 'selfcare', label: 'Self-Care', emoji: '🧖‍♀️', category: 'wellness' },
-  { key: 'mood', label: 'Mood', emoji: '💭', category: 'wellness' },
   { key: 'affirmations', label: 'Affirm', emoji: '✨', category: 'wellness' },
   
   // Fun & Entertainment
-  { key: 'karaoke', label: 'Karaoke', emoji: '🎤', category: 'fun' },
-  { key: 'jokes', label: 'Jokes', emoji: '😂', category: 'fun' },
   { key: 'compliments', label: 'Compliments', emoji: '💕', category: 'fun' },
   { key: 'treats', label: 'Treats', emoji: '🍰', category: 'fun' },
   { key: 'naughty', label: 'Naughty Q', emoji: '🔥', category: 'fun' },
@@ -94,8 +78,6 @@ const sections = [
   
   // Media & Memories
   { key: 'photobooth', label: 'Photos', emoji: '📷', category: 'media' },
-  { key: 'music', label: 'Music', emoji: '🎵', category: 'media' },
-  { key: 'pinterest', label: 'Our Board', emoji: '📌', category: 'media' },
   { key: 'poems', label: 'Poems', emoji: '📜', category: 'media' },
   
   // Special
@@ -137,7 +119,6 @@ const Extra = () => {
       case 'missyou': return <WhenIMissYou />;
       case 'photobooth': return <PhotoBooth />;
       case 'dreams': return <SharedDreamsBucketList />;
-      case 'music': return <CuratedSoundscapes />;
       case 'hearts': return <DigitalJarOfHearts />;
       case 'comfort': return <EmergencyComfortButton />;
       case 'growth': return <GrowthArchive />;
@@ -148,19 +129,13 @@ const Extra = () => {
       case 'bouquets': return <FlowerBouquetGallery />;
       case 'languages': return <ILoveYouLanguages />;
       case 'period': return <PeriodTracker />;
-      case 'karaoke': return <KaraokeSection />;
       case 'health': return <HealthSection />;
-      case 'food': return <FoodNutritionGuide />;
       case 'compliments': return <ComplimentsSection />;
-      case 'jokes': return <JokesSection />;
       case 'truthordare': return <TruthOrDare />;
       case 'affirmations': return <DailyAffirmations />;
-      case 'mood': return <MoodTracker />;
       case 'selfcare': return <SelfCareSection />;
       case 'treats': return <VirtualTreats />;
-      case 'pinterest': return <PrivatePinterest />;
       case 'escape': return <EscapeRoom />;
-      case 'matchgame': return <MemoryMatchGame />;
       case 'wouldyourather': return <WouldYouRather />;
       case 'poems': return <NepaliPoemsGallery />;
       case 'naughty': return <NaughtyQuestions />;
@@ -180,28 +155,15 @@ const Extra = () => {
         overflowY: 'auto',
       }}
     >
-      {/* Animated gradient overlay */}
-      <motion.div
-        className="fixed inset-0 pointer-events-none z-0"
-        animate={{
-          background: [
-            'radial-gradient(circle at 20% 20%, rgba(236,72,153,0.1) 0%, transparent 50%)',
-            'radial-gradient(circle at 80% 80%, rgba(147,51,234,0.1) 0%, transparent 50%)',
-            'radial-gradient(circle at 50% 50%, rgba(244,63,94,0.1) 0%, transparent 50%)',
-            'radial-gradient(circle at 20% 20%, rgba(236,72,153,0.1) 0%, transparent 50%)',
-          ]
-        }}
-        transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-      />
-      
-      <RomanticAmbience variant="full" showCursor={true} />
+      {/* Simple gradient background - no heavy animations */}
+      <div className="fixed inset-0 pointer-events-none z-0 bg-gradient-to-br from-purple-950/50 via-pink-950/50 to-rose-950/50" />
 
       {/* Header */}
       <header className="relative z-20 p-4 flex items-center justify-between">
         <Link to="/">
           <motion.button
             className="flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full text-white backdrop-blur-md border border-white/10"
-            whileHover={{ scale: 1.05, backgroundColor: 'rgba(255,255,255,0.15)' }}
+            whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
             <ChevronLeft className="w-5 h-5" />
@@ -209,121 +171,40 @@ const Extra = () => {
           </motion.button>
         </Link>
         
-        <motion.div 
-          className="flex items-center gap-2"
-          animate={{ y: [0, -3, 0] }}
-          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-        >
-          <motion.div
-            animate={{ scale: [1, 1.3, 1], rotate: [0, 10, -10, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-          >
-            <Heart className="w-6 h-6 text-pink-400 fill-pink-400" />
-          </motion.div>
-          <span className="font-serif text-pink-300 text-lg bg-gradient-to-r from-pink-300 to-purple-300 bg-clip-text text-transparent">
+        <div className="flex items-center gap-2">
+          <Heart className="w-6 h-6 text-pink-400 fill-pink-400" />
+          <span className="font-serif text-pink-300 text-lg">
             Extras 💫
           </span>
-        </motion.div>
+        </div>
       </header>
 
       <main className="relative z-10 px-4 py-4 pb-24">
-        {/* Rising hearts effect */}
-        <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-          {[...Array(15)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute text-2xl"
-              style={{
-                left: `${Math.random() * 100}%`,
-                bottom: '-5%',
-              }}
-              animate={{
-                y: [0, -window.innerHeight - 100],
-                x: [0, (Math.random() - 0.5) * 100],
-                opacity: [0, 0.6, 0],
-                rotate: [0, 360],
-              }}
-              transition={{
-                duration: 10 + Math.random() * 5,
-                repeat: Infinity,
-                delay: Math.random() * 8,
-              }}
-            >
-              {['💕', '💖', '💗', '✨', '🌹'][i % 5]}
-            </motion.div>
-          ))}
-        </div>
-
         {!activeSection ? (
           <>
             {/* Title */}
-            <motion.div 
-              className="text-center mb-6"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-            >
-              <motion.span
-                className="text-5xl block mb-2"
-                animate={{ rotate: [0, 10, -10, 0], scale: [1, 1.1, 1] }}
-                transition={{ duration: 3, repeat: Infinity }}
-              >
-                🎁
-              </motion.span>
+            <div className="text-center mb-6">
+              <span className="text-5xl block mb-2">🎁</span>
               <h1 className="text-3xl font-serif bg-gradient-to-r from-pink-300 via-purple-300 to-rose-300 bg-clip-text text-transparent flex items-center justify-center gap-2">
-                <motion.span
-                  animate={{ scale: [1, 1.2, 1] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                >
-                  ✨
-                </motion.span>
-                Extra Goodies
-                <motion.span
-                  animate={{ scale: [1, 1.2, 1] }}
-                  transition={{ duration: 1.5, repeat: Infinity, delay: 0.3 }}
-                >
-                  ✨
-                </motion.span>
+                ✨ Extra Goodies ✨
               </h1>
-              <motion.p 
-                className="text-white/60 text-sm mt-2"
-                animate={{ opacity: [0.6, 1, 0.6] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              >
+              <p className="text-white/60 text-sm mt-2">
                 More fun things for my sweetheart! 💕
-              </motion.p>
+              </p>
               
               {/* Spin Wheel Button */}
               <motion.button
                 onClick={() => setShowSpinWheel(true)}
-                className="mt-5 px-8 py-4 rounded-full bg-gradient-to-r from-yellow-500 via-orange-500 to-amber-500 text-white font-bold flex items-center gap-3 mx-auto relative overflow-hidden"
-                style={{
-                  boxShadow: '0 10px 40px rgba(249, 115, 22, 0.4)'
-                }}
-                whileHover={{ scale: 1.05, boxShadow: '0 15px 50px rgba(249, 115, 22, 0.5)' }}
+                className="mt-5 px-8 py-4 rounded-full bg-gradient-to-r from-yellow-500 via-orange-500 to-amber-500 text-white font-bold flex items-center gap-3 mx-auto"
+                style={{ boxShadow: '0 10px 40px rgba(249, 115, 22, 0.4)' }}
+                whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                {/* Shimmer effect */}
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
-                  animate={{ x: ['-200%', '200%'] }}
-                  transition={{ duration: 2, repeat: Infinity, repeatDelay: 1 }}
-                />
-                <motion.span
-                  animate={{ rotate: [0, 15, -15, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                >
-                  <Shuffle className="w-5 h-5" />
-                </motion.span>
-                <span className="relative z-10">Spin & Pick!</span>
-                <motion.span 
-                  className="text-xl"
-                  animate={{ scale: [1, 1.2, 1], rotate: [0, 10, -10, 0] }}
-                  transition={{ duration: 1, repeat: Infinity }}
-                >
-                  🎰
-                </motion.span>
+                <Shuffle className="w-5 h-5" />
+                <span>Spin & Pick!</span>
+                <span className="text-xl">🎰</span>
               </motion.button>
-            </motion.div>
+            </div>
 
             {/* Spin Wheel Modal */}
             <AnimatePresence>
@@ -338,20 +219,18 @@ const Extra = () => {
 
             {/* Category Filters */}
             <div className="flex flex-wrap justify-center gap-2 mb-6">
-              <motion.button
+              <button
                 onClick={() => setSelectedCategory(null)}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                   !selectedCategory
                     ? "bg-gradient-to-r from-pink-500 to-purple-500 text-white shadow-lg"
                     : "bg-white/10 text-white/70"
                 }`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
               >
                 ✨ All
-              </motion.button>
+              </button>
               {categories.map((cat) => (
-                <motion.button
+                <button
                   key={cat.id}
                   onClick={() => setSelectedCategory(cat.id)}
                   className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
@@ -359,88 +238,64 @@ const Extra = () => {
                       ? `bg-gradient-to-r ${cat.color} text-white shadow-lg`
                       : "bg-white/10 text-white/70"
                   }`}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
                 >
                   {cat.emoji} {cat.label}
-                </motion.button>
+                </button>
               ))}
             </div>
 
             {/* Sections Grid */}
-            <motion.div 
-              className="grid grid-cols-3 sm:grid-cols-4 gap-3 max-w-2xl mx-auto"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ staggerChildren: 0.05 }}
-            >
+            <div className="grid grid-cols-3 sm:grid-cols-4 gap-3 max-w-2xl mx-auto">
               {filteredSections.map((section, index) => (
                 <motion.button
                   key={section.key}
                   onClick={() => setActiveSection(section.key as SectionKey)}
-                  className="flex flex-col items-center justify-center p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/10 hover:bg-white/20 transition-all relative overflow-hidden group"
-                  initial={{ opacity: 0, scale: 0.8, y: 20 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  transition={{ delay: index * 0.03, type: "spring", stiffness: 200 }}
-                  whileHover={{ scale: 1.08, y: -8, boxShadow: '0 15px 30px rgba(0,0,0,0.3)' }}
-                  whileTap={{ scale: 0.95 }}
+                  className="flex flex-col items-center justify-center p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/10 hover:bg-white/20 transition-all"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.03 }}
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
                 >
-                  {/* Hover glow effect */}
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-br from-pink-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  />
-                  
-                  <motion.span 
-                    className="text-3xl mb-2 relative z-10"
-                    animate={{ y: [0, -3, 0] }}
-                    transition={{ duration: 2 + index * 0.1, repeat: Infinity, ease: "easeInOut" }}
-                  >
-                    {section.emoji}
-                  </motion.span>
-                  <span className="text-white/80 text-xs text-center font-medium relative z-10">{section.label}</span>
+                  <span className="text-3xl mb-2">{section.emoji}</span>
+                  <span className="text-white/90 text-xs font-medium text-center">
+                    {section.label}
+                  </span>
                 </motion.button>
               ))}
-            </motion.div>
+            </div>
           </>
         ) : (
-          <>
-            {/* Back button */}
-            <motion.button
-              onClick={() => setActiveSection(null)}
-              className="mb-4 flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full text-white backdrop-blur-md"
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeSection}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
             >
-              <ChevronLeft className="w-5 h-5" />
-              <span>Back to Extras</span>
-            </motion.button>
-
-            {/* Section Content */}
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeSection}
-                initial={{ opacity: 0, y: 30, scale: 0.95 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: -30, scale: 0.95 }}
-                transition={{ type: "spring", stiffness: 200, damping: 20 }}
+              {/* Back Button */}
+              <motion.button
+                onClick={() => setActiveSection(null)}
+                className="mb-6 flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full text-white backdrop-blur-md border border-white/10"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
-                <GlassCard className="p-4">
-                  {renderSection()}
-                </GlassCard>
-              </motion.div>
-            </AnimatePresence>
-          </>
+                <ChevronLeft className="w-5 h-5" />
+                <span>Back to Extras</span>
+              </motion.button>
+              
+              <GlassCard className="p-4 sm:p-6 overflow-visible">
+                {renderSection()}
+              </GlassCard>
+            </motion.div>
+          </AnimatePresence>
         )}
       </main>
 
       {/* Footer */}
-      <footer 
-        className="fixed bottom-0 left-0 right-0 z-20 text-center bg-gradient-to-t from-black/70 via-black/40 to-transparent py-4"
-        style={{ paddingBottom: 'max(16px, env(safe-area-inset-bottom))' }}
-      >
-        <p className="text-pink-300/80 text-sm font-serif">
+      <footer className="relative z-10 py-8 text-center">
+        <p className="text-white/40 text-xs">
           Made with 💕 for my sweetheart
         </p>
       </footer>
