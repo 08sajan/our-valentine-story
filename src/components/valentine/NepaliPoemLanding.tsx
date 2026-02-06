@@ -124,6 +124,42 @@ export const NepaliPoemLanding = ({ onEnter }: NepaliPoemLandingProps) => {
               </p>
             </motion.div>
 
+            {/* Highlighted Quote */}
+            <motion.div
+              className="mb-6 px-6 py-4 rounded-2xl backdrop-blur-xl max-w-md"
+              style={{
+                background: 'linear-gradient(135deg, rgba(255,100,150,0.25), rgba(200,100,200,0.15))',
+                border: '1px solid rgba(255,182,193,0.4)',
+                boxShadow: '0 8px 32px rgba(255,100,150,0.2)'
+              }}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.4 }}
+            >
+              <motion.p
+                className="text-lg md:text-xl font-serif text-center leading-relaxed"
+                style={{
+                  background: 'linear-gradient(to right, #fda4af, #f9a8d4, #c4b5fd)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent'
+                }}
+                animate={{ 
+                  textShadow: ['0 0 20px rgba(255,100,150,0.5)', '0 0 40px rgba(255,100,150,0.8)', '0 0 20px rgba(255,100,150,0.5)']
+                }}
+                transition={{ duration: 2, repeat: Infinity }}
+              >
+                "I do not expect you to love me.<br/>
+                I expect myself to keep loving you."
+              </motion.p>
+              <motion.div 
+                className="flex justify-center mt-2"
+                animate={{ scale: [1, 1.2, 1] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              >
+                <span className="text-xl">💖</span>
+              </motion.div>
+            </motion.div>
+
             {/* Nepali Poem */}
             <motion.div
               className="backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl p-5 shadow-2xl mb-6 max-w-lg w-full"
