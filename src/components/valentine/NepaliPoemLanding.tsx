@@ -49,44 +49,36 @@ export const NepaliPoemLanding = ({ onEnter }: NepaliPoemLandingProps) => {
           exit={{ opacity: 0, scale: 1.1 }}
           transition={{ duration: 0.8 }}
         >
-          {/* Animated Stars Background */}
+          {/* Subtle Stars Background - CSS only */}
           <div className="fixed inset-0 overflow-hidden pointer-events-none">
-            {[...Array(40)].map((_, i) => (
-              <motion.div
+            {[...Array(20)].map((_, i) => (
+              <div
                 key={i}
-                className="absolute w-1 h-1 bg-white rounded-full"
+                className="absolute w-1 h-1 bg-white rounded-full animate-pulse"
                 style={{
                   left: `${Math.random() * 100}%`,
                   top: `${Math.random() * 100}%`,
-                }}
-                animate={{
-                  opacity: [0.2, 1, 0.2],
-                  scale: [1, 1.5, 1],
-                }}
-                transition={{
-                  duration: 2 + Math.random() * 2,
-                  repeat: Infinity,
-                  delay: Math.random() * 2,
+                  opacity: 0.3 + Math.random() * 0.4,
+                  animationDuration: `${2 + Math.random() * 2}s`,
+                  animationDelay: `${Math.random() * 2}s`,
                 }}
               />
             ))}
           </div>
 
-          {/* Floating Hearts */}
+          {/* Floating Hearts - reduced count */}
           <div className="fixed inset-0 pointer-events-none">
-            {[...Array(10)].map((_, i) => (
+            {[...Array(5)].map((_, i) => (
               <motion.div
                 key={i}
-                className="absolute text-xl opacity-20"
-                style={{
-                  left: `${Math.random() * 100}%`,
-                }}
-                initial={{ y: "100vh", rotate: 0 }}
-                animate={{ y: "-100vh", rotate: 360 }}
+                className="absolute text-lg opacity-15"
+                style={{ left: `${15 + i * 18}%` }}
+                initial={{ y: "100vh" }}
+                animate={{ y: "-10vh" }}
                 transition={{
-                  duration: 15 + Math.random() * 10,
+                  duration: 18 + i * 3,
                   repeat: Infinity,
-                  delay: Math.random() * 5,
+                  delay: i * 2,
                   ease: "linear",
                 }}
               >

@@ -9,66 +9,49 @@ interface PasswordGateProps {
 const CORRECT_PASSWORD = 'Punturu';
 
 
-// Floating Hearts Background
+// Floating Hearts Background - lightweight CSS animations
 const FloatingHearts = () => (
   <div className="absolute inset-0 overflow-hidden pointer-events-none">
-    {[...Array(30)].map((_, i) => (
-      <motion.div
+    {[...Array(12)].map((_, i) => (
+      <div
         key={i}
-        className="absolute"
+        className="absolute animate-pulse"
         style={{
-          left: `${Math.random() * 100}%`,
-          top: `${Math.random() * 100}%`,
-        }}
-        animate={{
-          y: [0, -50, 0],
-          x: [0, Math.random() * 30 - 15, 0],
-          opacity: [0.1, 0.6, 0.1],
-          scale: [0.5, 1.2, 0.5],
-          rotate: [0, 360],
-        }}
-        transition={{
-          duration: 4 + Math.random() * 4,
-          repeat: Infinity,
-          delay: Math.random() * 3,
-          ease: "easeInOut",
+          left: `${8 + i * 8}%`,
+          top: `${10 + (i % 4) * 22}%`,
+          animationDuration: `${3 + (i % 3)}s`,
+          animationDelay: `${i * 0.3}s`,
         }}
       >
         <Heart 
-          className={`w-${3 + Math.floor(Math.random() * 4)} h-${3 + Math.floor(Math.random() * 4)} ${
+          className={`${
             i % 3 === 0 ? 'text-pink-400' : i % 3 === 1 ? 'text-rose-400' : 'text-red-400'
           } fill-current`} 
           style={{ 
-            width: 12 + Math.random() * 16,
-            height: 12 + Math.random() * 16,
-            filter: 'blur(0.5px)'
+            width: 12 + (i % 4) * 4,
+            height: 12 + (i % 4) * 4,
+            opacity: 0.25,
           }}
         />
-      </motion.div>
+      </div>
     ))}
   </div>
 );
 
-// Sparkle particles
+// Sparkle particles - CSS only
 const SparkleParticles = () => (
   <div className="absolute inset-0 overflow-hidden pointer-events-none">
-    {[...Array(20)].map((_, i) => (
-      <motion.div
+    {[...Array(10)].map((_, i) => (
+      <div
         key={i}
-        className="absolute w-1 h-1 rounded-full bg-white"
+        className="absolute w-1 h-1 rounded-full bg-white animate-pulse"
         style={{
-          left: `${Math.random() * 100}%`,
-          top: `${Math.random() * 100}%`,
-          boxShadow: '0 0 6px 2px rgba(255,255,255,0.8)',
-        }}
-        animate={{
-          opacity: [0, 1, 0],
-          scale: [0, 1.5, 0],
-        }}
-        transition={{
-          duration: 2 + Math.random() * 2,
-          repeat: Infinity,
-          delay: Math.random() * 3,
+          left: `${10 + i * 9}%`,
+          top: `${15 + (i % 5) * 17}%`,
+          opacity: 0.4,
+          animationDuration: `${2 + (i % 3)}s`,
+          animationDelay: `${i * 0.4}s`,
+          boxShadow: '0 0 4px 2px rgba(255,255,255,0.5)',
         }}
       />
     ))}
@@ -167,7 +150,7 @@ export const PasswordGate = ({ onUnlock }: PasswordGateProps) => {
             exit={{ opacity: 0 }}
           >
             {/* Burst of hearts */}
-            {[...Array(40)].map((_, i) => (
+            {[...Array(20)].map((_, i) => (
               <motion.div
                 key={i}
                 className="absolute text-2xl"
