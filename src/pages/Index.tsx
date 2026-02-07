@@ -1534,9 +1534,7 @@ const IndexContent = () => {
 };
 
 const Index = () => {
-  const [isUnlocked, setIsUnlocked] = useState(() => {
-    return localStorage.getItem('valentine-unlocked') === 'true';
-  });
+  const [isUnlocked, setIsUnlocked] = useState(false);
 
   if (!isUnlocked) {
     return <PasswordGate onUnlock={() => setIsUnlocked(true)} />;
