@@ -53,7 +53,7 @@ export const RoseBouquet = ({ targetCount = 10000, duration = 5000 }: RoseBouque
     <div className="relative min-h-[450px] flex flex-col items-center justify-center">
       {/* Floating hearts background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(20)].map((_, i) => (
+        {[...Array(10)].map((_, i) => (
           <motion.div
             key={`heart-${i}`}
             className="absolute text-rose-400/40"
@@ -191,7 +191,7 @@ export const RoseBouquet = ({ targetCount = 10000, duration = 5000 }: RoseBouque
       {/* Sparkle effect around counter */}
       {isComplete && (
         <div className="absolute inset-0 pointer-events-none">
-          {[...Array(12)].map((_, i) => (
+          {[...Array(8)].map((_, i) => (
             <motion.div
               key={`sparkle-${i}`}
               className="absolute left-1/2 top-20 text-2xl"
