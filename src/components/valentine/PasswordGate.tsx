@@ -1,13 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Heart, Lock, Sparkles, Eye, EyeOff, Stars } from 'lucide-react';
+import { Heart, Lock, Sparkles, Eye, EyeOff } from 'lucide-react';
 
 interface PasswordGateProps {
   onUnlock: () => void;
 }
 
 const CORRECT_PASSWORD = 'Punturu';
-const STORAGE_KEY = 'valentine-unlocked';
+
 
 // Floating Hearts Background
 const FloatingHearts = () => (
@@ -105,19 +105,13 @@ export const PasswordGate = ({ onUnlock }: PasswordGateProps) => {
   const [shake, setShake] = useState(false);
   const [isUnlocking, setIsUnlocking] = useState(false);
 
-  useEffect(() => {
-    const unlocked = localStorage.getItem(STORAGE_KEY);
-    if (unlocked === 'true') {
-      onUnlock();
-    }
-  }, [onUnlock]);
+  // Always require password on every visit - no localStorage bypass
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
     if (password === CORRECT_PASSWORD) {
       setIsUnlocking(true);
-      localStorage.setItem(STORAGE_KEY, 'true');
       if (navigator.vibrate) navigator.vibrate([50, 30, 100, 50, 150]);
       
       // Delay unlock for celebration animation
@@ -401,17 +395,7 @@ export const PasswordGate = ({ onUnlock }: PasswordGateProps) => {
               </motion.button>
             </form>
 
-            {/* Hint */}
-            <motion.p
-              className="text-center text-white/30 text-xs mt-6 italic flex items-center justify-center gap-2"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.6 }}
-            >
-              <Stars className="w-3 h-3" />
-              <span>Hint: Your special nickname</span>
-              <Stars className="w-3 h-3" />
-            </motion.p>
+            {/* No hint - keep it secret */}
           </div>
         </div>
       </motion.div>

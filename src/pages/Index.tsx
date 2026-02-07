@@ -51,6 +51,17 @@ import memory10 from "@/assets/memories/memory-10.jpg";
 import memory11 from "@/assets/memories/memory-11.jpg";
 import proposalPhoto from "@/assets/proposal-photo.jpg";
 
+// Import chocolate images
+import choco1 from "@/assets/chocolates/choco-1.jpg";
+import choco2 from "@/assets/chocolates/choco-2.jpg";
+import choco3 from "@/assets/chocolates/choco-3.jpg";
+import choco4 from "@/assets/chocolates/choco-4.jpg";
+import choco5 from "@/assets/chocolates/choco-5.jpg";
+import choco6 from "@/assets/chocolates/choco-6.jpg";
+import choco7 from "@/assets/chocolates/choco-7.jpg";
+import choco8 from "@/assets/chocolates/choco-8.jpg";
+import choco9 from "@/assets/chocolates/choco-9.jpg";
+
 // Valentine's Week Days Configuration
 const valentineDays = [
   {
@@ -365,20 +376,16 @@ const ChocolateDayContent = () => {
   const [selectedChocolate, setSelectedChocolate] = useState<number | null>(null);
   const [viewingChocolate, setViewingChocolate] = useState<typeof chocolates[0] | null>(null);
   
-  // Real chocolate images - Dairy Milk, Fruits & Nuts, and more
   const chocolates = [
-    { name: "Dairy Milk", image: "https://images.unsplash.com/photo-1606312619070-d48b4c652a52?w=400", desc: "Smooth & Creamy - Just like my love for you" },
-    { name: "Fruits & Nuts", image: "https://images.unsplash.com/photo-1549007994-cb92caebd54b?w=400", desc: "Crunchy Delight - Our love has many flavors" },
-    { name: "Dark Chocolate", image: "https://images.unsplash.com/photo-1481391319762-47dff72954d9?w=400", desc: "Rich & Intense - Deep like my feelings" },
-    { name: "Milk Chocolate", image: "https://images.unsplash.com/photo-1511381939415-e44015466834?w=400", desc: "Classic Love - Timeless, just like us" },
-    { name: "Truffle", image: "https://images.unsplash.com/photo-1548907040-4baa42d10919?w=400", desc: "Melt in Mouth - You melt my heart" },
-    { name: "Hazelnut", image: "https://images.unsplash.com/photo-1587132137056-bfbf0166836e?w=400", desc: "Nutty Bliss - Crazy in love with you" },
-    { name: "Caramel", image: "https://images.unsplash.com/photo-1599599810769-bcde5a160d32?w=400", desc: "Sweet Swirl - Sweet like your smile" },
-    { name: "White Choco", image: "https://images.unsplash.com/photo-1575377427642-087cf684f29d?w=400", desc: "Pure Vanilla - Pure like your heart" },
-    { name: "Ferrero", image: "https://images.unsplash.com/photo-1582176604856-e824b4736522?w=400", desc: "Golden Luxury - You're my treasure" },
-    { name: "Praline", image: "https://images.unsplash.com/photo-1571506165871-ee72a35bc9d4?w=400", desc: "Elegant Taste - Classy like you" },
-    { name: "Almond Bar", image: "https://images.unsplash.com/photo-1623660053975-cf75a8be0908?w=400", desc: "Crunchy Joy - Joy you bring me" },
-    { name: "Heart Box", image: "https://images.unsplash.com/photo-1526081347589-7fa3cb41966e?w=400", desc: "Love Special - Made for my Puntuu" },
+    { name: "Heart Truffles", image: choco1, desc: "Heart-shaped truffles - My heart belongs to you, Puntuu 💕" },
+    { name: "Artisan Collection", image: choco2, desc: "Colorful artisan chocolates - Each one as special as you 💖" },
+    { name: "Chocolate Paradise", image: choco3, desc: "A paradise of chocolate - Sweetness overload, just like us! 🍫" },
+    { name: "Ferrero Collection", image: choco4, desc: "Golden Ferrero Rocher - You're my golden treasure 🌟" },
+    { name: "Belgian Pralines", image: choco5, desc: "Handcrafted pralines - Made with love, just for you 💕" },
+    { name: "Dairy Milk Fruit & Nut", image: choco6, desc: "Our classic favorite - Sweet memories in every bite 💜" },
+    { name: "Gift Box Truffles", image: choco7, desc: "A gift box of love - Unwrap my feelings for you 🎁" },
+    { name: "Dark Chocolate", image: choco8, desc: "Rich & intense - Deep like my love for you 🖤" },
+    { name: "Raffaello", image: choco9, desc: "White coconut bliss - Pure and sweet like your soul 🤍" },
   ];
 
   const handleChocolateClick = (index: number) => {
@@ -583,7 +590,7 @@ const ChocolateDayContent = () => {
           <p className="text-amber-200/70 text-xs">Tap any chocolate to see it bigger! 💕</p>
           
           {/* Chocolate Gallery Grid */}
-          <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 max-w-md mx-auto px-2">
+          <div className="grid grid-cols-3 gap-3 max-w-md mx-auto px-2">
             {chocolates.map((choco, i) => (
               <motion.div
                 key={i}

@@ -62,7 +62,6 @@ const items: Record<Category, Item[]> = {
     { id: 'crimson-mermaid', name: 'Crimson Mermaid', image: 'https://images.unsplash.com/photo-1562137369-1a1a0bc66744?w=600', color: '#dc2626', description: 'Dramatic mermaid silhouette', brand: 'Hollywood' },
     
     // Pink Collection
-    { id: 'blush-princess', name: 'Blush Princess Gown', image: 'https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=600', color: '#fda4af', description: 'Fairytale princess vibes', brand: 'Sweet Dreams' },
     { id: 'hot-pink-mini', name: 'Hot Pink Mini', image: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600', color: '#ec4899', description: 'Flirty mini dress', brand: 'Cute & Flirty' },
     { id: 'rose-gold-shimmer', name: 'Rose Gold Shimmer', image: 'https://images.unsplash.com/photo-1551803091-e20673f15770?w=600', color: '#fbbf24', description: 'Shimmering elegance', brand: 'Glamour Queen' },
     { id: 'baby-pink-satin', name: 'Baby Pink Satin', image: 'https://images.unsplash.com/photo-1550639524-a6f58345a2ca?w=600', color: '#fbcfe8', description: 'Soft angelic pink', brand: 'Angel Vibes' },
@@ -75,33 +74,26 @@ const items: Record<Category, Item[]> = {
     { id: 'noir-cutout', name: 'Noir Cutout', image: 'https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=600', color: '#18181b', description: 'Strategic bold cutouts', brand: 'Edge Fashion' },
     
     // Gold & Glamour
-    { id: 'gold-sequin-mini', name: 'Gold Sequin Party', image: 'https://images.unsplash.com/photo-1560393464-5c69a73c5770?w=600', color: '#fbbf24', description: 'Sparkle like a star', brand: 'Party Princess' },
     { id: 'champagne-silk', name: 'Champagne Silk', image: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=600', color: '#fef3c7', description: 'Effortlessly sexy silk', brand: 'Silk Dreams' },
     
     // Green Collection
     { id: 'emerald-goddess', name: 'Emerald Goddess', image: 'https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=600', color: '#10b981', description: 'Majestic emerald beauty', brand: 'Royal' },
-    { id: 'teal-cocktail', name: 'Teal Cocktail', image: 'https://images.unsplash.com/photo-1475180429745-84e35c348071?w=600', color: '#14b8a6', description: 'Sophisticated evening', brand: 'Elegant' },
     
     // Blue Collection
-    { id: 'royal-blue-gown', name: 'Royal Blue Ball Gown', image: 'https://images.unsplash.com/photo-1519657814959-e2e98c6f7b44?w=600', color: '#1d4ed8', description: 'Cinderella worthy', brand: 'Fairytale' },
     { id: 'sky-blue-chiffon', name: 'Sky Blue Chiffon', image: 'https://images.unsplash.com/photo-1485462537746-965f33f7f6a7?w=600', color: '#38bdf8', description: 'Ethereal floating beauty', brand: 'Cloud Nine' },
     
     // White & Ivory
     { id: 'white-angel', name: 'White Angel Dress', image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600', color: '#ffffff', description: 'Pure heavenly white', brand: 'Heavenly' },
-    { id: 'ivory-lace', name: 'Ivory Lace Romance', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600', color: '#fffbeb', description: 'Delicate lace dream', brand: 'Bridal Dreams' },
     
     // Purple Collection
-    { id: 'purple-velvet', name: 'Purple Velvet Drama', image: 'https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=600', color: '#7c3aed', description: 'Mysterious royal', brand: 'Midnight Purple' },
     { id: 'lavender-fairy', name: 'Lavender Fairy', image: 'https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=600', color: '#c4b5fd', description: 'Whimsical princess', brand: 'Fantasy Wear' },
     { id: 'violet-mermaid', name: 'Violet Mermaid', image: 'https://images.unsplash.com/photo-1504703395950-b89145a5425b?w=600', color: '#8b5cf6', description: 'Stunning mermaid tail', brand: 'Mystical' },
     
     // Floral Collection
-    { id: 'floral-maxi', name: 'Romantic Floral Maxi', image: 'https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?w=600', color: '#f472b6', description: 'Garden party perfect', brand: 'Garden Romance' },
     { id: 'rose-print', name: 'Rose Print Dress', image: 'https://images.unsplash.com/photo-1481824429379-07aa5e5b0739?w=600', color: '#f43f5e', description: 'Romantic roses dreamy', brand: 'Rose Garden' },
     
     // Traditional Sarees
     { id: 'red-banarasi', name: 'Red Banarasi Saree', image: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=600', color: '#dc2626', description: 'Royal Banarasi silk', brand: 'Saree Palace' },
-    { id: 'pink-kanjivaram', name: 'Pink Kanjivaram', image: 'https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=600', color: '#ec4899', description: 'South Indian beauty', brand: 'Silk Heritage' },
     
     // Lehengas
     { id: 'pink-bridal-lehenga', name: 'Pink Bridal Lehenga', image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600', color: '#ec4899', description: 'Bride-to-be vibes', brand: 'Bridal Couture' },
